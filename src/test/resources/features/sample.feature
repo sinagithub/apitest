@@ -1,6 +1,6 @@
 Feature: Sample Oauth Control
 
-  Scenario: : Sample 1
+  Scenario: Sample 1
     Given I am an authorized  with "Login" user
 
 

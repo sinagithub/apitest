@@ -3,17 +3,17 @@ package apiEngine;
 
 import io.restassured.response.Response;
 
-public class RestResponse<T> implements IRestResponse<T> {
-    private T data;
+public class RestResponse<X> implements IRestResponse<X> {
+    private X data;
     private Response response;
     private Exception e;
 
-    public RestResponse(Class<T> t, Response response) {
+    public RestResponse(Class<X> x, Response response) {
         this.response = response;
         try {
-            this.data = t.newInstance();
+            this.data = x.newInstance();
         } catch (Exception e) {
-            throw new RuntimeException("There should be a default constructor in the Response POJO");
+            throw new RuntimeException("Should be a default constructor in the Response POJO");
         }
     }
 
@@ -40,9 +40,9 @@ public class RestResponse<T> implements IRestResponse<T> {
     }
 
 
-    public T getBody() {
+    public X getBody() {
         try {
-            data = (T) response.getBody().as(data.getClass());
+            data = (X) response.getBody().as(data.getClass());
         } catch (Exception e) {
             this.e = e;
         }
