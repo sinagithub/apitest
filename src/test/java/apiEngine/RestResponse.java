@@ -1,7 +1,9 @@
 package apiEngine;
 
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class RestResponse<X> implements IRestResponse<X> {
     private X data;
@@ -48,6 +50,16 @@ public class RestResponse<X> implements IRestResponse<X> {
         }
         return data;
     }
+
+    public void schemaValidator(String format, String path) {
+        if(format.equals("JSON")){
+            response.then().assertThat().contentType(ContentType.JSON)
+                    .and()
+                    .body(matchesJsonSchemaInClasspath(path));
+
+        }
+    }
+
 
     public Exception getException() {
         return e;
