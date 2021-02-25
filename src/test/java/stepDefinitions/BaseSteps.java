@@ -5,6 +5,10 @@ import clients.OauthCoreClient;
 import clients.YSClient;
 import cucumber.ScenarioContext;
 import cucumber.TestContext;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BaseSteps {
 
@@ -36,6 +40,15 @@ public class BaseSteps {
 
     public ScenarioContext getScenarioContext() {
         return scenarioContext;
+    }
+
+    public void schemaValidator(String format, Response response, String path) {
+        if (format.equals("JSON")) {
+            response.then().assertThat().contentType(ContentType.JSON)
+                    .and()
+                    .body(matchesJsonSchemaInClasspath(path));
+
+        }
     }
 
 
