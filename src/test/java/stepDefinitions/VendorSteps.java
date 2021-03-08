@@ -18,6 +18,7 @@ public class VendorSteps extends BaseSteps {
 
     @Given("A list of Vendor are available")
     public void a_list_of_Vendor_are_available() {
+        System.out.println("Vendor listing");
     }
 
     @When("I navigate a vendor")
