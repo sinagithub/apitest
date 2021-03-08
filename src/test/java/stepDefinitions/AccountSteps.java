@@ -5,6 +5,7 @@ import apiEngine.Utils;
 import apiEngine.models.requests.AuthorizationRequest;
 import cucumber.TestContext;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 
 import java.io.IOException;
 
@@ -25,6 +26,10 @@ public class AccountSteps extends BaseSteps {
     @Given("I have pinned address")
     public void i_have_pinned_address() {
 
+    }
+
+    @Then("I should see the product on my favorites")
+    public void i_should_see_the_product_on_my_favorites() {
     }
 
 
