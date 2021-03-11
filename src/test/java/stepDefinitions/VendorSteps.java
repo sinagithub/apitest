@@ -23,11 +23,12 @@ public class VendorSteps extends BaseSteps {
 
     @When("I navigate a vendor")
     public void i_navigate_a_vendor() {
+        System.out.println("Select Vendor from list and navigate");
     }
 
     @Then("I should get Vendor information \\(product tree, category, sub category, vendor main info)")
     public void i_should_get_Vendor_information_product_tree_category_sub_category_vendor_main_info() {
-
+        System.out.println("Validate vendor info");
     }
 
 

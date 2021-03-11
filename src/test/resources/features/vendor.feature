@@ -1,4 +1,4 @@
-Feature: Sample Oauth Control
+Feature: Vendor Listing
 
   Scenario: Vendor detail listing
     Given I am an authorized  user "Login"
