@@ -1,6 +1,7 @@
 package cucumber;
 
 
+import apiEngine.ApiClient;
 import enums.Context;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public class ScenarioContext {
 
     public ScenarioContext() {
         scenarioContext = new HashMap<>();
+
     }
 
     public void setContext(Context key, Object value) {

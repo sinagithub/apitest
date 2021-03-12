@@ -3,11 +3,17 @@ package stepDefinitions;
 import clients.CarsiClient;
 import clients.OauthCoreClient;
 import clients.YSClient;
+import clients.carsi.CarsiHomePageClient;
+import clients.carsi.CarsiUserClient;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.ScenarioContext;
 import cucumber.TestContext;
+import io.cucumber.java.Before;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BaseSteps {
@@ -16,13 +22,18 @@ public class BaseSteps {
     private CarsiClient carsiClient;
     private YSClient ysClient;
     private ScenarioContext scenarioContext;
+    private CarsiUserClient carsiUserClient;
+    private CarsiHomePageClient carsiHomePageClient;
 
 
     public BaseSteps(TestContext testContext) {
-        carsiClient = testContext.getCarsiClient();
         oauthCoreClient = testContext.getOauthCoreClient();
+        carsiClient = testContext.getCarsiClient();
         ysClient = testContext.getYsClient();
         scenarioContext = testContext.getScenarioContext();
+        carsiUserClient = testContext.getCarsiUserClient();
+        carsiHomePageClient = testContext.getCarsiHomePageClient();
+
     }
 
 
@@ -38,6 +49,10 @@ public class BaseSteps {
         return oauthCoreClient;
     }
 
+    public CarsiUserClient getCarsiUserClient() {
+        return carsiUserClient;
+    }
+
     public ScenarioContext getScenarioContext() {
         return scenarioContext;
     }
@@ -51,5 +66,7 @@ public class BaseSteps {
         }
     }
 
-
+    public CarsiHomePageClient getCarsiHomePageClient() {
+        return carsiHomePageClient;
+    }
 }

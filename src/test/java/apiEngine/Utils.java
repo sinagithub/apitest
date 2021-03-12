@@ -23,9 +23,6 @@ public class Utils {
         return properties.getProperty(key);
     }
 
-    public static String  getJsonPath(Response response, String key){
-        String responseStr = response.asString();
-        JsonPath js = new JsonPath(responseStr);
-        return js.get(key).toString();
-    }
+
+
 }
