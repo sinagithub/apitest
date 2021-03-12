@@ -1,0 +1,29 @@
+{
+  "Version": "dummyVersion",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "Success",
+      "ShowToUser": false
+    }
+  ],
+  "Data": {
+    "CarsiCategories": [
+      {
+        "CategoryName": "eb6f92df-2fb0-4c99-a13d-53f6a4c3b76d",
+        "CategoryId": 1,
+        "CarsiVendors": [
+          {
+            "VendorId": "1",
+            "VendorName": "Dummy Migros",
+            "ImageUrl": "//cdn.yemeksepeti.com/DummyImage",
+            "LogoUrl": "//cdn.yemeksepeti.com/dummyLogo",
+            "DeliveryTimeInfo": "3",
+            "MinBasketPriceInfo": "15",
+            "DeliveryFeeInfo": "0.0"
+          }
+        ]
+      }
+    ]
+  }
+}

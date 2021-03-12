@@ -1,22 +1,23 @@
 package cucumber;
 
-import apiEngine.ApiClient;
-import apiEngine.BaseUrls;
+import clients.BaseUrls;
 import clients.CarsiClient;
 import clients.OauthCoreClient;
 import clients.YSClient;
+import clients.carsi.CarsiHomePageClient;
 import clients.carsi.CarsiUserClient;
-import enums.Context;
+import clients.carsi.CarsiVendorClient;
 
 public class TestContext {
 
     private OauthCoreClient oauthCoreClient;
     private CarsiClient carsiClient;
     private YSClient ysClient;
-    private ApiClient apiClient;
     private ScenarioContext scenarioContext;
 
     private CarsiUserClient carsiUserClient;
+    private CarsiHomePageClient carsiHomePageClient;
+    private CarsiVendorClient carsiVendorClient;
 
     public TestContext() {
 
@@ -25,6 +26,8 @@ public class TestContext {
         scenarioContext = new ScenarioContext();
         carsiUserClient = new CarsiUserClient("https://store-user-api.yemeksepeti.com");
         oauthCoreClient = new OauthCoreClient("https://oauthcore.yemeksepeti.com");
+        carsiHomePageClient = new CarsiHomePageClient(BaseUrls.getCarsiBaseUrl());
+        carsiVendorClient = new CarsiVendorClient(BaseUrls.getCarsiBaseUrl());
 
     }
 
@@ -48,7 +51,7 @@ public class TestContext {
         return carsiUserClient;
     }
 
-
-
-
+    public CarsiHomePageClient getCarsiHomePageClient() {
+        return carsiHomePageClient;
+    }
 }

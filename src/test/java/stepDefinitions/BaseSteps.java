@@ -3,6 +3,7 @@ package stepDefinitions;
 import clients.CarsiClient;
 import clients.OauthCoreClient;
 import clients.YSClient;
+import clients.carsi.CarsiHomePageClient;
 import clients.carsi.CarsiUserClient;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.ScenarioContext;
@@ -22,6 +23,7 @@ public class BaseSteps {
     private YSClient ysClient;
     private ScenarioContext scenarioContext;
     private CarsiUserClient carsiUserClient;
+    private CarsiHomePageClient carsiHomePageClient;
 
 
     public BaseSteps(TestContext testContext) {
@@ -30,6 +32,7 @@ public class BaseSteps {
         ysClient = testContext.getYsClient();
         scenarioContext = testContext.getScenarioContext();
         carsiUserClient = testContext.getCarsiUserClient();
+        carsiHomePageClient = testContext.getCarsiHomePageClient();
 
     }
 
@@ -63,5 +66,7 @@ public class BaseSteps {
         }
     }
 
-
+    public CarsiHomePageClient getCarsiHomePageClient() {
+        return carsiHomePageClient;
+    }
 }

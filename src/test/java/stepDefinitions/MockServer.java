@@ -10,45 +10,65 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 public class MockServer {
     public WireMockServer wireMockServer;
 
-    public void setup () {
+    public void setup() {
         wireMockServer = new WireMockServer(3464);
         wireMockServer.start();
         setupStub();
     }
 
-    public void teardown () {
+    public void teardown() {
         wireMockServer.stop();
     }
 
 
     public void setupStub() {
-        stubForAddProduct("AddProductRequest.json","AddProductResponse.json");
-        stubForCreateCart("CreateCartSuccessResponse.json");
+        stubForVendorList("VendorListResponse.json");
+        stubForVendorDetail("VendorResponse.json");
+        stubForProductsResponse("ProductsResponse.json");
     }
 
-    public void stubForCreateCart(String responseFileName) {
-        wireMockServer.stubFor(post("/carts")
-            .withHeader("Content-Type", equalToIgnoreCase("application/json"))
-            .withHeader("Accept", equalToIgnoreCase("application/json"))
-            .withHeader("Version", equalToIgnoreCase("v1"))
-            .withHeader("Client", equalToIgnoreCase("Android"))
-            .withHeader("Authorization", equalToIgnoreCase("Bearer SWTestAcademyShopSecretToken"))
-            .withRequestBody(matchingJsonPath("$.customer.firstName", equalTo("Onur")))
-            .withRequestBody(matchingJsonPath("$.customer.lastName", equalTo("Baskirt")))
-            .willReturn(aResponse()
-                .withStatus(201)
-                .withHeader("Content-Type", "application/json")
-                .withBodyFile(responseFileName)));
+
+    public void stubForVendorList(String responseFileName) {
+        wireMockServer.stubFor(get("/api/v1/homepage/carsi?AddressId=%7Bdcb8ffa7-b113-4c05-9045-3b8d238c865b%7D" +
+                "&AreaId=f75a5e15-5e67-4ed1-bd60-97f095a9c3d1&Latitude=40.98378&Longitude=28.735218")
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("AddressId", equalToIgnoreCase("{dcb8ffa7-b113-4c05-9045-3b8d238c865b}"))
+                .withQueryParam("AreaId", equalToIgnoreCase("f75a5e15-5e67-4ed1-bd60-97f095a9c3d1"))
+                .withQueryParam("Latitude", equalToIgnoreCase("40.98378"))
+                .withQueryParam("Longitude", equalToIgnoreCase("28.735218"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
     }
 
-    public void stubForAddProduct(String requestFileName, String responseFileName) {
+    public void stubForVendorDetail(String responseFileName) {
+        wireMockServer.stubFor(get("/api/v1/vendor/1")
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
 
-        String jsonString = JsonUtil.getJsonString(requestFileName);
-        wireMockServer.stubFor(post("/carts/klms2f4c-8129-4a4b-b32d-550b7fc3cfb2")
-            .withRequestBody(equalToJson(jsonString, true, true))
-            .willReturn(aResponse()
-                .withStatus(200)
-                .withHeader("Content-Type", "application/json")
-                .withBodyFile(responseFileName)));
+    public void stubForProductsResponse(String responseFileName) {
+        wireMockServer.stubFor(get("/api/v1/vendor/1/products")
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
     }
 }

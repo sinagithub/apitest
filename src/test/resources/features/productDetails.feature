@@ -1,21 +1,13 @@
 Feature: Product Detail
 
-  Background: Product Listing
+  Background: Çarsı Vendors Listing
     Given I am an authorized  user "Login"
     And  I have pinned available address on "TR_ISTANBUL"
     And  A list of Vendor are available
+
+  Scenario: Product detail controls
     When I navigate a vendor
-    Then I should get Vendor information (product tree, category, sub category, vendor main info)
+    Then I list the products
     When I navigate a product
     Then I should get product base information
 
-
-  Scenario: Product detail favorite controls
-    When I add favorite the product
-    Then I should see product added  message
-    And I should see the product on my favorites
-
-  Scenario: Product campaigns controls
-    When I add favorite the product
-    Then I should see product added  message
-    And I should see the product on my favorites

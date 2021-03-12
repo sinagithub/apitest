@@ -1,14 +1,15 @@
 package stepDefinitions;
 
 
-import apiEngine.Utils;
-import apiEngine.models.requests.AuthorizationRequest;
+import apiEngine.IRestResponse;
+import apiEngine.models.response.*;
+import clients.BaseUrls;
+import clients.carsi.CarsiVendorClient;
 import cucumber.TestContext;
-import io.cucumber.java.en.Given;
+import enums.Context;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 
-import java.io.IOException;
+import java.util.List;
 
 public class VendorSteps extends BaseSteps {
 
@@ -16,19 +17,18 @@ public class VendorSteps extends BaseSteps {
         super(testContext);
     }
 
-    @Given("A list of Vendor are available")
-    public void a_list_of_Vendor_are_available() {
-        System.out.println("Vendor listing");
-    }
 
-    @When("I navigate a vendor")
-    public void i_navigate_a_vendor() {
-        System.out.println("Select Vendor from list and navigate");
-    }
+    @Then("I list the products")
+    public void i_list_the_products() {
+        CarsiVendors vendor = (CarsiVendors) getScenarioContext().getContext(Context.VENDOR_BASIC_INFO);
+        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
 
-    @Then("I should get Vendor information \\(product tree, category, sub category, vendor main info)")
-    public void i_should_get_Vendor_information_product_tree_category_sub_category_vendor_main_info() {
-        System.out.println("Validate vendor info");
+        CarsiVendorClient mockVendorClient = new CarsiVendorClient(BaseUrls.mockBaseUrl());
+        IRestResponse<ProductsResponse> vendorProductResponse = mockVendorClient.getProducts(catalogName,
+                vendor.getVendorId());
+        List<Product> productList =
+                vendorProductResponse.getBody().getData().getCategories().get(0).getSubCategories().get(0).getProducts();
+        getScenarioContext().setContext(Context.PRODUCT_LIST, productList);
     }
 
 

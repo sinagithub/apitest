@@ -1,0 +1,32 @@
+{
+  "Version": "1",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "string",
+      "ShowToUser": true
+    }
+  ],
+  "Data": {
+    "Name": "Dummy Migros",
+    "AreaName": "Area dummy",
+    "Identifier": "Migross xx",
+    "ThumbImageUrl": "cdn/",
+    "DeliveryTimeInfo": "30",
+    "MinBasketPriceInfo": "30.0",
+    "DeliveryFeeInfo": "string",
+    "Banners": [
+      {
+        "CdnImageUrl": "cdn",
+        "SeoUrl": "/seo"
+      }
+    ],
+    "Categories": [
+      {
+        "Name": "test category",
+        "Id": "1",
+        "ThumbImageUrl": "cdn/category img"
+      }
+    ]
+  }
+}
