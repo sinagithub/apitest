@@ -3,10 +3,12 @@ package clients;
 import apiEngine.*;
 import apiEngine.models.requests.AuthorizationRequest;
 import apiEngine.models.response.Token;
+import cucumber.TestContext;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
+import stepDefinitions.BaseSteps;
 
 public class OauthCoreClient extends ApiClient {
     String baseUrl;
@@ -52,6 +54,7 @@ public class OauthCoreClient extends ApiClient {
         }
 
         TokenHelper.getInstance().setToken(tokenResponse.access_token);
+
     }
 
     public void resetToken(){

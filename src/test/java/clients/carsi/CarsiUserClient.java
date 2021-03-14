@@ -3,12 +3,8 @@ package clients.carsi;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Route;
-import apiEngine.models.response.Address;
 import apiEngine.models.response.AddressResponse;
-import clients.CarsiClient;
 import io.restassured.response.Response;
-
-import java.util.List;
 
 public class CarsiUserClient extends CarsiClient {
     public CarsiUserClient(String baseUrl) {

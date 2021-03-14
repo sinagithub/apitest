@@ -1,7 +1,6 @@
 package apiEngine.models.response;
 
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "CategoryName",
-        "CategoryId",
-        "CarsiVendors"
+        "CategoryId"
 })
-public class CarsiCategories {
+public class CarsiCategory {
 
     @JsonProperty("CategoryName")
     private String categoryName;
     @JsonProperty("CategoryId")
     private Integer categoryId;
-    @JsonProperty("CarsiVendors")
-    private List<CarsiVendors> carsiVendors = null;
 
     @JsonProperty("CategoryName")
     public String getCategoryName() {
@@ -40,15 +36,4 @@ public class CarsiCategories {
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
-
-    @JsonProperty("CarsiVendors")
-    public List<CarsiVendors> getCarsiVendors() {
-        return carsiVendors;
-    }
-
-    @JsonProperty("CarsiVendors")
-    public void setCarsiVendors(List<CarsiVendors> carsiVendors) {
-        this.carsiVendors = carsiVendors;
-    }
-
 }

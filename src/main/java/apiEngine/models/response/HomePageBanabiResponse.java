@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList",
         "Data"
 })
-public class ProductsResponse {
+public class HomePageBanabiResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
     private List<InfoList> infoList = null;
     @JsonProperty("Data")
-    private ProductListData productListData;
+    private HomePageBanabiData homePageBanabiData;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -41,14 +41,13 @@ public class ProductsResponse {
     }
 
     @JsonProperty("Data")
-    public ProductListData getData() {
-        return productListData;
+    public HomePageBanabiData getData() {
+        return homePageBanabiData;
     }
 
     @JsonProperty("Data")
-    public void setData(ProductListData productListData) {
-        this.productListData = productListData;
+    public void setData(HomePageBanabiData homePageBanabiData) {
+        this.homePageBanabiData = homePageBanabiData;
     }
 
 }
-

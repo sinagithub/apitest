@@ -1,19 +1,15 @@
 package stepDefinitions;
 
-import clients.CarsiClient;
+import clients.carsi.CarsiClient;
 import clients.OauthCoreClient;
 import clients.YSClient;
 import clients.carsi.CarsiHomePageClient;
 import clients.carsi.CarsiUserClient;
-import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.ScenarioContext;
 import cucumber.TestContext;
-import io.cucumber.java.Before;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BaseSteps {
@@ -58,6 +54,7 @@ public class BaseSteps {
     }
 
     public void schemaValidator(String format, Response response, String path) {
+        System.out.println(this.getClass().getResource("/").getPath());
         if (format.equals("JSON")) {
             response.then().assertThat().contentType(ContentType.JSON)
                     .and()

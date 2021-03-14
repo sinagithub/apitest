@@ -11,8 +11,11 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.junit.Assert;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.List;
 
 public class AccountSteps extends BaseSteps {
 
@@ -37,13 +40,36 @@ public class AccountSteps extends BaseSteps {
 
     }
 
-    @Given("I have pinned available address on {string}")
-    public void i_have_pinned_available_address_on(String catalogName) {
+
+
+    @Given("My addresses list should be available")
+    public void my_addresses_list_available() {
+        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         CarsiUserClient mockBanabi = new CarsiUserClient("https://store-user-api.yemeksepeti.com");
         IRestResponse<AddressResponse> addressesResponse = mockBanabi.getAddresses(catalogName);
-        Address address = addressesResponse.getBody().getData().get(0);
-        getScenarioContext().setContext(Context.ADDRESS,address);
-        getScenarioContext().setContext(Context.SELECTED_CATALOG_NAME,catalogName);
+        Assert.assertTrue(addressesResponse.isSuccessful());
+        List<Address> addressList = addressesResponse.getBody().getData();
+        getScenarioContext().setContext(Context.ADDRESS_LIST, addressList);
+
+    }
+
+    @Given("I select pinned available address")
+    public void i_select_pinned_available_address_on_selected_catalog() {
+        List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
+        Address selectedAddress;
+        for (Address address : addressList){
+            if (address.getAvailabilityStatus() == 1){
+                selectedAddress = address;
+                getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
+                System.out.println(selectedAddress.getAreaName());
+                break;
+            }
+        }
+    }
+
+    @Given("I select city {string}")
+    public void i_select_city(String catalogName) {
+        getScenarioContext().setContext(Context.SELECTED_CATALOG_NAME, catalogName);
     }
 
 
