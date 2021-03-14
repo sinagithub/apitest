@@ -54,6 +54,7 @@ public class BaseSteps {
     }
 
     public void schemaValidator(String format, Response response, String path) {
+        System.out.println(this.getClass().getResource("/").getPath());
         if (format.equals("JSON")) {
             response.then().assertThat().contentType(ContentType.JSON)
                     .and()

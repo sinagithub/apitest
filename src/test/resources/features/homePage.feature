@@ -9,12 +9,12 @@ Feature: Homepage vendor and banabi Listing
   @SmokeTest @HomePage
   Scenario: HomePage Vendor listing
     And  A list of Vendor are available
-    When I navigate a vendor
+    Then Check vendor properties are valid
 
   @SmokeTest @HomePage
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available
-    When I navigate banabi vendor
+    Then Check Banabi vendor properties are valid
 
   @SmokeTest @HomePage
   Scenario: HomePage Banner listing

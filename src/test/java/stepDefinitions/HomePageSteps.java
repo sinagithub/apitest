@@ -2,9 +2,6 @@ package stepDefinitions;
 
 import apiEngine.IRestResponse;
 import apiEngine.models.response.*;
-import clients.BaseUrls;
-import clients.carsi.CarsiHomePageClient;
-import clients.carsi.CarsiVendorClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Given;
@@ -31,8 +28,10 @@ public class HomePageSteps extends BaseSteps {
                 address.getAreaId(),
                 address.getLatitude(),
                 address.getLongitude());
+        Assert.assertTrue(homePageCarsiResponse.isSuccessful());
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
+        getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
     }
 
     @When("I navigate a vendor")
@@ -63,6 +62,31 @@ public class HomePageSteps extends BaseSteps {
                 address.getLongitude());
         CarsiVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
         getScenarioContext().setContext(Context.BANABI_VENDOR_INFO, banabiVendor);
+        getScenarioContext().setContext(Context.BANABI_VENDOR_RESPONSE, homePageBanabi);
+    }
+
+    @Then("Check Banabi vendor properties are valid")
+    public void check_banabi_vendor_is_valid() {
+        IRestResponse<HomePageBanabiResponse> homePageBanabiResponse =
+                (IRestResponse<HomePageBanabiResponse>) getScenarioContext().getContext(Context.BANABI_VENDOR_RESPONSE);
+        Assert.assertTrue(homePageBanabiResponse.isSuccessful());
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        Assert.assertFalse(vendor.getId().isEmpty());
+        Assert.assertFalse(vendor.getImageUrl().isEmpty());
+        Assert.assertFalse(vendor.getName().isEmpty());
+    }
+
+    @Then("Check vendor properties are valid")
+    public void check_vendor_properties_are_valid() {
+        IRestResponse<HomePageCarsiResponse> homePageBanabiResponse =
+                (IRestResponse<HomePageCarsiResponse>) getScenarioContext().getContext(Context.HOME_VENDOR_RESPONSE);
+        Assert.assertTrue(homePageBanabiResponse.isSuccessful());
+
+        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        CarsiVendor vendor = vendorList.get(0);
+        Assert.assertFalse(vendor.getId().isEmpty());
+        Assert.assertFalse(vendor.getImageUrl().isEmpty());
+        Assert.assertFalse(vendor.getName().isEmpty());
     }
 
     @Given("HomePage banners are available")
@@ -75,10 +99,11 @@ public class HomePageSteps extends BaseSteps {
                 address.getAreaId(),
                 address.getLatitude(),
                 address.getLongitude());
-        System.out.println(homeBanners.getResponse().asString());
+        Assert.assertTrue(homeBanners.isSuccessful());
         List<Banner> bannerList = homeBanners.getBody().getData().getBanners();
         getScenarioContext().setContext(Context.BANNER_LIST, bannerList);
     }
+
     @Then("HomePage banners are valid")
     public void check_banner_urls_is_valid(){
         List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
@@ -88,3 +113,4 @@ public class HomePageSteps extends BaseSteps {
         }
     }
 }
+
