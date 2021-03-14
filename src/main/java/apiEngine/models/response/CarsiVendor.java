@@ -7,36 +7,43 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "Id",
         "Name",
-        "AreaName",
-        "Identifier",
-        "ThumbImageUrl",
+        "ImageUrl",
+        "LogoUrl",
         "DeliveryTimeInfo",
         "MinBasketPriceInfo",
         "DeliveryFeeInfo",
-        "Banners",
-        "Categories"
+        "CategoryIds"
 })
-public class VendorDetail {
+public class CarsiVendor {
 
+    @JsonProperty("Id")
+    private String id;
     @JsonProperty("Name")
     private String name;
-    @JsonProperty("AreaName")
-    private String areaName;
-    @JsonProperty("Identifier")
-    private String identifier;
-    @JsonProperty("ThumbImageUrl")
-    private String thumbImageUrl;
+    @JsonProperty("ImageUrl")
+    private String imageUrl;
+    @JsonProperty("LogoUrl")
+    private String logoUrl;
     @JsonProperty("DeliveryTimeInfo")
     private String deliveryTimeInfo;
     @JsonProperty("MinBasketPriceInfo")
     private String minBasketPriceInfo;
     @JsonProperty("DeliveryFeeInfo")
     private String deliveryFeeInfo;
-    @JsonProperty("Banners")
-    private List<Banner> banners = null;
-    @JsonProperty("Categories")
-    private List<VendorCategories> categories = null;
+    @JsonProperty("CategoryIds")
+    private List<Integer> categoryIds = null;
+
+    @JsonProperty("Id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("Id")
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @JsonProperty("Name")
     public String getName() {
@@ -48,34 +55,24 @@ public class VendorDetail {
         this.name = name;
     }
 
-    @JsonProperty("AreaName")
-    public String getAreaName() {
-        return areaName;
+    @JsonProperty("ImageUrl")
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    @JsonProperty("AreaName")
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
+    @JsonProperty("ImageUrl")
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    @JsonProperty("Identifier")
-    public String getIdentifier() {
-        return identifier;
+    @JsonProperty("LogoUrl")
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    @JsonProperty("Identifier")
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-    @JsonProperty("ThumbImageUrl")
-    public String getThumbImageUrl() {
-        return thumbImageUrl;
-    }
-
-    @JsonProperty("ThumbImageUrl")
-    public void setThumbImageUrl(String thumbImageUrl) {
-        this.thumbImageUrl = thumbImageUrl;
+    @JsonProperty("LogoUrl")
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     @JsonProperty("DeliveryTimeInfo")
@@ -108,24 +105,14 @@ public class VendorDetail {
         this.deliveryFeeInfo = deliveryFeeInfo;
     }
 
-    @JsonProperty("Banners")
-    public List<Banner> getBanners() {
-        return banners;
+    @JsonProperty("CategoryIds")
+    public List<Integer> getCategoryIds() {
+        return categoryIds;
     }
 
-    @JsonProperty("Banners")
-    public void setBanners(List<Banner> banners) {
-        this.banners = banners;
-    }
-
-    @JsonProperty("Categories")
-    public List<VendorCategories> getCategories() {
-        return categories;
-    }
-
-    @JsonProperty("Categories")
-    public void setCategories(List<VendorCategories> categories) {
-        this.categories = categories;
+    @JsonProperty("CategoryIds")
+    public void setCategoryIds(List<Integer> categoryIds) {
+        this.categoryIds = categoryIds;
     }
 
 }

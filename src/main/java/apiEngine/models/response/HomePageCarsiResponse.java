@@ -7,18 +7,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "Data",
         "Version",
-        "InfoList",
-        "Data"
+        "InfoList"
 })
 public class HomePageCarsiResponse {
 
+    @JsonProperty("Data")
+    private HomePageCarsiData homePageCarsiData;
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
-    private List<InfoList> infoList = null;
+    private List<Object> infoList = null;
+
     @JsonProperty("Data")
-    private CarsiCategoryData data;
+    public HomePageCarsiData getData() {
+        return homePageCarsiData;
+    }
+
+    @JsonProperty("Data")
+    public void setData(HomePageCarsiData homePageCarsiData) {
+        this.homePageCarsiData = homePageCarsiData;
+    }
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -31,23 +41,13 @@ public class HomePageCarsiResponse {
     }
 
     @JsonProperty("InfoList")
-    public List<InfoList> getInfoList() {
+    public List<Object> getInfoList() {
         return infoList;
     }
 
     @JsonProperty("InfoList")
-    public void setInfoList(List<InfoList> infoList) {
+    public void setInfoList(List<Object> infoList) {
         this.infoList = infoList;
-    }
-
-    @JsonProperty("Data")
-    public CarsiCategoryData getData() {
-        return data;
-    }
-
-    @JsonProperty("Data")
-    public void setData(CarsiCategoryData data) {
-        this.data = data;
     }
 
 }

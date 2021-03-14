@@ -6,24 +6,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "CdnImageUrl",
+        "ImageUrl",
         "SeoUrl"
 })
 public class Banner {
 
-    @JsonProperty("CdnImageUrl")
-    private String cdnImageUrl;
+    @JsonProperty("ImageUrl")
+    private String imageUrl;
     @JsonProperty("SeoUrl")
     private String seoUrl;
 
-    @JsonProperty("CdnImageUrl")
-    public String getCdnImageUrl() {
-        return cdnImageUrl;
+    @JsonProperty("ImageUrl")
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    @JsonProperty("CdnImageUrl")
-    public void setCdnImageUrl(String cdnImageUrl) {
-        this.cdnImageUrl = cdnImageUrl;
+    @JsonProperty("ImageUrl")
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @JsonProperty("SeoUrl")

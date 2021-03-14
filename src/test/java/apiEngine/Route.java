@@ -13,8 +13,10 @@ public class Route {
     private static final String AVAILABLE_ADDRESSES = "/available-addresses";
     private static final String HOMEPAGE = "/homepage";
     private static final String CARSI = "/carsi";
+    private static final String BANABI = "/banabi";
     private static final String VENDOR = "/vendor/{vendorId}";
     private static final String PRODUCTS = "/products";
+    private static final String BANNER = "/banner";
 
 
     public static String generateAccessToken() {
@@ -32,6 +34,13 @@ public class Route {
     public static String homepageCarsi() {
         return API + VERSION + HOMEPAGE + CARSI;
     }
+    public static String homepageBanabi() {
+        return API + VERSION + HOMEPAGE + BANABI;
+    }
+    public static String homepageBanners() {
+        return API + VERSION + HOMEPAGE + BANNER;
+    }
+
 
     public static String getVendor() {
         return API + VERSION + VENDOR;

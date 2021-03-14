@@ -1,11 +1,7 @@
 package stepDefinitions;
 
 
-import apiEngine.ApiClient;
-import clients.CarsiClient;
-import clients.OauthCoreClient;
 import cucumber.TestContext;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
