@@ -1,15 +1,13 @@
 package cucumber;
 
-import clients.carsi.CarsiClient;
+import clients.BaseUrls;
+import clients.carsi.*;
 import clients.OauthCoreClient;
 import clients.YSClient;
-import clients.carsi.CarsiHomePageClient;
-import clients.carsi.CarsiUserClient;
-import clients.carsi.CarsiVendorClient;
 
 public class TestContext {
 
-    private OauthCoreClient oauthCoreClient;
+    private static OauthCoreClient oauthCoreClient;
     private static CarsiClient carsiClient;
     private static YSClient ysClient;
     private static ScenarioContext scenarioContext;
@@ -17,11 +15,12 @@ public class TestContext {
     private static CarsiUserClient carsiUserClient;
     private static CarsiHomePageClient carsiHomePageClient;
     private static CarsiVendorClient carsiVendorClient;
+    private static CarsiProductClient carsiProductClient;
+
 
     public TestContext() {
         scenarioContext = new ScenarioContext();
-        carsiUserClient = new CarsiUserClient("https://store-user-api.yemeksepeti.com");
-        carsiVendorClient = new CarsiVendorClient("http://carsi-api-stg.yemeksepeti.com");
+       // carsiVendorClient = new CarsiVendorClient("http://carsi-api-stg.yemeksepeti.com");
 
     }
 
@@ -31,7 +30,7 @@ public class TestContext {
     }
 
     public CarsiClient getCarsiClient() {
-        return carsiClient;
+        return new CarsiUserClient("https://store-user-api.yemeksepeti.com");
     }
 
     public YSClient getYsClient() {
@@ -48,7 +47,10 @@ public class TestContext {
     }
 
     public CarsiHomePageClient getCarsiHomePageClient() {
-        carsiHomePageClient = new CarsiHomePageClient("http://carsi-api-stg.yemeksepeti.com");
-        return carsiHomePageClient;
+        return new CarsiHomePageClient(BaseUrls.getCarsiBaseUrl());
+    }
+
+    public CarsiProductClient getCarsiProductClient() {
+        return new CarsiProductClient("http://carsi-api-stg.yemeksepeti.com");
     }
 }

@@ -1,9 +1,18 @@
 package stepDefinitions;
 
 
+import apiEngine.IRestResponse;
+import apiEngine.models.response.CarsiVendor;
+import apiEngine.models.response.HomePageCarsiResponse;
+import apiEngine.models.response.ProductDetail.Product;
+import apiEngine.models.response.ProductDetail.ProductDetailResponse;
+import clients.BaseUrls;
+import clients.carsi.CarsiProductClient;
 import cucumber.TestContext;
+import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class ProductSteps extends BaseSteps {
 
@@ -11,25 +20,43 @@ public class ProductSteps extends BaseSteps {
         super(testContext);
     }
 
-    @When("I navigate a product")
-    public void i_navigate_a_product() {
-        System.out.println("Select product on vendor products and set navigated product");
+    @When("Product list available")
+    public void product_list_available() {
+        getScenarioContext().setContext(Context.PRODUCT_LIST, "buraya vendor kesinlesınce bilgi eklenecek");
     }
 
-    @Then("I should get product base information")
-    public void i_should_get_product_base_information() {
-        System.out.println("Get product info");
-    }
-
-    @When("I add favorite the product")
-    public void i_add_favorite_the_product() {
-        System.out.println("Add favorite");
-    }
-
-    @Then("I should see product added  message")
-    public void i_should_see_product_added_message() {
-        System.out.println("Validate add favorites success message ");
+    @Then("I select a random product")
+    public void i_select_a_random_product() {
+        String productId = "1";
 
     }
+
+
+    @Then("I navigate selected product")
+    public void i_navigate_selected_product() {
+        String productId = "1";
+        CarsiProductClient mockProduct = new CarsiProductClient("http://localhost:3464");
+        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
+        IRestResponse<ProductDetailResponse> productDetailResponse = mockProduct.getProduct(catalogName, productId);
+        Product product = productDetailResponse.getBody().getData();
+        getScenarioContext().setContext(Context.PRODUCT, product);
+
+
+    }
+
+    @Then("Validate product information is valid")
+    public void validate_product_information_is_valid() {
+        Product product = (Product) getScenarioContext().getContext(Context.PRODUCT);
+        assertNotEmpty(product.getName());
+        assertNotEmpty(product.getDescription());
+        assertNotEmpty(product.getImageUrl());
+        assertNotEmpty(product.getId());
+        assertNotEmpty(product.getPrice());
+        assertNotEmpty(product.getMaximumSaleAmount());
+        assertNotEmpty(product.getDiscountedPrice());
+        assertNotEmpty(product.getStock());
+        assertNotEmpty(product.getUnitMass());
+    }
+
 
 }

@@ -11,6 +11,7 @@ Feature: Homepage vendor, banabi, banner controls
     And  A list of Vendor are available
     Then Check vendor properties are valid
 
+
   @SmokeTest @HomePage
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available

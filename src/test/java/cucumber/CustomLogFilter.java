@@ -34,7 +34,7 @@ public class CustomLogFilter implements Filter {
         requestBuilderLogs.append("******************************");
         responseBuilderLogs = new StringBuilder();
         responseBuilderLogs.append("\n"+"\n"+"\n");
-      //  responseBuilderLogs.append("Status Code: "+response.getStatusCode());
+        responseBuilderLogs.append("Status Code: "+response.getStatusCode() + "\n");
         //  responseBuilderLogs.append("\n");
         //  responseBuilderLogs.append("Status Line: "+response.getStatusLine());
         //  responseBuilderLogs.append("\n");
