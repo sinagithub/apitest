@@ -4,23 +4,26 @@ import clients.carsi.CarsiClient;
 import clients.OauthCoreClient;
 import clients.YSClient;
 import clients.carsi.CarsiHomePageClient;
+import clients.carsi.CarsiProductClient;
 import clients.carsi.CarsiUserClient;
 import cucumber.ScenarioContext;
 import cucumber.Storage;
 import cucumber.TestContext;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.Assert;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BaseSteps {
 
-    private OauthCoreClient oauthCoreClient;
-    private CarsiClient carsiClient;
-    private YSClient ysClient;
-    private ScenarioContext scenarioContext;
-    private CarsiUserClient carsiUserClient;
-    private CarsiHomePageClient carsiHomePageClient;
+    private  OauthCoreClient oauthCoreClient;
+    private  CarsiClient carsiClient;
+    private  YSClient ysClient;
+    private  ScenarioContext scenarioContext;
+    private  CarsiUserClient carsiUserClient;
+    private  CarsiHomePageClient carsiHomePageClient;
+    private  CarsiProductClient carsiProductClient;
 
 
     public BaseSteps(TestContext testContext) {
@@ -30,7 +33,7 @@ public class BaseSteps {
         scenarioContext = testContext.getScenarioContext();
         carsiUserClient = testContext.getCarsiUserClient();
         carsiHomePageClient = testContext.getCarsiHomePageClient();
-
+        carsiProductClient = testContext.getCarsiProductClient();
     }
 
 
@@ -67,5 +70,17 @@ public class BaseSteps {
 
     public CarsiHomePageClient getCarsiHomePageClient() {
         return carsiHomePageClient;
+    }
+
+    public CarsiProductClient getCarsiProductClient() {
+        return carsiProductClient;
+    }
+
+    public void assertNotEmpty(String property){
+        Assert.assertFalse(property.isEmpty());
+    }
+
+    public void assertNotEmpty(int property){
+        Assert.assertNotNull(property);
     }
 }

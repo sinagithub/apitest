@@ -17,6 +17,7 @@ public class Route {
     private static final String VENDOR = "/vendor/{vendorId}";
     private static final String PRODUCTS = "/products";
     private static final String BANNER = "/banner";
+    private static final String PRODUCT = "/product/{productId}";
 
 
     public static String generateAccessToken() {
@@ -48,6 +49,10 @@ public class Route {
 
     public static String getProducts() {
         return API + VERSION + VENDOR + PRODUCTS;
+    }
+
+    public static String getProduct() {
+        return API + VERSION  + PRODUCT;
     }
 
 

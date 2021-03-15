@@ -1,6 +1,8 @@
 package apiEngine.models.response;
 
 import java.util.List;
+
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -14,7 +16,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "DeliveryTimeInfo",
         "MinBasketPriceInfo",
         "DeliveryFeeInfo",
-        "CategoryIds"
+        "CategoryIds",
+        "CategoryName",
+        "IsOpen"
 })
 public class CarsiVendor {
 
@@ -34,6 +38,10 @@ public class CarsiVendor {
     private String deliveryFeeInfo;
     @JsonProperty("CategoryIds")
     private List<Integer> categoryIds = null;
+    @JsonProperty("CategoryName")
+    private String categoryName;
+    @JsonProperty("IsOpen")
+    private Boolean isOpen;
 
     @JsonProperty("Id")
     public String getId() {
@@ -113,6 +121,26 @@ public class CarsiVendor {
     @JsonProperty("CategoryIds")
     public void setCategoryIds(List<Integer> categoryIds) {
         this.categoryIds = categoryIds;
+    }
+
+    @JsonProperty("CategoryName")
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    @JsonProperty("CategoryName")
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    @JsonProperty("IsOpen")
+    public Boolean getIsOpen() {
+        return isOpen;
+    }
+
+    @JsonProperty("IsOpen")
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
     }
 
 }

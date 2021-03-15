@@ -1,0 +1,50 @@
+{
+  "Version": "string",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "string",
+      "ShowToUser": true
+    }
+  ],
+  "Data": {
+    "Id": 0,
+    "Name": "string",
+    "Description": "string",
+    "UnitMass": "string",
+    "Price": 0,
+    "DiscountedPrice": 0,
+    "Stock": 0,
+    "IsActive": true,
+    "ImageUrl": "string",
+    "MaximumSaleAmount": 0,
+    "Campaigns": [
+      {
+        "Id": "string",
+        "Description": "string",
+        "ImageUrl": "string"
+      }
+    ],
+    "OptionModel": {
+      "Id": 0,
+      "Name": "string",
+      "DisplayName": "string",
+      "IsRequired": true,
+      "DisplayType": 0,
+      "AffectsPrice": true,
+      "Rank": 0,
+      "OptionItems": [
+        {
+          "Id": 0,
+          "OptionId": 0,
+          "Value": "string",
+          "MaterialTypeId": 0,
+          "AdditionalPrice": 0,
+          "AdditionalPriceText": "string",
+          "IsAvailable": true,
+          "IsSelected": true
+        }
+      ]
+    }
+  }
+}

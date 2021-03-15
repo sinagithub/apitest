@@ -25,6 +25,7 @@ public class MockServer {
         stubForVendorList("VendorListResponse.json");
         stubForVendorDetail("VendorResponse.json");
         stubForProductsResponse("ProductsResponse.json");
+        stubForProductResponse("ProductResponse.json");
     }
 
 
@@ -61,6 +62,19 @@ public class MockServer {
 
     public void stubForProductsResponse(String responseFileName) {
         wireMockServer.stubFor(get("/api/v1/vendor/1/products")
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForProductResponse(String responseFileName) {
+        wireMockServer.stubFor(get("/api/v1/product/1")
                 .withHeader("Content-Type", containing("application/json;"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))

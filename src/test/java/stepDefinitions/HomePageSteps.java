@@ -34,7 +34,6 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
 
-
     }
 
     @When("I navigate a vendor")

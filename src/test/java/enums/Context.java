@@ -13,6 +13,7 @@ public enum Context {
     ADDRESS_LIST,
     BANABI_VENDOR_INFO,
     BANABI_VENDOR_RESPONSE,
-    BANNER_LIST
+    BANNER_LIST,
+    PRODUCT
 
 }

@@ -1,6 +1,8 @@
-package apiEngine.models.response;
+package apiEngine.models.response.ProductDetail;
 
 import java.util.List;
+
+import apiEngine.models.response.InfoList;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,14 +13,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList",
         "Data"
 })
-public class HomePageBannersResponse {
+public class ProductDetailResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
     private List<InfoList> infoList = null;
     @JsonProperty("Data")
-    private HomePageBannerData homePageBannerData;
+    private Product product;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -41,13 +43,13 @@ public class HomePageBannersResponse {
     }
 
     @JsonProperty("Data")
-    public HomePageBannerData getData() {
-        return homePageBannerData;
+    public Product getData() {
+        return product;
     }
 
     @JsonProperty("Data")
-    public void setData(HomePageBannerData homePageBannerData) {
-        this.homePageBannerData = homePageBannerData;
+    public void setData(Product product) {
+        this.product = product;
     }
 
 }
