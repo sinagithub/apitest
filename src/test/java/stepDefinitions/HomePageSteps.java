@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import apiEngine.IRestResponse;
 import apiEngine.models.response.*;
+import cucumber.Storage;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Given;
@@ -32,6 +33,8 @@ public class HomePageSteps extends BaseSteps {
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
+
+
     }
 
     @When("I navigate a vendor")

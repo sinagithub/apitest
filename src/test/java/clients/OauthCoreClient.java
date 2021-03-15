@@ -22,7 +22,7 @@ public class OauthCoreClient extends ApiClient {
     public static RequestSpecification tokenRequest;
 
     public void authenticateUser(AuthorizationRequest authRequest, boolean isLogged) {
-        tokenRequest = RestAssured.given().log().all();
+        tokenRequest = RestAssured.given();
         tokenRequest.baseUri(baseUrl);
         tokenRequest.header("Content-Type", "application/json");
         tokenRequest.header("YS-Culture", "tr-TR");
