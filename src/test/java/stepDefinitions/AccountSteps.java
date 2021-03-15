@@ -30,7 +30,6 @@ public class AccountSteps extends BaseSteps {
         String passWord = Utils.getGlobalValue("test1_password");
         AuthorizationRequest authRequest = new AuthorizationRequest(userName, passWord);
         getOauthCoreClient().authenticateUser(authRequest, userType.equalsIgnoreCase("Login"));
-        getOauthCoreClient().resetToken();
     }
 
     @Given("I have pinned address")
@@ -61,7 +60,6 @@ public class AccountSteps extends BaseSteps {
             if (address.getAvailabilityStatus() == 1){
                 selectedAddress = address;
                 getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
-                System.out.println(selectedAddress.getAreaName());
                 break;
             }
         }

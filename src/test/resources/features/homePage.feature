@@ -1,4 +1,4 @@
-Feature: Homepage vendor and banabi Listing
+Feature: Homepage vendor, banabi, banner controls
 
   Background: Login and Address Listing
     Given I am an authorized  user "Login"

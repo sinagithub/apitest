@@ -19,8 +19,6 @@ public class TestContext {
     private static CarsiVendorClient carsiVendorClient;
 
     public TestContext() {
-
-        ysClient = new YSClient();
         scenarioContext = new ScenarioContext();
         carsiUserClient = new CarsiUserClient("https://store-user-api.yemeksepeti.com");
         carsiVendorClient = new CarsiVendorClient("http://carsi-api-stg.yemeksepeti.com");

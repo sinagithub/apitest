@@ -1,6 +1,5 @@
 package clients.carsi;
 
-import apiEngine.ApiClient;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Route;
@@ -19,6 +18,7 @@ public class CarsiHomePageClient extends CarsiClient {
                                                               String areaId,
                                                               Double latitude,
                                                               Double longitude) {
+
         Response response = request.log().all()
                 .queryParam("AddressId", addressId)
                 .queryParam("AreaId", areaId)
@@ -26,7 +26,7 @@ public class CarsiHomePageClient extends CarsiClient {
                 .queryParam("Longitude", longitude)
                 .header("YS-Catalog", catalogName)
                 .get(Route.homepageCarsi());
-
+        writeStepLog();
         return new RestResponse(HomePageCarsiResponse.class, response);
     }
 
@@ -42,7 +42,7 @@ public class CarsiHomePageClient extends CarsiClient {
                 .queryParam("Longitude", longitude)
                 .header("YS-Catalog", catalogName)
                 .get(Route.homepageBanabi());
-
+        writeStepLog();
         return new RestResponse(HomePageBanabiResponse.class, response);
     }
 
@@ -58,7 +58,7 @@ public class CarsiHomePageClient extends CarsiClient {
                 .queryParam("Longitude", longitude)
                 .header("YS-Catalog", catalogName)
                 .get(Route.homepageBanners());
-
+        writeStepLog();
         return new RestResponse(HomePageBannersResponse.class, response);
     }
 
