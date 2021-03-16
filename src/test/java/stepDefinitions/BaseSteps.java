@@ -1,11 +1,8 @@
 package stepDefinitions;
 
-import clients.carsi.CarsiClient;
+import clients.carsi.*;
 import clients.OauthCoreClient;
 import clients.YSClient;
-import clients.carsi.CarsiHomePageClient;
-import clients.carsi.CarsiProductClient;
-import clients.carsi.CarsiUserClient;
 import cucumber.ScenarioContext;
 import cucumber.Storage;
 import cucumber.TestContext;
@@ -17,34 +14,30 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class BaseSteps {
 
-    private  OauthCoreClient oauthCoreClient;
-    private  CarsiClient carsiClient;
-    private  YSClient ysClient;
-    private  ScenarioContext scenarioContext;
-    private  CarsiUserClient carsiUserClient;
-    private  CarsiHomePageClient carsiHomePageClient;
-    private  CarsiProductClient carsiProductClient;
+    private OauthCoreClient oauthCoreClient;
+    private CarsiClient carsiClient;
+    private CarsiSplashClient carsiSplashClient;
+    private ScenarioContext scenarioContext;
+    private CarsiUserClient carsiUserClient;
+    private CarsiHomePageClient carsiHomePageClient;
+    private CarsiProductClient carsiProductClient;
 
 
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
         carsiClient = testContext.getCarsiClient();
-        ysClient = testContext.getYsClient();
         scenarioContext = testContext.getScenarioContext();
         carsiUserClient = testContext.getCarsiUserClient();
         carsiHomePageClient = testContext.getCarsiHomePageClient();
         carsiProductClient = testContext.getCarsiProductClient();
+        carsiSplashClient = testContext.getCarsiSplashClient();
     }
-
 
 
     public CarsiClient getCarsiClient() {
         return carsiClient;
     }
 
-    public YSClient getYsClient() {
-        return ysClient;
-    }
 
     public OauthCoreClient getOauthCoreClient() {
         return oauthCoreClient;
@@ -52,6 +45,10 @@ public class BaseSteps {
 
     public CarsiUserClient getCarsiUserClient() {
         return carsiUserClient;
+    }
+
+    public CarsiSplashClient getCarsiSplashClient() {
+        return carsiSplashClient;
     }
 
     public ScenarioContext getScenarioContext() {
@@ -76,18 +73,19 @@ public class BaseSteps {
         return carsiProductClient;
     }
 
-    public void assertNotEmpty(String property){
+    public void assertNotEmpty(String property) {
         Assert.assertFalse(property.isEmpty());
     }
 
-    public void assertNotEmpty(int property){
+    public void assertNotEmpty(int property) {
         Assert.assertNotNull(property);
     }
 
-    public void assertFalse(Boolean property){
+    public void assertFalse(Boolean property) {
         Assert.assertFalse(property);
     }
-    public void assertTrue(Boolean property){
+
+    public void assertTrue(Boolean property) {
         Assert.assertTrue(property);
     }
 

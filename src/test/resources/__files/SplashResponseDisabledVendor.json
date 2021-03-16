@@ -1,0 +1,21 @@
+{
+  "Version": "test",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "string",
+      "ShowToUser": true
+    }
+  ],
+  "Data": {
+    "IsCarsiEnabled": false,
+    "Campaigns": [
+      {
+        "CampaignId": 0,
+        "CampaignThumbImageUrl": "test_url",
+        "SeoUrl": "test"
+      }
+    ],
+    "CarsiLogoUrl": "test_logo_url"
+  }
+}
