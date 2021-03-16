@@ -31,6 +31,7 @@ public class HomePageSteps extends BaseSteps {
                 address.getLongitude());
         Assert.assertTrue(homePageCarsiResponse.isSuccessful());
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
+        assertTrue(vendorList.size() > 0);
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
 

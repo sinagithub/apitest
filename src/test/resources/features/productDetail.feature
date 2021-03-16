@@ -6,7 +6,7 @@ Feature: Product  detail controls
     And  My addresses list should be available
     When  I select pinned available address
 
-  @SmokeTest @HomePage
+  @SmokeTest @Product
   Scenario: Product Detail  listing
     When  A list of Vendor are available
     Then I navigate a vendor
