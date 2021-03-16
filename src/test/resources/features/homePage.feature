@@ -1,4 +1,4 @@
-Feature: Homepage vendor, banabi, banner controls
+Feature: Homepage Api controls
 
   Background: Login and Address Listing
     Given I am an authorized  user "Login"

@@ -1,4 +1,4 @@
-Feature: Product  detail controls
+Feature: Product Api controls
 
   Background: Login and Address Listing
     Given I am an authorized  user "Login"

@@ -1,4 +1,4 @@
-Feature: Splash Çarsı controls
+Feature: Splash Api controls
 
   Background: Login user
     Given I am an authorized  user "Login"
