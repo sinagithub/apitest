@@ -26,6 +26,8 @@ public class MockServer {
         stubForVendorDetail("VendorResponse.json");
         stubForProductsResponse("ProductsResponse.json");
         stubForProductResponse("ProductResponse.json");
+        stubForSplashResponseForEnabled("SplashResponseEnabledVendor.json");
+        stubForSplashResponseForDisabled("SplashResponseDisabledVendor.json");
     }
 
 
@@ -35,7 +37,7 @@ public class MockServer {
                 .withHeader("Content-Type", containing("application/json;"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
-                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
                 .withQueryParam("AddressId", equalToIgnoreCase("{dcb8ffa7-b113-4c05-9045-3b8d238c865b}"))
                 .withQueryParam("AreaId", equalToIgnoreCase("f75a5e15-5e67-4ed1-bd60-97f095a9c3d1"))
@@ -52,7 +54,7 @@ public class MockServer {
                 .withHeader("Content-Type", containing("application/json;"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
-                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -65,7 +67,7 @@ public class MockServer {
                 .withHeader("Content-Type", containing("application/json;"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
-                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -78,7 +80,33 @@ public class MockServer {
                 .withHeader("Content-Type", containing("application/json;"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
-                .withHeader("Accept",equalToIgnoreCase("*/*"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForSplashResponseForEnabled(String responseFileName) {
+        wireMockServer.stubFor(get("/api/v1/splash")
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForSplashResponseForDisabled(String responseFileName) {
+        wireMockServer.stubFor(get("/api/v1/splash")
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalTo("TR_ANKARA"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
                 .willReturn(aResponse()
                         .withStatus(200)

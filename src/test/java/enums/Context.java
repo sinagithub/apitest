@@ -14,6 +14,7 @@ public enum Context {
     BANABI_VENDOR_INFO,
     BANABI_VENDOR_RESPONSE,
     BANNER_LIST,
-    PRODUCT
+    PRODUCT,
+    SPLASH_RESPONSE
 
 }
