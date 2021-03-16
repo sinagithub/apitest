@@ -83,4 +83,13 @@ public class BaseSteps {
     public void assertNotEmpty(int property){
         Assert.assertNotNull(property);
     }
+
+    public void assertFalse(Boolean property){
+        Assert.assertFalse(property);
+    }
+    public void assertTrue(Boolean property){
+        Assert.assertTrue(property);
+    }
+
+
 }
