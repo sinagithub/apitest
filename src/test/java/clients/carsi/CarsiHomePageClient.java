@@ -14,7 +14,7 @@ public class CarsiHomePageClient extends CarsiClient {
         super(baseUrl);
     }
 
-    public IRestResponse<HomePageCarsiResponse> getVendorList(String catalogName,
+    public IRestResponse<HomePageCarsiResponse> getVendorList(
                                                               String addressId,
                                                               String areaId,
                                                               Double latitude,
@@ -25,7 +25,6 @@ public class CarsiHomePageClient extends CarsiClient {
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
                 .queryParam("Longitude", longitude)
-                .header("YS-Catalog", catalogName)
                 .get(Route.homepageCarsi());
         writeStepLog();
         return new RestResponse(HomePageCarsiResponse.class, response);
@@ -47,7 +46,7 @@ public class CarsiHomePageClient extends CarsiClient {
         return new RestResponse(HomePageBanabiResponse.class, response);
     }
 
-    public IRestResponse<HomePageBannersResponse> getHomePageBanners(String catalogName,
+    public IRestResponse<HomePageBannersResponse> getHomePageBanners(
                                                                      String addressId,
                                                                      String areaId,
                                                                      Double latitude,
@@ -57,7 +56,6 @@ public class CarsiHomePageClient extends CarsiClient {
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
                 .queryParam("Longitude", longitude)
-                .header("YS-Catalog", catalogName)
                 .get(Route.homepageBanners());
         writeStepLog();
         return new RestResponse(HomePageBannersResponse.class, response);
@@ -67,9 +65,8 @@ public class CarsiHomePageClient extends CarsiClient {
         return request.get(bannerUrls);
     }
 
-    public IRestResponse<HomePagePlatformResponse> getPlatform(String catalogName) {
+    public IRestResponse<HomePagePlatformResponse> getPlatform() {
         Response response = request
-                .header("YS-Catalog", catalogName)
                 .get(Route.homepagePlatform());
         writeStepLog();
         return new RestResponse(HomePagePlatformResponse.class, response);

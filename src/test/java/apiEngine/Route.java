@@ -20,6 +20,11 @@ public class Route {
     private static final String PRODUCT = "/product/{productId}";
     private static final String SPLASH = "/splash";
     private static final String PLATFORM = "/platform";
+    private static final String BASKET = "/basket";
+    private static final String BASKET_ID = "/id";
+    private static final String BASKET_ID_PATH = "{id}";
+    private static final String CAMPAIGN = "/campaign";
+    private static final String LITE = "/lite";
 
 
     public static String generateAccessToken() {
@@ -66,4 +71,21 @@ public class Route {
     public static String homepagePlatform() {
         return API + VERSION + HOMEPAGE + PLATFORM;
     }
+
+    public static String getBasketId() {
+        return API + VERSION + BASKET + BASKET_ID;
+    }
+
+    public static String getBasket() {
+        return API + VERSION + BASKET + BASKET_ID_PATH;
+    }
+
+    public static String getCampaign() {
+        return API + VERSION + BASKET + BASKET_ID_PATH + CAMPAIGN;
+    }
+
+    public static String getBasketLite() {
+        return API + VERSION + BASKET + BASKET_ID_PATH + LITE;
+    }
+
 }

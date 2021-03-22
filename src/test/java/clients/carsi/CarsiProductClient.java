@@ -11,9 +11,8 @@ public class CarsiProductClient extends CarsiClient {
         super(baseUrl);
     }
 
-    public IRestResponse<ProductDetailResponse> getProduct(String catalogName, String productId) {
+    public IRestResponse<ProductDetailResponse> getProduct(String productId) {
         Response response = request
-                .header("YS-Catalog", catalogName)
                 .pathParam("productId", productId)
                 .get(Route.getProduct());
         writeStepLog();

@@ -32,10 +32,8 @@ public class SplashSteps extends BaseSteps {
 
     @Then("I get carsi vendor status")
     public void I_get_carsi_status() {
-        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         CarsiSplashClient mockSplash = new CarsiSplashClient("http://localhost:3464");
-
-        IRestResponse<SplashResponse> splashResponse = mockSplash.getSplash(catalogName);
+        IRestResponse<SplashResponse> splashResponse = mockSplash.getSplash();
         getScenarioContext().setContext(Context.SPLASH_RESPONSE, splashResponse);
     }
 

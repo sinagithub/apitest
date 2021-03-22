@@ -1,6 +1,8 @@
 package stepDefinitions;
 
 
+import apiEngine.ApiClient;
+import apiEngine.CatalogSelector;
 import apiEngine.IRestResponse;
 import apiEngine.Utils;
 import apiEngine.models.requests.AuthorizationRequest;
@@ -68,6 +70,8 @@ public class AccountSteps extends BaseSteps {
 
     @Given("I select city {string}")
     public void i_select_city(String catalogName) {
+        //getCarsiUserClient().setCatalog(catalogName);
+        CatalogSelector.getInstance().setCatalogName(catalogName);
         getScenarioContext().setContext(Context.SELECTED_CATALOG_NAME, catalogName);
     }
 

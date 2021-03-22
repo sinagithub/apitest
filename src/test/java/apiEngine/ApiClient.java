@@ -14,21 +14,24 @@ public class ApiClient extends Hooks {
 
 
     public ApiClient(String baseUrl) {
+        String catalog = CatalogSelector.getInstance().getCatalogName();
+        String token = TokenHelper.getInstance().getToken();
         RestAssuredConfig config = RestConfig.createConfig();
         logFilter = new CustomLogFilter();
         request = RestAssured.given().config(config).with().filter(logFilter).log().all();
         request.baseUri(baseUrl);
         request.header("Content-Type", "application/json");
         request.header("YS-Culture", "tr-TR");
-        String token = TokenHelper.getInstance().getToken();
         request.header("Authorization", "Bearer " + token);
+        if (catalog != null) {
+            request.header("YS-Catalog", catalog);
+        }
 
     }
 
     public void writeStepLog() {
         Storage.getScenario().write("\n" + "API Request: " + logFilter.getRequestBuilder()
                 + "\n" + "API Response: " + logFilter.getResponseBuilder());
-
-
     }
+
 }
