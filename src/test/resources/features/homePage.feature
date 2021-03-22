@@ -21,3 +21,12 @@ Feature: Homepage Api controls
   Scenario: HomePage Banner listing
     And  HomePage banners are available
     Then HomePage banners are valid
+
+  @SmokeTest @HomePage
+  Scenario: HomePage Platform listing
+    And  HomePage platform is available
+    Then HomePage platform is valid
+      | Carsi  |
+      | Banabi |
+      | Yemeksepeti|
+

@@ -19,6 +19,7 @@ public class Route {
     private static final String BANNER = "/banner";
     private static final String PRODUCT = "/product/{productId}";
     private static final String SPLASH = "/splash";
+    private static final String PLATFORM = "/platform";
 
 
     public static String generateAccessToken() {
@@ -60,5 +61,9 @@ public class Route {
 
     public static String getSplash() {
         return API + VERSION + SPLASH;
+    }
+
+    public static String homepagePlatform() {
+        return API + VERSION + HOMEPAGE + PLATFORM;
     }
 }

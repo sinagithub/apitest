@@ -24,7 +24,7 @@ public class SplashSteps extends BaseSteps {
         IRestResponse<SplashResponse> splashResponse =
                 (IRestResponse<SplashResponse>) getScenarioContext().getContext(Context.SPLASH_RESPONSE);
         if (carsiStatus.equalsIgnoreCase("True")) {
-            assertTrue(splashResponse.getBody().getData().getIsCarsiEnabled());
+            assertTrue(splashResponse.getBody().getData().getIsCarsiEnabled(),"Çarşı should be available");
         } else {
             assertFalse(splashResponse.getBody().getData().getIsCarsiEnabled());
         }
@@ -34,9 +34,9 @@ public class SplashSteps extends BaseSteps {
     public void I_get_carsi_status() {
         String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         CarsiSplashClient mockSplash = new CarsiSplashClient("http://localhost:3464");
+
         IRestResponse<SplashResponse> splashResponse = mockSplash.getSplash(catalogName);
         getScenarioContext().setContext(Context.SPLASH_RESPONSE, splashResponse);
-
     }
 
     @Then("Çarsı info should be valid")
@@ -46,7 +46,7 @@ public class SplashSteps extends BaseSteps {
         SplashData splashData = splashResponse.getBody().getData();
         assertNotEmpty(splashData.getCarsiLogoUrl());
         List<CampaignsItem> campaignsItem = splashData.getCampaigns();
-        assertTrue(campaignsItem.size() > 0);
+        assertTrue(campaignsItem.size() > 0,"Carsi campaigns should be available");
         for (CampaignsItem campaign : campaignsItem) {
             assertNotEmpty(campaign.getCampaignId());
             assertNotEmpty(campaign.getCampaignThumbImageUrl());

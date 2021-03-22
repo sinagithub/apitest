@@ -1,6 +1,8 @@
-package apiEngine.models.response;
+package apiEngine.models.response.HomePage;
 
 import java.util.List;
+
+import apiEngine.models.response.Banner;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

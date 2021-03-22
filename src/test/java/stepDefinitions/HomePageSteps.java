@@ -2,7 +2,7 @@ package stepDefinitions;
 
 import apiEngine.IRestResponse;
 import apiEngine.models.response.*;
-import cucumber.Storage;
+import apiEngine.models.response.HomePage.*;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Given;
@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageSteps extends BaseSteps {
@@ -31,7 +32,7 @@ public class HomePageSteps extends BaseSteps {
                 address.getLongitude());
         Assert.assertTrue(homePageCarsiResponse.isSuccessful());
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
-        assertTrue(vendorList.size() > 0);
+        assertTrue(vendorList.size() > 0,"Vendor list should not be empty");
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
 
@@ -108,12 +109,44 @@ public class HomePageSteps extends BaseSteps {
     }
 
     @Then("HomePage banners are valid")
-    public void check_banner_urls_is_valid(){
+    public void check_banner_urls_is_valid() {
         List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
-        for (Banner banner : banners){
-          Response response =  getCarsiHomePageClient().getBannerUrlResponse(banner.getImageUrl());
+        for (Banner banner : banners) {
+            Response response = getCarsiHomePageClient().getBannerUrlResponse(banner.getImageUrl());
             Assert.assertEquals(200, response.getStatusCode());
         }
+    }
+
+    @When("HomePage platform is available")
+    public void homepage_platform_is_available() {
+        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
+        IRestResponse<HomePagePlatformResponse> platformResponse = getCarsiHomePageClient().getPlatform(catalogName);
+        getScenarioContext().setContext(Context.HOME_PLATFORM_RESPONSE, platformResponse);
+    }
+
+    @Then("HomePage platform is valid$")
+    public void homepage_platform_is_valid(List<String> testData) {
+        IRestResponse<HomePagePlatformResponse> homePagePlatformResponse =
+                (IRestResponse<HomePagePlatformResponse>) getScenarioContext().getContext(Context.HOME_PLATFORM_RESPONSE);
+        List<PlatformData> platformList = homePagePlatformResponse.getBody().getData();
+        List<String> platformNameList = new ArrayList<>();
+        for (PlatformData platform : platformList){
+            platformNameList.add(platform.getPlatform());
+        }
+
+        for (String platformName : testData){
+           int  index = platformNameList.indexOf(platformName);
+            System.out.println(index);
+           assertTrue(index != -1,"Platform should be available on selected city : " + platformName);
+        }
+
+    }
+
+    @Then("^user should have following$")
+    public void user_should_have_following(List<String> testData) {
+       for (String platformName : testData){
+           System.out.println(platformName);
+       }
     }
 }
 

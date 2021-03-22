@@ -1,6 +1,9 @@
-package apiEngine.models.response;
+package apiEngine.models.response.HomePage;
 
 import java.util.List;
+
+import apiEngine.models.response.CarsiCategory;
+import apiEngine.models.response.CarsiVendor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

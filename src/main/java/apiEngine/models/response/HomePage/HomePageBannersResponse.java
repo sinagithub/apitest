@@ -1,7 +1,8 @@
-package apiEngine.models.response;
+package apiEngine.models.response.HomePage;
 
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
+import apiEngine.models.response.InfoList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -11,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList",
         "Data"
 })
-public class HomePageBanabiResponse {
+public class HomePageBannersResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
     private List<InfoList> infoList = null;
     @JsonProperty("Data")
-    private HomePageBanabiData homePageBanabiData;
+    private HomePageBannerData homePageBannerData;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -41,13 +42,13 @@ public class HomePageBanabiResponse {
     }
 
     @JsonProperty("Data")
-    public HomePageBanabiData getData() {
-        return homePageBanabiData;
+    public HomePageBannerData getData() {
+        return homePageBannerData;
     }
 
     @JsonProperty("Data")
-    public void setData(HomePageBanabiData homePageBanabiData) {
-        this.homePageBanabiData = homePageBanabiData;
+    public void setData(HomePageBannerData homePageBannerData) {
+        this.homePageBannerData = homePageBannerData;
     }
 
 }

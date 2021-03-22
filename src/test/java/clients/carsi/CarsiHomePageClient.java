@@ -3,9 +3,10 @@ package clients.carsi;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Route;
-import apiEngine.models.response.HomePageBanabiResponse;
-import apiEngine.models.response.HomePageBannersResponse;
-import apiEngine.models.response.HomePageCarsiResponse;
+import apiEngine.models.response.HomePage.HomePageBanabiResponse;
+import apiEngine.models.response.HomePage.HomePageBannersResponse;
+import apiEngine.models.response.HomePage.HomePageCarsiResponse;
+import apiEngine.models.response.HomePage.HomePagePlatformResponse;
 import io.restassured.response.Response;
 
 public class CarsiHomePageClient extends CarsiClient {
@@ -65,6 +66,16 @@ public class CarsiHomePageClient extends CarsiClient {
     public Response getBannerUrlResponse(String bannerUrls) {
         return request.get(bannerUrls);
     }
+
+    public IRestResponse<HomePagePlatformResponse> getPlatform(String catalogName) {
+        Response response = request
+                .header("YS-Catalog", catalogName)
+                .get(Route.homepagePlatform());
+        writeStepLog();
+        return new RestResponse(HomePagePlatformResponse.class, response);
+    }
+
+
 
 
 }

@@ -2,17 +2,13 @@ package stepDefinitions;
 
 
 import apiEngine.IRestResponse;
-import apiEngine.models.response.CarsiVendor;
-import apiEngine.models.response.HomePageCarsiResponse;
 import apiEngine.models.response.ProductDetail.Product;
 import apiEngine.models.response.ProductDetail.ProductDetailResponse;
-import clients.BaseUrls;
 import clients.carsi.CarsiProductClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 
 public class ProductSteps extends BaseSteps {
 

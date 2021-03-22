@@ -1,35 +1,41 @@
-package apiEngine.models.response;
+package apiEngine.models.response.HomePage;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import apiEngine.models.response.InfoList;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Data",
         "Version",
         "InfoList"
 })
-public class HomePageCarsiResponse {
+public class HomePagePlatformResponse {
 
     @JsonProperty("Data")
-    private HomePageCarsiData homePageCarsiData;
+    private List<PlatformData> data = null;
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
     private List<Object> infoList = null;
 
     @JsonProperty("Data")
-    public HomePageCarsiData getData() {
-        return homePageCarsiData;
+    public List<PlatformData> getData() {
+        return data;
     }
 
     @JsonProperty("Data")
-    public void setData(HomePageCarsiData homePageCarsiData) {
-        this.homePageCarsiData = homePageCarsiData;
+    public void setData(List<PlatformData> data) {
+        this.data = data;
     }
 
     @JsonProperty("Version")

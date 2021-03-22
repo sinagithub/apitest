@@ -16,6 +16,3 @@ Feature: Splash Api controls
     When I get carsi vendor status
     Then Çarsı should be "False" on selected city
     And Çarsı info should be valid
-
-
-

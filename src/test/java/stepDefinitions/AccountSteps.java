@@ -45,6 +45,7 @@ public class AccountSteps extends BaseSteps {
     public void my_addresses_list_available() {
         String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         CarsiUserClient mockBanabi = new CarsiUserClient("https://store-user-api.yemeksepeti.com");
+
         IRestResponse<AddressResponse> addressesResponse = mockBanabi.getAddresses(catalogName);
         Assert.assertTrue(addressesResponse.isSuccessful());
         List<Address> addressList = addressesResponse.getBody().getData();

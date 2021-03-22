@@ -85,8 +85,8 @@ public class BaseSteps {
         Assert.assertFalse(property);
     }
 
-    public void assertTrue(Boolean property) {
-        Assert.assertTrue(property);
+    public void assertTrue(Boolean property, String message) {
+        Assert.assertTrue(message,property);
     }
 
 
