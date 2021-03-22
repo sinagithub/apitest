@@ -1,8 +1,8 @@
 Feature: Homepage Api controls
 
   Background: Login and Address Listing
-    Given I am an authorized  user "Login"
-    And I select city "TR_ISTANBUL"
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
     And  My addresses list should be available
     When  I select pinned available address
 

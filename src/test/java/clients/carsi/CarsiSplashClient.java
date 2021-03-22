@@ -10,9 +10,8 @@ public class CarsiSplashClient extends CarsiClient {
         super(baseUrl);
     }
 
-    public RestResponse getSplash(String catalogName){
+    public RestResponse getSplash(){
         Response response = request
-                .header("YS-Catalog", catalogName)
                 .get(Route.getSplash());
         writeStepLog();
         return new RestResponse(SplashResponse.class, response);

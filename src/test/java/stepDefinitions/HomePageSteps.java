@@ -23,9 +23,7 @@ public class HomePageSteps extends BaseSteps {
     @Given("A list of Vendor are available")
     public void a_list_of_Vendor_are_available() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String catalogName = getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME).toString();
         IRestResponse<HomePageCarsiResponse> homePageCarsiResponse = getCarsiHomePageClient().getVendorList(
-                catalogName,
                 address.getAddressId(),
                 address.getAreaId(),
                 address.getLatitude(),
@@ -42,7 +40,6 @@ public class HomePageSteps extends BaseSteps {
     public void i_navigate_a_vendor() {
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         CarsiVendor vendor = vendorList.get(2);
-        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         System.out.println(vendor.getName());
     }
 
@@ -96,9 +93,7 @@ public class HomePageSteps extends BaseSteps {
     @Given("HomePage banners are available")
     public void home_banners_are_available() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String catalogName = getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME).toString();
         IRestResponse<HomePageBannersResponse> homeBanners = getCarsiHomePageClient().getHomePageBanners(
-                catalogName,
                 address.getAddressId(),
                 address.getAreaId(),
                 address.getLatitude(),
@@ -119,8 +114,7 @@ public class HomePageSteps extends BaseSteps {
 
     @When("HomePage platform is available")
     public void homepage_platform_is_available() {
-        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
-        IRestResponse<HomePagePlatformResponse> platformResponse = getCarsiHomePageClient().getPlatform(catalogName);
+        IRestResponse<HomePagePlatformResponse> platformResponse = getCarsiHomePageClient().getPlatform();
         getScenarioContext().setContext(Context.HOME_PLATFORM_RESPONSE, platformResponse);
     }
 

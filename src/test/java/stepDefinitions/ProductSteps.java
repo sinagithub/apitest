@@ -32,8 +32,7 @@ public class ProductSteps extends BaseSteps {
     public void i_navigate_selected_product() {
         String productId = "1";
         CarsiProductClient mockProduct = new CarsiProductClient("http://localhost:3464");
-        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
-        IRestResponse<ProductDetailResponse> productDetailResponse = mockProduct.getProduct(catalogName, productId);
+        IRestResponse<ProductDetailResponse> productDetailResponse = mockProduct.getProduct(productId);
         Product product = productDetailResponse.getBody().getData();
         getScenarioContext().setContext(Context.PRODUCT, product);
 
