@@ -46,7 +46,6 @@ public class HomePageSteps extends BaseSteps {
     @When("I navigate banabi vendor")
     public void i_navigate_banabi_vendor() {
         CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
-        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         System.out.println(banabiVendor.getName());
         System.out.println(banabiVendor.getDeliveryFeeInfo());
     }
@@ -54,9 +53,7 @@ public class HomePageSteps extends BaseSteps {
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String catalogName = getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME).toString();
         IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(
-                catalogName,
                 address.getAddressId(),
                 address.getAreaId(),
                 address.getLatitude(),
