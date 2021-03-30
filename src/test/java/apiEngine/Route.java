@@ -25,6 +25,8 @@ public class Route {
     private static final String BASKET_ID_PATH = "{id}";
     private static final String CAMPAIGN = "/campaign";
     private static final String LITE = "/lite";
+    private static final String ORDER = "/order";
+    private static final String ACTIVE = "/active";
 
 
     public static String generateAccessToken() {
@@ -86,6 +88,9 @@ public class Route {
 
     public static String getBasketLite() {
         return API + VERSION + BASKET + BASKET_ID_PATH + LITE;
+    }
+    public static String getActiveOrders() {
+        return API + VERSION + ORDER + ACTIVE;
     }
 
 }
