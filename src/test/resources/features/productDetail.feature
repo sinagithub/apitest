@@ -21,4 +21,4 @@ Feature: Product Api controls
     And  I validate product Badge and unit mass is valid
     And I validate product price is valid
     And I validate product is "false"
-    #And I validate image urls is valid
+    And I validate image urls is valid
