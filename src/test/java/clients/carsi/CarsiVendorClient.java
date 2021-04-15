@@ -6,7 +6,7 @@ import apiEngine.Route;
 import apiEngine.models.response.Vendor.VendorProductsResponse;
 import apiEngine.models.response.Vendor.VendorResponse;
 import io.restassured.response.Response;
-
+@SuppressWarnings("unchecked")
 public class CarsiVendorClient extends CarsiClient {
     public CarsiVendorClient(String baseUrl) {
         super(baseUrl);
@@ -18,7 +18,7 @@ public class CarsiVendorClient extends CarsiClient {
                 .queryParam("offset", offset)
                 .get(Route.getVendorProducts());
         writeStepLog();
-        return new RestResponse(VendorProductsResponse.class, response);
+        return new RestResponse<>(VendorProductsResponse.class, response);
     }
 
     public IRestResponse<VendorResponse> getVendor(String vendorId){

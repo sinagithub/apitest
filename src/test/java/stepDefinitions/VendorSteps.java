@@ -12,6 +12,7 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.response.Response;
 import org.junit.Assert;
 
 import java.util.List;
@@ -85,19 +86,139 @@ public class VendorSteps extends BaseSteps {
 
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
-
         IRestResponse<VendorProductsResponse> vendorProductResponse = getCarsiVendorClient().getProducts(vendorId,
                 categoryId
                 , offSet);
         getScenarioContext().setContext(Context.VENDOR_CATEGORY_PRODUCTS_RES, vendorProductResponse);
     }
 
+    @Then("I check vendor name is valid")
+    public void i_check_vendor_name_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String expectedVendorName = selectedVendor.getName();
+        String actualVendorName = vendorDetailResponse.getBody().getData().getName();
 
-    @Then("I list the products")
-    public void i_list_the_products() {
-
+        assertTrue(expectedVendorName.equalsIgnoreCase(actualVendorName), "Vendor name not equal with selected vendor");
 
     }
+
+    @Then("I check vendor category name is valid")
+    public void i_check_category_name_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String expectedVendorCategoryName = selectedVendor.getCategoryName();
+        String actualCategoryName = vendorDetailResponse.getBody().getData().getCategoryName();
+
+        assertTrue(expectedVendorCategoryName.equalsIgnoreCase(actualCategoryName), "Vendor category name not equal " +
+                "with selected vendor");
+
+    }
+
+    @Then("I check vendor logo url is valid")
+    public void i_check_logo_url_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String expectedVendorLogoUrl = selectedVendor.getLogoUrl();
+        String actualVendorLogoUrl = vendorDetailResponse.getBody().getData().getLogoUrl();
+
+        assertTrue(expectedVendorLogoUrl.equalsIgnoreCase(actualVendorLogoUrl), "Vendor logo url not equal with " +
+                "selected vendor");
+
+    }
+
+    @Then("I check vendor DeliveryTimeInfo is valid")
+    public void i_check_DeliveryTimeInfo_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String expectedVendorDeliveryTimeInfo = selectedVendor.getDeliveryTimeInfo();
+        String actualVendorDeliveryTimeInfo = vendorDetailResponse.getBody().getData().getDeliveryTimeInfo();
+
+        assertTrue(expectedVendorDeliveryTimeInfo.equalsIgnoreCase(actualVendorDeliveryTimeInfo),
+                "Vendor DeliveryTimeInfo not equal with selected vendor(Home) " + expectedVendorDeliveryTimeInfo +
+                " -- " + actualVendorDeliveryTimeInfo);
+
+    }
+
+    @Then("I check vendor MinBasketPriceInfo is valid")
+    public void i_check_MinBasketPriceInfo_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String expectedVendorMinBasketPrice = selectedVendor.getMinBasketPriceInfo();
+        String actualVendorMinBasketPrice = vendorDetailResponse.getBody().getData().getMinBasketPriceInfo();
+
+        assertTrue(expectedVendorMinBasketPrice.equalsIgnoreCase(actualVendorMinBasketPrice),
+                "Vendor MinBasketPriceInfo not equal with selected vendor(Home) "
+                        + expectedVendorMinBasketPrice
+                        + " -- "
+                        + actualVendorMinBasketPrice);
+    }
+
+    @Then("I check vendor DeliveryFeeInfo is valid")
+    public void i_check_DeliveryFeeInfo_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String expectedVendorDeliveryFeeInfo = selectedVendor.getDeliveryFeeInfo();
+        String actualVendorDeliveryFeeInfo = vendorDetailResponse.getBody().getData().getDeliveryFeeInfo();
+
+        assertTrue(expectedVendorDeliveryFeeInfo.equalsIgnoreCase(actualVendorDeliveryFeeInfo),
+                "Vendor DeliveryFeeInfo not equal with selected vendor(Home) "
+                        +expectedVendorDeliveryFeeInfo
+                        +" -- "
+                        +actualVendorDeliveryFeeInfo);
+    }
+
+    @Then("I check vendor category list is valid")
+    public void i_check_vendor_category_list_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        List<Category> categoryList = vendorDetailResponse.getBody().getData().getCategories();
+        assertTrue(categoryList.size() > 1,"Category listesi 1 den küçük olamaz");
+    }
+
+    @Then("I check category names  are valid")
+    public void i_check_categoryNames_are_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        List<Category> categoryList = vendorDetailResponse.getBody().getData().getCategories();
+
+        for (Category category : categoryList){
+            assertTrue(!category.getName().isEmpty(),"Category name should not empty");
+        }
+
+    }
+
+    @Then("I check banner url is valid")
+    public void i_check_bannerUrl_is_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        List<Banner> bannerList = vendorDetailResponse.getBody().getData().getBanners();
+
+        for (Banner banner : bannerList){
+            Response response = getCarsiVendorClient().getImageUrlResponse(banner.getImageUrl());
+            assertTrue(response.statusCode() == 200,
+                    "Banner image urls should be 200 not " + response.getStatusCode());
+        }
+    }
+
+    @Then("I check banner seo urls are valid")
+    public void i_check_seoUrl_are_valid() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        List<Banner> bannerList = vendorDetailResponse.getBody().getData().getBanners();
+
+        for (Banner banner : bannerList){
+            String bannerSeoUrl =  banner.getSeoUrl();
+            assertTrue(bannerSeoUrl.isEmpty(),"Banner seo Url should not be empty");
+        }
+    }
+
 
 
 }
