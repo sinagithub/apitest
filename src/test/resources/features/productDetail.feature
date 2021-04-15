@@ -10,7 +10,7 @@ Feature: Product Api controls
 
   Scenario: User should see all product info correctly
     When  A list of Carşı Vendor are available on home page
-    Then Select first vendor from "Market" category from home page
+    Then Select first vendor from "Market" category on home page
     And  I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category

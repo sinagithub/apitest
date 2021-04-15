@@ -22,7 +22,7 @@ Feature: Homepage Api controls
 
   Scenario: HomePage Banner listing
     And  HomePage banners are available
-    Then HomePage banners are valid
+    Then HomePage banners urls are valid
 
   Scenario: HomePage Platform listing
     And  HomePage platform is available

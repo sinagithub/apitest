@@ -78,7 +78,7 @@ public class ProductSteps extends BaseSteps {
 
         for (String url : productData.getImageUrl()) {
             Response response = getCarsiProductClient().getImageUrlResponse(url);
-            assertTrue(response.statusCode() == 200, "Image status should be 200 !");
+            assertTrue(response.statusCode() == 220, "Image status should be 200 !");
         }
     }
 

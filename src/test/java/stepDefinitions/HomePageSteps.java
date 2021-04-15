@@ -31,17 +31,17 @@ public class HomePageSteps extends BaseSteps {
                 address.getLongitude());
         Assert.assertTrue(homePageCarsiResponse.isSuccessful());
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
-        assertTrue(vendorList.size() > 0,"Vendor list should not be empty");
+        assertTrue(vendorList.size() > 0, "Vendor list should not be empty");
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
     }
 
-    @Then("Select first vendor from {string} category from home page")
+    @Then("Select first vendor from {string} category on home page")
     public void select_first_vendor_from_category(String categoryName) {
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         CarsiVendor selectedVendor = null;
-        for (CarsiVendor vendor : vendorList){
-            if (vendor.getCategoryName().equalsIgnoreCase(categoryName)){
+        for (CarsiVendor vendor : vendorList) {
+            if (vendor.getCategoryName().equalsIgnoreCase(categoryName)) {
                 selectedVendor = vendor;
                 break;
             }
@@ -49,14 +49,26 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
-
-
-    @When("I navigate a vendor")
-    public void i_navigate_a_vendor() {
+    @Then("Select {string} vendor name on home page")
+    public void select_vendor_with_vendorName(String vendorName) {
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
-        CarsiVendor vendor = vendorList.get(2);
-        System.out.println(vendor.getName());
+        CarsiVendor selectedVendor = null;
+        for (CarsiVendor vendor : vendorList) {
+            if (vendor.getName().equalsIgnoreCase(vendorName)) {
+                selectedVendor = vendor;
+                break;
+            }
+        }
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
+
+    @Then("I select Carsı vendor with order - {int}")
+    public void select_carsi_vendor_with_order(int vendorOrder) {
+        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        CarsiVendor selectedVendor = vendorList.get(vendorOrder);
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
+    }
+
 
     @When("I navigate banabi vendor")
     public void i_navigate_banabi_vendor() {
@@ -119,10 +131,9 @@ public class HomePageSteps extends BaseSteps {
     public void check_banabi_vendor_IsOpen_should_be(String isOpen) {
         CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         boolean status = isOpen.equalsIgnoreCase("true");
-        if (status){
-            assertTrue(vendor.getIsOpen(),"Banabi vendor should be open");
-        }
-        else {
+        if (status) {
+            assertTrue(vendor.getIsOpen(), "Banabi vendor should be open");
+        } else {
             Assert.assertFalse(vendor.getIsOpen());
         }
     }
@@ -154,11 +165,18 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.BANNER_LIST, bannerList);
     }
 
-    @Then("HomePage banners are valid")
+    @Then("HomePage banners urls are valid")
     public void check_banner_urls_is_valid() {
         List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
         for (Banner banner : banners) {
-            Response response = getCarsiHomePageClient().getImageUrlResponse(banner.getImageUrl());
+            String bannerImageUrl = banner.getImageUrl();
+            Response response = getCarsiHomePageClient().getImageUrlResponse(bannerImageUrl);
+            assertTrue(response.getStatusCode() == 200,
+                    "\n"
+                            + "Expected : " + 200 + " Actual " + response.getStatusCode()
+                            + "\n"
+                            + " Url : "
+                            + bannerImageUrl);
             Assert.assertEquals(200, response.getStatusCode());
         }
     }
@@ -175,14 +193,14 @@ public class HomePageSteps extends BaseSteps {
                 (IRestResponse<HomePagePlatformResponse>) getScenarioContext().getContext(Context.HOME_PLATFORM_RESPONSE);
         List<PlatformData> platformList = homePagePlatformResponse.getBody().getData();
         List<String> platformNameList = new ArrayList<>();
-        for (PlatformData platform : platformList){
+        for (PlatformData platform : platformList) {
             platformNameList.add(platform.getPlatform());
         }
 
-        for (String platformName : testData){
-           int  index = platformNameList.indexOf(platformName);
+        for (String platformName : testData) {
+            int index = platformNameList.indexOf(platformName);
             System.out.println(index);
-           assertTrue(index != -1,"Platform should be available on selected city : " + platformName);
+            assertTrue(index != -1, "Platform should be available on selected city : " + platformName);
         }
 
     }
