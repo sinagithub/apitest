@@ -21,3 +21,18 @@ Feature: Vendor detail Controls
     And I check vendor name is valid
     And I check vendor category name is valid
     And I check vendor logo url is valid
+
+  Scenario: User should see banabi vendor correctly
+    When  Banabi Vendor is available
+    Then I select banabi vendor
+    Then I navigate selected vendor
+    Then I check vendor DeliveryTimeInfo is valid
+    And I check vendor MinBasketPriceInfo is valid
+    And I check vendor DeliveryFeeInfo is valid
+    And I check vendor category list is valid
+    And I check category names  are valid
+    And I check banner url is valid
+    And I check banner seo urls are valid
+    And I check vendor name is valid
+    And I check vendor category name is valid
+    And I check vendor logo url is valid

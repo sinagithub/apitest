@@ -69,12 +69,18 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
+    @Then("I select banabi vendor")
+    public void i_select_banabi_vendor() {
+        CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, banabiVendor);
+    }
+
 
     @When("I navigate banabi vendor")
     public void i_navigate_banabi_vendor() {
         CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
-        System.out.println(banabiVendor.getName());
-        System.out.println(banabiVendor.getDeliveryFeeInfo());
+        CarsiVendor selectedVendor = banabiVendor;
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
     @Given("Banabi Vendor is available")

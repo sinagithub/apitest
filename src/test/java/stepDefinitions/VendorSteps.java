@@ -7,7 +7,6 @@ import apiEngine.models.response.Vendor.Category;
 import apiEngine.models.response.Vendor.SubCategory;
 import apiEngine.models.response.Vendor.VendorProductsResponse;
 import apiEngine.models.response.Vendor.VendorResponse;
-import clients.carsi.CarsiVendorClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
@@ -139,8 +138,10 @@ public class VendorSteps extends BaseSteps {
         String actualVendorDeliveryTimeInfo = vendorDetailResponse.getBody().getData().getDeliveryTimeInfo();
 
         assertTrue(expectedVendorDeliveryTimeInfo.equalsIgnoreCase(actualVendorDeliveryTimeInfo),
-                "Vendor DeliveryTimeInfo not equal with selected vendor(Home) " + expectedVendorDeliveryTimeInfo +
-                " -- " + actualVendorDeliveryTimeInfo);
+                "Vendor DeliveryTimeInfo not equal with selected vendor(Home) "
+                        + expectedVendorDeliveryTimeInfo
+                        + " -- "
+                        + actualVendorDeliveryTimeInfo);
 
     }
 
