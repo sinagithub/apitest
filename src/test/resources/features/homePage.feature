@@ -1,3 +1,4 @@
+@SmokeTest @HomePage
 Feature: Homepage Api controls
 
   Background: Login and Address Listing
@@ -6,13 +7,10 @@ Feature: Homepage Api controls
     And  My addresses list should be available
     When  I select pinned available address
 
-  @SmokeTest @HomePage
   Scenario: HomePage Vendor listing
     And A list of Carşı Vendor are available on home page
     Then Check vendor properties are valid
 
-
-  @SmokeTest @HomePage
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available
     Then Check Banabi vendor id is valid
@@ -22,13 +20,10 @@ Feature: Homepage Api controls
     And Check Banabi vendor DeliveryFeeInfo is not empty
     And Check Banabi vendor IsOpen should be "false"
 
-
-  @SmokeTest @HomePage
   Scenario: HomePage Banner listing
     And  HomePage banners are available
     Then HomePage banners are valid
 
-  @SmokeTest @HomePage
   Scenario: HomePage Platform listing
     And  HomePage platform is available
     Then HomePage platform is valid

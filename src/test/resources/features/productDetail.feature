@@ -1,3 +1,4 @@
+@SmokeTest @Product
 Feature: Product Api controls
 
   Background: Login and Address Listing
@@ -7,7 +8,6 @@ Feature: Product Api controls
     When  I select pinned available address
     Then I get unique basket id
 
-  @SmokeTest @Product
   Scenario: User should see all product info correctly
     When  A list of Carşı Vendor are available on home page
     Then Select first vendor from "Market" category from home page
