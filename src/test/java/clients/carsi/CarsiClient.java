@@ -11,7 +11,4 @@ public class CarsiClient extends ApiClient {
         super(baseUrl);
     }
 
-
-
-
 }

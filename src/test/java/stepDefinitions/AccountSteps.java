@@ -18,7 +18,7 @@ import org.junit.Assert;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.List;
-
+@SuppressWarnings("unchecked")
 public class AccountSteps extends BaseSteps {
 
     public AccountSteps(TestContext testContext) {
@@ -70,7 +70,6 @@ public class AccountSteps extends BaseSteps {
 
     @Given("I select city {string}")
     public void i_select_city(String catalogName) {
-        //getCarsiUserClient().setCatalog(catalogName);
         CatalogSelector.getInstance().setCatalogName(catalogName);
         getScenarioContext().setContext(Context.SELECTED_CATALOG_NAME, catalogName);
     }

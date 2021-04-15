@@ -1,12 +1,12 @@
 package apiEngine.models.response.ProductDetail;
 
 import java.util.List;
-
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
         "Name",
@@ -17,10 +17,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Rank",
         "OptionItems"
 })
-public class OptionModel {
+@Generated("jsonschema2pojo")
+public class Option {
 
     @JsonProperty("Id")
-    private Integer id;
+    private String id;
     @JsonProperty("Name")
     private String name;
     @JsonProperty("DisplayName")
@@ -37,12 +38,12 @@ public class OptionModel {
     private List<OptionItem> optionItems = null;
 
     @JsonProperty("Id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     @JsonProperty("Id")
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

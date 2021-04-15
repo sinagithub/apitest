@@ -1,50 +1,72 @@
 {
-  "Version": "string",
+  "Version": "1",
   "InfoList": [
     {
       "Code": 0,
       "Message": "string",
-      "ShowToUser": true
+      "ShowToUser": false
     }
   ],
   "Data": {
-    "Id": 0,
-    "Name": "string",
-    "Description": "string",
-    "UnitMass": "string",
-    "Price": 0,
+    "Id": "{{randomValue length=10 type='NUMERIC'}}",
+    "Name": "{{randomValue length=20 type='ALPHANUMERIC'}}",
+    "Description": "{{randomValue length=20 type='ALPHANUMERIC'}}",
+    "UnitMass": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+    "Price": 10,
     "DiscountedPrice": 0,
-    "Stock": 0,
     "IsActive": true,
-    "ImageUrl": "string",
+    "BadgeType": 0,
+    "ImageUrl": [
+      "https://images.deliveryhero.io/image/{{randomValue length=6 type='ALPHANUMERIC'}}.png"
+    ],
     "MaximumSaleAmount": 0,
     "Campaigns": [
       {
-        "Id": "string",
-        "Description": "string",
-        "ImageUrl": "string"
+        "Id": "{{randomValue length=10 type='NUMERIC'}}",
+        "CampaignId": "{{randomValue length=10 type='NUMERIC'}}",
+        "CampaignTitle": "{{randomValue length=33 type='ALPHANUMERIC'}}",
+        "CampaignDescription": "{{randomValue length=33 type='ALPHANUMERIC'}}",
+        "ImageUrl": "https://images.deliveryhero.io/image/{{randomValue length=6 type='ALPHANUMERIC'}}.png",
+        "TinyImageUrl": "https://images.deliveryhero.io/image/{{randomValue length=6 type='ALPHANUMERIC'}}.png",
+        "Culture": "string",
+        "TargetDiscountType": 0,
+        "Products": [
+          {
+            "Id": "{{randomValue length=10 type='NUMERIC'}}",
+            "Name": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+            "ShortName": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+            "ImageUrl": "https://images.deliveryhero.io/image/{{randomValue length=6 type='ALPHANUMERIC'}}.png",
+            "UnitPrice": 0,
+            "MassUnit": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+            "Quantity": 0,
+            "DiscountAppliedValue": 0,
+            "IsSelected": true
+          }
+        ]
       }
     ],
-    "OptionModel": {
-      "Id": 0,
-      "Name": "string",
-      "DisplayName": "string",
-      "IsRequired": true,
-      "DisplayType": 0,
-      "AffectsPrice": true,
-      "Rank": 0,
-      "OptionItems": [
-        {
-          "Id": 0,
-          "OptionId": 0,
-          "Value": "string",
-          "MaterialTypeId": 0,
-          "AdditionalPrice": 0,
-          "AdditionalPriceText": "string",
-          "IsAvailable": true,
-          "IsSelected": true
-        }
-      ]
-    }
+    "Options": [
+      {
+        "Id": "{{randomValue length=10 type='NUMERIC'}}",
+        "Name": "{{randomValue length=20 type='ALPHANUMERIC'}}",
+        "DisplayName": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+        "IsRequired": false,
+        "DisplayType": 0,
+        "AffectsPrice": true,
+        "Rank": 0,
+        "OptionItems": [
+          {
+            "Id": 1,
+            "OptionId": 11123,
+            "Value": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+            "MaterialTypeId": 0,
+            "AdditionalPrice": 0,
+            "AdditionalPriceText": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+            "IsAvailable": true,
+            "IsSelected": false
+          }
+        ]
+      }
+    ]
   }
 }

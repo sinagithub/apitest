@@ -8,24 +8,35 @@
     }
   ],
   "Data": {
-    "Name": "Dummy Migros",
-    "AreaName": "Area dummy",
-    "Identifier": "Migross xx",
-    "ThumbImageUrl": "cdn/",
-    "DeliveryTimeInfo": "30",
-    "MinBasketPriceInfo": "30.0",
+    "Id": "{{request.requestLine.pathSegments.[3]}}",
+    "Name": "Patimod",
+    "AreaName": "Ataşehir",
+    "CategoryName": "Patimod",
+    "ImageUrl": "http://patimod.com",
+    "LogoUrl": "http://patimod.com",
+    "DeliveryTimeInfo": "7 gün",
+    "MinBasketPriceInfo": "10",
     "DeliveryFeeInfo": "string",
     "Banners": [
       {
-        "CdnImageUrl": "cdn",
-        "SeoUrl": "/seo"
+        "ImageUrl": "http://patimod.com",
+        "SeoUrl": "//test:deeplink"
       }
     ],
     "Categories": [
       {
-        "Name": "test category",
+        "Name": "Et ve Süt ürünleri",
         "Id": "1",
-        "ThumbImageUrl": "cdn/category img"
+        "ThumbImageUrl": "string",
+        "Order": 0,
+        "SubCategories": [
+          {
+            "Id": "2323",
+            "Name": "Et",
+            "Order": 1,
+            "Offset": 1
+          }
+        ]
       }
     ]
   }

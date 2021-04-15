@@ -1,60 +1,51 @@
 package apiEngine.models.response.ProductDetail;
 
-import java.util.List;
-
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
         "Name",
-        "Description",
-        "UnitMass",
-        "Price",
-        "DiscountedPrice",
-        "Stock",
-        "IsActive",
+        "ShortName",
         "ImageUrl",
-        "MaximumSaleAmount",
-        "Campaigns",
-        "OptionModel"
+        "UnitPrice",
+        "MassUnit",
+        "Quantity",
+        "DiscountAppliedValue",
+        "IsSelected"
 })
+@Generated("jsonschema2pojo")
 public class Product {
 
     @JsonProperty("Id")
-    private Integer id;
+    private String id;
     @JsonProperty("Name")
     private String name;
-    @JsonProperty("Description")
-    private String description;
-    @JsonProperty("UnitMass")
-    private String unitMass;
-    @JsonProperty("Price")
-    private Integer price;
-    @JsonProperty("DiscountedPrice")
-    private Integer discountedPrice;
-    @JsonProperty("Stock")
-    private Integer stock;
-    @JsonProperty("IsActive")
-    private Boolean isActive;
+    @JsonProperty("ShortName")
+    private String shortName;
     @JsonProperty("ImageUrl")
     private String imageUrl;
-    @JsonProperty("MaximumSaleAmount")
-    private Integer maximumSaleAmount;
-    @JsonProperty("Campaigns")
-    private List<Campaign> campaigns = null;
-    @JsonProperty("OptionModel")
-    private OptionModel optionModel;
+    @JsonProperty("UnitPrice")
+    private Integer unitPrice;
+    @JsonProperty("MassUnit")
+    private String massUnit;
+    @JsonProperty("Quantity")
+    private Integer quantity;
+    @JsonProperty("DiscountAppliedValue")
+    private Integer discountAppliedValue;
+    @JsonProperty("IsSelected")
+    private Boolean isSelected;
 
     @JsonProperty("Id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     @JsonProperty("Id")
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,64 +59,14 @@ public class Product {
         this.name = name;
     }
 
-    @JsonProperty("Description")
-    public String getDescription() {
-        return description;
+    @JsonProperty("ShortName")
+    public String getShortName() {
+        return shortName;
     }
 
-    @JsonProperty("Description")
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @JsonProperty("UnitMass")
-    public String getUnitMass() {
-        return unitMass;
-    }
-
-    @JsonProperty("UnitMass")
-    public void setUnitMass(String unitMass) {
-        this.unitMass = unitMass;
-    }
-
-    @JsonProperty("Price")
-    public Integer getPrice() {
-        return price;
-    }
-
-    @JsonProperty("Price")
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    @JsonProperty("DiscountedPrice")
-    public Integer getDiscountedPrice() {
-        return discountedPrice;
-    }
-
-    @JsonProperty("DiscountedPrice")
-    public void setDiscountedPrice(Integer discountedPrice) {
-        this.discountedPrice = discountedPrice;
-    }
-
-    @JsonProperty("Stock")
-    public Integer getStock() {
-        return stock;
-    }
-
-    @JsonProperty("Stock")
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    @JsonProperty("IsActive")
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    @JsonProperty("IsActive")
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    @JsonProperty("ShortName")
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     @JsonProperty("ImageUrl")
@@ -138,34 +79,54 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    @JsonProperty("MaximumSaleAmount")
-    public Integer getMaximumSaleAmount() {
-        return maximumSaleAmount;
+    @JsonProperty("UnitPrice")
+    public Integer getUnitPrice() {
+        return unitPrice;
     }
 
-    @JsonProperty("MaximumSaleAmount")
-    public void setMaximumSaleAmount(Integer maximumSaleAmount) {
-        this.maximumSaleAmount = maximumSaleAmount;
+    @JsonProperty("UnitPrice")
+    public void setUnitPrice(Integer unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    @JsonProperty("Campaigns")
-    public List<Campaign> getCampaigns() {
-        return campaigns;
+    @JsonProperty("MassUnit")
+    public String getMassUnit() {
+        return massUnit;
     }
 
-    @JsonProperty("Campaigns")
-    public void setCampaigns(List<Campaign> campaigns) {
-        this.campaigns = campaigns;
+    @JsonProperty("MassUnit")
+    public void setMassUnit(String massUnit) {
+        this.massUnit = massUnit;
     }
 
-    @JsonProperty("OptionModel")
-    public OptionModel getOptionModel() {
-        return optionModel;
+    @JsonProperty("Quantity")
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    @JsonProperty("OptionModel")
-    public void setOptionModel(OptionModel optionModel) {
-        this.optionModel = optionModel;
+    @JsonProperty("Quantity")
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @JsonProperty("DiscountAppliedValue")
+    public Integer getDiscountAppliedValue() {
+        return discountAppliedValue;
+    }
+
+    @JsonProperty("DiscountAppliedValue")
+    public void setDiscountAppliedValue(Integer discountAppliedValue) {
+        this.discountAppliedValue = discountAppliedValue;
+    }
+
+    @JsonProperty("IsSelected")
+    public Boolean getIsSelected() {
+        return isSelected;
+    }
+
+    @JsonProperty("IsSelected")
+    public void setIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
 }

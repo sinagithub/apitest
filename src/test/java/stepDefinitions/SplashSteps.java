@@ -10,8 +10,9 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 
+import java.io.UncheckedIOException;
 import java.util.List;
-
+@SuppressWarnings("unchecked")
 public class SplashSteps extends BaseSteps {
 
     public SplashSteps(TestContext testContext) {

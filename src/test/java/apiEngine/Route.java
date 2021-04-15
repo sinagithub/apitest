@@ -93,4 +93,8 @@ public class Route {
         return API + VERSION + ORDER + ACTIVE;
     }
 
+    public static String getVendorProducts(){
+        return API + VERSION + VENDOR + PRODUCTS;
+    }
+
 }

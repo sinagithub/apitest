@@ -60,10 +60,6 @@ public class CarsiHomePageClient extends CarsiClient {
         return new RestResponse(HomePageBannersResponse.class, response);
     }
 
-    public Response getBannerUrlResponse(String bannerUrls) {
-        return request.get(bannerUrls);
-    }
-
     public IRestResponse<HomePagePlatformResponse> getPlatform() {
         Response response = request
                 .get(Route.homepagePlatform());
