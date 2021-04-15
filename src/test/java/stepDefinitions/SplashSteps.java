@@ -24,7 +24,6 @@ public class SplashSteps extends BaseSteps {
     @Then("Çarsı should be {string} on selected city")
     public void carsi_should_be_on_selected_city(String carsiStatus) {
         SplashData splashData = (SplashData) getScenarioContext().getContext(Context.SPLASH_RESPONSE_DATA);
-
         if (carsiStatus.equalsIgnoreCase("True")) {
             assertTrue(splashData.getIsCarsiEnabled(), "Çarşı should be available");
         } else {
