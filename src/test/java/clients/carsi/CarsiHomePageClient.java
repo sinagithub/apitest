@@ -30,7 +30,7 @@ public class CarsiHomePageClient extends CarsiClient {
         return new RestResponse(HomePageCarsiResponse.class, response);
     }
 
-    public IRestResponse<HomePageBanabiResponse> getBanabiVendor(String catalogName,
+    public IRestResponse<HomePageBanabiResponse> getBanabiVendor(
                                                                  String addressId,
                                                                  String areaId,
                                                                  Double latitude,
@@ -40,7 +40,6 @@ public class CarsiHomePageClient extends CarsiClient {
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
                 .queryParam("Longitude", longitude)
-                .header("YS-Catalog", catalogName)
                 .get(Route.homepageBanabi());
         writeStepLog();
         return new RestResponse(HomePageBanabiResponse.class, response);
@@ -59,10 +58,6 @@ public class CarsiHomePageClient extends CarsiClient {
                 .get(Route.homepageBanners());
         writeStepLog();
         return new RestResponse(HomePageBannersResponse.class, response);
-    }
-
-    public Response getBannerUrlResponse(String bannerUrls) {
-        return request.get(bannerUrls);
     }
 
     public IRestResponse<HomePagePlatformResponse> getPlatform() {

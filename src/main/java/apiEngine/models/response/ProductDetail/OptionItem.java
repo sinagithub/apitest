@@ -1,10 +1,16 @@
 package apiEngine.models.response.ProductDetail;
 
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
         "OptionId",
@@ -15,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "IsAvailable",
         "IsSelected"
 })
+@Generated("jsonschema2pojo")
 public class OptionItem {
 
     @JsonProperty("Id")

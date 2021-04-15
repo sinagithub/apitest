@@ -1,0 +1,51 @@
+{
+  "request": {
+    "urlPath": "/api/v1/vendor/.*"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Version": "1",
+      "InfoList": [
+        {
+          "Code": 0,
+          "Message": "string",
+          "ShowToUser": true
+        }
+      ],
+      "Data": {
+        "Id": "{{request.path[3]}}",
+        "Name": "Patimod",
+        "AreaName": "Ataşehir",
+        "CategoryName": "Patimod",
+        "ImageUrl": "http://patimod.com",
+        "LogoUrl": "http://patimod.com",
+        "DeliveryTimeInfo": "7 gün",
+        "MinBasketPriceInfo": "10",
+        "DeliveryFeeInfo": "string",
+        "Banners": [
+          {
+            "ImageUrl": "http://patimod.com",
+            "SeoUrl": "//test:deeplink"
+          }
+        ],
+        "Categories": [
+          {
+            "Name": "Et ve Süt ürünleri",
+            "Id": "1",
+            "ThumbImageUrl": "string",
+            "Order": 0,
+            "SubCategories": [
+              {
+                "Id": "2323",
+                "Name": "Et",
+                "Order": 1,
+                "Offset": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

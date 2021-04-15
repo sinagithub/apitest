@@ -1,25 +1,28 @@
-package apiEngine.models.response.HomePage;
+package apiEngine.models.response.Vendor;
 
 import java.util.List;
+import javax.annotation.Generated;
 
 import apiEngine.models.response.Info;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Version",
         "InfoList",
         "Data"
 })
-public class HomePageBannersResponse {
+@Generated("jsonschema2pojo")
+public class VendorResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
-    private List<Info> info = null;
+    private List<Info> infoList = null;
     @JsonProperty("Data")
-    private HomePageBannerData homePageBannerData;
+    private VendorData vendorData;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -33,22 +36,22 @@ public class HomePageBannersResponse {
 
     @JsonProperty("InfoList")
     public List<Info> getInfoList() {
-        return info;
+        return infoList;
     }
 
     @JsonProperty("InfoList")
-    public void setInfoList(List<Info> info) {
-        this.info = info;
+    public void setInfoList(List<Info> infoList) {
+        this.infoList = infoList;
     }
 
     @JsonProperty("Data")
-    public HomePageBannerData getData() {
-        return homePageBannerData;
+    public VendorData getData() {
+        return vendorData;
     }
 
     @JsonProperty("Data")
-    public void setData(HomePageBannerData homePageBannerData) {
-        this.homePageBannerData = homePageBannerData;
+    public void setData(VendorData vendorData) {
+        this.vendorData = vendorData;
     }
 
 }

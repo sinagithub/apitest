@@ -1,0 +1,30 @@
+{
+  "Version": "1",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "12",
+      "ShowToUser": true
+    }
+  ],
+  "Data": {
+    "Products": [
+      {
+        "Id": "{{randomValue length=10 type='NUMERIC'}}",
+        "Name": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+        "UnitMass": "{{randomValue length=4 type='ALPHANUMERIC'}}",
+        "ImageUrl": "https://images.deliveryhero.io/image/{{randomValue length=6 type='ALPHANUMERIC'}}.png",
+        "Price": "{{randomValue length=2 type='NUMERIC'}}",
+        "DiscountedPrice": 10,
+        "MaximumSaleAmount": "{{randomValue length=1 type='NUMERIC'}}",
+        "IsActive": true,
+        "HasOptions": true,
+        "CategoryId": "{{randomValue length=3 type='NUMERIC'}}"
+      }
+    ],
+    "PrevOffset": 1,
+    "NextOffset": 1,
+    "HasNextPage": true,
+    "HasPrevPage": true
+  }
+}

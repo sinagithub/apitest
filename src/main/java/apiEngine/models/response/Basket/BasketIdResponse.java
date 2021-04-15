@@ -1,6 +1,6 @@
 package apiEngine.models.response.Basket;
 
-import apiEngine.models.response.InfoList;
+import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -20,7 +20,7 @@ public class BasketIdResponse {
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
-    private List<InfoList> infoList = null;
+    private List<Info> info = null;
 
     @JsonProperty("Data")
     public String getBasketId() {
@@ -43,13 +43,13 @@ public class BasketIdResponse {
     }
 
     @JsonProperty("InfoList")
-    public List<InfoList> getInfoList() {
-        return infoList;
+    public List<Info> getInfoList() {
+        return info;
     }
 
     @JsonProperty("InfoList")
-    public void setInfoList(List<InfoList> infoList) {
-        this.infoList = infoList;
+    public void setInfoList(List<Info> info) {
+        this.info = info;
     }
 
 }

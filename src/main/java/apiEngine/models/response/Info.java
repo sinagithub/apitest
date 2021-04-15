@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Message",
         "ShowToUser"
 })
-public class InfoList {
+public class Info {
 
     @JsonProperty("Code")
     private Integer code;

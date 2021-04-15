@@ -15,7 +15,6 @@ public class CarsiUserClient extends CarsiClient {
         Response response = request.
                 queryParam("PrimaryCatalogName",catalogName)
                 .get(Route.availableAddresses());
-        writeStepLog();
         return new RestResponse(AddressResponse.class, response);
     }
 }

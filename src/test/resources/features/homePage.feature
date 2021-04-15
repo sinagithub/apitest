@@ -8,14 +8,20 @@ Feature: Homepage Api controls
 
   @SmokeTest @HomePage
   Scenario: HomePage Vendor listing
-    And  A list of Vendor are available
+    And A list of Carşı Vendor are available on home page
     Then Check vendor properties are valid
 
 
   @SmokeTest @HomePage
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available
-    Then Check Banabi vendor properties are valid
+    Then Check Banabi vendor id is valid
+    And Check Banabi vendor name is not empty
+    And Check Banabi vendor DeliveryTimeInfo is not empty
+    And Check Banabi vendor MinBasketPriceInfo is not empty
+    And Check Banabi vendor DeliveryFeeInfo is not empty
+    And Check Banabi vendor IsOpen should be "false"
+
 
   @SmokeTest @HomePage
   Scenario: HomePage Banner listing
@@ -26,7 +32,7 @@ Feature: Homepage Api controls
   Scenario: HomePage Platform listing
     And  HomePage platform is available
     Then HomePage platform is valid
-      | Carsi  |
-      | Banabi |
-      | Yemeksepeti|
+      | Carsi       |
+      | Banabi      |
+      | Yemeksepeti |
 

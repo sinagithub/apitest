@@ -14,15 +14,5 @@ import stepDefinitions.MockServer;
         glue = {"stepDefinitions"}
 )
 public class TestRunner {
-    static MockServer mockServer = new MockServer();
 
-    @BeforeClass
-    public static void setUp() {
-        mockServer.setup();
-    }
-
-    @AfterClass
-    public static void quit() {
-        mockServer.teardown();
-    }
 }

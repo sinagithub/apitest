@@ -1,26 +1,29 @@
 package apiEngine.models.response.ProductDetail;
 
 import java.util.List;
+import java.util.List;
+import javax.annotation.Generated;
 
-import apiEngine.models.response.InfoList;
+import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Version",
         "InfoList",
         "Data"
 })
-public class ProductDetailResponse {
+@Generated("jsonschema2pojo")
+public class ProductResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
-    private List<InfoList> infoList = null;
+    private List<Info> infoList = null;
     @JsonProperty("Data")
-    private Product product;
+    private Data data;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -33,23 +36,23 @@ public class ProductDetailResponse {
     }
 
     @JsonProperty("InfoList")
-    public List<InfoList> getInfoList() {
+    public List<Info> getInfoList() {
         return infoList;
     }
 
     @JsonProperty("InfoList")
-    public void setInfoList(List<InfoList> infoList) {
+    public void setInfoList(List<Info> infoList) {
         this.infoList = infoList;
     }
 
     @JsonProperty("Data")
-    public Product getData() {
-        return product;
+    public Data getData() {
+        return data;
     }
 
     @JsonProperty("Data")
-    public void setData(Product product) {
-        this.product = product;
+    public void setData(Data data) {
+        this.data = data;
     }
 
 }

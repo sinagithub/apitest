@@ -14,13 +14,14 @@ import org.junit.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class HomePageSteps extends BaseSteps {
 
     public HomePageSteps(TestContext testContext) {
         super(testContext);
     }
 
-    @Given("A list of Vendor are available")
+    @Given("A list of Carşı Vendor are available on home page")
     public void a_list_of_Vendor_are_available() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
         IRestResponse<HomePageCarsiResponse> homePageCarsiResponse = getCarsiHomePageClient().getVendorList(
@@ -33,8 +34,22 @@ public class HomePageSteps extends BaseSteps {
         assertTrue(vendorList.size() > 0,"Vendor list should not be empty");
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
-
     }
+
+    @Then("Select first vendor from {string} category from home page")
+    public void select_first_vendor_from_category(String categoryName) {
+        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        CarsiVendor selectedVendor = null;
+        for (CarsiVendor vendor : vendorList){
+            if (vendor.getCategoryName().equalsIgnoreCase(categoryName)){
+                selectedVendor = vendor;
+                break;
+            }
+        }
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
+    }
+
+
 
     @When("I navigate a vendor")
     public void i_navigate_a_vendor() {
@@ -46,7 +61,6 @@ public class HomePageSteps extends BaseSteps {
     @When("I navigate banabi vendor")
     public void i_navigate_banabi_vendor() {
         CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
-        String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
         System.out.println(banabiVendor.getName());
         System.out.println(banabiVendor.getDeliveryFeeInfo());
     }
@@ -54,9 +68,7 @@ public class HomePageSteps extends BaseSteps {
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String catalogName = getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME).toString();
         IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(
-                catalogName,
                 address.getAddressId(),
                 address.getAreaId(),
                 address.getLatitude(),
@@ -66,16 +78,55 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.BANABI_VENDOR_RESPONSE, homePageBanabi);
     }
 
-    @Then("Check Banabi vendor properties are valid")
-    public void check_banabi_vendor_is_valid() {
-        IRestResponse<HomePageBanabiResponse> homePageBanabiResponse =
-                (IRestResponse<HomePageBanabiResponse>) getScenarioContext().getContext(Context.BANABI_VENDOR_RESPONSE);
-        Assert.assertTrue(homePageBanabiResponse.isSuccessful());
+
+    @Then("Check Banabi vendor image url not empty")
+    public void check_banabi_vendor_image_not_empty() {
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        Assert.assertFalse(vendor.getImageUrl().isEmpty());
+    }
+
+    @Then("Check Banabi vendor id is valid")
+    public void check_banabi_vendor_id_is_valid() {
         CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getId().isEmpty());
-        Assert.assertFalse(vendor.getImageUrl().isEmpty());
+    }
+
+    @Then("Check Banabi vendor DeliveryTimeInfo is not empty")
+    public void check_banabi_vendor_DeliveryTimeInfo_is_not_empty() {
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        Assert.assertFalse(vendor.getDeliveryTimeInfo().isEmpty());
+    }
+
+    @Then("Check Banabi vendor MinBasketPriceInfo is not empty")
+    public void check_banabi_vendor_MinBasketPriceInfo_is_not_empty() {
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        Assert.assertFalse(vendor.getMinBasketPriceInfo().isEmpty());
+    }
+
+    @Then("Check Banabi vendor DeliveryFeeInfo is not empty")
+    public void check_banabi_vendor_DeliveryFeeInfo_is_not_empty() {
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        Assert.assertFalse(vendor.getDeliveryFeeInfo().isEmpty());
+    }
+
+    @Then("Check Banabi vendor name is not empty")
+    public void check_banabi_vendor_name_is_not_empty() {
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getName().isEmpty());
     }
+
+    @Then("Check Banabi vendor IsOpen should be {string}")
+    public void check_banabi_vendor_IsOpen_should_be(String isOpen) {
+        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        boolean status = isOpen.equalsIgnoreCase("true");
+        if (status){
+            assertTrue(vendor.getIsOpen(),"Banabi vendor should be open");
+        }
+        else {
+            Assert.assertFalse(vendor.getIsOpen());
+        }
+    }
+
 
     @Then("Check vendor properties are valid")
     public void check_vendor_properties_are_valid() {
@@ -107,7 +158,7 @@ public class HomePageSteps extends BaseSteps {
     public void check_banner_urls_is_valid() {
         List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
         for (Banner banner : banners) {
-            Response response = getCarsiHomePageClient().getBannerUrlResponse(banner.getImageUrl());
+            Response response = getCarsiHomePageClient().getImageUrlResponse(banner.getImageUrl());
             Assert.assertEquals(200, response.getStatusCode());
         }
     }
@@ -134,13 +185,6 @@ public class HomePageSteps extends BaseSteps {
            assertTrue(index != -1,"Platform should be available on selected city : " + platformName);
         }
 
-    }
-
-    @Then("^user should have following$")
-    public void user_should_have_following(List<String> testData) {
-       for (String platformName : testData){
-           System.out.println(platformName);
-       }
     }
 }
 

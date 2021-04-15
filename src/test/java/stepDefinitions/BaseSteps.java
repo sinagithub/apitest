@@ -21,6 +21,8 @@ public class BaseSteps {
     private CarsiUserClient carsiUserClient;
     private CarsiHomePageClient carsiHomePageClient;
     private CarsiProductClient carsiProductClient;
+    private CarsiBasketClient carsiBasketClient;
+    private CarsiVendorClient carsiVendorClient;
 
 
     public BaseSteps(TestContext testContext) {
@@ -31,6 +33,8 @@ public class BaseSteps {
         carsiHomePageClient = testContext.getCarsiHomePageClient();
         carsiProductClient = testContext.getCarsiProductClient();
         carsiSplashClient = testContext.getCarsiSplashClient();
+        carsiBasketClient = testContext.getCarsiBasketClient();
+        carsiVendorClient = testContext.getCarsiVendorClient();
     }
 
 
@@ -38,6 +42,9 @@ public class BaseSteps {
         return carsiClient;
     }
 
+    public CarsiVendorClient getCarsiVendorClient() {
+        return carsiVendorClient;
+    }
 
     public OauthCoreClient getOauthCoreClient() {
         return oauthCoreClient;
@@ -53,6 +60,10 @@ public class BaseSteps {
 
     public ScenarioContext getScenarioContext() {
         return scenarioContext;
+    }
+
+    public CarsiBasketClient getCarsiBasketClient(){
+        return carsiBasketClient;
     }
 
     public void schemaValidator(String format, Response response, String path) {

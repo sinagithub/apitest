@@ -2,56 +2,97 @@ package stepDefinitions;
 
 
 import apiEngine.IRestResponse;
-import apiEngine.models.response.ProductDetail.Product;
-import apiEngine.models.response.ProductDetail.ProductDetailResponse;
+import apiEngine.models.response.CarsiVendor;
+import apiEngine.models.response.ProductDetail.Data;
+import apiEngine.models.response.ProductDetail.ProductResponse;
+import apiEngine.models.response.Vendor.Product;
+import apiEngine.models.response.Vendor.VendorProductsResponse;
 import clients.carsi.CarsiProductClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import io.restassured.response.Response;
 
+import java.util.List;
+import java.util.Random;
+
+@SuppressWarnings("unchecked")
 public class ProductSteps extends BaseSteps {
 
     public ProductSteps(TestContext testContext) {
         super(testContext);
     }
 
-    @When("Product list available")
-    public void product_list_available() {
-        getScenarioContext().setContext(Context.PRODUCT_LIST, "buraya vendor kesinlesınce bilgi eklenecek");
-    }
 
     @Then("I select a random product")
     public void i_select_a_random_product() {
-        String productId = "1";
+        IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
+                (IRestResponse<VendorProductsResponse>) getScenarioContext()
+                        .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
+        List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
 
+        Random random = new Random();
+        int index = random.nextInt(products.size() - 1);
+        Product product = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
+        getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
     }
 
 
     @Then("I navigate selected product")
     public void i_navigate_selected_product() {
-        String productId = "1";
-        CarsiProductClient mockProduct = new CarsiProductClient("http://localhost:3464");
-        IRestResponse<ProductDetailResponse> productDetailResponse = mockProduct.getProduct(productId);
-        Product product = productDetailResponse.getBody().getData();
-        getScenarioContext().setContext(Context.PRODUCT, product);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
 
+        String basketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
+        String productId = selectedProduct.getId();
+        String vendorId = selectedVendor.getId();
 
+        IRestResponse<ProductResponse> productDetailResponse = getCarsiProductClient().getProduct(productId,
+                vendorId, basketId);
+
+        Data productDetailProductResponseData = productDetailResponse.getBody().getData();
+        getScenarioContext().setContext(Context.PRODUCT_DATA, productDetailProductResponseData);
     }
 
-    @Then("Validate product information is valid")
-    public void validate_product_information_is_valid() {
-        Product product = (Product) getScenarioContext().getContext(Context.PRODUCT);
-        assertNotEmpty(product.getName());
-        assertNotEmpty(product.getDescription());
-        assertNotEmpty(product.getImageUrl());
-        assertNotEmpty(product.getId());
-        assertNotEmpty(product.getPrice());
-        assertNotEmpty(product.getMaximumSaleAmount());
-        assertNotEmpty(product.getDiscountedPrice());
-        assertNotEmpty(product.getStock());
-        assertNotEmpty(product.getUnitMass());
+    @Then("I validate product name is valid")
+    public void validateProductNameAndDesc() {
+        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DATA);
+        assertNotEmpty(productData.getName());
     }
 
+    @Then("I validate product desc is valid")
+    public void validateDescAndDesc() {
+        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DATA);
+        assertNotEmpty(productData.getName());
+    }
+
+    @Then("I validate product Badge and unit mass is valid")
+    public void validateProductBadgeAndUnitMass() {
+        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DATA);
+        assertNotEmpty(productData.getBadgeType());
+    }
+
+    @Then("I validate image urls is valid")
+    public void validateBannerUrls() {
+        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DATA);
+
+        for (String url : productData.getImageUrl()) {
+            Response response = getCarsiProductClient().getImageUrlResponse(url);
+            assertTrue(response.statusCode() == 200, "Image status should be 200 !");
+        }
+    }
+
+    @Then("I validate product price is valid")
+    public void validateProductPrice() {
+        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DATA);
+        assertNotEmpty(productData.getPrice());
+    }
+
+    @Then("I validate product is {string}")
+    public void validateProductPrice(String isActive) {
+        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DATA);
+        boolean selectType = isActive.equalsIgnoreCase("true");
+        assertTrue(productData.getIsActive() == selectType, "Product should be " + isActive);
+    }
 
 }

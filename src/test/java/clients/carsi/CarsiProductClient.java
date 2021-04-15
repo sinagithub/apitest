@@ -3,7 +3,7 @@ package clients.carsi;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Route;
-import apiEngine.models.response.ProductDetail.ProductDetailResponse;
+import apiEngine.models.response.ProductDetail.ProductResponse;
 import io.restassured.response.Response;
 
 public class CarsiProductClient extends CarsiClient {
@@ -11,11 +11,15 @@ public class CarsiProductClient extends CarsiClient {
         super(baseUrl);
     }
 
-    public IRestResponse<ProductDetailResponse> getProduct(String productId) {
+    public IRestResponse<ProductResponse> getProduct(String productId, String vendorId, String basketId) {
         Response response = request
                 .pathParam("productId", productId)
+                .queryParam("vendorId", vendorId)
+                .queryParam("basketId", basketId)
                 .get(Route.getProduct());
         writeStepLog();
-        return new RestResponse(ProductDetailResponse.class, response);
+        return new RestResponse(ProductResponse.class, response);
     }
+
+
 }

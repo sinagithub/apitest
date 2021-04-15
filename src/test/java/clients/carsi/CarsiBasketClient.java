@@ -21,6 +21,7 @@ public class CarsiBasketClient extends CarsiClient {
     public IRestResponse<BasketIdResponse> getBasketId(String addressId) {
         Response response = request.queryParam("addressId", addressId)
                 .get(Route.getBasketId());
+        writeStepLog();
         return new RestResponse<>(BasketIdResponse.class, response);
     }
 

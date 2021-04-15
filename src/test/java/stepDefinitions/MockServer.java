@@ -2,18 +2,32 @@ package stepDefinitions;
 
 import apiEngine.JsonUtil;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
+import com.github.tomakehurst.wiremock.core.Options;
+import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 
+
+import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 
 public class MockServer {
-    public WireMockServer wireMockServer;
+
+
+    public static WireMockServer wireMockServer;
 
     public void setup() {
-        wireMockServer = new WireMockServer(3464);
+        Options options = wireMockConfig()
+                .port(3464)
+                .notifier(new ConsoleNotifier(false))
+                .extensions(new ResponseTemplateTransformer(true));
+
+        wireMockServer = new WireMockServer(options);
         wireMockServer.start();
         setupStub();
+
     }
 
     public void teardown() {
@@ -24,10 +38,11 @@ public class MockServer {
     public void setupStub() {
         stubForVendorList("VendorListResponse.json");
         stubForVendorDetail("VendorResponse.json");
-        stubForProductsResponse("ProductsResponse.json");
+        stubForProductsResponse("CategoryProductsResponse.json");
         stubForProductResponse("ProductResponse.json");
         stubForSplashResponseForEnabled("SplashResponseEnabledVendor.json");
         stubForSplashResponseForDisabled("SplashResponseDisabledVendor.json");
+        stubForBasketIdResponse("BasketIdResponse.json");
     }
 
 
@@ -50,11 +65,10 @@ public class MockServer {
     }
 
     public void stubForVendorDetail(String responseFileName) {
-        wireMockServer.stubFor(get("/api/v1/vendor/1")
-                .withHeader("Content-Type", containing("application/json;"))
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/vendor/.*"))
+                .withHeader("Content-Type", containing("application/json"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
-                .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -63,12 +77,14 @@ public class MockServer {
     }
 
     public void stubForProductsResponse(String responseFileName) {
-        wireMockServer.stubFor(get("/api/v1/vendor/1/products")
-                .withHeader("Content-Type", containing("application/json;"))
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/vendor/.*/products"))
+                .withHeader("Content-Type", containing("application/json"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
                 .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("categoryId", matching(".*"))
+                .withQueryParam("offset", matching(".*"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
@@ -76,12 +92,28 @@ public class MockServer {
     }
 
     public void stubForProductResponse(String responseFileName) {
-        wireMockServer.stubFor(get("/api/v1/product/1")
-                .withHeader("Content-Type", containing("application/json;"))
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/product/.*"))
+                .withHeader("Content-Type", containing("application/json"))
                 .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
                 .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("vendorId",matching(".*"))
+                .withQueryParam("basketId",matching(".*"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForBasketIdResponse(String responseFileName) {
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/basket/id"))
+                .withHeader("Content-Type", containing("application/json"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("addressId",matching(".*"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
@@ -112,5 +144,11 @@ public class MockServer {
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBodyFile(responseFileName)));
+    }
+
+    public static void main(String[] args) {
+        MockServer mockServer = new MockServer();
+        mockServer.setup();
+
     }
 }
