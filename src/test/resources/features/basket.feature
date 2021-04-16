@@ -10,3 +10,4 @@ Feature: Basket Controls
   Scenario: User can get basket id : every time same id
     Then I get unique basket id
     And I can get basket id : same old basket id
+

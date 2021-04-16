@@ -51,8 +51,6 @@ public class VendorSteps extends BaseSteps {
         } else {
             Assert.fail(categoryName + " not found on the vendor categories");
         }
-
-
     }
 
     @Then("I choose {string} sub category from sub category")
@@ -98,7 +96,7 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorName = selectedVendor.getName();
         String actualVendorName = vendorDetailResponse.getBody().getData().getName();
-
+        assertTrue(!actualVendorName.isEmpty(),"Vendor VendorCategoryName should not null");
         assertTrue(expectedVendorName.equalsIgnoreCase(actualVendorName), "Vendor name not equal with selected vendor");
 
     }
@@ -110,7 +108,7 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorCategoryName = selectedVendor.getCategoryName();
         String actualCategoryName = vendorDetailResponse.getBody().getData().getCategoryName();
-
+        assertTrue(!actualCategoryName.isEmpty(),"Vendor VendorCategoryName should not null");
         assertTrue(expectedVendorCategoryName.equalsIgnoreCase(actualCategoryName), "Vendor category name not equal " +
                 "with selected vendor");
 
@@ -126,7 +124,18 @@ public class VendorSteps extends BaseSteps {
 
         assertTrue(expectedVendorLogoUrl.equalsIgnoreCase(actualVendorLogoUrl), "Vendor logo url not equal with " +
                 "selected vendor");
+    }
 
+    @Then("I check vendor logo url is 200")
+    public void i_check_logo_url_is_StatusOk() {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        String vendorLogoUrl = vendorDetailResponse.getBody().getData().getLogoUrl();
+        int statusCode = getCarsiVendorClient().getImageUrlResponse(vendorLogoUrl).statusCode();
+        assertTrue(statusCode == 200, "Vendor logo url should be 200 \n"
+                +"Status : " + statusCode
+                +"\n"
+                +"Url : " + vendorLogoUrl);
     }
 
     @Then("I check vendor DeliveryTimeInfo is valid")
@@ -136,13 +145,12 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorDeliveryTimeInfo = selectedVendor.getDeliveryTimeInfo();
         String actualVendorDeliveryTimeInfo = vendorDetailResponse.getBody().getData().getDeliveryTimeInfo();
-
+        assertTrue(!actualVendorDeliveryTimeInfo.isEmpty(),"Vendor Delivery Time should not null");
         assertTrue(expectedVendorDeliveryTimeInfo.equalsIgnoreCase(actualVendorDeliveryTimeInfo),
                 "Vendor DeliveryTimeInfo not equal with selected vendor(Home) "
                         + expectedVendorDeliveryTimeInfo
                         + " -- "
                         + actualVendorDeliveryTimeInfo);
-
     }
 
     @Then("I check vendor MinBasketPriceInfo is valid")
@@ -219,7 +227,5 @@ public class VendorSteps extends BaseSteps {
             assertTrue(bannerSeoUrl.isEmpty(),"Banner seo Url should not be empty");
         }
     }
-
-
 
 }
