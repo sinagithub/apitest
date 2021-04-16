@@ -101,7 +101,7 @@ public class VendorSteps extends BaseSteps {
 
     }
 
-    @Then("I check vendor category name is valid")
+    @Then("I check vendor category name is not empty")
     public void i_check_category_name_is_valid() {
         IRestResponse<VendorResponse> vendorDetailResponse =
                 (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);

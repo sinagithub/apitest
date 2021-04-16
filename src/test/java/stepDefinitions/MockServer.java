@@ -43,6 +43,7 @@ public class MockServer {
         stubForSplashResponseForEnabled("SplashResponseEnabledVendor.json");
         stubForSplashResponseForDisabled("SplashResponseDisabledVendor.json");
         stubForBasketIdResponse("BasketIdResponse.json");
+        stubForBasketIdResponseArea2("BasketIdResponseArea3.json");
     }
 
 
@@ -113,7 +114,21 @@ public class MockServer {
                 .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
                 .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
-                .withQueryParam("addressId",matching(".*"))
+                .withQueryParam("addressId",equalTo("{af4c03a9-f84e-4522-aaac-99b9ef81454a}"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForBasketIdResponseArea2(String responseFileName) {
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/basket/id"))
+                .withHeader("Content-Type", containing("application/json"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("addressId",equalTo("{81cfbad7-36f9-455b-9204-0ea674b2406a}"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")

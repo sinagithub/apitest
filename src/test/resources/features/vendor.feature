@@ -24,7 +24,7 @@ Feature: Vendor detail Controls
     And I check banner url is valid
     And I check banner seo urls are valid
     And I check vendor name is valid
-    And I check vendor category name is valid
+    And I check vendor category name is not empty
     And I check vendor logo url is valid
     And I check vendor logo url is 200
 
@@ -43,6 +43,6 @@ Feature: Vendor detail Controls
     And I check banner url is valid
     And I check banner seo urls are valid
     And I check vendor name is valid
-    And I check vendor category name is valid
+    And I check vendor category name is not empty
     And I check vendor logo url is valid
     And I check vendor logo url is 200

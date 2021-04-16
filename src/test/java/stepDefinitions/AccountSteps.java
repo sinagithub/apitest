@@ -8,16 +8,22 @@ import apiEngine.Utils;
 import apiEngine.models.requests.AuthorizationRequest;
 import apiEngine.models.response.Address;
 import apiEngine.models.response.AddressResponse;
+import apiEngine.models.response.Basket.BasketIdResponse;
+import clients.BaseUrls;
+import clients.carsi.CarsiBasketClient;
 import clients.carsi.CarsiUserClient;
 import cucumber.TestContext;
 import enums.Context;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.List;
+
 @SuppressWarnings("unchecked")
 public class AccountSteps extends BaseSteps {
 
@@ -42,7 +48,6 @@ public class AccountSteps extends BaseSteps {
     }
 
 
-
     @Given("My addresses list should be available")
     public void my_addresses_list_available() {
         String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
@@ -59,13 +64,27 @@ public class AccountSteps extends BaseSteps {
     public void i_select_pinned_available_address_on_selected_catalog() {
         List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
         Address selectedAddress;
-        for (Address address : addressList){
-            if (address.getAvailabilityStatus() == 1){
+        for (Address address : addressList) {
+            if (address.getAvailabilityStatus() == 1) {
                 selectedAddress = address;
                 getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
                 break;
             }
         }
+    }
+
+    @Given("I select pinned available address with order  {int}")
+    public void i_select_pinned_available_address_on_selected_catalog_with_order(int order) {
+        List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
+        Address selectedAddress;
+        List<Address> availableAddress = new ArrayList<>();
+        for (Address address : addressList) {
+            if (address.getAvailabilityStatus() == 1) {
+                availableAddress.add(address);
+            }
+        }
+        selectedAddress = availableAddress.get(order);
+        getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
     }
 
     @Given("I select city {string}")

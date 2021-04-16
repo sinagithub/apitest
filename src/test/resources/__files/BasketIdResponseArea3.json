@@ -1,0 +1,11 @@
+{
+  "Version": "1",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "string",
+      "ShowToUser": true
+    }
+  ],
+  "Data": "124d2356-e89b-12d3-a456-426655440000"
+}

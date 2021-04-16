@@ -27,7 +27,7 @@ public class BasketSteps extends BaseSteps {
         getScenarioContext().setContext(Context.BASKET_ID, basketId);
     }
 
-    @Then("I can get basket id : same old basket id")
+    @Then("I check basket ıd is same than old basket id")
     public void i_can_get_basket_id_same_old_basket_id() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
         String addressId = address.getAddressId();
@@ -42,5 +42,20 @@ public class BasketSteps extends BaseSteps {
 
     }
 
+    @Then("I can get new basket id")
+    public void i_can_get_new_basket_id() {
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        String addressId = address.getAddressId();
+        String oldBasketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
+
+
+        CarsiBasketClient mockBasketClient = new CarsiBasketClient(BaseUrls.mockBaseUrl());
+        IRestResponse<BasketIdResponse> basketIdResponse = mockBasketClient.getBasketId(addressId);
+        String basketId = basketIdResponse.getBody().getBasketId();
+        assertFalse(oldBasketId.equals(basketId));
+
+        getScenarioContext().setContext(Context.BASKET_ID, basketId);
+
+    }
 
 }
