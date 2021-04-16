@@ -145,24 +145,6 @@ public class HomePageSteps extends BaseSteps {
     }
 
 
-    @Then("Check vendor properties are valid")
-    public void check_vendor_properties_are_valid() {
-        IRestResponse<HomePageCarsiResponse> homePageVendorResponse =
-                (IRestResponse<HomePageCarsiResponse>) getScenarioContext().getContext(Context.HOME_VENDOR_RESPONSE);
-        Assert.assertTrue(homePageVendorResponse.isSuccessful());
-
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
-
-        for (CarsiVendor vendor : vendorList) {
-            assertTrue(!vendor.getName().isEmpty(), "Vendor name is not empty");
-        }
-
-        CarsiVendor vendor = vendorList.get(0);
-        Assert.assertFalse(vendor.getId().isEmpty());
-        Assert.assertFalse(vendor.getImageUrl().isEmpty());
-        Assert.assertFalse(vendor.getName().isEmpty());
-    }
-
     @Then("I check all carsı vendor names is not empty")
     public void check_carsiVendor_names_is_valid() {
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
@@ -182,6 +164,7 @@ public class HomePageSteps extends BaseSteps {
         }
 
     }
+
 
     @Then("I check all carsı vendor image url status is 200")
     public void check_carsiVendor_imageUrl_is_valid() {
