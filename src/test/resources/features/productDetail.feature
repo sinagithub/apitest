@@ -15,6 +15,7 @@ Feature: Product Api controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
+    Then I check product list not empty
     Then I select a random product
     And I navigate selected product
     Then I validate product name is valid

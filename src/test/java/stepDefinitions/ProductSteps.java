@@ -7,6 +7,7 @@ import apiEngine.models.response.ProductDetail.Data;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.Product;
 import apiEngine.models.response.Vendor.VendorProductsResponse;
+import apiEngine.models.response.Vendor.VendorResponse;
 import clients.carsi.CarsiProductClient;
 import cucumber.TestContext;
 import enums.Context;
@@ -35,6 +36,15 @@ public class ProductSteps extends BaseSteps {
         int index = random.nextInt(products.size() - 1);
         Product product = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
+    }
+
+    @Then("I check product list not empty")
+    public void i_check_productList_not_empty() {
+        IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
+                (IRestResponse<VendorProductsResponse>) getScenarioContext()
+                        .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
+        List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
+        assertTrue(products.size() > 0, "Product list should not empty");
     }
 
 

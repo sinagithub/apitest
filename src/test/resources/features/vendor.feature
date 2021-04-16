@@ -1,3 +1,4 @@
+@Vendor @Smoke
 Feature: Vendor detail Controls
 
   Background: Login and Address Listing
@@ -11,6 +12,10 @@ Feature: Vendor detail Controls
     When  A list of Carşı Vendor are available on home page
     Then I select Carsı vendor with order - 0
     When  I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I check product list not empty
     Then I check vendor DeliveryTimeInfo is valid
     And I check vendor MinBasketPriceInfo is valid
     And I check vendor DeliveryFeeInfo is valid
@@ -21,11 +26,15 @@ Feature: Vendor detail Controls
     And I check vendor name is valid
     And I check vendor category name is valid
     And I check vendor logo url is valid
+    And I check vendor logo url is 200
 
   Scenario: User should see banabi vendor correctly
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
     Then I check vendor DeliveryTimeInfo is valid
     And I check vendor MinBasketPriceInfo is valid
     And I check vendor DeliveryFeeInfo is valid
@@ -36,3 +45,4 @@ Feature: Vendor detail Controls
     And I check vendor name is valid
     And I check vendor category name is valid
     And I check vendor logo url is valid
+    And I check vendor logo url is 200
