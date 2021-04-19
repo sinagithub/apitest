@@ -1,11 +1,14 @@
 package stepDefinitions;
 
+import apiEngine.PlatformTypeHelper;
 import clients.carsi.*;
 import clients.OauthCoreClient;
 import clients.YSClient;
 import cucumber.ScenarioContext;
 import cucumber.Storage;
 import cucumber.TestContext;
+import io.cucumber.java.ParameterType;
+import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -100,5 +103,8 @@ public class BaseSteps {
         Assert.assertTrue(message,property);
     }
 
+    public void setCurrentPlatformType(String platformType){
+        PlatformTypeHelper.getInstance().setPlatformType(platformType);
+    }
 
 }

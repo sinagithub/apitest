@@ -20,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "MinBasketPriceInfo",
         "DeliveryFeeInfo",
         "Banners",
-        "Categories"
+        "Categories",
+        "IsOpen"
 })
 @Generated("jsonschema2pojo")
 public class VendorData {
@@ -43,6 +44,8 @@ public class VendorData {
     private String minBasketPriceInfo;
     @JsonProperty("DeliveryFeeInfo")
     private String deliveryFeeInfo;
+    @JsonProperty("IsOpen")
+    private Boolean isOpen;
     @JsonProperty("Banners")
     private List<Banner> banners = null;
     @JsonProperty("Categories")
@@ -158,4 +161,13 @@ public class VendorData {
         this.categories = categories;
     }
 
+    @JsonProperty("IsOpen")
+    public Boolean getOpen() {
+        return isOpen;
+    }
+
+    @JsonProperty("IsOpen")
+    public void setOpen(Boolean open) {
+        isOpen = open;
+    }
 }

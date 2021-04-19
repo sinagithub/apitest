@@ -1,12 +1,8 @@
 package cucumber;
 
-import apiEngine.ApiClient;
 import clients.BaseUrls;
 import clients.carsi.*;
 import clients.OauthCoreClient;
-import clients.YSClient;
-import stepDefinitions.Hooks;
-import stepDefinitions.MockServer;
 
 public class TestContext {
 
@@ -56,4 +52,5 @@ public class TestContext {
    public CarsiBasketClient getCarsiBasketClient(){
         return new CarsiBasketClient(BaseUrls.getCarsiBaseUrl());
    }
+
 }

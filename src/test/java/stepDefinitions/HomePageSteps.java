@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import apiEngine.IRestResponse;
+import apiEngine.PlatformTypeHelper;
 import apiEngine.models.response.*;
 import apiEngine.models.response.HomePage.*;
 import cucumber.TestContext;
@@ -64,13 +65,51 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select Carsı vendor with order - {int}")
     public void select_carsi_vendor_with_order(int vendorOrder) {
+        PlatformTypeHelper.getInstance().setPlatformType("Carsi");
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         CarsiVendor selectedVendor = vendorList.get(vendorOrder);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
+    @Then("I select closed Carsı vendor")
+    public void select_closed_carsi_vendor() {
+        PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        CarsiVendor selectedVendor = null;
+        for (CarsiVendor vendor : vendorList){
+            if (!vendor.getIsOpen()){
+                selectedVendor = vendor;
+                break;
+            }
+        }
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
+    }
+
+    @Then("I should see closed vendor on home vendor list")
+    public void check_closed_vendor() {
+        PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        CarsiVendor selectedVendor = null;
+        for (CarsiVendor vendor : vendorList){
+            if (!vendor.getIsOpen()){
+                selectedVendor = vendor;
+                break;
+            }
+        }
+
+        if (selectedVendor == null){
+            Assert.fail("There are no closed vendor on the vendor list");
+        }
+
+        else {
+            assertTrue(!selectedVendor.getIsOpen(),"Vendor status should be false");
+        }
+    }
+
+
     @Then("I select banabi vendor")
     public void i_select_banabi_vendor() {
+        PlatformTypeHelper.getInstance().setPlatformType("Banabi");
         CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, banabiVendor);
     }
@@ -233,6 +272,11 @@ public class HomePageSteps extends BaseSteps {
             assertTrue(index != -1, "Platform should be available on selected city : " + platformName);
         }
 
+    }
+
+    @Then("Set platform type to {string}")
+    public void set_platform_type_to(String platformType) {
+        setCurrentPlatformType(platformType);
     }
 }
 

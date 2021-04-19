@@ -4,7 +4,7 @@ package apiEngine;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-
+@SuppressWarnings("unchecked")
 public class RestResponse<X> implements IRestResponse<X> {
     private X data;
     private Response response;

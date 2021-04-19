@@ -9,6 +9,7 @@ import apiEngine.models.response.Vendor.VendorProductsResponse;
 import apiEngine.models.response.Vendor.VendorResponse;
 import cucumber.TestContext;
 import enums.Context;
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -27,6 +28,12 @@ public class VendorSteps extends BaseSteps {
     public void i_navigate_selected_vendor() {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
+        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId);
+        getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
+    }
+
+    @Then("I navigate vendor with {string}")
+    public void i_navigate_vendor_with_id(String vendorId) {
         IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId);
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
     }
@@ -96,7 +103,7 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorName = selectedVendor.getName();
         String actualVendorName = vendorDetailResponse.getBody().getData().getName();
-        assertTrue(!actualVendorName.isEmpty(),"Vendor VendorCategoryName should not null");
+        assertTrue(!actualVendorName.isEmpty(), "Vendor VendorCategoryName should not null");
         assertTrue(expectedVendorName.equalsIgnoreCase(actualVendorName), "Vendor name not equal with selected vendor");
 
     }
@@ -108,7 +115,7 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorCategoryName = selectedVendor.getCategoryName();
         String actualCategoryName = vendorDetailResponse.getBody().getData().getCategoryName();
-        assertTrue(!actualCategoryName.isEmpty(),"Vendor VendorCategoryName should not null");
+        assertTrue(!actualCategoryName.isEmpty(), "Vendor VendorCategoryName should not null");
         assertTrue(expectedVendorCategoryName.equalsIgnoreCase(actualCategoryName), "Vendor category name not equal " +
                 "with selected vendor");
 
@@ -133,9 +140,9 @@ public class VendorSteps extends BaseSteps {
         String vendorLogoUrl = vendorDetailResponse.getBody().getData().getLogoUrl();
         int statusCode = getCarsiVendorClient().getImageUrlResponse(vendorLogoUrl).statusCode();
         assertTrue(statusCode == 200, "Vendor logo url should be 200 \n"
-                +"Status : " + statusCode
-                +"\n"
-                +"Url : " + vendorLogoUrl);
+                + "Status : " + statusCode
+                + "\n"
+                + "Url : " + vendorLogoUrl);
     }
 
     @Then("I check vendor DeliveryTimeInfo is valid")
@@ -145,7 +152,7 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorDeliveryTimeInfo = selectedVendor.getDeliveryTimeInfo();
         String actualVendorDeliveryTimeInfo = vendorDetailResponse.getBody().getData().getDeliveryTimeInfo();
-        assertTrue(!actualVendorDeliveryTimeInfo.isEmpty(),"Vendor Delivery Time should not null");
+        assertTrue(!actualVendorDeliveryTimeInfo.isEmpty(), "Vendor Delivery Time should not null");
         assertTrue(expectedVendorDeliveryTimeInfo.equalsIgnoreCase(actualVendorDeliveryTimeInfo),
                 "Vendor DeliveryTimeInfo not equal with selected vendor(Home) "
                         + expectedVendorDeliveryTimeInfo
@@ -178,9 +185,9 @@ public class VendorSteps extends BaseSteps {
 
         assertTrue(expectedVendorDeliveryFeeInfo.equalsIgnoreCase(actualVendorDeliveryFeeInfo),
                 "Vendor DeliveryFeeInfo not equal with selected vendor(Home) "
-                        +expectedVendorDeliveryFeeInfo
-                        +" -- "
-                        +actualVendorDeliveryFeeInfo);
+                        + expectedVendorDeliveryFeeInfo
+                        + " -- "
+                        + actualVendorDeliveryFeeInfo);
     }
 
     @Then("I check vendor category list is valid")
@@ -188,7 +195,7 @@ public class VendorSteps extends BaseSteps {
         IRestResponse<VendorResponse> vendorDetailResponse =
                 (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
         List<Category> categoryList = vendorDetailResponse.getBody().getData().getCategories();
-        assertTrue(categoryList.size() > 1,"Category listesi 1 den küçük olamaz");
+        assertTrue(categoryList.size() > 1, "Category listesi 1 den küçük olamaz");
     }
 
     @Then("I check category names  are valid")
@@ -197,8 +204,8 @@ public class VendorSteps extends BaseSteps {
                 (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
         List<Category> categoryList = vendorDetailResponse.getBody().getData().getCategories();
 
-        for (Category category : categoryList){
-            assertTrue(!category.getName().isEmpty(),"Category name should not empty");
+        for (Category category : categoryList) {
+            assertTrue(!category.getName().isEmpty(), "Category name should not empty");
         }
 
     }
@@ -209,7 +216,7 @@ public class VendorSteps extends BaseSteps {
                 (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
         List<Banner> bannerList = vendorDetailResponse.getBody().getData().getBanners();
 
-        for (Banner banner : bannerList){
+        for (Banner banner : bannerList) {
             Response response = getCarsiVendorClient().getImageUrlResponse(banner.getImageUrl());
             assertTrue(response.statusCode() == 200,
                     "Banner image urls should be 200 not " + response.getStatusCode());
@@ -222,10 +229,35 @@ public class VendorSteps extends BaseSteps {
                 (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
         List<Banner> bannerList = vendorDetailResponse.getBody().getData().getBanners();
 
-        for (Banner banner : bannerList){
-            String bannerSeoUrl =  banner.getSeoUrl();
-            assertTrue(bannerSeoUrl.isEmpty(),"Banner seo Url should not be empty");
+        for (Banner banner : bannerList) {
+            String bannerSeoUrl = banner.getSeoUrl();
+            assertTrue(bannerSeoUrl.isEmpty(), "Banner seo Url should not be empty");
         }
     }
+
+    @ParameterType(value = "true|True|TRUE|false|False|FALSE")
+    public Boolean booleanValue(String value) {
+        return Boolean.valueOf(value);
+    }
+
+    @Then("I check vendor status should be {booleanValue}")
+    public void i_check_vendor_status(boolean vendorStatus) {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        boolean actualVendorStatus = vendorDetailResponse.getBody().getData().getOpen();
+
+        assertTrue(actualVendorStatus == vendorStatus,"Vendor status should be "
+                + vendorStatus + " not " + actualVendorStatus);
+    }
+
+    @Then("I should get {int} error on vendor detail")
+    public void i_should_get_error(Integer error) {
+        IRestResponse<VendorResponse> vendorDetailResponse =
+                (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+        int status = vendorDetailResponse.getStatusCode();
+        assertTrue(status == error, "Vendor detail response status code should be "
+                + error + " not " + status);
+    }
+
 
 }

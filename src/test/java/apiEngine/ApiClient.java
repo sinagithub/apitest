@@ -12,23 +12,28 @@ import stepDefinitions.Hooks;
 
 public class ApiClient extends Hooks {
     public RequestSpecification request;
+    public RequestSpecification cdnRequest;
     public CustomLogFilter logFilter;
 
 
     public ApiClient(String baseUrl) {
         String catalog = CatalogSelector.getInstance().getCatalogName();
         String token = TokenHelper.getInstance().getToken();
+        String platformType = PlatformTypeHelper.getInstance().getPlatformType();
         RestAssuredConfig config = RestConfig.createConfig();
         logFilter = new CustomLogFilter();
         request = RestAssured.given().config(config).with().filter(logFilter).log().all();
         request.baseUri(baseUrl);
         request.header("Content-Type", "application/json");
         request.header("YS-Culture", "tr-TR");
-
+        if (platformType != null){
+            request.header("PlatformType",platformType);
+        }
         request.header("Authorization", "Bearer " + token);
         if (catalog != null) {
             request.header("YS-Catalog", catalog);
         }
+
 
     }
 
@@ -51,9 +56,11 @@ public class ApiClient extends Hooks {
         }
     }
 
-    public Response getImageUrlResponse(String bannerUrls) {
+    public Response getImageUrlResponse(String imageUrl) {
         writeStepLog(false,true);
-        return request.get(bannerUrls);
+        RestAssuredConfig config = RestConfig.createConfig();
+        cdnRequest = RestAssured.given().config(config);
+        return cdnRequest.get(imageUrl);
     }
 
 }

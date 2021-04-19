@@ -9,6 +9,7 @@ import apiEngine.models.response.HomePage.HomePageCarsiResponse;
 import apiEngine.models.response.HomePage.HomePagePlatformResponse;
 import io.restassured.response.Response;
 
+@SuppressWarnings("unchecked")
 public class CarsiHomePageClient extends CarsiClient {
     public CarsiHomePageClient(String baseUrl) {
         super(baseUrl);
