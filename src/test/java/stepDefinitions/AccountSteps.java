@@ -73,6 +73,19 @@ public class AccountSteps extends BaseSteps {
         }
     }
 
+    @Given("I select pinned address with id {string}")
+    public void i_select_pinned_address_with_id(String id) {
+        List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
+        Address selectedAddress;
+        for (Address address : addressList) {
+            if (address.getAddressId().equals(id)) {
+                selectedAddress = address;
+                getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
+                break;
+            }
+        }
+    }
+
     @Given("I select pinned available address with order  {int}")
     public void i_select_pinned_available_address_on_selected_catalog_with_order(int order) {
         List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);

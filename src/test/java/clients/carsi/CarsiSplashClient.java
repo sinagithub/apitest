@@ -1,7 +1,7 @@
 package clients.carsi;
 
 import apiEngine.RestResponse;
-import apiEngine.Route;
+import apiEngine.Routes.Route;
 import apiEngine.models.response.Splash.SplashResponse;
 import io.restassured.response.Response;
 

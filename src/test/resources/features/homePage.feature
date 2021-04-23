@@ -19,6 +19,7 @@ Feature: Homepage Api controls
     Then I check all carsı vendor image url status is 200
     Then I check all carsı vendor names is not empty
 
+
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available
     Then Check Banabi vendor id is valid
@@ -38,4 +39,3 @@ Feature: Homepage Api controls
       | Carsi       |
       | Banabi      |
       | Yemeksepeti |
-

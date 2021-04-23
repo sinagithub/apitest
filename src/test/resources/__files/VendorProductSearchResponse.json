@@ -1,0 +1,40 @@
+{
+  "Version": "string",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "string",
+      "ShowToUser": true
+    }
+  ],
+  "Data": [
+    {
+      "Id": "30b20b47-d94a-4df2-a5ff-4c97e516d959",
+      "Name": "Calve İkili Set Ketçap + Light Mayonez - 600 g + 5",
+      "Price": 10,
+      "DiscountedPrice": 10,
+      "MaximumSaleAmount": 20,
+      "IsActive": false,
+      "HasOptions": false,
+      "CategoryId": "552504d7-5025-43b5-8bcc-8bd9df282bb1",
+      "ImageUrl": "https://cdn.yemeksepeti.com/App_Themes/SiteHeaders/Kebap.jpg"
+    },
+    {
+      "Id": "30b20b47-d94a-4df2-a5ff-4c97e516d959",
+      "Name": "Calve İkili Set Ketçap + Light Mayonez - 900 g + 5",
+      "Price": 10,
+      "DiscountedPrice": 10,
+      "MaximumSaleAmount": 20,
+      "IsActive": false,
+      "HasOptions": false,
+      "CategoryId": "552504d7-5025-43b5-8bcc-8bd9df282bb1",
+      "ImageUrl": "https://cdn.yemeksepeti.com/App_Themes/SiteHeaders/Kebap.jpg"
+    }
+  ],
+  "TotalCount": 2,
+  "PageIndex": 1,
+  "PageSize": 1,
+  "HasNext": false,
+  "HasPrev": false,
+  "TotalPageCount": 1
+}

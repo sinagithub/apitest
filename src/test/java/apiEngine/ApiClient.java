@@ -38,21 +38,21 @@ public class ApiClient extends Hooks {
     }
 
     public void writeStepLog() {
-        Storage.getScenario().write("\n" + "API Request: " + logFilter.getRequestBuilder()
+        Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
                 + "\n" + "API Response: " + logFilter.getResponseBuilder());
     }
 
     public void writeStepLog(boolean showResponse,boolean showRequest) {
 
         if (showRequest && showResponse){
-            Storage.getScenario().write("\n" + "API Request: " + logFilter.getRequestBuilder()
+            Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
                     + "\n" + "API Response: " + logFilter.getResponseBuilder());
         }
         else if (showRequest && !showResponse){
-            Storage.getScenario().write("\n" + "API Request: " + logFilter.getRequestBuilder());
+            Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder());
         }
         else if (showResponse && !showRequest){
-            Storage.getScenario().write("API Response: " + logFilter.getResponseBuilder());
+            Storage.getScenario().log("API Response: " + logFilter.getResponseBuilder());
         }
     }
 

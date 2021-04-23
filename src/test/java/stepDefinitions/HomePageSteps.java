@@ -37,7 +37,7 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
     }
 
-    @Then("Select first vendor from {string} category on home page")
+    @Then("I select first vendor from {string} category on home page")
     public void select_first_vendor_from_category(String categoryName) {
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         CarsiVendor selectedVendor = null;

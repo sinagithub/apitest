@@ -10,7 +10,7 @@ Feature: Product Api controls
 
   Scenario: User should see all product info correctly
     When  A list of Carşı Vendor are available on home page
-    Then Select first vendor from "Market" category on home page
+    Then I select first vendor from "Market" category on home page
     And  I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -18,8 +18,9 @@ Feature: Product Api controls
     Then I check product list not empty
     Then I select a random product
     And I navigate selected product
-    Then I validate product name is valid
-    And  I validate product Badge and unit mass is valid
-    And I validate product price is valid
-    And I validate product is "false"
-    And I validate image urls is valid
+    Then I validate product name is valid on product detail
+    Then I validate product desc is valid on product detail
+    And  I validate product Badge is valid on product detail
+    And I validate product price is valid on product detail
+    And I validate product is "false" on product detail
+    And I validate image urls is valid on product detail

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "DiscountedPrice",
         "MaximumSaleAmount",
         "IsActive",
+        "HasOptions",
         "CategoryId"
 })
 @Generated("jsonschema2pojo")
@@ -37,6 +38,8 @@ public class Product {
     private Boolean isActive;
     @JsonProperty("CategoryId")
     private String categoryId;
+    @JsonProperty("HasOptions")
+    private boolean hasOptions;
 
     @JsonProperty("Id")
     public String getId() {
@@ -126,6 +129,16 @@ public class Product {
     @JsonProperty("CategoryId")
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @JsonProperty("HasOptions")
+    public Boolean getHasOptions() {
+        return hasOptions;
+    }
+
+    @JsonProperty("HasOptions")
+    public void setHasOptions(Boolean hasOptions) {
+        this.hasOptions = hasOptions;
     }
 
 }

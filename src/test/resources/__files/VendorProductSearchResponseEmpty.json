@@ -1,0 +1,18 @@
+{
+  "Version": "string",
+  "InfoList": [
+    {
+      "Code": 0,
+      "Message": "string",
+      "ShowToUser": true
+    }
+  ],
+  "Data": [
+  ],
+  "TotalCount": 0,
+  "PageIndex": 1,
+  "PageSize":20,
+  "HasNext": false,
+  "HasPrev": false,
+  "TotalPageCount": 0
+}

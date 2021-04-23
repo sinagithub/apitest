@@ -1,6 +1,5 @@
-package apiEngine;
+package apiEngine.Routes;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class Route {
 
@@ -96,5 +95,7 @@ public class Route {
     public static String getVendorProducts(){
         return API + VERSION + VENDOR + PRODUCTS;
     }
+
+
 
 }

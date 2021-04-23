@@ -1,19 +1,19 @@
 package stepDefinitions;
 
 import apiEngine.PlatformTypeHelper;
-import clients.carsi.*;
 import clients.OauthCoreClient;
-import clients.YSClient;
+import clients.carsi.*;
 import cucumber.ScenarioContext;
-import cucumber.Storage;
 import cucumber.TestContext;
-import io.cucumber.java.ParameterType;
-import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.util.List;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class BaseSteps {
 
@@ -65,7 +65,7 @@ public class BaseSteps {
         return scenarioContext;
     }
 
-    public CarsiBasketClient getCarsiBasketClient(){
+    public CarsiBasketClient getCarsiBasketClient() {
         return carsiBasketClient;
     }
 
@@ -87,12 +87,15 @@ public class BaseSteps {
         return carsiProductClient;
     }
 
-    public void assertNotEmpty(String property) {
+    public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());
     }
+    public void assertNotNull(String property , String message) {
+        assertThat(message, property, is(notNullValue()));
+    }
 
-    public void assertNotEmpty(int property) {
-        Assert.assertNotNull(property);
+    public void assertNotNull(int property, String message) {
+        assertThat(message, property, is(notNullValue()));
     }
 
     public void assertFalse(Boolean property) {
@@ -100,11 +103,16 @@ public class BaseSteps {
     }
 
     public void assertTrue(Boolean property, String message) {
-        Assert.assertTrue(message,property);
+        Assert.assertTrue(message, property);
     }
 
-    public void setCurrentPlatformType(String platformType){
+    public void setCurrentPlatformType(String platformType) {
         PlatformTypeHelper.getInstance().setPlatformType(platformType);
     }
+
+    public void assertEqual(String reason, String actual, String expected) {
+        assertThat(reason, actual, equalToIgnoringCase(expected));
+    }
+
 
 }

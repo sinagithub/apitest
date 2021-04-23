@@ -2,7 +2,9 @@ package clients.carsi;
 
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
-import apiEngine.Route;
+import apiEngine.Routes.Route;
+import apiEngine.Routes.VendorRoute;
+import apiEngine.models.response.Vendor.VendorProductSearchResponse;
 import apiEngine.models.response.Vendor.VendorProductsResponse;
 import apiEngine.models.response.Vendor.VendorResponse;
 import io.restassured.response.Response;
@@ -17,17 +19,25 @@ public class CarsiVendorClient extends CarsiClient {
         Response response = request.pathParam("vendorId", vendorId)
                 .queryParam("categoryId", categoryId)
                 .queryParam("offset", offset)
-                .get(Route.getVendorProducts());
+                .get(VendorRoute.getVendorProducts());
         writeStepLog();
         return new RestResponse<>(VendorProductsResponse.class, response);
     }
 
     public IRestResponse<VendorResponse> getVendor(String vendorId) {
         Response response = request.pathParam("vendorId", vendorId)
-                .get(Route.getVendor());
+                .get(VendorRoute.getVendor());
         writeStepLog();
         return new RestResponse<>(VendorResponse.class, response);
     }
 
+    public IRestResponse<VendorProductSearchResponse> searchProduct(String vendorId, String searchText, int pageIndex) {
+        Response response = request.
+                pathParam("vendorId", vendorId)
+                .queryParam("searchText", searchText)
+                .queryParam("pageIndex", pageIndex)
+                .get(VendorRoute.getVendorProductSearch());
+        return new RestResponse<>(VendorProductSearchResponse.class, response);
+    }
 
 }

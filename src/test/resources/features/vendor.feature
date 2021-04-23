@@ -9,7 +9,7 @@ Feature: Vendor detail Controls
 
   Scenario: User should see vendor correctly
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select first vendor from "Market" category on home page
     When  I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -25,6 +25,22 @@ Feature: Vendor detail Controls
     And I check vendor name is valid
     And I check vendor category name is not empty
     And I check vendor logo url is 200
+
+  Scenario: User should list products on the vendor detail
+    When  A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Market" category on home page
+    When  I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I check product list not empty
+    When I select product with name "Tadım Festival Karışık Kuru Yemiş - 75 g"
+    Then I should see selected product's id is not empty on vendor detail
+    And I  check selected product's Price is valid on vendor detail
+    And I check selected product's MaximumSaleAmount is valid on vendor detail
+    And I check selected product's HasOptions should be "false" on vendor detail
+    And  I check selected product's CategoryId is valid on vendor detail
+    And I check selected product's image url is 200 on vendor detail
 
   Scenario: User can't list vendor detail with wrong platformType
     When  A list of Carşı Vendor are available on home page
@@ -60,3 +76,28 @@ Feature: Vendor detail Controls
     And I check vendor name is valid
     And I check vendor category name is not empty
     And I check vendor logo url is 200
+
+  Scenario Outline: User can search product on vendor detail
+    When  A list of Carşı Vendor are available on home page
+    Then I select first vendor from "<VendorCategory>" category on home page
+    And  I navigate selected vendor
+    And I search "asdedasdsTEST" on vendor product search pageIndex 1
+    And I validate product search result is empty
+    And I validate HasNext is "false"
+    And I validate HasPrev is "false"
+    And I validate Total count is 0
+    When I search "<SearchText>" on vendor product search pageIndex 1
+    Then I validate related search result is valid  on the product list  searchText is "<SearchText>"
+    And I validate HasNext is "false"
+    And I validate HasPrev is "false"
+    And I validate Total count is 2
+    And I select a random product on product search results
+    Then I should see selected product's id is not empty on vendor detail
+    And I  check selected product's Price is valid on vendor detail
+    And I check selected product's MaximumSaleAmount is valid on vendor detail
+    And I check selected product's HasOptions should be "false" on vendor detail
+    And  I check selected product's CategoryId is valid on vendor detail
+    And I check selected product's image url is 200 on vendor detail
+    Examples:
+      | VendorCategory | SearchText |
+      | Market         | Calve      |

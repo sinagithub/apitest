@@ -44,6 +44,8 @@ public class MockServer {
         stubForSplashResponseForDisabled("SplashResponseDisabledVendor.json");
         stubForBasketIdResponse("BasketIdResponse.json");
         stubForBasketIdResponseArea2("BasketIdResponseArea3.json");
+        stubForVendorProductSearchValidCalve("VendorProductSearchResponse.json");
+        stubForVendorProductSearchValidEmpty("VendorProductSearchResponseEmpty.json");
     }
 
 
@@ -155,6 +157,36 @@ public class MockServer {
                 .withHeader("YS-Catalog", equalTo("TR_ANKARA"))
                 .withHeader("Accept", equalToIgnoreCase("*/*"))
                 .withHeader("Authorization", containing("Bearer"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForVendorProductSearchValidCalve(String responseFileName) {
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/vendor/.*/products/search"))
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("searchText",equalTo("Calve"))
+                .withQueryParam("pageIndex",equalTo("1"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile(responseFileName)));
+    }
+
+    public void stubForVendorProductSearchValidEmpty(String responseFileName) {
+        wireMockServer.stubFor(get(urlPathMatching("/api/v1/vendor/.*/products/search"))
+                .withHeader("Content-Type", containing("application/json;"))
+                .withHeader("YS-Culture", equalToIgnoreCase("tr-TR"))
+                .withHeader("YS-Catalog", equalToIgnoreCase("TR_ISTANBUL"))
+                .withHeader("Accept", equalToIgnoreCase("*/*"))
+                .withHeader("Authorization", containing("Bearer"))
+                .withQueryParam("searchText",equalTo("asdedasdsTEST"))
+                .withQueryParam("pageIndex",equalTo("1"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")

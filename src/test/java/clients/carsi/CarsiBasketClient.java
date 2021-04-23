@@ -2,8 +2,11 @@ package clients.carsi;
 
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
-import apiEngine.Route;
+import apiEngine.Routes.BasketRoute;
+import apiEngine.Routes.Route;
+import apiEngine.models.requests.Basket.AddProductReq;
 import apiEngine.models.requests.Basket.Campaigns.ApplyCampaignRequest;
+import apiEngine.models.response.Basket.AddProductResponse;
 import apiEngine.models.response.Basket.BasketIdResponse;
 import apiEngine.models.response.Basket.Campaign.GetCampaignsResponse;
 import apiEngine.models.response.Basket.DeleteBasketResponse;
@@ -29,6 +32,7 @@ public class CarsiBasketClient extends CarsiClient {
         Response response = request
                 .pathParam("id", basketId)
                 .get(Route.getBasket());
+        writeStepLog();
         return new RestResponse<>(GetBasketResponse.class, response);
     }
 
@@ -36,6 +40,7 @@ public class CarsiBasketClient extends CarsiClient {
         Response response = request
                 .pathParam("id", basketId)
                 .get(Route.getBasketLite());
+        writeStepLog();
         return new RestResponse<>(GetBasketResponse.class, response);
     }
 
@@ -43,6 +48,7 @@ public class CarsiBasketClient extends CarsiClient {
         Response response = request
                 .pathParam("id", basketId)
                 .delete(Route.getBasket());
+        writeStepLog();
         return new RestResponse<>(DeleteBasketResponse.class, response);
     }
 
@@ -51,6 +57,7 @@ public class CarsiBasketClient extends CarsiClient {
                 .pathParam("id", basketId)
                 .get(Route.getCampaign());
         return new RestResponse<>(GetCampaignsResponse.class, response);
+
     }
 
     public IRestResponse<GetCampaignsResponse> applyCampaign(String basketId,
@@ -59,6 +66,17 @@ public class CarsiBasketClient extends CarsiClient {
                 .pathParam("id", basketId)
                 .body(applyCampaignRequest)
                 .post(Route.getCampaign());
+        writeStepLog();
         return new RestResponse<>(GetCampaignsResponse.class, response);
     }
+
+    public IRestResponse<AddProductResponse> addProduct(String basketId, AddProductReq addProductReq){
+        Response response = request.
+                pathParam("id", basketId)
+                .body(addProductReq)
+                .post(BasketRoute.getAddProduct());
+        writeStepLog();
+        return new RestResponse<>(AddProductResponse.class, response);
+    }
+
 }
