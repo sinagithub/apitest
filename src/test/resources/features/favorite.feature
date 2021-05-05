@@ -8,9 +8,11 @@ Feature: Favorite Api controls
     When  I select pinned available address
 
   Scenario: I can add/delete vendor to empty favorite list
+    And I get all favorite vendor list
+    And I delete all added favorite products
     Given Set platform type to "Carsi"
     When I get Favorite list
-    Then I can see the favorite list is empty
+    ##Then I can see the favorite list is empty
     When A list of Carşı Vendor are available on home page
     And I select first vendor from "Super Market" category on home page
     Then I add selected vendor to favorite list
@@ -33,37 +35,32 @@ Feature: Favorite Api controls
     When I get Favorite list
     Then I can see the product on the favorite list
     And I can see the product is favorite on vendor detail
-    And I get vendor favorite product list
+    And I get all favorite vendor list
     And I delete all added favorite products
-    And I get vendor favorite product list
-    When I get Favorite list
     Then I can validate product is deleted vendor detail favorite
     When I get Favorite list
-    Then I can see the favorite list is empty
-    And I can validate favorite product size is 0 on favorite list
+    And I can validate favorite vendor  size is 1 on favorite list
     And I can validate vendor favorite product size is 0 on vendor vendor favorites list
 
 
-
   Scenario: I validate vendor favorite products and favorite list product size
-    Given Set platform type to "Carsi"
     When A list of Carşı Vendor are available on home page
     And I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    And I get vendor favorite product list
+    And I get all favorite vendor list
     And I delete all added favorite products
+    Given Set platform type to "Carsi"
     Then I select random 5 products
     And I can add all selected product to favorites
-    And I get vendor favorite product list
+    And I get vendor favorite list
     And I can validate vendor favorite product size is 5 on vendor vendor favorites list
-    When I get Favorite list
-    Then I validate vendor favorite product size is 3
-    And I get vendor favorite product list
+    And I get all favorite vendor list
     And I delete all added favorite products
-    And I get vendor favorite product list
     And I can validate vendor favorite product size is 0 on vendor vendor favorites list
+    When I get Favorite list
+    And I delete all vendor
     When I get Favorite list
     Then I can see the favorite list is empty

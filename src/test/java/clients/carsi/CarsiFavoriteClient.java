@@ -1,5 +1,6 @@
 package clients.carsi;
 
+import apiEngine.PlatformTypeHelper;
 import apiEngine.RestResponse;
 import apiEngine.Routes.FavoriteRoute;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
@@ -19,18 +20,21 @@ public class CarsiFavoriteClient extends CarsiClient {
 
     public RestResponse<GetFavoritesResponse> getFavoriteList(Double latitude, Double longitude) {
         Response response = createRequest()
-                .queryParam("lat", latitude)
-                .queryParam("lng", longitude)
+                .header("X-Address-Lat", latitude)
+                .header("X-Address-Long", longitude)
                 .get(FavoriteRoute.getFavorite());
         return new RestResponse(GetFavoritesResponse.class, response);
     }
 
     public RestResponse<VendorFavoriteResponse> getFavoriteVendorDetail(String vendorId,
-                                                                        double latitude, double longitude) {
+                                                                        double latitude,
+                                                                        double longitude
+                                                                        ) {
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
-                .queryParam("lat", latitude)
-                .queryParam("lng", longitude)
+                .header("X-Address-Lat", latitude)
+                .header("X-Address-Long", longitude)
+                .header("PlatformType",PlatformTypeHelper.getInstance().getPlatformType())
                 .get(FavoriteRoute.getFavoriteVendorDetail());
         return new RestResponse<>(VendorFavoriteResponse.class, response);
     }
@@ -54,17 +58,40 @@ public class CarsiFavoriteClient extends CarsiClient {
         return new RestResponse<>(VendorPutFavoriteResponse.class, response);
     }
 
-    public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteProduct(String productId, String vendorId) {
+    public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteProduct(String productId, String vendorId,
+                                                                            String platformType, double lat, double lng) {
+
+        if (platformType.equalsIgnoreCase("1")){
+            PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+        }
+        else {
+            PlatformTypeHelper.getInstance().setPlatformType("Banabi");
+        }
         Response response = createRequest()
                 .pathParam("productId", productId)
                 .pathParam("vendorId", vendorId)
+                .header("X-Address-Lat", lat)
+                .header("X-Address-Long", lng)
+                .header("PlatformType",PlatformTypeHelper.getInstance().getPlatformType())
                 .delete(FavoriteRoute.getDeleteFavoriteProduct());
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }
 
-    public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteVendor(String vendorId){
+    public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteVendor(String vendorId,
+                                                                          double lat, double lng){
+        String platformType = null;
+        if (PlatformTypeHelper.getInstance().getPlatformType().equalsIgnoreCase("1")){
+            platformType = "Carsi";
+        }
+        else {
+            platformType = "Banabi";
+        }
+
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
+                .header("X-Address-Lat", lat)
+                .header("X-Address-Long", lng)
+                .header("PlatformType",platformType)
                 .delete(FavoriteRoute.getDeleteVendor());
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }

@@ -65,7 +65,7 @@ public class AccountSteps extends BaseSteps {
         List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
         Address selectedAddress;
         for (Address address : addressList) {
-            if (address.getAvailabilityStatus() == 1) {
+            if (address.getAvailabilityStatus() == 2) {
                 selectedAddress = address;
                 getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
                 break;
