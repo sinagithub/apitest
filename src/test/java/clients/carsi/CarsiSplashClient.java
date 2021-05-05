@@ -11,7 +11,7 @@ public class CarsiSplashClient extends CarsiClient {
     }
 
     public RestResponse getSplash(){
-        Response response = request
+        Response response = createRequest()
                 .get(Route.getSplash());
         writeStepLog();
         return new RestResponse(SplashResponse.class, response);

@@ -22,14 +22,14 @@ public class CarsiBasketClient extends CarsiClient {
 
 
     public IRestResponse<BasketIdResponse> getBasketId(String addressId) {
-        Response response = request.queryParam("addressId", addressId)
+        Response response = createRequest().queryParam("addressId", addressId)
                 .get(Route.getBasketId());
         writeStepLog();
         return new RestResponse<>(BasketIdResponse.class, response);
     }
 
-    public IRestResponse<GetBasketResponse> getBasket(String basketId) {
-        Response response = request
+    public IRestResponse<GetBasketResponse> getBasketInfo(String basketId) {
+        Response response = createRequest()
                 .pathParam("id", basketId)
                 .get(Route.getBasket());
         writeStepLog();
@@ -37,7 +37,7 @@ public class CarsiBasketClient extends CarsiClient {
     }
 
     public IRestResponse<GetBasketResponse> getBasketLite(String basketId) {
-        Response response = request
+        Response response = createRequest()
                 .pathParam("id", basketId)
                 .get(Route.getBasketLite());
         writeStepLog();
@@ -45,7 +45,7 @@ public class CarsiBasketClient extends CarsiClient {
     }
 
     public IRestResponse<DeleteBasketResponse> deleteBasket(String basketId) {
-        Response response = request
+        Response response = createRequest()
                 .pathParam("id", basketId)
                 .delete(Route.getBasket());
         writeStepLog();
@@ -53,7 +53,7 @@ public class CarsiBasketClient extends CarsiClient {
     }
 
     public IRestResponse<GetCampaignsResponse> getCampaigns(String basketId) {
-        Response response = request
+        Response response = createRequest()
                 .pathParam("id", basketId)
                 .get(Route.getCampaign());
         return new RestResponse<>(GetCampaignsResponse.class, response);
@@ -62,7 +62,7 @@ public class CarsiBasketClient extends CarsiClient {
 
     public IRestResponse<GetCampaignsResponse> applyCampaign(String basketId,
                                                              ApplyCampaignRequest applyCampaignRequest) {
-        Response response = request
+        Response response = createRequest()
                 .pathParam("id", basketId)
                 .body(applyCampaignRequest)
                 .post(Route.getCampaign());
@@ -71,7 +71,7 @@ public class CarsiBasketClient extends CarsiClient {
     }
 
     public IRestResponse<AddProductResponse> addProduct(String basketId, AddProductReq addProductReq){
-        Response response = request.
+        Response response = createRequest().
                 pathParam("id", basketId)
                 .body(addProductReq)
                 .post(BasketRoute.getAddProduct());

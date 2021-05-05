@@ -53,4 +53,8 @@ public class TestContext {
         return new CarsiBasketClient(BaseUrls.getCarsiBaseUrl());
    }
 
+   public CarsiFavoriteClient getCarsiFavoriteClient(){
+        return new CarsiFavoriteClient(BaseUrls.getCarsiBaseUrl());
+   }
+
 }

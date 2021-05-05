@@ -9,32 +9,39 @@ import io.restassured.specification.RequestSpecification;
 import stepDefinitions.Hooks;
 
 
-
 public class ApiClient extends Hooks {
-    public RequestSpecification request;
+
     public RequestSpecification cdnRequest;
     public CustomLogFilter logFilter;
+    private final String catalog;
+    private final String token;
+    private final String platformType;
+    private final RestAssuredConfig config;
+    private final String baseUrl;
 
 
-    public ApiClient(String baseUrl) {
-        String catalog = CatalogSelector.getInstance().getCatalogName();
-        String token = TokenHelper.getInstance().getToken();
-        String platformType = PlatformTypeHelper.getInstance().getPlatformType();
-        RestAssuredConfig config = RestConfig.createConfig();
-        logFilter = new CustomLogFilter();
-        request = RestAssured.given().config(config).with().filter(logFilter).log().all();
+    public RequestSpecification createRequest() {
+        RequestSpecification request = RestAssured.given().config(config).with().filter(logFilter).log().all();
         request.baseUri(baseUrl);
         request.header("Content-Type", "application/json");
         request.header("YS-Culture", "tr-TR");
-        if (platformType != null){
-            request.header("PlatformType",platformType);
+        if (platformType != null) {
+            request.header("PlatformType", platformType);
         }
         request.header("Authorization", "Bearer " + token);
         if (catalog != null) {
             request.header("YS-Catalog", catalog);
         }
+        return request;
+    }
 
-
+    public ApiClient(String baseUrl) {
+        this.baseUrl = baseUrl;
+        catalog = CatalogSelector.getInstance().getCatalogName();
+        token = TokenHelper.getInstance().getToken();
+        platformType = PlatformTypeHelper.getInstance().getPlatformType();
+        config = RestConfig.createConfig();
+        logFilter = new CustomLogFilter();
     }
 
     public void writeStepLog() {
@@ -42,22 +49,20 @@ public class ApiClient extends Hooks {
                 + "\n" + "API Response: " + logFilter.getResponseBuilder());
     }
 
-    public void writeStepLog(boolean showResponse,boolean showRequest) {
+    public void writeStepLog(boolean showResponse, boolean showRequest) {
 
-        if (showRequest && showResponse){
+        if (showRequest && showResponse) {
             Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
                     + "\n" + "API Response: " + logFilter.getResponseBuilder());
-        }
-        else if (showRequest && !showResponse){
+        } else if (showRequest && !showResponse) {
             Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder());
-        }
-        else if (showResponse && !showRequest){
+        } else if (showResponse && !showRequest) {
             Storage.getScenario().log("API Response: " + logFilter.getResponseBuilder());
         }
     }
 
     public Response getImageUrlResponse(String imageUrl) {
-        writeStepLog(false,true);
+        writeStepLog(false, true);
         RestAssuredConfig config = RestConfig.createConfig();
         cdnRequest = RestAssured.given().config(config);
         return cdnRequest.get(imageUrl);

@@ -9,7 +9,7 @@ Feature: Vendor detail Controls
 
   Scenario: User should see vendor correctly
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Market" category on home page
+    Then I select first vendor from "Super Market" category on home page
     When  I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -28,7 +28,7 @@ Feature: Vendor detail Controls
 
   Scenario: User should list products on the vendor detail
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Market" category on home page
+    Then I select first vendor from "Super Market" category on home page
     When  I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -61,6 +61,7 @@ Feature: Vendor detail Controls
 
   Scenario: User should see banabi vendor correctly
     When  Banabi Vendor is available
+    And Set platform type to "Banabi"
     Then I select banabi vendor
     Then I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -98,6 +99,7 @@ Feature: Vendor detail Controls
     And I check selected product's HasOptions should be "false" on vendor detail
     And  I check selected product's CategoryId is valid on vendor detail
     And I check selected product's image url is 200 on vendor detail
+
     Examples:
       | VendorCategory | SearchText |
       | Market         | Calve      |

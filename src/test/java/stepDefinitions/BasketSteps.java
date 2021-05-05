@@ -20,8 +20,7 @@ public class BasketSteps extends BaseSteps {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
         String addressId = address.getAddressId();
 
-        CarsiBasketClient mockBasketClient = new CarsiBasketClient(BaseUrls.mockBaseUrl());
-        IRestResponse<BasketIdResponse> basketIdResponse = mockBasketClient.getBasketId(addressId);
+        IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String basketId = basketIdResponse.getBody().getBasketId();
 
         getScenarioContext().setContext(Context.BASKET_ID, basketId);
@@ -34,8 +33,7 @@ public class BasketSteps extends BaseSteps {
 
         String oldBasketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
 
-        CarsiBasketClient mockBasketClient = new CarsiBasketClient(BaseUrls.mockBaseUrl());
-        IRestResponse<BasketIdResponse> basketIdResponse = mockBasketClient.getBasketId(addressId);
+        IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String newBasketId = basketIdResponse.getBody().getBasketId();
 
         assertTrue(newBasketId.equals(oldBasketId),"New basket id and old basket id should be equal");
@@ -49,8 +47,7 @@ public class BasketSteps extends BaseSteps {
         String oldBasketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
 
 
-        CarsiBasketClient mockBasketClient = new CarsiBasketClient(BaseUrls.mockBaseUrl());
-        IRestResponse<BasketIdResponse> basketIdResponse = mockBasketClient.getBasketId(addressId);
+        IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String basketId = basketIdResponse.getBody().getBasketId();
         assertFalse(oldBasketId.equals(basketId));
 
