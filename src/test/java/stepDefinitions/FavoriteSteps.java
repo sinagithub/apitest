@@ -2,6 +2,7 @@ package stepDefinitions;
 
 
 import apiEngine.IRestResponse;
+import apiEngine.PlatformTypeHelper;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
 import apiEngine.models.requests.Favorite.AddFavoriteVendorRequest;
 import apiEngine.models.response.Address;
@@ -33,26 +34,54 @@ public class FavoriteSteps extends BaseSteps {
     }
 
 
-    @When("I get vendor favorite product list")
+    @When("I get all favorite vendor list")
+    public void i_get_all_favorite_vendors() {
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        double lat = address.getLatitude();
+        double lng = address.getLongitude();
+
+        IRestResponse<GetFavoritesResponse> geFavoriteListResponse =
+                getCarsiFavoriteClient().getFavoriteList(lat, lng);
+        List<Vendor> vendorList = geFavoriteListResponse.getBody().getData().getVendors();
+        getScenarioContext().setContext(Context.FAVORITE_VENDOR_LIST, vendorList);
+
+    }
+
+    @When("I get vendor favorite list")
     public void i_get_favorite_vendor_product_list() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
         double lat = address.getLatitude();
-        double lng = address.getLatitude();
+        double lng = address.getLongitude();
 
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
 
-        IRestResponse<VendorFavoriteResponse> getVendorFavoriteListResponse =
-                getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat,
-                        lng);
-        getScenarioContext().setContext(Context.GET_VENDOR_FAVORITE_PRODUCTS_RESPONSE, getVendorFavoriteListResponse);
+
+        IRestResponse<GetFavoritesResponse> geFavoriteListResponse =
+                getCarsiFavoriteClient().getFavoriteList(lat, lng);
+        List<Vendor> vendorList = geFavoriteListResponse.getBody().getData().getVendors();
+
+        for (Vendor vendor : vendorList) {
+            if (vendor.getId().equalsIgnoreCase(vendorId)) {
+                String platformType = vendor.getPlatformType();
+                PlatformTypeHelper.getInstance().setPlatformType(platformType);
+                IRestResponse<VendorFavoriteResponse> getVendorFavoriteListResponse =
+                        getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat, lng);
+                getScenarioContext().setContext(Context.GET_VENDOR_FAVORITE_PRODUCTS_RESPONSE,
+                        getVendorFavoriteListResponse);
+            }
+
+
+        }
+
+
     }
 
     @When("I get Favorite list")
     public void i_get_favorite_list() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
         double lat = address.getLatitude();
-        double lng = address.getLatitude();
+        double lng = address.getLongitude();
 
         IRestResponse<GetFavoritesResponse> getFavoriteListResponse = getCarsiFavoriteClient().getFavoriteList(lat,
                 lng);
@@ -69,7 +98,7 @@ public class FavoriteSteps extends BaseSteps {
 
     }
 
-    @Then("I can validate favorite product size is {int} on favorite list")
+    @Then("I can validate favorite vendor  size is {int} on favorite list")
     public void i_can_validate_favorite_product_size_is(Integer size) {
         IRestResponse<GetFavoritesResponse> getFavoritesResponse =
                 (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
@@ -82,10 +111,17 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I can validate vendor favorite product size is {int} on vendor vendor favorites list")
     public void i_can_validate_vendor_favorite_products_size_is(Integer size) {
-        IRestResponse<VendorFavoriteResponse> getVendorFavoritesResponse =
-                (IRestResponse<VendorFavoriteResponse>) getScenarioContext().getContext(Context.GET_VENDOR_FAVORITE_PRODUCTS_RESPONSE);
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        double lat = address.getLatitude();
+        double lng = address.getLatitude();
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String vendorId = selectedVendor.getId();
+
+
+        IRestResponse<VendorFavoriteResponse> vendorFavoriteResponseResponse =
+                getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat, lng);
         List<apiEngine.models.response.Favorite.Product> productList =
-                getVendorFavoritesResponse.getBody().getData().getProducts();
+                vendorFavoriteResponseResponse.getBody().getData().getProducts();
         int productListSize = productList.size();
         assertTrue(productListSize == size, "Vendor Favorite list size should be " + size + " not " +
                 productListSize);
@@ -137,8 +173,11 @@ public class FavoriteSteps extends BaseSteps {
     @When("I remove the added vendor from favorite list")
     public void i_remove_the_added_vendor_from_favorite_list() {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        double lat = address.getLatitude();
+        double lng = address.getLongitude();
         String vendorId = selectedVendor.getId();
-        getCarsiFavoriteClient().deleteFavoriteVendor(vendorId);
+        getCarsiFavoriteClient().deleteFavoriteVendor(vendorId, lat, lng);
     }
 
     @Then("I can validate the vendor is removed on the favorite list")
@@ -166,7 +205,7 @@ public class FavoriteSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
 
-        for (int i = 0; i<productIdList.size(); i++){
+        for (int i = 0; i < productIdList.size(); i++) {
             String productId = productIdList.get(i);
             AddFavoriteProductRequest addFavoriteProductRequest = new AddFavoriteProductRequest(productId);
             getCarsiFavoriteClient().addProductToFavorite(vendorId, addFavoriteProductRequest);
@@ -233,12 +272,15 @@ public class FavoriteSteps extends BaseSteps {
 
     @When("I remove added product on favorite list")
     public void i_remove_added_product_on_favorite_list() {
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        double lat = address.getLatitude();
+        double lng = address.getLongitude();
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String productId = selectedProduct.getId();
-
-        getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId);
+        String platformType = PlatformTypeHelper.getInstance().getPlatformType();
+        getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, platformType, lat, lng);
     }
 
     @Then("I can validate product is deleted vendor detail favorite")
@@ -256,24 +298,56 @@ public class FavoriteSteps extends BaseSteps {
     }
 
 
-    @Then("I validate vendor favorite product size is {int}")
-    public void i_validate_vendor_favorite_product_size_is(Integer int1) {
-
-    }
-
     @Then("I delete all added favorite products")
     public void i_delete_all_added_favorite_products() {
-        IRestResponse<VendorFavoriteResponse> getVendorFavoritesResponse =
-                (IRestResponse<VendorFavoriteResponse>) getScenarioContext().getContext(Context.GET_VENDOR_FAVORITE_PRODUCTS_RESPONSE);
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
-        String vendorId = selectedVendor.getId();
+        String basePlatformType = PlatformTypeHelper.getInstance().getPlatformType();
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        double lat = address.getLatitude();
+        double lng = address.getLongitude();
 
-        List<apiEngine.models.response.Favorite.Product>
-        productList = getVendorFavoritesResponse.getBody().getData().getProducts();
 
-        for (apiEngine.models.response.Favorite.Product product : productList) {
-            String productId = product.getId();
-            getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId);
+        List<Vendor> vendorList = (List<Vendor>) getScenarioContext().getContext(Context.FAVORITE_VENDOR_LIST);
+
+        for (Vendor vendor : vendorList) {
+            String vendorId = vendor.getId();
+            String vendorType = vendor.getPlatformType();
+
+
+            if (vendorType.equalsIgnoreCase("1")) {
+                PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+            } else {
+                PlatformTypeHelper.getInstance().setPlatformType("Banabi");
+            }
+
+            IRestResponse<VendorFavoriteResponse> getVendorFavoriteListResponse =
+                    getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat,
+                            lng);
+
+            List<apiEngine.models.response.Favorite.Product> productList =
+                    getVendorFavoriteListResponse.getBody().getData().getProducts();
+
+            for (apiEngine.models.response.Favorite.Product product : productList) {
+                String productId = product.getId();
+//adsad
+                getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, vendorType, lat, lng);
+            }
+
+        }
+        setCurrentPlatformType(basePlatformType);
+    }
+
+    @Then("I delete all vendor")
+    public void i_delete_all_added_vendor() {
+        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        double lat = address.getLatitude();
+        double lng = address.getLongitude();
+        IRestResponse<GetFavoritesResponse> getFavoritesResponse =
+                (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
+        List<Vendor> vendorList = getFavoritesResponse.getBody().getData().getVendors();
+
+        for (Vendor vendor : vendorList) {
+            String vendorId = vendor.getId();
+            getCarsiFavoriteClient().deleteFavoriteVendor(vendorId, lat, lng);
         }
 
     }
