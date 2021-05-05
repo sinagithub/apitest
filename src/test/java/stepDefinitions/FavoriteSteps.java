@@ -137,7 +137,9 @@ public class FavoriteSteps extends BaseSteps {
     public void i_add_selected_vendor_to_favorite_list() {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
+
         AddFavoriteVendorRequest addFavoriteVendorRequest = new AddFavoriteVendorRequest(vendorId);
+
         IRestResponse<VendorPutFavoriteResponse> addFavoriteVendor =
                 getCarsiFavoriteClient().addVendorToFavorite(addFavoriteVendorRequest);
 
@@ -155,6 +157,7 @@ public class FavoriteSteps extends BaseSteps {
 
         for (Vendor vendor : vendorList) {
             if (vendor.getId().equals(vendorId)) {
+
                 return true;
             }
         }
@@ -170,6 +173,21 @@ public class FavoriteSteps extends BaseSteps {
         assertTrue(isVendorOnTheFavoriteList(addedVendorId), "Vendor not on the favorite list !");
     }
 
+    private void setVendorPlatformType(String vendorId, double lat , double lng){
+      List<Vendor> vendorList =  getCarsiFavoriteClient().getFavoriteList(lat,lng).getBody().getData().getVendors();
+      for (Vendor vendor : vendorList){
+          if (vendor.getId().equalsIgnoreCase(vendorId)){
+              if (vendor.getPlatformType().equalsIgnoreCase("1")){
+                  PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+              }
+              else {
+                  PlatformTypeHelper.getInstance().setPlatformType("Banabi");
+              }
+
+          }
+      }
+    }
+
     @When("I remove the added vendor from favorite list")
     public void i_remove_the_added_vendor_from_favorite_list() {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
@@ -177,6 +195,8 @@ public class FavoriteSteps extends BaseSteps {
         double lat = address.getLatitude();
         double lng = address.getLongitude();
         String vendorId = selectedVendor.getId();
+
+        setVendorPlatformType(vendorId,lat,lng);
         getCarsiFavoriteClient().deleteFavoriteVendor(vendorId, lat, lng);
     }
 
@@ -312,12 +332,7 @@ public class FavoriteSteps extends BaseSteps {
             String vendorId = vendor.getId();
             String vendorType = vendor.getPlatformType();
 
-
-            if (vendorType.equalsIgnoreCase("1")) {
-                PlatformTypeHelper.getInstance().setPlatformType("Carsi");
-            } else {
-                PlatformTypeHelper.getInstance().setPlatformType("Banabi");
-            }
+            setVendorPlatformType(vendorId,lat,lng);
 
             IRestResponse<VendorFavoriteResponse> getVendorFavoriteListResponse =
                     getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat,
@@ -328,7 +343,6 @@ public class FavoriteSteps extends BaseSteps {
 
             for (apiEngine.models.response.Favorite.Product product : productList) {
                 String productId = product.getId();
-//adsad
                 getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, vendorType, lat, lng);
             }
 
@@ -347,6 +361,7 @@ public class FavoriteSteps extends BaseSteps {
 
         for (Vendor vendor : vendorList) {
             String vendorId = vendor.getId();
+            setVendorPlatformType(vendorId,lat,lng);
             getCarsiFavoriteClient().deleteFavoriteVendor(vendorId, lat, lng);
         }
 

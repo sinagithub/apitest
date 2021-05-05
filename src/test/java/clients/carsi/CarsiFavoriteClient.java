@@ -79,19 +79,12 @@ public class CarsiFavoriteClient extends CarsiClient {
 
     public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteVendor(String vendorId,
                                                                           double lat, double lng){
-        String platformType = null;
-        if (PlatformTypeHelper.getInstance().getPlatformType().equalsIgnoreCase("1")){
-            platformType = "Carsi";
-        }
-        else {
-            platformType = "Banabi";
-        }
 
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
                 .header("X-Address-Lat", lat)
                 .header("X-Address-Long", lng)
-                .header("PlatformType",platformType)
+                .header("PlatformType",PlatformTypeHelper.getInstance().getPlatformType())
                 .delete(FavoriteRoute.getDeleteVendor());
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }

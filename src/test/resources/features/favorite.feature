@@ -64,3 +64,5 @@ Feature: Favorite Api controls
     And I delete all vendor
     When I get Favorite list
     Then I can see the favorite list is empty
+
+    Scenario: Validation controls
