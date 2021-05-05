@@ -1,34 +1,32 @@
-package apiEngine.models.response;
-
+package apiEngine.models.response.Favorite;
 
 import java.util.List;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "PlatformType",
         "Id",
         "Name",
-        "ImageUrl",
         "LogoUrl",
         "DeliveryTimeInfo",
         "MinBasketPriceInfo",
         "DeliveryFeeInfo",
-        "CategoryIds",
+        "IsOpen",
         "CategoryName",
-        "IsOpen"
+        "Products",
+        "City",
+        "HasMoreProducts"
 })
-@Generated("jsonschema2pojo")
-public class CarsiVendor {
 
+public class VendorFavoriteData {
+
+    @JsonProperty("PlatformType")
+    private String platformType;
     @JsonProperty("Id")
     private String id;
     @JsonProperty("Name")
     private String name;
-    @JsonProperty("ImageUrl")
-    private String imageUrl;
     @JsonProperty("LogoUrl")
     private String logoUrl;
     @JsonProperty("DeliveryTimeInfo")
@@ -37,12 +35,26 @@ public class CarsiVendor {
     private String minBasketPriceInfo;
     @JsonProperty("DeliveryFeeInfo")
     private String deliveryFeeInfo;
-    @JsonProperty("CategoryIds")
-    private List<String> categoryIds = null;
-    @JsonProperty("CategoryName")
-    private String categoryName;
     @JsonProperty("IsOpen")
     private Boolean isOpen;
+    @JsonProperty("CategoryName")
+    private String categoryName;
+    @JsonProperty("Products")
+    private List<Product> products = null;
+    @JsonProperty("City")
+    private String city;
+    @JsonProperty("HasMoreProducts")
+    private Boolean hasMoreProducts;
+
+    @JsonProperty("PlatformType")
+    public String getPlatformType() {
+        return platformType;
+    }
+
+    @JsonProperty("PlatformType")
+    public void setPlatformType(String platformType) {
+        this.platformType = platformType;
+    }
 
     @JsonProperty("Id")
     public String getId() {
@@ -62,16 +74,6 @@ public class CarsiVendor {
     @JsonProperty("Name")
     public void setName(String name) {
         this.name = name;
-    }
-
-    @JsonProperty("ImageUrl")
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    @JsonProperty("ImageUrl")
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     @JsonProperty("LogoUrl")
@@ -114,14 +116,14 @@ public class CarsiVendor {
         this.deliveryFeeInfo = deliveryFeeInfo;
     }
 
-    @JsonProperty("CategoryIds")
-    public List<String> getCategoryIds() {
-        return categoryIds;
+    @JsonProperty("IsOpen")
+    public Boolean getIsOpen() {
+        return isOpen;
     }
 
-    @JsonProperty("CategoryIds")
-    public void setCategoryIds(List<String> categoryIds) {
-        this.categoryIds = categoryIds;
+    @JsonProperty("IsOpen")
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
     }
 
     @JsonProperty("CategoryName")
@@ -134,14 +136,34 @@ public class CarsiVendor {
         this.categoryName = categoryName;
     }
 
-    @JsonProperty("IsOpen")
-    public Boolean getIsOpen() {
-        return isOpen;
+    @JsonProperty("Products")
+    public List<Product> getProducts() {
+        return products;
     }
 
-    @JsonProperty("IsOpen")
-    public void setIsOpen(Boolean isOpen) {
-        this.isOpen = isOpen;
+    @JsonProperty("Products")
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    @JsonProperty("City")
+    public String getCity() {
+        return city;
+    }
+
+    @JsonProperty("City")
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @JsonProperty("HasMoreProducts")
+    public Boolean getHasMoreProducts() {
+        return hasMoreProducts;
+    }
+
+    @JsonProperty("HasMoreProducts")
+    public void setHasMoreProducts(Boolean hasMoreProducts) {
+        this.hasMoreProducts = hasMoreProducts;
     }
 
 }

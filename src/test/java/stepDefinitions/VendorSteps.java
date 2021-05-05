@@ -16,6 +16,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -130,6 +131,21 @@ public class VendorSteps extends BaseSteps {
         int index = random.nextInt(products.size() - 1);
         Product product = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
+    }
+
+    @Then("I select random {int} products")
+    public void i_select_random_products(int size) {
+        IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
+                (IRestResponse<VendorProductsResponse>) getScenarioContext()
+                        .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
+        List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
+        List<String> selectedProductIdList = new ArrayList<>();
+
+        for (int i = 0; i<size; i++){
+            selectedProductIdList.add(products.get(i).getId());
+        }
+
+        getScenarioContext().setContext(Context.SELECTED_PRODUCT_ID_LIST, selectedProductIdList);
     }
 
     @Then("I select product with name {string}")

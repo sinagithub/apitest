@@ -12,7 +12,7 @@ public class CarsiProductClient extends CarsiClient {
     }
 
     public IRestResponse<ProductResponse> getProduct(String productId, String vendorId, String basketId) {
-        Response response = request
+        Response response = createRequest()
                 .pathParam("productId", productId)
                 .queryParam("vendorId", vendorId)
                 .queryParam("basketId", basketId)

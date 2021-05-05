@@ -12,7 +12,7 @@ public class CarsiUserClient extends CarsiClient {
     }
 
     public IRestResponse<AddressResponse> getAddresses(String catalogName) {
-        Response response = request.
+        Response response = createRequest().
                 queryParam("PrimaryCatalogName",catalogName)
                 .get(Route.availableAddresses());
         return new RestResponse(AddressResponse.class, response);

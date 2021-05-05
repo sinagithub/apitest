@@ -13,10 +13,9 @@ public class CarsiOrderClient extends CarsiClient {
     }
 
     public IRestResponse<ActiveOrdersResponse> getActiveOrders() {
-        Response response = request
+        Response response = createRequest()
                 .get(Route.getActiveOrders());
         return new RestResponse<>(ActiveOrdersResponse.class, response);
     }
-
 
 }

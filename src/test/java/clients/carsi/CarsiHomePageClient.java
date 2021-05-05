@@ -21,7 +21,7 @@ public class CarsiHomePageClient extends CarsiClient {
                                                               Double latitude,
                                                               Double longitude) {
 
-        Response response = request.log().all()
+        Response response = createRequest().log().all()
                 .queryParam("AddressId", addressId)
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
@@ -36,7 +36,7 @@ public class CarsiHomePageClient extends CarsiClient {
                                                                  String areaId,
                                                                  Double latitude,
                                                                  Double longitude) {
-        Response response = request.
+        Response response = createRequest().
                 queryParam("AddressId", addressId)
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
@@ -51,7 +51,7 @@ public class CarsiHomePageClient extends CarsiClient {
                                                                      String areaId,
                                                                      Double latitude,
                                                                      Double longitude) {
-        Response response = request.
+        Response response = createRequest().
                 queryParam("AddressId", addressId)
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
@@ -62,7 +62,7 @@ public class CarsiHomePageClient extends CarsiClient {
     }
 
     public IRestResponse<HomePagePlatformResponse> getPlatform() {
-        Response response = request
+        Response response = createRequest()
                 .get(Route.homepagePlatform());
         writeStepLog();
         return new RestResponse(HomePagePlatformResponse.class, response);

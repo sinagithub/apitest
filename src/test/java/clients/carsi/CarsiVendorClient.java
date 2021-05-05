@@ -16,7 +16,7 @@ public class CarsiVendorClient extends CarsiClient {
     }
 
     public IRestResponse<VendorProductsResponse> getProducts(String vendorId, String categoryId, int offset) {
-        Response response = request.pathParam("vendorId", vendorId)
+        Response response = createRequest().pathParam("vendorId", vendorId)
                 .queryParam("categoryId", categoryId)
                 .queryParam("offset", offset)
                 .get(VendorRoute.getVendorProducts());
@@ -25,14 +25,14 @@ public class CarsiVendorClient extends CarsiClient {
     }
 
     public IRestResponse<VendorResponse> getVendor(String vendorId) {
-        Response response = request.pathParam("vendorId", vendorId)
+        Response response = createRequest().pathParam("vendorId", vendorId)
                 .get(VendorRoute.getVendor());
         writeStepLog();
         return new RestResponse<>(VendorResponse.class, response);
     }
 
     public IRestResponse<VendorProductSearchResponse> searchProduct(String vendorId, String searchText, int pageIndex) {
-        Response response = request.
+        Response response = createRequest().
                 pathParam("vendorId", vendorId)
                 .queryParam("searchText", searchText)
                 .queryParam("pageIndex", pageIndex)
