@@ -50,7 +50,7 @@ Feature: Vendor detail Controls
     Then I should get 404 error on vendor detail
 
   Scenario: User can't list deleted vendor detail
-    When  I navigate vendor with "38909e64-96d8-11eb-b45d-69fdc0b8ba21"
+    When  I navigate vendor with "38909e64-96d8-11eb-b45d-69fdc0b8ba11"
     Then I should get 404 error on vendor detail
 
   Scenario: User can list closed carsi vendor

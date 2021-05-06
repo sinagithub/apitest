@@ -64,3 +64,30 @@ Feature: Favorite Api controls
     And I delete all vendor
     When I get Favorite list
     Then I can see the favorite list is empty
+
+  Scenario: Favorite parameter validations
+    When A list of Carşı Vendor are available on home page
+    And I select first vendor from "Super Market" category on home page
+    When I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random product
+    And I can add the selected product to favorites
+    When I get Favorite list
+    Then I check added favorite vendor id is valid on favorite list
+    #And I check added favorite vendor name is valid on favorite list
+    And I check added favorite vendor LogoUrl status is 200 on favorite list
+    #And I check added favorite vendor DeliveryTimeInfo is valid on favorite list
+    #And I check added favorite vendor  MinBasketPriceInfo is valid on favorite list
+    #And I check added favorite vendor  DeliveryFeeInfo is valid on favorite list
+    And I check added favorite vendor  IsOpen is valid on favorite list
+    And I check added favorite vendor  Products is valid on favorite list
+    When I get vendor favorite list
+    Then I check added product id is valid on favorite product list
+    And I check added product Name is valid on favorite product list
+    #And I check added product UnitMass is valid on favorite product list
+    And I check added product Price is valid on favorite product list
+    #And I check added product ImageUrl status is 200 on favorite product list
+    And I get all favorite vendor list
+    And I delete all added favorite products
