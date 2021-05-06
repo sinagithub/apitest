@@ -1,10 +1,7 @@
 package stepDefinitions;
 
 
-import apiEngine.ApiClient;
-import apiEngine.CatalogSelector;
-import apiEngine.IRestResponse;
-import apiEngine.Utils;
+import apiEngine.*;
 import apiEngine.models.requests.AuthorizationRequest;
 import apiEngine.models.response.Address;
 import apiEngine.models.response.AddressResponse;
@@ -68,6 +65,8 @@ public class AccountSteps extends BaseSteps {
             if (address.getAvailabilityStatus() == 2) {
                 selectedAddress = address;
                 getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
+                LatLongHelper.getInstance().setLatitude(address.getLatitude());
+                LatLongHelper.getInstance().setLongitude(address.getLongitude());
                 break;
             }
         }

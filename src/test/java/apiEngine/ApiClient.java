@@ -18,6 +18,9 @@ public class ApiClient extends Hooks {
     private final String platformType;
     private final RestAssuredConfig config;
     private final String baseUrl;
+    private final Double latitude;
+    private final Double longitude;
+
 
 
     public RequestSpecification createRequest() {
@@ -32,6 +35,14 @@ public class ApiClient extends Hooks {
         if (catalog != null) {
             request.header("YS-Catalog", catalog);
         }
+
+        if (latitude != null) {
+            request.header("X-Address-Lat", latitude);
+        }
+
+        if (longitude != null) {
+            request.header("X-Address-Long", longitude);
+        }
         return request;
     }
 
@@ -40,6 +51,8 @@ public class ApiClient extends Hooks {
         catalog = CatalogSelector.getInstance().getCatalogName();
         token = TokenHelper.getInstance().getToken();
         platformType = PlatformTypeHelper.getInstance().getPlatformType();
+        latitude = LatLongHelper.getInstance().getLatitude();
+        longitude = LatLongHelper.getInstance().getLongitude();
         config = RestConfig.createConfig();
         logFilter = new CustomLogFilter();
     }
@@ -54,9 +67,9 @@ public class ApiClient extends Hooks {
         if (showRequest && showResponse) {
             Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
                     + "\n" + "API Response: " + logFilter.getResponseBuilder());
-        } else if (showRequest && !showResponse) {
+        } else if (showRequest) {
             Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder());
-        } else if (showResponse && !showRequest) {
+        } else if (showResponse) {
             Storage.getScenario().log("API Response: " + logFilter.getResponseBuilder());
         }
     }

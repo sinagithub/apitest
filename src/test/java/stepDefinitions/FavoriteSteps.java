@@ -14,6 +14,7 @@ import apiEngine.models.response.Favorite.VendorFavoriteResponse;
 import apiEngine.models.response.Favorite.VendorPutFavoriteResponse;
 import apiEngine.models.response.Vendor.Product;
 import apiEngine.models.response.Vendor.VendorProductSearchResponse;
+import apiEngine.models.response.Vendor.VendorProductsResponse;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
@@ -37,11 +38,9 @@ public class FavoriteSteps extends BaseSteps {
     @When("I get all favorite vendor list")
     public void i_get_all_favorite_vendors() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLongitude();
 
         IRestResponse<GetFavoritesResponse> geFavoriteListResponse =
-                getCarsiFavoriteClient().getFavoriteList(lat, lng);
+                getCarsiFavoriteClient().getFavoriteList();
         List<Vendor> vendorList = geFavoriteListResponse.getBody().getData().getVendors();
         getScenarioContext().setContext(Context.FAVORITE_VENDOR_LIST, vendorList);
 
@@ -49,16 +48,12 @@ public class FavoriteSteps extends BaseSteps {
 
     @When("I get vendor favorite list")
     public void i_get_favorite_vendor_product_list() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLongitude();
-
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
 
 
         IRestResponse<GetFavoritesResponse> geFavoriteListResponse =
-                getCarsiFavoriteClient().getFavoriteList(lat, lng);
+                getCarsiFavoriteClient().getFavoriteList();
         List<Vendor> vendorList = geFavoriteListResponse.getBody().getData().getVendors();
 
         for (Vendor vendor : vendorList) {
@@ -66,7 +61,7 @@ public class FavoriteSteps extends BaseSteps {
                 String platformType = vendor.getPlatformType();
                 PlatformTypeHelper.getInstance().setPlatformType(platformType);
                 IRestResponse<VendorFavoriteResponse> getVendorFavoriteListResponse =
-                        getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat, lng);
+                        getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId);
                 getScenarioContext().setContext(Context.GET_VENDOR_FAVORITE_PRODUCTS_RESPONSE,
                         getVendorFavoriteListResponse);
             }
@@ -79,13 +74,10 @@ public class FavoriteSteps extends BaseSteps {
 
     @When("I get Favorite list")
     public void i_get_favorite_list() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLongitude();
-
-        IRestResponse<GetFavoritesResponse> getFavoriteListResponse = getCarsiFavoriteClient().getFavoriteList(lat,
-                lng);
+        IRestResponse<GetFavoritesResponse> getFavoriteListResponse = getCarsiFavoriteClient().getFavoriteList();
         getScenarioContext().setContext(Context.GET_FAVORITE_VENDORS_RESPONSE, getFavoriteListResponse);
+        getScenarioContext().setContext(Context.GET_FAVORITE_VENDORS_LIST,
+                getFavoriteListResponse.getBody().getData().getVendors());
     }
 
     @Then("I can see the favorite list is empty")
@@ -111,15 +103,12 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I can validate vendor favorite product size is {int} on vendor vendor favorites list")
     public void i_can_validate_vendor_favorite_products_size_is(Integer size) {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLatitude();
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
 
 
         IRestResponse<VendorFavoriteResponse> vendorFavoriteResponseResponse =
-                getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat, lng);
+                getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId);
         List<apiEngine.models.response.Favorite.Product> productList =
                 vendorFavoriteResponseResponse.getBody().getData().getProducts();
         int productListSize = productList.size();
@@ -173,19 +162,18 @@ public class FavoriteSteps extends BaseSteps {
         assertTrue(isVendorOnTheFavoriteList(addedVendorId), "Vendor not on the favorite list !");
     }
 
-    private void setVendorPlatformType(String vendorId, double lat , double lng){
-      List<Vendor> vendorList =  getCarsiFavoriteClient().getFavoriteList(lat,lng).getBody().getData().getVendors();
-      for (Vendor vendor : vendorList){
-          if (vendor.getId().equalsIgnoreCase(vendorId)){
-              if (vendor.getPlatformType().equalsIgnoreCase("1")){
-                  PlatformTypeHelper.getInstance().setPlatformType("Carsi");
-              }
-              else {
-                  PlatformTypeHelper.getInstance().setPlatformType("Banabi");
-              }
+    private void setVendorPlatformType(String vendorId) {
+        List<Vendor> vendorList = getCarsiFavoriteClient().getFavoriteList().getBody().getData().getVendors();
+        for (Vendor vendor : vendorList) {
+            if (vendor.getId().equalsIgnoreCase(vendorId)) {
+                if (vendor.getPlatformType().equalsIgnoreCase("1")) {
+                    PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+                } else {
+                    PlatformTypeHelper.getInstance().setPlatformType("Banabi");
+                }
 
-          }
-      }
+            }
+        }
     }
 
     @When("I remove the added vendor from favorite list")
@@ -196,8 +184,8 @@ public class FavoriteSteps extends BaseSteps {
         double lng = address.getLongitude();
         String vendorId = selectedVendor.getId();
 
-        setVendorPlatformType(vendorId,lat,lng);
-        getCarsiFavoriteClient().deleteFavoriteVendor(vendorId, lat, lng);
+        setVendorPlatformType(vendorId);
+        getCarsiFavoriteClient().deleteFavoriteVendor(vendorId);
     }
 
     @Then("I can validate the vendor is removed on the favorite list")
@@ -262,9 +250,9 @@ public class FavoriteSteps extends BaseSteps {
         assertTrue(isProductOnTheFavoriteList(vendorId, productId), "Added favorite product should be on list");
     }
 
-    private boolean isProductOnTheVendorDetailList(String vendorId, double lat, double lng, String productId) {
+    private boolean isProductOnTheVendorDetailList(String vendorId, String productId) {
         List<apiEngine.models.response.Favorite.Product> productList =
-                getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat, lng).getBody().getData().getProducts();
+                getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId).getBody().getData().getProducts();
 
         for (apiEngine.models.response.Favorite.Product product : productList) {
             if (product.getId().equalsIgnoreCase(productId)) {
@@ -285,35 +273,29 @@ public class FavoriteSteps extends BaseSteps {
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String productId = selectedProduct.getId();
 
-        assertTrue(isProductOnTheVendorDetailList(vendorId, lat, lng, productId), "Product should be on the vendor " +
+        assertTrue(isProductOnTheVendorDetailList(vendorId, productId), "Product should be on the vendor " +
                 "favorite list");
 
     }
 
     @When("I remove added product on favorite list")
     public void i_remove_added_product_on_favorite_list() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLongitude();
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String productId = selectedProduct.getId();
         String platformType = PlatformTypeHelper.getInstance().getPlatformType();
-        getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, platformType, lat, lng);
+        getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, platformType);
     }
 
     @Then("I can validate product is deleted vendor detail favorite")
     public void i_can_validate_product_is_deleted_vendor_detail_favorite() {
         i_get_favorite_list();
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLatitude();
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String productId = selectedProduct.getId();
-        assertFalse(isProductOnTheVendorDetailList(vendorId, lat, lng, productId));
+        assertFalse(isProductOnTheVendorDetailList(vendorId, productId));
 
     }
 
@@ -332,18 +314,17 @@ public class FavoriteSteps extends BaseSteps {
             String vendorId = vendor.getId();
             String vendorType = vendor.getPlatformType();
 
-            setVendorPlatformType(vendorId,lat,lng);
+            setVendorPlatformType(vendorId);
 
             IRestResponse<VendorFavoriteResponse> getVendorFavoriteListResponse =
-                    getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId, lat,
-                            lng);
+                    getCarsiFavoriteClient().getFavoriteVendorDetail(vendorId);
 
             List<apiEngine.models.response.Favorite.Product> productList =
                     getVendorFavoriteListResponse.getBody().getData().getProducts();
 
             for (apiEngine.models.response.Favorite.Product product : productList) {
                 String productId = product.getId();
-                getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, vendorType, lat, lng);
+                getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, vendorType);
             }
 
         }
@@ -352,18 +333,246 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I delete all vendor")
     public void i_delete_all_added_vendor() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLongitude();
         IRestResponse<GetFavoritesResponse> getFavoritesResponse =
                 (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
         List<Vendor> vendorList = getFavoritesResponse.getBody().getData().getVendors();
 
         for (Vendor vendor : vendorList) {
             String vendorId = vendor.getId();
-            setVendorPlatformType(vendorId,lat,lng);
-            getCarsiFavoriteClient().deleteFavoriteVendor(vendorId, lat, lng);
+            setVendorPlatformType(vendorId);
+            getCarsiFavoriteClient().deleteFavoriteVendor(vendorId);
         }
 
     }
+
+    private Vendor getSelectedVendorDetailsFromFavoriteList(String vendorId) {
+        List<Vendor> favoriteVendorList =
+                (List<Vendor>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_LIST);
+        int index = -1;
+        for (Vendor vendor : favoriteVendorList) {
+            String selectedVendorId = vendor.getId();
+            if (vendor.getId().equalsIgnoreCase(selectedVendorId)) {
+                index = favoriteVendorList.indexOf(vendor);
+                break;
+            }
+        }
+        return favoriteVendorList.get(index);
+    }
+
+    private Vendor getAddedProductFromVendorFavorite(String productId) {
+        List<Vendor> favoriteVendorList =
+                (List<Vendor>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_LIST);
+        int index = -1;
+        for (Vendor vendor : favoriteVendorList) {
+            String selectedVendorId = vendor.getId();
+            if (vendor.getId().equalsIgnoreCase(selectedVendorId)) {
+                index = favoriteVendorList.indexOf(vendor);
+                break;
+            }
+        }
+        return favoriteVendorList.get(index);
+    }
+
+    @Then("I check added favorite vendor id is valid on favorite list")
+    public void i_check_added_favorite_vendor_id_is_valid() {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        assertTrue(!favoriteVendor.getId().isEmpty(), "Vendor id must not be null");
+        assertEqual("Vendor id not equal from selected", selectedVendor.getId(), favoriteVendor.getId());
+    }
+
+    @Then("I check added favorite vendor name is valid on favorite list")
+    public void i_check_added_favorite_vendor_name_is_valid() {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        assertTrue(!favoriteVendor.getName().isEmpty(), "Vendor name must not be null");
+        assertEqual("Vendor name not equal from selected", selectedVendor.getName(), favoriteVendor.getName());
+    }
+
+    @Then("I check added favorite vendor LogoUrl status is {int} on favorite list")
+    public void i_check_added_favorite_vendor_logo_url_is_valid(int statusCode) {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        int imageStatus = getCarsiFavoriteClient().getImageUrlResponse(favoriteVendor.getLogoUrl()).getStatusCode();
+
+        assertTrue(imageStatus == statusCode, "Vendor logo status should be " + statusCode
+                + " not " + imageStatus);
+    }
+
+    @Then("I check added favorite vendor DeliveryTimeInfo is valid on favorite list")
+    public void i_check_added_favorite_vendor_delivery_time_info_is_valid() {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        String actualDeliveryTime = favoriteVendor.getDeliveryTimeInfo();
+        String expectedDeliveryTime = selectedVendor.getDeliveryTimeInfo();
+        assertTrue(!actualDeliveryTime.isEmpty(), "Delivery time must not null");
+        assertEqual("Selected vendor and favorite vendor delivery time info should be equal",
+                actualDeliveryTime, expectedDeliveryTime);
+    }
+
+    @Then("I check added favorite vendor  MinBasketPriceInfo is valid on favorite list")
+    public void i_check_added_favorite_vendor_min_basket_price_info_is_valid() {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        String minBasketPrice = favoriteVendor.getMinBasketPriceInfo();
+        String expectedMinBasketPrice = selectedVendor.getMinBasketPriceInfo();
+        assertTrue(!minBasketPrice.isEmpty(), "MinBasketPriceInfo must not null");
+        assertEqual("Selected vendor and favorite vendor MinBasketPriceInfo should be equal",
+                minBasketPrice, expectedMinBasketPrice);
+    }
+
+    @Then("I check added favorite vendor  DeliveryFeeInfo is valid on favorite list")
+    public void i_check_added_favorite_vendor_delivery_fee_info_is_valid() {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        String minBasketPrice = favoriteVendor.getDeliveryFeeInfo();
+        String expectedDeliveryTime = selectedVendor.getDeliveryTimeInfo();
+        assertTrue(!minBasketPrice.isEmpty(), "DeliveryFeeInfo must not null");
+        assertEqual("Selected vendor and favorite vendor DeliveryFeeInfo should be equal",
+                minBasketPrice, expectedDeliveryTime);
+    }
+
+    @Then("I check added favorite vendor  IsOpen is valid on favorite list")
+    public void i_check_added_favorite_vendor_is_open_is_valid() {
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        boolean actualIsOpen = favoriteVendor.getIsOpen();
+        boolean expectedIsOpen = selectedVendor.getIsOpen();
+
+        if (expectedIsOpen) {
+            assertTrue(actualIsOpen, "Vendor should be open");
+        } else {
+            assertFalse(actualIsOpen);
+        }
+    }
+
+    @Then("I check added favorite vendor  Products is valid on favorite list")
+    public void i_check_added_favorite_vendor_products_is_valid() {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
+        List<apiEngine.models.response.Favorite.Product> productList = favoriteVendor.getProducts();
+        int addedProductIndex = -1;
+        for (apiEngine.models.response.Favorite.Product product : productList) {
+            if (product.getId().equalsIgnoreCase(selectedProduct.getId())) {
+                addedProductIndex = productList.indexOf(product);
+                break;
+            }
+        }
+
+        apiEngine.models.response.Favorite.Product addedProduct = productList.get(addedProductIndex);
+        checkAddedProductId(addedProduct);
+        checkAddedProductPrice(addedProduct);
+        checkAddedProductDesc(addedProduct);
+        checkAddedProductName(addedProduct);
+        checkAddedUnitMass(addedProduct);
+    }
+
+    private void checkAddedProductId(apiEngine.models.response.Favorite.Product addedProduct) {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String actualProductId = addedProduct.getId();
+        String expectedProductId = selectedProduct.getId();
+        assertNotNull(actualProductId, "Added product id should not be empty");
+        assertEqual("Selected product id and added product id should be equal", actualProductId, expectedProductId);
+    }
+
+    private void checkAddedProductDesc(apiEngine.models.response.Favorite.Product addedProduct) {
+        String productDesc = addedProduct.getDescription();
+        assertNotNull(productDesc, "Added product desc should not be empty");
+    }
+
+    private void checkAddedProductName(apiEngine.models.response.Favorite.Product addedProduct) {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String actualProductName = addedProduct.getName();
+        String expectedProductName = selectedProduct.getName();
+        assertTrue(!actualProductName.isEmpty(), "Added product name should not be empty");
+        assertEqual("Selected product name and added product name should be equal", actualProductName,
+                expectedProductName);
+    }
+
+    private void checkAddedProductPrice(apiEngine.models.response.Favorite.Product addedProduct) {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        Integer actualProductPrice = addedProduct.getPrice();
+        int expectedProductPrice = selectedProduct.getPrice();
+        assertNotNull(actualProductPrice, "Added product price should not null");
+        assertTrue(actualProductPrice == expectedProductPrice, "Selected product price " +
+                "and added product price should be equal ");
+    }
+
+    private void checkAddedUnitMass(apiEngine.models.response.Favorite.Product addedProduct) {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String actualProductUnitMass = addedProduct.getUnitMass();
+        String expectedUnitMass = selectedProduct.getUnitMass();
+        assertNotNull(actualProductUnitMass, "Added product unit mass should not null");
+        assertTrue(actualProductUnitMass == expectedUnitMass, "Selected unit mass " +
+                "and added unit mass should be equal ");
+    }
+
+
+    private apiEngine.models.response.Favorite.Product getFavoriteProductDetailOnVendorFavoriteProducts(String addedProductId) {
+        IRestResponse<VendorFavoriteResponse> vendorFavoriteProductResponse =
+                (IRestResponse<VendorFavoriteResponse>) getScenarioContext()
+                        .getContext(Context.GET_VENDOR_FAVORITE_PRODUCTS_RESPONSE);
+        List<apiEngine.models.response.Favorite.Product> productList =
+                vendorFavoriteProductResponse.getBody().getData().getProducts();
+        int favoriteProductIndex = -1;
+        for (apiEngine.models.response.Favorite.Product product : productList){
+            if (product.getId().equalsIgnoreCase(addedProductId)){
+                favoriteProductIndex = productList.indexOf(product);
+            }
+        }
+        return productList.get(favoriteProductIndex);
+    }
+
+    @Then("I check added product id is valid on favorite product list")
+    public void i_check_added_product_id_is_valid() {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String selectedProductId = selectedProduct.getId();
+        String actualProductId = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getId();
+        assertNotNull(actualProductId);
+        assertEqual("Selected product id should be equal with vendor product id", actualProductId ,selectedProductId);
+    }
+
+    @Then("I check added product Name is valid on favorite product list")
+    public void i_check_added_product_name_is_valid() {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String selectedProductId = selectedProduct.getId();
+        String selectedProductName= selectedProduct.getName();
+        String actualProductName = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getName();
+        assertNotNull(actualProductName);
+        assertEqual("Selected product name should be equal with vendor product name", actualProductName ,selectedProductName);
+    }
+
+    @Then("I check added product UnitMass is valid on favorite product list")
+    public void i_check_added_product_unit_mass_is_valid() {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String selectedProductId = selectedProduct.getId();
+        String selectedProductUnitMass= selectedProduct.getUnitMass();
+        String actualProductUnitMass = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getUnitMass();
+        assertNotNull(actualProductUnitMass);
+        assertEqual("Selected product UnitMass should be equal with vendor product UnitMass", actualProductUnitMass ,selectedProductUnitMass);
+
+    }
+
+    @Then("I check added product Price is valid on favorite product list")
+    public void i_check_added_product_price_is_valid() {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String selectedProductId = selectedProduct.getId();
+        int selectedProductPrice= selectedProduct.getPrice();
+        int actualProductPrice = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getPrice();
+        assertNotNull(actualProductPrice, "ProductPrice not null on the vendor favorite products");
+        assertTrue(selectedProductPrice ==actualProductPrice , "Selected product price should be equal with vendor product price");
+    }
+
+    @Then("I check added product ImageUrl status is {int} on favorite product list")
+    public void i_check_added_product_image_url_status_is(Integer statusCode) {
+        Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
+        String selectedProductId = selectedProduct.getId();
+        String imageUrl =  getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getImageUrl();
+        assertNotNull(imageUrl,"Product image url should not null !");
+        int imageStatus = getCarsiFavoriteClient().getImageUrlResponse(imageUrl).getStatusCode();
+        assertTrue(imageStatus == statusCode, "Product image status should be " + statusCode
+                + " not " + imageStatus);
+    }
+
 }
