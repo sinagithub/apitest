@@ -21,7 +21,7 @@ public class BasketSteps extends BaseSteps {
         String addressId = address.getAddressId();
 
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
-        String basketId = basketIdResponse.getBody().getBasketId();
+        String basketId = basketIdResponse.getBody().getData().getBasketId();
 
         getScenarioContext().setContext(Context.BASKET_ID, basketId);
     }
@@ -34,7 +34,7 @@ public class BasketSteps extends BaseSteps {
         String oldBasketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
 
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
-        String newBasketId = basketIdResponse.getBody().getBasketId();
+        String newBasketId = basketIdResponse.getBody().getData().getBasketId();
 
         assertTrue(newBasketId.equals(oldBasketId),"New basket id and old basket id should be equal");
 
@@ -48,7 +48,7 @@ public class BasketSteps extends BaseSteps {
 
 
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
-        String basketId = basketIdResponse.getBody().getBasketId();
+        String basketId = basketIdResponse.getBody().getData().getBasketId();
         assertFalse(oldBasketId.equals(basketId));
 
         getScenarioContext().setContext(Context.BASKET_ID, basketId);
