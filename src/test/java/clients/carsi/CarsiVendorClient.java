@@ -24,8 +24,10 @@ public class CarsiVendorClient extends CarsiClient {
         return new RestResponse<>(VendorProductsResponse.class, response);
     }
 
-    public IRestResponse<VendorResponse> getVendor(String vendorId) {
-        Response response = createRequest().pathParam("vendorId", vendorId)
+    public IRestResponse<VendorResponse> getVendor(String vendorId, String sessionId) {
+        Response response = createRequest()
+                .pathParam("vendorId", vendorId)
+                .queryParam("sessionId", sessionId)
                 .get(VendorRoute.getVendor());
         writeStepLog();
         return new RestResponse<>(VendorResponse.class, response);

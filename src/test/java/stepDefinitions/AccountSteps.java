@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("unchecked")
 public class AccountSteps extends BaseSteps {
@@ -61,15 +62,20 @@ public class AccountSteps extends BaseSteps {
     public void i_select_pinned_available_address_on_selected_catalog() {
         List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
         Address selectedAddress;
+        List<Address> availableAddress = new ArrayList<Address>();
         for (Address address : addressList) {
-            if (address.getAvailabilityStatus() == 2) {
-                selectedAddress = address;
-                getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
-                LatLongHelper.getInstance().setLatitude(address.getLatitude());
-                LatLongHelper.getInstance().setLongitude(address.getLongitude());
-                break;
+            if (address.getAvailabilityStatus() == 1 && address.getLatitude() != 0.0) {
+                availableAddress.add(address);
             }
         }
+        Random random = new Random();
+        assertFalse(availableAddress.size() == 0);
+        int index =  random.nextInt(availableAddress.size());
+
+        selectedAddress = availableAddress.get(index);
+        getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
+        LatLongHelper.getInstance().setLatitude(selectedAddress.getLatitude());
+        LatLongHelper.getInstance().setLongitude(selectedAddress.getLongitude());
     }
 
     @Given("I select pinned address with id {string}")

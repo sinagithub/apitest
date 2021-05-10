@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
 import apiEngine.PlatformTypeHelper;
 import apiEngine.models.response.*;
@@ -35,6 +36,7 @@ public class HomePageSteps extends BaseSteps {
         assertTrue(vendorList.size() > 0, "Vendor list should not be empty");
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
+        setCurrentPlatformType("Carsi");
     }
 
     @Then("I select first vendor from {string} category on home page")
@@ -109,9 +111,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select banabi vendor")
     public void i_select_banabi_vendor() {
-        PlatformTypeHelper.getInstance().setPlatformType("Banabi");
         CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, banabiVendor);
+        setCurrentPlatformType("Banabi");
     }
 
 
@@ -125,14 +127,18 @@ public class HomePageSteps extends BaseSteps {
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        GuidHelper.getInstance().setGuid();
+        String guid = GuidHelper.getInstance().getGuid();
         IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(
                 address.getAddressId(),
                 address.getAreaId(),
                 address.getLatitude(),
-                address.getLongitude());
+                address.getLongitude(),
+                guid);
         CarsiVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
         getScenarioContext().setContext(Context.BANABI_VENDOR_INFO, banabiVendor);
         getScenarioContext().setContext(Context.BANABI_VENDOR_RESPONSE, homePageBanabi);
+        setCurrentPlatformType("Banabi");
     }
 
 

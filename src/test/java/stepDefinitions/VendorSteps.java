@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 
+import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
 import apiEngine.models.response.*;
 import apiEngine.models.response.ProductDetail.Data;
@@ -27,17 +28,23 @@ public class VendorSteps extends BaseSteps {
         super(testContext);
     }
 
+    private void setPlatformType(String vendorType){
+
+    }
+
     @Then("I navigate selected vendor")
     public void i_navigate_selected_vendor() {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
-        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId);
+        String sessionId = GuidHelper.getInstance().getGuid();
+        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId, sessionId);
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
     }
 
     @Then("I navigate vendor with {string}")
     public void i_navigate_vendor_with_id(String vendorId) {
-        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId);
+        String sessionId = GuidHelper.getInstance().getGuid();
+        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId, sessionId);
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
     }
 
@@ -141,7 +148,7 @@ public class VendorSteps extends BaseSteps {
         List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
         List<String> selectedProductIdList = new ArrayList<>();
 
-        for (int i = 0; i<size; i++){
+        for (int i = 0; i < size; i++) {
             selectedProductIdList.add(products.get(i).getId());
         }
 
@@ -403,7 +410,7 @@ public class VendorSteps extends BaseSteps {
                 (IRestResponse<VendorProductSearchResponse>) getScenarioContext().getContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE);
 
         boolean productListIsEmpty = vendorProductsResponse.getBody().getData().isEmpty();
-        assertTrue(productListIsEmpty,"Vendor product search result should must empty");
+        assertTrue(productListIsEmpty, "Vendor product search result should must empty");
     }
 
     @Then("I validate HasNext is {string}")
@@ -446,7 +453,7 @@ public class VendorSteps extends BaseSteps {
     public void i_select_a_random_product_on_product_search() {
         IRestResponse<VendorProductSearchResponse> vendorProductsResponse =
                 (IRestResponse<VendorProductSearchResponse>) getScenarioContext().getContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE);
-        List<Product> products =  vendorProductsResponse.getBody().getData();
+        List<Product> products = vendorProductsResponse.getBody().getData();
 
         Random random = new Random();
         int index = random.nextInt(products.size() - 1);
