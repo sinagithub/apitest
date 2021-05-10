@@ -20,7 +20,7 @@ public class GetBasketResponse {
     @JsonProperty("InfoList")
     private List<Info> info = null;
     @JsonProperty("Data")
-    private BasketData basketData;
+    private BasketIdData basketBasketIdData;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -43,13 +43,13 @@ public class GetBasketResponse {
     }
 
     @JsonProperty("Data")
-    public BasketData getData() {
-        return basketData;
+    public BasketIdData getData() {
+        return basketBasketIdData;
     }
 
     @JsonProperty("Data")
-    public void setData(BasketData basketData) {
-        this.basketData = basketData;
+    public void setData(BasketIdData basketBasketIdData) {
+        this.basketBasketIdData = basketBasketIdData;
     }
 
 }

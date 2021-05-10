@@ -34,7 +34,7 @@ public class ValidateBasketData {
     @JsonProperty("IsUserOtpValidated")
     private Boolean isUserOtpValidated;
     @JsonProperty("Basket")
-    private BasketData basket;
+    private BasketIdData basket;
     @JsonProperty("ProductErrors")
     private ProductErrors productErrors;
     @JsonProperty("CampaignErrors")
@@ -97,12 +97,12 @@ public class ValidateBasketData {
     }
 
     @JsonProperty("Basket")
-    public BasketData getBasket() {
+    public BasketIdData getBasket() {
         return basket;
     }
 
     @JsonProperty("Basket")
-    public void setBasket(BasketData basket) {
+    public void setBasket(BasketIdData basket) {
         this.basket = basket;
     }
 

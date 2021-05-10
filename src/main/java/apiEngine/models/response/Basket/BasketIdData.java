@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "BasketId"
 })
 @Generated("jsonschema2pojo")
-public class BasketData {
+public class BasketIdData {
 
     @JsonProperty("BasketId")
     private String basketId;

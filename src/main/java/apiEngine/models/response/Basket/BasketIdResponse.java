@@ -1,55 +1,41 @@
 package apiEngine.models.response.Basket;
-
-import apiEngine.models.response.Info;
+import java.util.List;
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.List;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Data",
-        "Version",
         "InfoList"
 })
+@Generated("jsonschema2pojo")
 public class BasketIdResponse {
 
     @JsonProperty("Data")
-    private String basketId;
-    @JsonProperty("Version")
-    private String version;
+    private BasketIdData basketIdData;
     @JsonProperty("InfoList")
-    private List<Info> info = null;
+    private List<Object> infoList = null;
 
     @JsonProperty("Data")
-    public String getBasketId() {
-        return basketId;
+    public BasketIdData getData() {
+        return basketIdData;
     }
 
     @JsonProperty("Data")
-    public void setBasketId(String basketId) {
-        this.basketId = basketId;
-    }
-
-    @JsonProperty("Version")
-    public String getVersion() {
-        return version;
-    }
-
-    @JsonProperty("Version")
-    public void setVersion(String version) {
-        this.version = version;
+    public void setData(BasketIdData basketIdData) {
+        this.basketIdData = basketIdData;
     }
 
     @JsonProperty("InfoList")
-    public List<Info> getInfoList() {
-        return info;
+    public List<Object> getInfoList() {
+        return infoList;
     }
 
     @JsonProperty("InfoList")
-    public void setInfoList(List<Info> info) {
-        this.info = info;
+    public void setInfoList(List<Object> infoList) {
+        this.infoList = infoList;
     }
 
 }
