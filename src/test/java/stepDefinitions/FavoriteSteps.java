@@ -101,6 +101,22 @@ public class FavoriteSteps extends BaseSteps {
 
     }
 
+    @Then("I can validate favorite vendor product size is {int} on favorite list")
+    public void i_can_validate_favorite_product_size_is_on_favorite_list(Integer size) {
+        IRestResponse<GetFavoritesResponse> getFavoritesResponse =
+                (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
+        List<Vendor> vendorList = getFavoritesResponse.getBody().getData().getVendors();
+        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        String vendorId = selectedVendor.getId();
+
+        for (Vendor vendor : vendorList){
+            if (vendor.getId().equalsIgnoreCase(vendorId)){
+               int productSize =  vendor.getProducts().size();
+               assertTrue(productSize == size,"Product size should be " + size + " not " + productSize);
+            }
+        }
+    }
+
     @Then("I can validate vendor favorite product size is {int} on vendor vendor favorites list")
     public void i_can_validate_vendor_favorite_products_size_is(Integer size) {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
@@ -303,10 +319,6 @@ public class FavoriteSteps extends BaseSteps {
     @Then("I delete all added favorite products")
     public void i_delete_all_added_favorite_products() {
         String basePlatformType = PlatformTypeHelper.getInstance().getPlatformType();
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        double lat = address.getLatitude();
-        double lng = address.getLongitude();
-
 
         List<Vendor> vendorList = (List<Vendor>) getScenarioContext().getContext(Context.FAVORITE_VENDOR_LIST);
 

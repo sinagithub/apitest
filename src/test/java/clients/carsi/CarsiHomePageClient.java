@@ -35,12 +35,14 @@ public class CarsiHomePageClient extends CarsiClient {
                                                                  String addressId,
                                                                  String areaId,
                                                                  Double latitude,
-                                                                 Double longitude) {
+                                                                 Double longitude,
+                                                                 String guid) {
         Response response = createRequest().
                 queryParam("AddressId", addressId)
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)
                 .queryParam("Longitude", longitude)
+                .queryParam("SessionId",guid)
                 .get(Route.homepageBanabi());
         writeStepLog();
         return new RestResponse(HomePageBanabiResponse.class, response);

@@ -23,6 +23,4 @@ public class Utils {
         return properties.getProperty(key);
     }
 
-
-
 }

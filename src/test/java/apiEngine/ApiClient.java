@@ -28,8 +28,8 @@ public class ApiClient extends Hooks {
         request.baseUri(baseUrl);
         request.header("Content-Type", "application/json");
         request.header("YS-Culture", "tr-TR");
-        if (platformType != null) {
-            request.header("PlatformType", platformType);
+        if (PlatformTypeHelper.getInstance().getPlatformType() != null) {
+            request.header("PlatformType", PlatformTypeHelper.getInstance().getPlatformType());
         }
         request.header("Authorization", "Bearer " + token);
         if (catalog != null) {
