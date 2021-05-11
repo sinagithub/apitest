@@ -3,7 +3,7 @@ package apiEngine.Routes;
 public class BasketRoute {
     private static final String BASKET = "/basket";
     private static final String BASKET_ID = "/id";
-    private static final String BASKET_ID_PATH = "{id}";
+    private static final String BASKET_ID_PATH = "/{id}";
     private static final String CAMPAIGN = "/campaign";
     private static final String LITE = "/lite";
     private static final String API = "/api";
@@ -29,6 +29,8 @@ public class BasketRoute {
     public static String getAddProduct() {
         return getBasket() + PRODUCT;
     }
+
+
 
 
 }

@@ -64,7 +64,7 @@ public class AccountSteps extends BaseSteps {
         Address selectedAddress;
         List<Address> availableAddress = new ArrayList<Address>();
         for (Address address : addressList) {
-            if (address.getAvailabilityStatus() == 1 && address.getLatitude() != 0.0) {
+            if (address.getAvailabilityStatus() == 2 && address.getLatitude() != 0.0) {
                 availableAddress.add(address);
             }
         }

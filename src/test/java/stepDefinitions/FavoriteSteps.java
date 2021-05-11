@@ -6,21 +6,16 @@ import apiEngine.PlatformTypeHelper;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
 import apiEngine.models.requests.Favorite.AddFavoriteVendorRequest;
 import apiEngine.models.response.Address;
-import apiEngine.models.response.Basket.AddProductResponse;
 import apiEngine.models.response.CarsiVendor;
 import apiEngine.models.response.Favorite.GetFavoritesResponse;
 import apiEngine.models.response.Favorite.Vendor;
 import apiEngine.models.response.Favorite.VendorFavoriteResponse;
 import apiEngine.models.response.Favorite.VendorPutFavoriteResponse;
 import apiEngine.models.response.Vendor.Product;
-import apiEngine.models.response.Vendor.VendorProductSearchResponse;
-import apiEngine.models.response.Vendor.VendorProductsResponse;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.tr.Ve;
-import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -505,7 +500,7 @@ public class FavoriteSteps extends BaseSteps {
     private void checkAddedProductPrice(apiEngine.models.response.Favorite.Product addedProduct) {
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         Integer actualProductPrice = addedProduct.getPrice();
-        int expectedProductPrice = selectedProduct.getPrice();
+        double expectedProductPrice = selectedProduct.getPrice();
         assertNotNull(actualProductPrice, "Added product price should not null");
         assertTrue(actualProductPrice == expectedProductPrice, "Selected product price " +
                 "and added product price should be equal ");
@@ -570,9 +565,9 @@ public class FavoriteSteps extends BaseSteps {
     public void i_check_added_product_price_is_valid() {
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String selectedProductId = selectedProduct.getId();
-        int selectedProductPrice= selectedProduct.getPrice();
-        int actualProductPrice = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getPrice();
-        assertNotNull(actualProductPrice, "ProductPrice not null on the vendor favorite products");
+        double selectedProductPrice= selectedProduct.getPrice();
+        double actualProductPrice = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getPrice();
+        assertNotNull(actualProductPrice);
         assertTrue(selectedProductPrice ==actualProductPrice , "Selected product price should be equal with vendor product price");
     }
 

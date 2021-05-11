@@ -1,8 +1,8 @@
 package apiEngine.models.requests.Basket;
 
 import java.util.List;
-import javax.annotation.Generated;
 
+import apiEngine.models.response.ProductDetail.Option;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -14,11 +14,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Quantity",
         "CampaignProductId",
         "CampaignProductQuantity",
-        "CampaingId",
+        "CampaignId",
+        "VendorId",
         "Options"
 })
-@Generated("jsonschema2pojo")
-public class AddProductReq {
+public class AddProductWithoutCampaignToBasketReq {
 
     @JsonProperty("ProductId")
     private String productId;
@@ -30,33 +30,37 @@ public class AddProductReq {
     private String campaignProductId;
     @JsonProperty("CampaignProductQuantity")
     private Integer campaignProductQuantity;
-    @JsonProperty("CampaingId")
-    private Integer campaingId;
+    @JsonProperty("CampaignId")
+    private Integer campaignId;
+    @JsonProperty("VendorId")
+    private String vendorId;
     @JsonProperty("Options")
-    private List<OptionReq> optionReqs = null;
+    private List<Option> options = null;
 
-    public AddProductReq() {
+    public AddProductWithoutCampaignToBasketReq() {
     }
 
     /**
+     *
      * @param quantity
      * @param productId
      * @param lineItemId
      * @param campaignProductId
+     * @param campaignId
      * @param campaignProductQuantity
-     * @param optionReqs
-     * @param campaingId
+     * @param options
+     * @param vendorId
      */
-    public AddProductReq(String productId, String lineItemId, Integer quantity, String campaignProductId,
-                         Integer campaignProductQuantity, Integer campaingId, List<OptionReq> optionReqs) {
+    public AddProductWithoutCampaignToBasketReq(String productId, String lineItemId, Integer quantity, String campaignProductId, Integer campaignProductQuantity, Integer campaignId, String vendorId, List<Option> options) {
         super();
         this.productId = productId;
         this.lineItemId = lineItemId;
         this.quantity = quantity;
         this.campaignProductId = campaignProductId;
         this.campaignProductQuantity = campaignProductQuantity;
-        this.campaingId = campaingId;
-        this.optionReqs = optionReqs;
+        this.campaignId = campaignId;
+        this.vendorId = vendorId;
+        this.options = options;
     }
 
     @JsonProperty("ProductId")
@@ -109,24 +113,34 @@ public class AddProductReq {
         this.campaignProductQuantity = campaignProductQuantity;
     }
 
-    @JsonProperty("CampaingId")
-    public Integer getCampaingId() {
-        return campaingId;
+    @JsonProperty("CampaignId")
+    public Integer getCampaignId() {
+        return campaignId;
     }
 
-    @JsonProperty("CampaingId")
-    public void setCampaingId(Integer campaingId) {
-        this.campaingId = campaingId;
+    @JsonProperty("CampaignId")
+    public void setCampaignId(Integer campaignId) {
+        this.campaignId = campaignId;
+    }
+
+    @JsonProperty("VendorId")
+    public String getVendorId() {
+        return vendorId;
+    }
+
+    @JsonProperty("VendorId")
+    public void setVendorId(String vendorId) {
+        this.vendorId = vendorId;
     }
 
     @JsonProperty("Options")
-    public List<OptionReq> getOptions() {
-        return optionReqs;
+    public List<Option> getOptions() {
+        return options;
     }
 
     @JsonProperty("Options")
-    public void setOptions(List<OptionReq> optionReqs) {
-        this.optionReqs = optionReqs;
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 
 }

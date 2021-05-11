@@ -34,7 +34,7 @@ Feature: Vendor detail Controls
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I check product list not empty
-    When I select product with name "Tadım Festival Karışık Kuru Yemiş - 75 g"
+    When I select product with name "Nestlé Classic Sütlü Kare Çikolata - 60 g"
     Then I should see selected product's id is not empty on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail

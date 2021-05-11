@@ -11,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "IsFreeOrder",
         "VendorId",
         "VendorName",
-        "UserId",
         "MinimumDeliveryTotal",
         "DeliveryFree",
         "Total",
         "SubTotal"
 })
+
 public class BasketInfo {
 
     @JsonProperty("BasketId")
@@ -29,16 +29,14 @@ public class BasketInfo {
     private String vendorId;
     @JsonProperty("VendorName")
     private String vendorName;
-    @JsonProperty("UserId")
-    private String userId;
     @JsonProperty("MinimumDeliveryTotal")
-    private Integer minimumDeliveryTotal;
+    private Double minimumDeliveryTotal;
     @JsonProperty("DeliveryFree")
-    private Integer deliveryFree;
+    private Double deliveryFree;
     @JsonProperty("Total")
-    private Integer total;
+    private Double total;
     @JsonProperty("SubTotal")
-    private Integer subTotal;
+    private Double subTotal;
 
     @JsonProperty("BasketId")
     public String getBasketId() {
@@ -90,53 +88,43 @@ public class BasketInfo {
         this.vendorName = vendorName;
     }
 
-    @JsonProperty("UserId")
-    public String getUserId() {
-        return userId;
-    }
-
-    @JsonProperty("UserId")
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     @JsonProperty("MinimumDeliveryTotal")
-    public Integer getMinimumDeliveryTotal() {
+    public Double getMinimumDeliveryTotal() {
         return minimumDeliveryTotal;
     }
 
     @JsonProperty("MinimumDeliveryTotal")
-    public void setMinimumDeliveryTotal(Integer minimumDeliveryTotal) {
+    public void setMinimumDeliveryTotal(Double minimumDeliveryTotal) {
         this.minimumDeliveryTotal = minimumDeliveryTotal;
     }
 
     @JsonProperty("DeliveryFree")
-    public Integer getDeliveryFree() {
+    public Double getDeliveryFree() {
         return deliveryFree;
     }
 
     @JsonProperty("DeliveryFree")
-    public void setDeliveryFree(Integer deliveryFree) {
+    public void setDeliveryFree(Double deliveryFree) {
         this.deliveryFree = deliveryFree;
     }
 
     @JsonProperty("Total")
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
     @JsonProperty("Total")
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
     @JsonProperty("SubTotal")
-    public Integer getSubTotal() {
+    public Double getSubTotal() {
         return subTotal;
     }
 
     @JsonProperty("SubTotal")
-    public void setSubTotal(Integer subTotal) {
+    public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
     }
 
