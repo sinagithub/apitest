@@ -96,6 +96,11 @@ public class BaseSteps {
     public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());
     }
+
+    public void assertNotNull(Double property) {
+        Assert.assertFalse(property.isNaN());
+    }
+
     public void assertNotNull(String property , String message) {
         assertThat(message, property, is(notNullValue()));
     }

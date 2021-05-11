@@ -1,7 +1,7 @@
 package apiEngine.models.response.Vendor;
 
 import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -29,9 +29,9 @@ public class Product {
     @JsonProperty("ImageUrl")
     private String imageUrl;
     @JsonProperty("Price")
-    private Integer price;
+    private Double price;
     @JsonProperty("DiscountedPrice")
-    private Integer discountedPrice;
+    private Double discountedPrice;
     @JsonProperty("MaximumSaleAmount")
     private Integer maximumSaleAmount;
     @JsonProperty("IsActive")
@@ -82,22 +82,22 @@ public class Product {
     }
 
     @JsonProperty("Price")
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @JsonProperty("Price")
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
     @JsonProperty("DiscountedPrice")
-    public Integer getDiscountedPrice() {
+    public Double getDiscountedPrice() {
         return discountedPrice;
     }
 
     @JsonProperty("DiscountedPrice")
-    public void setDiscountedPrice(Integer discountedPrice) {
+    public void setDiscountedPrice(Double discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
 

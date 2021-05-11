@@ -73,10 +73,6 @@ public class Route {
         return API + VERSION + HOMEPAGE + PLATFORM;
     }
 
-    public static String getBasketId() {
-        return API + VERSION + BASKET + BASKET_ID;
-    }
-
     public static String getBasket() {
         return API + VERSION + BASKET + BASKET_ID_PATH;
     }
