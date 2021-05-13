@@ -371,4 +371,36 @@ public class BasketSteps extends BaseSteps {
         }
     }
 
+    @Then("I can validate basket is empty")
+    public void i_can_validate_basket_is_empty() {
+        IRestResponse<BasketResponse> basketResponse =
+                (IRestResponse<BasketResponse>) getScenarioContext().getContext(Context.BASKET_RESPONSE);
+        List<BasketLine> basketLines = basketResponse.getBody().getData().getLines();
+        assertTrue(basketLines.isEmpty(), "Basket lines should be empty");
+    }
+
+    @When("I get alternate product options")
+    public void i_get_alternate_product_options() {
+        String basketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
+        IRestResponse<AlternateProductResponse> alternateProductResponse =
+                getCarsiBasketClient().getAlternateOptions(basketId);
+
+        getScenarioContext().setContext(Context.ALTERNATE_PRODUCTS_RESPONSE, alternateProductResponse);
+    }
+
+    @Then("I can validate alternate product text {string} is exist and rank is {int} type is {int}")
+    public void i_can_validate_alternate_product_text_is_exist_and_rank_is_type_is(String optionText,
+                                                                                   Integer optionRank, Integer type) {
+        IRestResponse<AlternateProductResponse> alternateProductResponse =
+                (IRestResponse<AlternateProductResponse>) getScenarioContext().getContext(Context.ALTERNATE_PRODUCTS_RESPONSE);
+       AlternateOption option =  alternateProductResponse.getBody().getData().getAlternateOptions().get(optionRank -1);
+       int actualOptionRank = option.getRank();
+       String actualOptionText = option.getText();
+       int actualType = option.getTypeId();
+
+       assertTrue(actualOptionRank == optionRank, "Option rank should be " + optionRank + " not " + actualOptionRank );
+       assertTrue(actualType == type, "Option type should be " + type + " not " + actualType );
+       assertEqual("Option text should be " + optionText + " not " + actualOptionText,actualOptionText,optionText);
+    }
+
 }
