@@ -19,7 +19,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "ImageUrl",
         "MaximumSaleAmount",
         "Campaigns",
-        "Options"
+        "Options",
+        "IsFavorite"
 })
 @Generated("jsonschema2pojo")
 public class Data {
@@ -48,6 +49,9 @@ public class Data {
     private List<Campaign> campaigns = null;
     @JsonProperty("Options")
     private List<Option> options = null;
+    @JsonProperty("IsFavorite")
+    private Boolean isFavorite;
+
 
     @JsonProperty("Id")
     public String getId() {
@@ -169,4 +173,19 @@ public class Data {
         this.options = options;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
+    }
 }

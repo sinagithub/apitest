@@ -197,6 +197,7 @@ public class VendorSteps extends BaseSteps {
 
         Data productDetailProductResponseData = productDetailResponse.getBody().getData();
         getScenarioContext().setContext(Context.PRODUCT_DETAIL_DATA, productDetailProductResponseData);
+        getScenarioContext().setContext(Context.PRODUCT_DETAIL_RESPONSE, productDetailResponse);
     }
 
 
