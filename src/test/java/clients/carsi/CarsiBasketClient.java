@@ -8,6 +8,7 @@ import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
 import apiEngine.models.response.Basket.AddProductToBasketResponse;
 import apiEngine.models.response.Basket.BasketIdResponse;
 import apiEngine.models.response.Basket.BasketResponse;
+import apiEngine.models.response.Basket.LiteBasketResponse;
 import apiEngine.models.response.DeleteBasketResponse;
 import io.restassured.response.Response;
 
@@ -52,4 +53,11 @@ public class CarsiBasketClient extends CarsiClient {
         return new RestResponse<>(BasketResponse.class, response);
     }
 
+    public IRestResponse<LiteBasketResponse> getLiteBasket(String basketId){
+        Response response = createRequest()
+                .pathParam("id",basketId)
+                .get(BasketRoute.getBasketLite());
+        writeStepLog();
+        return new RestResponse<>(LiteBasketResponse.class, response);
+    }
 }

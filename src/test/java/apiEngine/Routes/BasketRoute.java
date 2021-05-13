@@ -23,7 +23,7 @@ public class BasketRoute {
     }
 
     public static String getBasketLite() {
-        return API + VERSION + BASKET + BASKET_ID_PATH + LITE;
+        return getBasket() + LITE;
     }
 
     public static String getAddProduct() {

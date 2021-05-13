@@ -41,6 +41,9 @@ Feature: Basket Controls
     And I can check ListPrice is valid on basket lines
     And I can check DiscountedPrice is valid on basket lines
     And I can check Quantity is 1 on basket lines
+    And I can check basket subTotal is valid on basket
+    And I can check basket total is valid
+
 
   Scenario: User can not add add product while basket not empty
     When  A list of Carşı Vendor are available on home page
@@ -59,3 +62,22 @@ Feature: Basket Controls
     Then I select a random product
     And I can add the selected product to basket quantity is 1
     Then I check added product "VendorsNotMatchedInBasket" error message and status is 400
+
+
+  Scenario: User can see basket items count on the vendor detail with lite basket service
+    When  A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Super Market" category on home page
+    When I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random product
+    And I can add the selected product to basket quantity is 2
+    Then I select a random product
+    And I can add the selected product to basket quantity is 1
+    When I get basket line counts with lite basket
+    Then I can see the product quantity is 2 product index 0 in lite basket
+    Then I can see the product quantity is 1 product index 1 in lite basket
+    And  I check TotalLinesItemCount is 2 on lite basket response
+    And I check line products is valid on lite basket response
+
