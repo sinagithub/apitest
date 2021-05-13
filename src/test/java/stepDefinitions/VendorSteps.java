@@ -38,6 +38,7 @@ public class VendorSteps extends BaseSteps {
         String vendorId = selectedVendor.getId();
         String sessionId = GuidHelper.getInstance().getGuid();
         IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId, sessionId);
+        assertTrue(vendorResponse.isSuccessful(),"Vendor response status should be OK");
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
     }
 

@@ -1,7 +1,7 @@
 package apiEngine.models.response.Basket;
 
 import java.util.List;
-
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,22 +11,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Data",
         "InfoList"
 })
-
-public class BasketResponse {
+@Generated("jsonschema2pojo")
+public class AlternateProductResponse {
 
     @JsonProperty("Data")
-    private BasketData basketData;
+    private AlternateOptionData alternateOptionData;
     @JsonProperty("InfoList")
     private List<Object> infoList = null;
 
     @JsonProperty("Data")
-    public BasketData getData() {
-        return basketData;
+    public AlternateOptionData getData() {
+        return alternateOptionData;
     }
 
     @JsonProperty("Data")
-    public void setData(BasketData basketData) {
-        this.basketData = basketData;
+    public void setData(AlternateOptionData alternateOptionData) {
+        this.alternateOptionData = alternateOptionData;
     }
 
     @JsonProperty("InfoList")

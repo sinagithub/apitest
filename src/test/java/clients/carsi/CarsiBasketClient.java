@@ -5,9 +5,7 @@ import apiEngine.RestResponse;
 import apiEngine.Routes.BasketRoute;
 import apiEngine.Routes.Route;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
-import apiEngine.models.response.Basket.AddProductToBasketResponse;
-import apiEngine.models.response.Basket.BasketIdResponse;
-import apiEngine.models.response.Basket.BasketResponse;
+import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.DeleteBasketResponse;
 import io.restassured.response.Response;
 
@@ -36,20 +34,35 @@ public class CarsiBasketClient extends CarsiClient {
         return new RestResponse<>(AddProductToBasketResponse.class, response);
     }
 
-    public IRestResponse<DeleteBasketResponse> deleteBasket(String basketId){
+    public IRestResponse<DeleteBasketResponse> deleteBasket(String basketId) {
         Response response = createRequest()
-                .pathParam("id",basketId)
+                .pathParam("id", basketId)
                 .delete(BasketRoute.getBasket());
         writeStepLog();
         return new RestResponse<>(DeleteBasketResponse.class, response);
     }
 
-    public IRestResponse<BasketResponse> getBasket(String basketId){
+    public IRestResponse<BasketResponse> getBasket(String basketId) {
         Response response = createRequest()
-                .pathParam("id",basketId)
+                .pathParam("id", basketId)
                 .get(BasketRoute.getBasket());
         writeStepLog();
         return new RestResponse<>(BasketResponse.class, response);
     }
 
+    public IRestResponse<LiteBasketResponse> getLiteBasket(String basketId) {
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .get(BasketRoute.getBasketLite());
+        writeStepLog();
+        return new RestResponse<>(LiteBasketResponse.class, response);
+    }
+
+    public IRestResponse<AlternateProductResponse> getAlternateOptions(String basketId) {
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .get(BasketRoute.getAlternateProductOptions());
+        writeStepLog();
+        return new RestResponse<>(AlternateProductResponse.class, response);
+    }
 }

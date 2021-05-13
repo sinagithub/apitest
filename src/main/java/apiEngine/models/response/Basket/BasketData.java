@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "BasketVolume"
 })
 
-public class Data {
+public class BasketData {
 
     @JsonProperty("TotalCampaignCount")
     private Integer totalCampaignCount;
