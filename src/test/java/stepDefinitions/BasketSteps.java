@@ -7,6 +7,7 @@ import apiEngine.models.response.Address;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.CarsiVendor;
 import apiEngine.models.response.DeleteBasketResponse;
+import apiEngine.models.response.Info;
 import apiEngine.models.response.ProductDetail.Option;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.Product;
@@ -130,6 +131,7 @@ public class BasketSteps extends BaseSteps {
         if (addBasketResponse.isSuccessful()) {
             saveAddedProductToList(product);
         }
+        getScenarioContext().setContext(Context.ADDED_PRODUCT_REQ, addProductWithoutCampaignToBasketReq);
         getScenarioContext().setContext(Context.ADD_BASKET_RESPONSE, addBasketResponse);
     }
 
@@ -393,14 +395,76 @@ public class BasketSteps extends BaseSteps {
                                                                                    Integer optionRank, Integer type) {
         IRestResponse<AlternateProductResponse> alternateProductResponse =
                 (IRestResponse<AlternateProductResponse>) getScenarioContext().getContext(Context.ALTERNATE_PRODUCTS_RESPONSE);
-       AlternateOption option =  alternateProductResponse.getBody().getData().getAlternateOptions().get(optionRank -1);
-       int actualOptionRank = option.getRank();
-       String actualOptionText = option.getText();
-       int actualType = option.getTypeId();
+        AlternateOption option = alternateProductResponse.getBody().getData().getAlternateOptions().get(optionRank - 1);
+        int actualOptionRank = option.getRank();
+        String actualOptionText = option.getText();
+        int actualType = option.getTypeId();
 
-       assertTrue(actualOptionRank == optionRank, "Option rank should be " + optionRank + " not " + actualOptionRank );
-       assertTrue(actualType == type, "Option type should be " + type + " not " + actualType );
-       assertEqual("Option text should be " + optionText + " not " + actualOptionText,actualOptionText,optionText);
+        assertTrue(actualOptionRank == optionRank, "Option rank should be " + optionRank + " not " + actualOptionRank);
+        assertTrue(actualType == type, "Option type should be " + type + " not " + actualType);
+        assertEqual("Option text should be " + optionText + " not " + actualOptionText, actualOptionText, optionText);
+    }
+
+    @When("I want add product more than stock")
+    public void i_want_add_product_more_than_stock() {
+        IRestResponse<ProductResponse> selectedProductResponse =
+                (IRestResponse<ProductResponse>) getScenarioContext().getContext(Context.PRODUCT_DETAIL_RESPONSE);
+
+        int maxSaleAmount = selectedProductResponse.getBody().getData().getMaximumSaleAmount();
+        i_can_add_the_selected_product_to_basket(maxSaleAmount + 1);
+    }
+
+    @Then("I can see {string} warning on add basket response")
+    public void i_can_see_warning_on_add_basket_response(String warningText) {
+        IRestResponse<AddProductToBasketResponse> addProductResponse =
+                (IRestResponse<AddProductToBasketResponse>) getScenarioContext().getContext(Context.ADD_BASKET_RESPONSE);
+        List<Info> infoList = addProductResponse.getBody().getInfoList();
+        assertTrue(infoList.size() > 0, "Info liste should not empty");
+        String actualMessage = infoList.get(0).getMessage();
+        assertEqual("Max sale amount warning should be " + warningText, actualMessage, warningText);
+    }
+
+    @Then("I can valid add basket response is {int}")
+    public void i_can_valid_add_basket_response_is(Integer expectedStatus) {
+        IRestResponse<AddProductToBasketResponse> addProductResponse =
+                (IRestResponse<AddProductToBasketResponse>) getScenarioContext().getContext(Context.ADD_BASKET_RESPONSE);
+        int actualStatus = addProductResponse.getStatusCode();
+        assertTrue(expectedStatus == actualStatus, "Add basket response status code should be " + expectedStatus);
+    }
+
+    @When("I add products as many as the max stock quantity")
+    public void i_add_products_as_many_as_the_max_stock_quantity() {
+        IRestResponse<ProductResponse> selectedProductResponse =
+                (IRestResponse<ProductResponse>) getScenarioContext().getContext(Context.PRODUCT_DETAIL_RESPONSE);
+
+        int maxSaleAmount = selectedProductResponse.getBody().getData().getMaximumSaleAmount();
+        i_can_add_the_selected_product_to_basket(maxSaleAmount);
+    }
+
+    @Then("I can check Quantity is valid on basket lines")
+    public void i_can_check_quantity_is_valid_on_basket_lines() {
+        IRestResponse<BasketResponse> basketResponse =
+                (IRestResponse<BasketResponse>) getScenarioContext().getContext(Context.BASKET_RESPONSE);
+        AddProductWithoutCampaignToBasketReq addedProductRequest =
+                (AddProductWithoutCampaignToBasketReq) getScenarioContext().getContext(Context.ADDED_PRODUCT_REQ);
+
+        IRestResponse<AddProductToBasketResponse> addProductResponse =
+                (IRestResponse<AddProductToBasketResponse>) getScenarioContext().getContext(Context.ADD_BASKET_RESPONSE);
+        String addedProductId = addedProductRequest.getProductId();
+
+        List<Line> basketLines = addProductResponse.getBody().getData().getLightBasket().getLines();
+        int addedProductIndex = -1;
+        for (Line line : basketLines) {
+            if (line.getProductId().equalsIgnoreCase(addedProductId)) {
+                addedProductIndex = basketLines.indexOf(line);
+            }
+        }
+        int expectedQuantity =
+                addProductResponse.getBody().getData().getLightBasket().getLines().get(addedProductIndex).getQuantity();
+        int actualQuantity = basketLines.get(addedProductIndex).getQuantity();
+
+        assertTrue(expectedQuantity == actualQuantity, "Added quantity and basket product quantity should be equal");
+
     }
 
 }

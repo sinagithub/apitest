@@ -108,4 +108,23 @@ Feature: Basket Controls
     And I can validate alternate product text "Alternatif ürün gönderin" is exist and rank is 1 type is 1
     And I can validate alternate product text "Ürün yoksa siparişten çıkarın" is exist and rank is 3 type is 3
 
-
+  Scenario: User can see max stock error when add more than stock quantity
+    When  A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Super Market" category on home page
+    When I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random product
+    And I navigate selected product
+    When I want add product more than stock
+    Then I can see "Maksimum satış limiti aşıldı" warning on add basket response
+    Then I can valid add basket response is 400
+    Then I get the basket
+    And I can validate basket is empty
+    When I add products as many as the max stock quantity
+    Then I get the basket
+    And I can check Quantity is valid on basket lines
+    When I can add the selected product to basket quantity is 1
+    Then I can see "Maksimum satış limiti aşıldı" warning on add basket response
+    And I delete basket
