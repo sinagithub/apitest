@@ -38,6 +38,15 @@ public class AccountSteps extends BaseSteps {
         getOauthCoreClient().authenticateUser(authRequest, userType.equalsIgnoreCase("Login"));
     }
 
+    @Given("I am a authorized new user")
+    public void i_am_a_new_authorized_user() throws IOException {
+        String userName = GenerateFakeData.getFakeEmail();
+        getOauthCoreClient().registerNewUser(userName);
+        String passWord = Utils.getGlobalValue("test1_password");
+        AuthorizationRequest authRequest = new AuthorizationRequest(userName, passWord);
+        getOauthCoreClient().authenticateUser(authRequest, true);
+    }
+
     @Given("I have pinned address")
     public void i_have_pinned_address() {
         System.out.println("List address and get address info");
