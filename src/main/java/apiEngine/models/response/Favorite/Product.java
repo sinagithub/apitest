@@ -27,7 +27,7 @@ public class Product {
     @JsonProperty("UnitMass")
     private String unitMass;
     @JsonProperty("Price")
-    private Integer price;
+    private Double price;
     @JsonProperty("OriginalPrice")
     private Integer originalPrice;
     @JsonProperty("ImageUrl")
@@ -74,12 +74,12 @@ public class Product {
     }
 
     @JsonProperty("Price")
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @JsonProperty("Price")
-    public void setPrice(Integer price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
