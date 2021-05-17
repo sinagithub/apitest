@@ -35,6 +35,10 @@ public class BasketRoute {
         return getBasket() +  ALTERNATE_PRODUCT;
     }
 
+    public static String getBasketProduct(){
+        return getBasket() + PRODUCT;
+    }
+
 
 
 

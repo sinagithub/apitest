@@ -3,10 +3,11 @@ package clients.carsi;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Routes.BasketRoute;
-import apiEngine.Routes.Route;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
+import apiEngine.models.requests.Basket.DeleteProductRequest;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.DeleteBasketResponse;
+import apiEngine.models.response.DeleteProductResponse;
 import io.restassured.response.Response;
 
 
@@ -24,6 +25,7 @@ public class CarsiBasketClient extends CarsiClient {
         return new RestResponse<>(BasketIdResponse.class, response);
     }
 
+
     public IRestResponse<AddProductToBasketResponse> addProduct(String basketId,
                                                                 AddProductWithoutCampaignToBasketReq addProductWithoutCampaignToBasketReq) {
         Response response = createRequest()
@@ -40,6 +42,15 @@ public class CarsiBasketClient extends CarsiClient {
                 .delete(BasketRoute.getBasket());
         writeStepLog();
         return new RestResponse<>(DeleteBasketResponse.class, response);
+    }
+
+    public RestResponse<DeleteProductResponse> deleteProduct (String basketId, DeleteProductRequest deleteProductRequest) {
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .body(deleteProductRequest)
+                .delete(BasketRoute.getBasketProduct());
+        writeStepLog();
+        return new RestResponse<DeleteProductResponse>(DeleteProductResponse.class, response);
     }
 
     public IRestResponse<BasketResponse> getBasket(String basketId) {

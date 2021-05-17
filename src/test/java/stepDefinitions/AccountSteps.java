@@ -38,7 +38,7 @@ public class AccountSteps extends BaseSteps {
         getOauthCoreClient().authenticateUser(authRequest, userType.equalsIgnoreCase("Login"));
     }
 
-    @Given("I am a authorized new user")
+    @Given("I am an authorized new user")
     public void i_am_a_new_authorized_user() throws IOException {
         String userName = GenerateFakeData.getFakeEmail();
         getOauthCoreClient().registerNewUser(userName);
@@ -73,7 +73,7 @@ public class AccountSteps extends BaseSteps {
         Address selectedAddress;
         List<Address> availableAddress = new ArrayList<Address>();
         for (Address address : addressList) {
-            if (address.getAvailabilityStatus() == 2 && address.getLatitude() != 0.0) {
+            if (address.getLatitude() != 0.0) {
                 availableAddress.add(address);
             }
         }

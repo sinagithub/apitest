@@ -28,6 +28,7 @@ public class BaseSteps {
     private CarsiVendorClient carsiVendorClient;
     private CarsiFavoriteClient carsiFavoriteClient;
     private CarsiContentClient carsiContentClient;
+    private CarsiOrderClient carsiOrderClient;
 
 
     public BaseSteps(TestContext testContext) {
@@ -42,6 +43,7 @@ public class BaseSteps {
         carsiVendorClient = testContext.getCarsiVendorClient();
         carsiFavoriteClient = testContext.getCarsiFavoriteClient();
         carsiContentClient = testContext.getCarsiContentClient();
+        carsiOrderClient = testContext.getCarsiOrderClient();
     }
 
 
@@ -98,6 +100,11 @@ public class BaseSteps {
     public CarsiFavoriteClient getCarsiFavoriteClient() {
         return carsiFavoriteClient;
     }
+
+    public CarsiOrderClient getCarsiOrderClient(){
+        return carsiOrderClient;
+    }
+
 
     public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());

@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 
 public class GenerateFakeData {
 
@@ -15,5 +16,12 @@ public class GenerateFakeData {
         String lastName=faker.name().lastName();
         return pattern + firstName + lastName  + "@gmail.com";
     }
+
+    public static String getFakeLorem(int size) throws IOException {
+
+        Faker faker1 = new Faker();
+        return faker1.lorem().characters(size);
+    }
+
 
 }
