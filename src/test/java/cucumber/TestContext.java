@@ -61,4 +61,8 @@ public class TestContext {
         return new CarsiContentClient(BaseUrls.getCarsiBaseUrl());
    }
 
+   public CarsiOrderClient getCarsiOrderClient (){
+        return new CarsiOrderClient(BaseUrls.getCarsiBaseUrl());
+   }
+
 }

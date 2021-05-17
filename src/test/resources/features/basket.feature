@@ -32,7 +32,7 @@ Feature: Basket Controls
     And I can add the selected product to basket quantity is 1
     And  I check TotalLinesItemCount is 1 on add basket response
     When I select a random product
-    Then I can add the selected product to basket quantity is 1
+    Then I can add the selected product to basket quantity is 2
     And  I check TotalLinesItemCount is 2 on add basket response
     When I get the basket
     Then I can check product exists in basket
@@ -40,7 +40,7 @@ Feature: Basket Controls
     And I can check ProductName is valid on basket lines
     And I can check ListPrice is valid on basket lines
     And I can check DiscountedPrice is valid on basket lines
-    And I can check Quantity is 1 on basket lines
+    And I can check Product Quantity is 2 on basket lines
     And I can check basket subTotal is valid on basket
     And I can check basket total is valid
 
@@ -93,6 +93,7 @@ Feature: Basket Controls
     When I delete basket
     Then I get the basket
     And I can validate basket is empty
+    And I can validate basket total is 0.0
 
   Scenario: User can see alternate product options
     When  A list of Carşı Vendor are available on home page
@@ -107,6 +108,8 @@ Feature: Basket Controls
     Then I can validate alternate product text "Alternatif ürün için beni arayın" is exist and rank is 2 type is 2
     And I can validate alternate product text "Alternatif ürün gönderin" is exist and rank is 1 type is 1
     And I can validate alternate product text "Ürün yoksa siparişten çıkarın" is exist and rank is 3 type is 3
+    And I can validate alternate product text "Ürün yoksa siparişi iptal edin" is exist and rank is 4 type is 4
+
 
   Scenario: User can see max stock error when add more than stock quantity
     When  A list of Carşı Vendor are available on home page
@@ -128,3 +131,19 @@ Feature: Basket Controls
     When I can add the selected product to basket quantity is 1
     Then I can see "Maksimum satış limiti aşıldı" warning on add basket response
     And I delete basket
+
+    Scenario: User can delete and line item from basket
+      When  A list of Carşı Vendor are available on home page
+      Then I select first vendor from "Super Market" category on home page
+      When I navigate selected vendor
+      Then I choose "Atıştırmalık" product category from category list
+      Then I choose "Çikolata" sub category from sub category
+      When I list the products from selected sub category
+      Then I select a random product
+      And I can add the selected product to basket quantity is 2
+      Then I get the basket
+      And I can check Product Quantity is 2 on basket lines
+      When I delete the selected product from basket quantity is 2
+      Then I get the basket
+      And I can validate basket is empty
+

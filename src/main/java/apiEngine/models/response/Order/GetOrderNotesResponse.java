@@ -1,9 +1,11 @@
-package apiEngine.models.response;
+package apiEngine.models.response.Order;
+
 import java.util.List;
+
+import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.cucumber.java.sl.In;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -11,21 +13,20 @@ import io.cucumber.java.sl.In;
         "InfoList"
 })
 
-
-public class DeleteBasketResponse {
+public class GetOrderNotesResponse {
 
     @JsonProperty("Data")
-    private Boolean data;
+    private List<GetOrderNoteData> data = null;
     @JsonProperty("InfoList")
     private List<Info> infoList = null;
 
     @JsonProperty("Data")
-    public Boolean getData() {
+    public List<GetOrderNoteData> getData() {
         return data;
     }
 
     @JsonProperty("Data")
-    public void setData(Boolean data) {
+    public void setData(List<GetOrderNoteData> data) {
         this.data = data;
     }
 

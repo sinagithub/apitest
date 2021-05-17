@@ -5,7 +5,6 @@ import apiEngine.IRestResponse;
 import apiEngine.PlatformTypeHelper;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
 import apiEngine.models.requests.Favorite.AddFavoriteVendorRequest;
-import apiEngine.models.response.Address;
 import apiEngine.models.response.CarsiVendor;
 import apiEngine.models.response.Favorite.GetFavoritesResponse;
 import apiEngine.models.response.Favorite.Vendor;
@@ -42,12 +41,12 @@ public class FavoriteSteps extends BaseSteps {
         return ((CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR));
     }
 
-    private IRestResponse<GetFavoritesResponse> getGetFavoritesResponse(){
+    private IRestResponse<GetFavoritesResponse> getFavoritesResponse(){
         return (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
     }
 
     private List<Vendor> getFavoriteVendorList(){
-        return getGetFavoritesResponse().getBody().getData().getVendors();
+        return getFavoritesResponse().getBody().getData().getVendors();
     }
 
     @When("I get all favorite vendor list")
@@ -98,9 +97,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I can validate favorite vendor  size is {int} on favorite list")
     public void i_can_validate_favorite_product_size_is(Integer size) {
-        IRestResponse<GetFavoritesResponse> getFavoritesResponse =
-                (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
-        List<Vendor> vendorList = getFavoritesResponse.getBody().getData().getVendors();
+        List<Vendor> vendorList = getFavoritesResponse().getBody().getData().getVendors();
         int vendorListSize = vendorList.size();
         assertTrue(vendorListSize == size, "Favorite Vendor list size should be " + size + " not " +
                 vendorListSize);
