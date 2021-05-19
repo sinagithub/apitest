@@ -38,8 +38,8 @@ public class Vendor {
     private String minBasketPriceInfo;
     @JsonProperty("DeliveryFeeInfo")
     private String deliveryFeeInfo;
-    @JsonProperty("IsOpen")
-    private Boolean isOpen;
+    @JsonProperty("IsVendorAvailable")
+    private Boolean IsVendorAvailable;
     @JsonProperty("CategoryName")
     private String categoryName;
     @JsonProperty("Products")
@@ -119,14 +119,14 @@ public class Vendor {
         this.deliveryFeeInfo = deliveryFeeInfo;
     }
 
-    @JsonProperty("IsOpen")
-    public Boolean getIsOpen() {
-        return isOpen;
+    @JsonProperty("IsVendorAvailable")
+    public Boolean getIsVendorAvailable() {
+        return IsVendorAvailable;
     }
 
     @JsonProperty("IsOpen")
-    public void setIsOpen(Boolean isOpen) {
-        this.isOpen = isOpen;
+    public void setIsVendorAvailable (Boolean IsVendorAvailable) {
+        this.IsVendorAvailable = IsVendorAvailable;
     }
 
     @JsonProperty("CategoryName")

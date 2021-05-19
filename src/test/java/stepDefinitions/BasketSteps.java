@@ -43,6 +43,10 @@ public class BasketSteps extends BaseSteps {
         return (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
     }
 
+    private IRestResponse<AlternateProductResponse> getAlternateProductResponse(){
+        return (IRestResponse<AlternateProductResponse>) getScenarioContext().getContext(Context.ALTERNATE_PRODUCTS_RESPONSE);
+    }
+
     @Then("I get unique basket id")
     public void user_get_unique_basket_id() {
         Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
@@ -486,6 +490,12 @@ public class BasketSteps extends BaseSteps {
         IRestResponse<DeleteProductResponse> deleteProductResponse =
                 getCarsiBasketClient().deleteProduct(basketId, deleteProductRequest);
         getScenarioContext().setContext(Context.DELETE_PRODUCT_RESPONSE, deleteProductResponse);
+    }
+
+    @Then("I can validate alternate product option list is null")
+    public void i_can_validate_alternate_product_option_list_is_empty() {
+        List<AlternateOption> alternateProductOptionList = getAlternateProductResponse().getBody().getData().getAlternateOptions();
+        assertTrue(alternateProductOptionList == null,"Alternate product options should be empty on the banabi");
     }
 
 }

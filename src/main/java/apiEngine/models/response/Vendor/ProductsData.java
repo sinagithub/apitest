@@ -12,7 +12,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "PrevOffset",
         "NextOffset",
         "HasNextPage",
-        "HasPrevPage"
+        "HasPrevPage",
+        "CurrentOffset"
 })
 @Generated("jsonschema2pojo")
 public class ProductsData {
@@ -27,6 +28,8 @@ public class ProductsData {
     private Boolean hasNextPage;
     @JsonProperty("HasPrevPage")
     private Boolean hasPrevPage;
+    @JsonProperty("CurrentOffset")
+    private Integer currentOffset;
 
     @JsonProperty("Products")
     public List<Product> getProducts() {
@@ -78,4 +81,11 @@ public class ProductsData {
         this.hasPrevPage = hasPrevPage;
     }
 
+    public Integer getCurrentOffset() {
+        return currentOffset;
+    }
+
+    public void setCurrentOffset(Integer currentOffset) {
+        this.currentOffset = currentOffset;
+    }
 }

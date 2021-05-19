@@ -28,24 +28,24 @@ public class FavoriteSteps extends BaseSteps {
         super(testContext);
     }
 
-    private String getSelectedVendorId (){
+    private String getSelectedVendorId() {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         return selectedVendor.getId();
     }
 
-    private Product getSelectedProduct(){
+    private Product getSelectedProduct() {
         return (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
     }
 
-    private CarsiVendor getSelectedVendor(){
+    private CarsiVendor getSelectedVendor() {
         return ((CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR));
     }
 
-    private IRestResponse<GetFavoritesResponse> getFavoritesResponse(){
+    private IRestResponse<GetFavoritesResponse> getFavoritesResponse() {
         return (IRestResponse<GetFavoritesResponse>) getScenarioContext().getContext(Context.GET_FAVORITE_VENDORS_RESPONSE);
     }
 
-    private List<Vendor> getFavoriteVendorList(){
+    private List<Vendor> getFavoriteVendorList() {
         return getFavoritesResponse().getBody().getData().getVendors();
     }
 
@@ -111,10 +111,10 @@ public class FavoriteSteps extends BaseSteps {
         List<Vendor> vendorList = getFavoritesResponse.getBody().getData().getVendors();
         String vendorId = getSelectedVendorId();
 
-        for (Vendor vendor : vendorList){
-            if (vendor.getId().equalsIgnoreCase(vendorId)){
-               int productSize =  vendor.getProducts().size();
-               assertTrue(productSize == size,"Product size should be " + size + " not " + productSize);
+        for (Vendor vendor : vendorList) {
+            if (vendor.getId().equalsIgnoreCase(vendorId)) {
+                int productSize = vendor.getProducts().size();
+                assertTrue(productSize == size, "Product size should be " + size + " not " + productSize);
             }
         }
     }
@@ -416,11 +416,12 @@ public class FavoriteSteps extends BaseSteps {
     public void i_check_added_favorite_vendor_is_open_is_valid() {
         CarsiVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
-        boolean actualIsOpen = favoriteVendor.getIsOpen();
+        boolean actualIsOpen = favoriteVendor.getIsVendorAvailable();
         boolean expectedIsOpen = selectedVendor.getIsOpen();
 
         if (expectedIsOpen) {
-            assertTrue(actualIsOpen, "Vendor should be open");
+            assertTrue(actualIsOpen,
+                    "Vendor IsVendorAvailable status should be " + expectedIsOpen + " not " + actualIsOpen);
         } else {
             assertFalse(actualIsOpen);
         }
@@ -496,8 +497,8 @@ public class FavoriteSteps extends BaseSteps {
         List<apiEngine.models.response.Favorite.Product> productList =
                 vendorFavoriteProductResponse.getBody().getData().getProducts();
         int favoriteProductIndex = -1;
-        for (apiEngine.models.response.Favorite.Product product : productList){
-            if (product.getId().equalsIgnoreCase(addedProductId)){
+        for (apiEngine.models.response.Favorite.Product product : productList) {
+            if (product.getId().equalsIgnoreCase(addedProductId)) {
                 favoriteProductIndex = productList.indexOf(product);
             }
         }
@@ -509,27 +510,30 @@ public class FavoriteSteps extends BaseSteps {
         String selectedProductId = getSelectedProduct().getId();
         String actualProductId = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getId();
         assertNotNull(actualProductId);
-        assertEqual("Selected product id should be equal with vendor product id", actualProductId ,selectedProductId);
+        assertEqual("Selected product id should be equal with vendor product id", actualProductId, selectedProductId);
     }
 
     @Then("I check added product Name is valid on favorite product list")
     public void i_check_added_product_name_is_valid() {
         Product selectedProduct = getSelectedProduct();
         String selectedProductId = selectedProduct.getId();
-        String selectedProductName= selectedProduct.getName();
+        String selectedProductName = selectedProduct.getName();
         String actualProductName = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getName();
         assertNotNull(actualProductName);
-        assertEqual("Selected product name should be equal with vendor product name", actualProductName ,selectedProductName);
+        assertEqual("Selected product name should be equal with vendor product name", actualProductName,
+                selectedProductName);
     }
 
     @Then("I check added product UnitMass is valid on favorite product list")
     public void i_check_added_product_unit_mass_is_valid() {
         Product selectedProduct = getSelectedProduct();
         String selectedProductId = selectedProduct.getId();
-        String selectedProductUnitMass= selectedProduct.getUnitMass();
-        String actualProductUnitMass = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getUnitMass();
+        String selectedProductUnitMass = selectedProduct.getUnitMass();
+        String actualProductUnitMass =
+                getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getUnitMass();
         assertNotNull(actualProductUnitMass);
-        assertEqual("Selected product UnitMass should be equal with vendor product UnitMass", actualProductUnitMass ,selectedProductUnitMass);
+        assertEqual("Selected product UnitMass should be equal with vendor product UnitMass", actualProductUnitMass,
+                selectedProductUnitMass);
 
     }
 
@@ -537,18 +541,19 @@ public class FavoriteSteps extends BaseSteps {
     public void i_check_added_product_price_is_valid() {
         Product selectedProduct = getSelectedProduct();
         String selectedProductId = selectedProduct.getId();
-        double selectedProductPrice= selectedProduct.getPrice();
+        double selectedProductPrice = selectedProduct.getPrice();
         double actualProductPrice = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getPrice();
         assertNotNull(actualProductPrice);
-        assertTrue(selectedProductPrice ==actualProductPrice , "Selected product + " + selectedProductPrice + " price should be equal with vendor product price " + actualProductPrice);
+        assertTrue(selectedProductPrice == actualProductPrice, "Selected product + " + selectedProductPrice + " price" +
+                " should be equal with vendor product price " + actualProductPrice);
     }
 
     @Then("I check added product ImageUrl status is {int} on favorite product list")
     public void i_check_added_product_image_url_status_is(Integer statusCode) {
         Product selectedProduct = getSelectedProduct();
         String selectedProductId = selectedProduct.getId();
-        String imageUrl =  getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getImageUrl();
-        assertNotNull(imageUrl,"Product image url should not null !");
+        String imageUrl = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getImageUrl();
+        assertNotNull(imageUrl, "Product image url should not null !");
         int imageStatus = getCarsiFavoriteClient().getImageUrlResponse(imageUrl).getStatusCode();
         assertTrue(imageStatus == statusCode, "Product image status should be " + statusCode
                 + " not " + imageStatus);

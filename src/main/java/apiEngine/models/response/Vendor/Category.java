@@ -12,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Id",
         "ThumbImageUrl",
         "Order",
-        "SubCategories"
+        "ProductCount",
+        "SubCategories",
+
 })
 @Generated("jsonschema2pojo")
 public class Category {
@@ -27,6 +29,8 @@ public class Category {
     private Integer order;
     @JsonProperty("SubCategories")
     private List<SubCategory> subCategories = null;
+    @JsonProperty("ProductCount")
+    private Integer productCount;
 
     @JsonProperty("Name")
     public String getName() {
@@ -78,4 +82,11 @@ public class Category {
         this.subCategories = subCategories;
     }
 
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
 }

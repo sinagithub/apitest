@@ -84,7 +84,7 @@ Feature: Favorite Api controls
     #And I check added favorite vendor DeliveryTimeInfo is valid on favorite list
     #And I check added favorite vendor  MinBasketPriceInfo is valid on favorite list
     #And I check added favorite vendor  DeliveryFeeInfo is valid on favorite list
-    #And I check added favorite vendor  IsOpen is valid on favorite list
+    And I check added favorite vendor  IsOpen is valid on favorite list
 #    And I check added favorite vendor  Products is valid on favorite list
     When I get vendor favorite list
     Then I check added product id is valid on favorite product list

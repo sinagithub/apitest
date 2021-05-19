@@ -110,6 +110,13 @@ Feature: Basket Controls
     And I can validate alternate product text "Ürün yoksa siparişten çıkarın" is exist and rank is 3 type is 3
     And I can validate alternate product text "Ürün yoksa siparişi iptal edin" is exist and rank is 4 type is 4
 
+  Scenario: User can't see alternate product options on banabi basket
+    When Banabi Vendor is available
+    Then I select banabi vendor
+    When I navigate selected vendor
+    When I get alternate product options
+    Then I can validate alternate product option list is null
+
 
   Scenario: User can see max stock error when add more than stock quantity
     When  A list of Carşı Vendor are available on home page
