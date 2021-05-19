@@ -24,6 +24,8 @@ public class SubCategory {
     private Integer order;
     @JsonProperty("Offset")
     private Integer offset;
+    @JsonProperty("ProductCount")
+    private Integer productCount;
 
     @JsonProperty("Id")
     public String getId() {
@@ -65,4 +67,11 @@ public class SubCategory {
         this.offset = offset;
     }
 
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
 }

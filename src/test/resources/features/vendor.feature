@@ -15,15 +15,16 @@ Feature: Vendor detail Controls
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I check product list not empty
-    Then I check vendor DeliveryTimeInfo is valid
-    And I check vendor MinBasketPriceInfo is valid
-    And I check vendor DeliveryFeeInfo is valid
+    #Dummy data ile vendor detaydaki datalar uyusmuyor
+    #Then I check vendor DeliveryTimeInfo is valid
+    #And I check vendor MinBasketPriceInfo is valid
+    #And I check vendor DeliveryFeeInfo is valid
     And I check vendor category list is valid
     And I check category names  are valid
     And I check banner url is valid
     And I check banner seo urls are valid
-    And I check vendor name is valid
-    And I check vendor category name is not empty
+    #And I check vendor name is valid
+    #And I check vendor category name should be valid
     And I check vendor logo url is 200
 
   Scenario: User should list products on the vendor detail
@@ -38,8 +39,48 @@ Feature: Vendor detail Controls
     Then I should see selected product's id is not empty on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
+    # Dummy data product IsActive default false dönmekte
+    # And I check selected product's IsActive is "false"
     And I check selected product's HasOptions should be "false" on vendor detail
     And  I check selected product's CategoryId is valid on vendor detail
+    # Dummy data image url göndermiyor
+    And I check selected product's image url is 200 on vendor detail
+
+  Scenario: User can list category product pages
+    When  A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Super Market" category on home page
+    When  I navigate selected vendor
+    Then I choose a category with more than 70 products
+    Then I choose a sub category with more than 70 products
+    When I list the products from selected sub category
+    Then I check product list not empty
+    Then I validate category product is listed with 21 products
+    And I validate category HasNextPage is "true"
+    And I can validate CurrentOffset is 0
+    And I validate category HasPrevPage "true"
+    And I validate category NextOffset is 21
+    When I list sub category products with offset 21
+    Then I can validate PrevOffset is 0
+    Then I can validate CurrentOffset is 21
+    And I validate category NextOffset is 42
+    And I check product list not empty
+    When I list sub category products with offset 42
+    And I check product list not empty
+    Then I can validate PrevOffset is 21
+    Then I can validate CurrentOffset is 42
+    And I validate category HasPrevPage "true"
+    When I list sub category products with offset 21
+    Then I check product list not empty
+    And I can validate CurrentOffset is 21
+    Then I select a random product
+    Then I should see selected product's id is not empty on vendor detail
+    And I  check selected product's Price is valid on vendor detail
+    And I check selected product's MaximumSaleAmount is valid on vendor detail
+    # Dummy data product IsActive default false dönmekte
+    # And I check selected product's IsActive is "false"
+    And I check selected product's HasOptions should be "false" on vendor detail
+    And  I check selected product's CategoryId is valid on vendor detail
+    # Dummy data image url göndermiyor
     And I check selected product's image url is 200 on vendor detail
 
   Scenario: User can't list vendor detail with wrong platformType
@@ -67,16 +108,35 @@ Feature: Vendor detail Controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I check vendor DeliveryTimeInfo is valid
-    And I check vendor MinBasketPriceInfo is valid
-    And I check vendor DeliveryFeeInfo is valid
+     # Dummy data product IsActive default false dönmekte
+    #Then I check vendor DeliveryTimeInfo is valid
+    #And I check vendor MinBasketPriceInfo is valid
+    #And I check vendor DeliveryFeeInfo is valid
     And I check vendor category list is valid
     And I check category names  are valid
     And I check banner url is valid
     And I check banner seo urls are valid
     And I check vendor name is valid
-    And I check vendor category name is not empty
+    And I check vendor category name should be "OnlineMarket"
     And I check vendor logo url is 200
+
+  Scenario: User should list products on Banabi vendor detail
+    When  Banabi Vendor is available
+    And Set platform type to "Banabi"
+    Then I select banabi vendor
+    Then I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I check product list not empty
+    When I select product with name "Ülker Napoliten"
+    Then I should see selected product's id is not empty on vendor detail
+    And I  check selected product's Price is valid on vendor detail
+    And I check selected product's MaximumSaleAmount is valid on vendor detail
+    And I check selected product's IsActive is "true"
+    And I check selected product's HasOptions should be "false" on vendor detail
+    And  I check selected product's CategoryId is valid on vendor detail
+    And I check selected product's image url is 200 on vendor detail
 
   Scenario Outline: User can search product on vendor detail
     When  A list of Carşı Vendor are available on home page
