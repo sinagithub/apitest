@@ -9,8 +9,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
-import java.util.List;
-
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -29,6 +27,7 @@ public class BaseSteps {
     private CarsiFavoriteClient carsiFavoriteClient;
     private CarsiContentClient carsiContentClient;
     private CarsiOrderClient carsiOrderClient;
+    private CarsiPaymentClient carsiPaymentClient;
 
 
     public BaseSteps(TestContext testContext) {
@@ -44,6 +43,7 @@ public class BaseSteps {
         carsiFavoriteClient = testContext.getCarsiFavoriteClient();
         carsiContentClient = testContext.getCarsiContentClient();
         carsiOrderClient = testContext.getCarsiOrderClient();
+        carsiPaymentClient = testContext.getCarsiPaymentClient();
     }
 
 
@@ -104,6 +104,8 @@ public class BaseSteps {
     public CarsiOrderClient getCarsiOrderClient(){
         return carsiOrderClient;
     }
+
+    public CarsiPaymentClient getCarsiPaymentClient(){return carsiPaymentClient;}
 
 
     public void assertNotNull(String property) {
