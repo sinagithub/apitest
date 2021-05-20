@@ -541,6 +541,7 @@ public class VendorSteps extends BaseSteps {
 
         if (hasNextPageStatus.equalsIgnoreCase("true")) {
             assertTrue(actualHasNextPage, "Has next page should be true");
+
         } else {
             assertTrue(!actualHasNextPage, "Has next page should be false");
         }
