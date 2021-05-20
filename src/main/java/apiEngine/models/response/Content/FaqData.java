@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FaqData {
 
     @JsonProperty("Id")
-    private Integer id;
+    private String id;
     @JsonProperty("Header")
     private String header;
     @JsonProperty("Text")
@@ -25,12 +25,12 @@ public class FaqData {
     private Boolean isActive;
 
     @JsonProperty("Id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     @JsonProperty("Id")
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
