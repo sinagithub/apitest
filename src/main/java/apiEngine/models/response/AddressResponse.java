@@ -9,7 +9,6 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -21,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class AddressResponse {
 
     @JsonProperty("Data")
-    private List<Address> data = null;
+    private List<BanabiAddress> data = null;
     @JsonProperty("Version")
     private String version;
     @JsonProperty("Info")
@@ -30,12 +29,12 @@ public class AddressResponse {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("Data")
-    public List<Address> getData() {
+    public List<BanabiAddress> getData() {
         return data;
     }
 
     @JsonProperty("Data")
-    public void setData(List<Address> data) {
+    public void setData(List<BanabiAddress> data) {
         this.data = data;
     }
 

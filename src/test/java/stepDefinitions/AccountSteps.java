@@ -3,21 +3,16 @@ package stepDefinitions;
 
 import apiEngine.*;
 import apiEngine.models.requests.AuthorizationRequest;
-import apiEngine.models.response.Address;
+import apiEngine.models.response.BanabiAddress;
 import apiEngine.models.response.AddressResponse;
-import apiEngine.models.response.Basket.BasketIdResponse;
-import clients.BaseUrls;
-import clients.carsi.CarsiBasketClient;
 import clients.carsi.CarsiUserClient;
 import cucumber.TestContext;
 import enums.Context;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,39 +57,39 @@ public class AccountSteps extends BaseSteps {
 
         IRestResponse<AddressResponse> addressesResponse = mockBanabi.getAddresses(catalogName);
         Assert.assertTrue(addressesResponse.isSuccessful());
-        List<Address> addressList = addressesResponse.getBody().getData();
-        getScenarioContext().setContext(Context.ADDRESS_LIST, addressList);
+        List<BanabiAddress> banabiAddressList = addressesResponse.getBody().getData();
+        getScenarioContext().setContext(Context.ADDRESS_LIST, banabiAddressList);
 
     }
 
     @Given("I select pinned available address")
     public void i_select_pinned_available_address_on_selected_catalog() {
-        List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
-        Address selectedAddress;
-        List<Address> availableAddress = new ArrayList<Address>();
-        for (Address address : addressList) {
-            if (address.getLatitude() != 0.0) {
-                availableAddress.add(address);
+        List<BanabiAddress> banabiAddressList = (List<BanabiAddress>) getScenarioContext().getContext(Context.ADDRESS_LIST);
+        BanabiAddress selectedBanabiAddress;
+        List<BanabiAddress> availableBanabiAddresses = new ArrayList<BanabiAddress>();
+        for (BanabiAddress banabiAddress : banabiAddressList) {
+            if (banabiAddress.getLatitude() != 0.0) {
+                availableBanabiAddresses.add(banabiAddress);
             }
         }
         Random random = new Random();
-        assertFalse(availableAddress.size() == 0);
-        int index =  random.nextInt(availableAddress.size());
+        assertFalse(availableBanabiAddresses.size() == 0);
+        int index =  random.nextInt(availableBanabiAddresses.size());
 
-        selectedAddress = availableAddress.get(index);
-        getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
-        LatLongHelper.getInstance().setLatitude(selectedAddress.getLatitude());
-        LatLongHelper.getInstance().setLongitude(selectedAddress.getLongitude());
+        selectedBanabiAddress = availableBanabiAddresses.get(index);
+        getScenarioContext().setContext(Context.ADDRESS, selectedBanabiAddress);
+        LatLongHelper.getInstance().setLatitude(selectedBanabiAddress.getLatitude());
+        LatLongHelper.getInstance().setLongitude(selectedBanabiAddress.getLongitude());
     }
 
     @Given("I select pinned address with id {string}")
     public void i_select_pinned_address_with_id(String id) {
-        List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
-        Address selectedAddress;
-        for (Address address : addressList) {
-            if (address.getAddressId().equals(id)) {
-                selectedAddress = address;
-                getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
+        List<BanabiAddress> banabiAddressList = (List<BanabiAddress>) getScenarioContext().getContext(Context.ADDRESS_LIST);
+        BanabiAddress selectedBanabiAddress;
+        for (BanabiAddress banabiAddress : banabiAddressList) {
+            if (banabiAddress.getAddressId().equals(id)) {
+                selectedBanabiAddress = banabiAddress;
+                getScenarioContext().setContext(Context.ADDRESS, selectedBanabiAddress);
                 break;
             }
         }
@@ -102,16 +97,16 @@ public class AccountSteps extends BaseSteps {
 
     @Given("I select pinned available address with order  {int}")
     public void i_select_pinned_available_address_on_selected_catalog_with_order(int order) {
-        List<Address> addressList = (List<Address>) getScenarioContext().getContext(Context.ADDRESS_LIST);
-        Address selectedAddress;
-        List<Address> availableAddress = new ArrayList<>();
-        for (Address address : addressList) {
-            if (address.getAvailabilityStatus() == 1) {
-                availableAddress.add(address);
+        List<BanabiAddress> banabiAddressList = (List<BanabiAddress>) getScenarioContext().getContext(Context.ADDRESS_LIST);
+        BanabiAddress selectedBanabiAddress;
+        List<BanabiAddress> availableBanabiAddresses = new ArrayList<>();
+        for (BanabiAddress banabiAddress : banabiAddressList) {
+            if (banabiAddress.getAvailabilityStatus() == 1) {
+                availableBanabiAddresses.add(banabiAddress);
             }
         }
-        selectedAddress = availableAddress.get(order);
-        getScenarioContext().setContext(Context.ADDRESS, selectedAddress);
+        selectedBanabiAddress = availableBanabiAddresses.get(order);
+        getScenarioContext().setContext(Context.ADDRESS, selectedBanabiAddress);
     }
 
     @Given("I select city {string}")

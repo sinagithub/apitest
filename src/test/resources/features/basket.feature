@@ -153,4 +153,3 @@ Feature: Basket Controls
       When I delete the selected product from basket quantity is 2
       Then I get the basket
       And I can validate basket is empty
-
