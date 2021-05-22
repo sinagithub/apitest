@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "AvailabilityStatusText",
         "StoreId"
 })
-public class Address {
+public class BanabiAddress {
 
     @JsonProperty("AddressId")
     private String addressId;

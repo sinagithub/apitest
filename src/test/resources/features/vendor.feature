@@ -106,8 +106,6 @@ Feature: Vendor detail and listings Controls
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
 
-
-
   Scenario: User can't list vendor detail with wrong platformType
     When  A list of Carşı Vendor are available on home page
     Then I select Carsı vendor with order - 0
@@ -187,7 +185,7 @@ Feature: Vendor detail and listings Controls
 
     Examples:
       | VendorCategory | SearchText |
-      | Super Market        | Calve      |
+      | Super Market   | Calve      |
 
   Scenario: User can search product on Banabi vendor detail
     When  Banabi Vendor is available

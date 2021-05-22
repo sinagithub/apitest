@@ -25,12 +25,12 @@ public class HomePageSteps extends BaseSteps {
 
     @Given("A list of Carşı Vendor are available on home page")
     public void a_list_of_Vendor_are_available() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
         IRestResponse<HomePageCarsiResponse> homePageCarsiResponse = getCarsiHomePageClient().getVendorList(
-                address.getAddressId(),
-                address.getAreaId(),
-                address.getLatitude(),
-                address.getLongitude());
+                banabiAddress.getAddressId(),
+                banabiAddress.getAreaId(),
+                banabiAddress.getLatitude(),
+                banabiAddress.getLongitude());
         Assert.assertTrue(homePageCarsiResponse.isSuccessful());
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
         assertTrue(vendorList.size() > 0, "Vendor list should not be empty");
@@ -126,14 +126,14 @@ public class HomePageSteps extends BaseSteps {
 
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
         GuidHelper.getInstance().setGuid();
         String guid = GuidHelper.getInstance().getGuid();
         IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(
-                address.getAddressId(),
-                address.getAreaId(),
-                address.getLatitude(),
-                address.getLongitude(),
+                banabiAddress.getAddressId(),
+                banabiAddress.getAreaId(),
+                banabiAddress.getLatitude(),
+                banabiAddress.getLongitude(),
                 guid);
         CarsiVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
         getScenarioContext().setContext(Context.BANABI_VENDOR_INFO, banabiVendor);
@@ -229,12 +229,12 @@ public class HomePageSteps extends BaseSteps {
 
     @Given("HomePage banners are available")
     public void home_banners_are_available() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
         IRestResponse<HomePageBannersResponse> homeBanners = getCarsiHomePageClient().getHomePageBanners(
-                address.getAddressId(),
-                address.getAreaId(),
-                address.getLatitude(),
-                address.getLongitude());
+                banabiAddress.getAddressId(),
+                banabiAddress.getAreaId(),
+                banabiAddress.getLatitude(),
+                banabiAddress.getLongitude());
         Assert.assertTrue(homeBanners.isSuccessful());
         List<Banner> bannerList = homeBanners.getBody().getData().getBanners();
         getScenarioContext().setContext(Context.BANNER_LIST, bannerList);

@@ -10,6 +10,7 @@ public class BasketRoute {
     private static final String VERSION = "/v1";
     private static final String PRODUCT = "/product";
     private static final String ALTERNATE_PRODUCT = "/alternate-product-options";
+    private static final String CHECKOUT = "/checkout";
 
     public static String getBasketId() {
         return API + VERSION + BASKET + BASKET_ID;
@@ -37,6 +38,10 @@ public class BasketRoute {
 
     public static String getBasketProduct(){
         return getBasket() + PRODUCT;
+    }
+
+    public static String getBasketCheckout(){
+        return getBasket() + CHECKOUT;
     }
 
 

@@ -3,9 +3,15 @@ package stepDefinitions;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
+import apiEngine.models.requests.Basket.Checkout.BasketCheckOutRequest;
+import apiEngine.models.requests.Basket.Checkout.Donation;
+import apiEngine.models.requests.Basket.Checkout.Payment;
+import apiEngine.models.requests.Basket.Checkout.Tip;
 import apiEngine.models.requests.Basket.DeleteProductRequest;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Basket.*;
+import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
+import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
 import apiEngine.models.response.ProductDetail.Option;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.Product;
@@ -14,6 +20,7 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.eo.Do;
 import org.junit.Assert;
 
 import java.math.BigDecimal;
@@ -39,18 +46,43 @@ public class BasketSteps extends BaseSteps {
     private IRestResponse<AddProductToBasketResponse> getAddProductResponse() {
         return (IRestResponse<AddProductToBasketResponse>) getScenarioContext().getContext(Context.ADD_BASKET_RESPONSE);
     }
-    private Product getSelectedProduct(){
+
+    private Product getSelectedProduct() {
         return (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
     }
 
-    private IRestResponse<AlternateProductResponse> getAlternateProductResponse(){
+    private IRestResponse<BasketPutResponse> getPutBasketCheckoutResponse() {
+        return (IRestResponse<BasketPutResponse>) getScenarioContext().getContext(Context.PUT_BASKET_CHECKOUT_RESPONSE);
+    }
+
+    private IRestResponse<AlternateProductResponse> getAlternateProductResponse() {
         return (IRestResponse<AlternateProductResponse>) getScenarioContext().getContext(Context.ALTERNATE_PRODUCTS_RESPONSE);
+    }
+
+    private IRestResponse<BasketCheckoutResponse> getSavedBasketResponse() {
+        return (IRestResponse<BasketCheckoutResponse>) getScenarioContext().getContext(Context.BASKET_CHECKOUT_RESPONSE);
+    }
+
+    private boolean getSelectedContactlessDeliveryStatus() {
+        return (boolean) getScenarioContext().getContext(Context.CONTACTLESS_DELIVERY_SELECTION);
+    }
+
+    private Payment getSelectedPaymentId() {
+        return (Payment) getScenarioContext().getContext(Context.PAYMENT_TYPE_SELECTION);
+    }
+
+    private Tip getSelectedTip() {
+        return (Tip) getScenarioContext().getContext(Context.TIP_SELECTION);
+    }
+
+    private Donation getSelectedDonation() {
+        return (Donation) getScenarioContext().getContext(Context.DONATION_SELECTION);
     }
 
     @Then("I get unique basket id")
     public void user_get_unique_basket_id() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String addressId = address.getAddressId();
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        String addressId = banabiAddress.getAddressId();
 
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String basketId = basketIdResponse.getBody().getData().getBasketId();
@@ -62,8 +94,8 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check basket id is same than old basket id")
     public void i_can_get_basket_id_same_old_basket_id() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String addressId = address.getAddressId();
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        String addressId = banabiAddress.getAddressId();
 
         String oldBasketId = getBasketId();
 
@@ -76,8 +108,8 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I can get new basket id")
     public void i_can_get_new_basket_id() {
-        Address address = (Address) getScenarioContext().getContext(Context.ADDRESS);
-        String addressId = address.getAddressId();
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        String addressId = banabiAddress.getAddressId();
         String oldBasketId = getBasketId();
 
 
@@ -494,8 +526,81 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I can validate alternate product option list is null")
     public void i_can_validate_alternate_product_option_list_is_empty() {
-        List<AlternateOption> alternateProductOptionList = getAlternateProductResponse().getBody().getData().getAlternateOptions();
-        assertTrue(alternateProductOptionList == null,"Alternate product options should be empty on the banabi");
+        List<AlternateOption> alternateProductOptionList =
+                getAlternateProductResponse().getBody().getData().getAlternateOptions();
+        assertTrue(alternateProductOptionList == null, "Alternate product options should be empty on the banabi");
+    }
+
+    @When("I get checkout options")
+    public void i_get_checkout_options() {
+        String basketId = getBasketId();
+        IRestResponse<BasketCheckoutResponse> getBasketResponse = getCarsiBasketClient().getCheckout(basketId);
+        getScenarioContext().setContext(Context.BASKET_CHECKOUT_RESPONSE, getBasketResponse);
+    }
+
+    @Then("I check Contactless Delivery Option is showed {string} on basket checkout response")
+    public void i_check_contactless_delivery_option_is_showed_on_basket_checkout_response(String contactlessDeliveryOptionStatus) {
+        boolean actualContactlessDeliveryOption =
+                getSavedBasketResponse().getBody().getData().getBasketCheckout().getShowContactlessDeliveryOption();
+        if (contactlessDeliveryOptionStatus.equalsIgnoreCase("True")) {
+            assertTrue(actualContactlessDeliveryOption, "Contactless Delivery Option should be true ");
+        } else {
+            assertTrue(!actualContactlessDeliveryOption, "Contactless Delivery Option should be false ");
+        }
+    }
+
+    @Then("I set ContactlessDelivery is {string}")
+    public void i_set_contactless_delivery_is(String contactLessDelivery) {
+        if (contactLessDelivery.equalsIgnoreCase("True")) {
+            getScenarioContext().setContext(Context.CONTACTLESS_DELIVERY_SELECTION, true);
+        } else {
+            getScenarioContext().setContext(Context.CONTACTLESS_DELIVERY_SELECTION, false);
+        }
+    }
+
+    @Then("I check ContactlessDelivery is {string} on put basket checkout response")
+    public void i_check_contactless_delivery_is_on_put_basket_checkout_response(String expectedContactlessDelivery) {
+        boolean actualContactlessDelivery =
+                getPutBasketCheckoutResponse().getBody().getData().getBasketCheckout().getContactlessDelivery();
+        if (expectedContactlessDelivery.equalsIgnoreCase("true")) {
+            assertTrue(actualContactlessDelivery, "Actual contactless delivery should be true");
+        } else {
+            assertTrue(!actualContactlessDelivery, "Actual contactless delivery should be false");
+        }
+    }
+
+    @When("I set paymentMethodId is {string}, PaymentTypeId : {string} , BinNumber: {int} , IsApproved : {string}")
+    public void i_set_payment_type_is(String paymentMethodId, String paymentTypeId, int binNumber, String isApproved) {
+        boolean approvedSelection = false;
+        if (isApproved.equalsIgnoreCase("true")) {
+            approvedSelection = true;
+        }
+        Payment selectedPayment = new Payment(paymentMethodId, paymentTypeId, binNumber, approvedSelection);
+        getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
+    }
+
+    @When("I put basket to checkout LastChangedProperty is {int}")
+    public void i_put_basket_to_checkout_last_changed_property_is(Integer lastChangedProp) {
+        String basketId = getBasketId();
+        boolean contactlessDeliverySelection = getSelectedContactlessDeliveryStatus();
+        Payment selectedPaymentMethodId = getSelectedPaymentId();
+        Tip selectedTip = getSelectedTip();
+        Donation selectedDonation = getSelectedDonation();
+        BasketCheckOutRequest basketPutCheckOutRequest = new BasketCheckOutRequest(lastChangedProp,
+                contactlessDeliverySelection,
+                selectedTip,
+                selectedDonation,
+                selectedPaymentMethodId);
+        IRestResponse<BasketPutResponse> putBasketCheckOutResponse = getCarsiBasketClient().putCheckout(basketId,
+                basketPutCheckOutRequest);
+        getScenarioContext().setContext(Context.PUT_BASKET_CHECKOUT_RESPONSE, putBasketCheckOutResponse);
+    }
+
+    @Then("I check selected payment MethodId is {string} on put basket checkout response")
+    public void i_check_selected_payment_method_id_is_on_put_basket_checkout_response(String expectedPaymentMethodId) {
+        String actualPaymentMethodId =
+                getPutBasketCheckoutResponse().getBody().getData().getBasketCheckout().getPaymentInfo().getMethodId();
+        assertEqual("Payment method id should be " + expectedPaymentMethodId ,actualPaymentMethodId,expectedPaymentMethodId);
     }
 
 }
