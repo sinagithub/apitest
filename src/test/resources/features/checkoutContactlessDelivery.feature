@@ -42,3 +42,16 @@ Feature: Checkout ContactlessDelivery delivery control
     And I check selected payment MethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3" on put basket checkout response
 
 
+    Scenario: Checkout payment selections IsContactlessDeliveryAvailable status
+      When  A list of Carşı Vendor are available on home page
+      Then I select first vendor from "Super Market" category on home page
+      When I navigate selected vendor
+      Then I choose a category with more than 10 products
+      Then I choose a sub category with more than 11 products
+      When I list the products from selected sub category
+      Then I select a random product
+      And I can add the selected product to basket quantity is 1
+      When I get checkout options
+      Then I check Contactless Delivery Option is showed "true" on basket checkout response
+      And I check IsContactlessDeliveryAvailable is "true" on online payment types
+      And I check IsContactlessDeliveryAvailable is "false" on offline payment types

@@ -1,5 +1,5 @@
-@SmokeTest @Splash
-Feature: Checkout User cards controlss
+@SmokeTest @Checkout @UserCards
+Feature: Checkout User cards controls
 
   Background: Login user
     Given I am an authorized  user "Login"

@@ -1,4 +1,4 @@
-@SmokeTest @Splash
+@SmokeTest @OrderNote
 Feature: Order Api note controls
 
   Background: Login user
