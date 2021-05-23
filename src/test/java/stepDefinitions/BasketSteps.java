@@ -11,6 +11,7 @@ import apiEngine.models.requests.Basket.DeleteProductRequest;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
+import apiEngine.models.response.Basket.Checkout.PaymentMethod;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
 import apiEngine.models.response.ProductDetail.Option;
 import apiEngine.models.response.ProductDetail.ProductResponse;
@@ -20,7 +21,6 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.eo.Do;
 import org.junit.Assert;
 
 import java.math.BigDecimal;
@@ -59,7 +59,7 @@ public class BasketSteps extends BaseSteps {
         return (IRestResponse<AlternateProductResponse>) getScenarioContext().getContext(Context.ALTERNATE_PRODUCTS_RESPONSE);
     }
 
-    private IRestResponse<BasketCheckoutResponse> getSavedBasketResponse() {
+    private IRestResponse<BasketCheckoutResponse> getBasketCheckoutResponse() {
         return (IRestResponse<BasketCheckoutResponse>) getScenarioContext().getContext(Context.BASKET_CHECKOUT_RESPONSE);
     }
 
@@ -541,7 +541,7 @@ public class BasketSteps extends BaseSteps {
     @Then("I check Contactless Delivery Option is showed {string} on basket checkout response")
     public void i_check_contactless_delivery_option_is_showed_on_basket_checkout_response(String contactlessDeliveryOptionStatus) {
         boolean actualContactlessDeliveryOption =
-                getSavedBasketResponse().getBody().getData().getBasketCheckout().getShowContactlessDeliveryOption();
+                getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getShowContactlessDeliveryOption();
         if (contactlessDeliveryOptionStatus.equalsIgnoreCase("True")) {
             assertTrue(actualContactlessDeliveryOption, "Contactless Delivery Option should be true ");
         } else {
@@ -600,7 +600,46 @@ public class BasketSteps extends BaseSteps {
     public void i_check_selected_payment_method_id_is_on_put_basket_checkout_response(String expectedPaymentMethodId) {
         String actualPaymentMethodId =
                 getPutBasketCheckoutResponse().getBody().getData().getBasketCheckout().getPaymentInfo().getMethodId();
-        assertEqual("Payment method id should be " + expectedPaymentMethodId ,actualPaymentMethodId,expectedPaymentMethodId);
+        assertEqual("Payment method id should be " + expectedPaymentMethodId, actualPaymentMethodId,
+                expectedPaymentMethodId);
+    }
+
+    private List<PaymentMethod> getOnlinePaymentMethods() {
+        return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getPaymentTypes().get(0).getPaymentMethods();
+    }
+
+    private List<PaymentMethod> getOfflinePaymentMethods() {
+        return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getPaymentTypes().get(1).getPaymentMethods();
+    }
+
+    @Then("I check IsContactlessDeliveryAvailable is {string} on online payment types")
+    public void i_check_is_contactless_delivery_available_is_on_online_payment_types(String expectedIsContactlessDeliveryAvailable) {
+        List<PaymentMethod> onlinePaymentMethodList = getOnlinePaymentMethods();
+
+        for (PaymentMethod paymentMethod : onlinePaymentMethodList) {
+            if (expectedIsContactlessDeliveryAvailable.contains("true")) {
+                assertTrue(paymentMethod.getIsContactlessDeliveryAvailable(), "IsContactlessDeliveryAvailable should " +
+                        "be true");
+            } else {
+                assertFalse(paymentMethod.getIsContactlessDeliveryAvailable());
+            }
+
+        }
+    }
+
+    @Then("I check IsContactlessDeliveryAvailable is {string} on offline payment types")
+    public void i_check_is_contactless_delivery_available_is_on_offline_payment_types(String expectedIsContactlessDeliveryAvailable) {
+        List<PaymentMethod> onlinePaymentMethodList = getOfflinePaymentMethods();
+
+        for (PaymentMethod paymentMethod : onlinePaymentMethodList) {
+            if (expectedIsContactlessDeliveryAvailable.contains("true")) {
+                assertTrue(paymentMethod.getIsContactlessDeliveryAvailable(), "IsContactlessDeliveryAvailable should " +
+                        "be true");
+            } else {
+                assertFalse(paymentMethod.getIsContactlessDeliveryAvailable());
+            }
+
+        }
     }
 
 }

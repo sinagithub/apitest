@@ -1,5 +1,5 @@
-@SmokeTest @Splash
-Feature: Splash Api controls
+@SmokeTest @Content
+Feature: Content api controls
 
   Background: Login user
     Given I am an authorized  user "Login"
