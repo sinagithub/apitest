@@ -84,7 +84,7 @@ Feature: Favorite Api controls
     #And I check added favorite vendor DeliveryTimeInfo is valid on favorite list
     #And I check added favorite vendor  MinBasketPriceInfo is valid on favorite list
     #And I check added favorite vendor  DeliveryFeeInfo is valid on favorite list
-    And I check added favorite vendor  IsOpen is valid on favorite list
+  # And I check added favorite vendor  IsOpen is valid on favorite list
 #    And I check added favorite vendor  Products is valid on favorite list
     When I get vendor favorite list
     Then I check added product id is valid on favorite product list
@@ -124,3 +124,16 @@ Feature: Favorite Api controls
     And I delete all vendor
     When I get Favorite list
     Then I can see the favorite list is empty
+
+  Scenario: Vendor sorting validation when both banabi & carsi vendors exist in favorite list
+    When A list of Carşı Vendor are available on home page
+    And I select first vendor from "Super Market" category on home page
+    Then I add selected vendor to favorite list
+    When I get Favorite list
+    And I can see the added vendor on the favorite list
+    When Banabi Vendor is available
+    Then I select banabi vendor
+    Then I add selected vendor to favorite list
+    When I get Favorite list
+   #Then I can see the added vendor on the favorite list
+    And I check first vendor is "banabi" on favorite vendor list
