@@ -559,4 +559,20 @@ public class FavoriteSteps extends BaseSteps {
                 + " not " + imageStatus);
     }
 
+    @When("I check first vendor is {string} on favorite vendor list")
+    public void i_check_first_vendor_is_on_favorite_vendor_list(String vendorType) {
+        Vendor firstVendor = getFavoriteVendorList().get(0);
+        String expectedVendorType = firstVendor.getPlatformType();
+
+        if (vendorType.equalsIgnoreCase("Banabi")){
+            assertTrue(expectedVendorType.equalsIgnoreCase("2"),
+                    "First vendor type should be banabi on vendor list");
+
+        }
+        if (vendorType.equalsIgnoreCase("çarşi")){
+            assertTrue(expectedVendorType.equalsIgnoreCase("1"),
+                    "First vendor type should be carsi on vendor list");
+        }
+    }
+
 }

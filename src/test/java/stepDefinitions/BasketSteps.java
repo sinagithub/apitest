@@ -612,34 +612,5 @@ public class BasketSteps extends BaseSteps {
         return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getPaymentTypes().get(1).getPaymentMethods();
     }
 
-    @Then("I check IsContactlessDeliveryAvailable is {string} on online payment types")
-    public void i_check_is_contactless_delivery_available_is_on_online_payment_types(String expectedIsContactlessDeliveryAvailable) {
-        List<PaymentMethod> onlinePaymentMethodList = getOnlinePaymentMethods();
-
-        for (PaymentMethod paymentMethod : onlinePaymentMethodList) {
-            if (expectedIsContactlessDeliveryAvailable.contains("true")) {
-                assertTrue(paymentMethod.getIsContactlessDeliveryAvailable(), "IsContactlessDeliveryAvailable should " +
-                        "be true");
-            } else {
-                assertFalse(paymentMethod.getIsContactlessDeliveryAvailable());
-            }
-
-        }
-    }
-
-    @Then("I check IsContactlessDeliveryAvailable is {string} on offline payment types")
-    public void i_check_is_contactless_delivery_available_is_on_offline_payment_types(String expectedIsContactlessDeliveryAvailable) {
-        List<PaymentMethod> onlinePaymentMethodList = getOfflinePaymentMethods();
-
-        for (PaymentMethod paymentMethod : onlinePaymentMethodList) {
-            if (expectedIsContactlessDeliveryAvailable.contains("true")) {
-                assertTrue(paymentMethod.getIsContactlessDeliveryAvailable(), "IsContactlessDeliveryAvailable should " +
-                        "be true");
-            } else {
-                assertFalse(paymentMethod.getIsContactlessDeliveryAvailable());
-            }
-
-        }
-    }
 
 }

@@ -17,8 +17,8 @@ public class Payment {
 
     @JsonProperty("PaymentMethodId")
     private String paymentMethodId;
-    @JsonProperty("PaymentTypeId")
-    private String paymentTypeId;
+    @JsonProperty("PaymentType")
+    private String paymentType;
     @JsonProperty("BinNumber")
     private Integer binNumber;
     @JsonProperty("IsApproved")
@@ -33,15 +33,15 @@ public class Payment {
 
     /**
      *
-     * @param paymentTypeId
+     * @param paymentType
      * @param paymentMethodId
      * @param binNumber
      * @param isApproved
      */
-    public Payment(String paymentMethodId, String paymentTypeId, Integer binNumber, Boolean isApproved) {
+    public Payment(String paymentMethodId, String paymentType, Integer binNumber, Boolean isApproved) {
         super();
         this.paymentMethodId = paymentMethodId;
-        this.paymentTypeId = paymentTypeId;
+        this.paymentType = paymentType;
         this.binNumber = binNumber;
         this.isApproved = isApproved;
     }
@@ -57,13 +57,13 @@ public class Payment {
     }
 
     @JsonProperty("PaymentTypeId")
-    public String getPaymentTypeId() {
-        return paymentTypeId;
+    public String getPaymentType() {
+        return paymentType;
     }
 
     @JsonProperty("PaymentTypeId")
-    public void setPaymentTypeId(String paymentTypeId) {
-        this.paymentTypeId = paymentTypeId;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
     @JsonProperty("BinNumber")
