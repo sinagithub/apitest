@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonPropertyOrder({
         "Id",
         "TypeId",
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "IsSelected"
 })
 @Generated("jsonschema2pojo")
-public class Option {
+public class Option1 {
 
     @JsonProperty("Id")
     private Integer id;
@@ -22,12 +23,34 @@ public class Option {
     private Integer typeId;
     @JsonProperty("Value")
     private Integer value;
-    @JsonProperty("Value")
-    private Double value1;
     @JsonProperty("ValueText")
     private String valueText;
     @JsonProperty("IsSelected")
     private Boolean isSelected;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Option1() {
+    }
+
+    /**
+     *
+     * @param valueText
+     * @param isSelected
+     * @param typeId
+     * @param id
+     * @param value
+     */
+    public Option1(Integer id, Integer typeId, Integer value, String valueText, Boolean isSelected) {
+        super();
+        this.id = id;
+        this.typeId = typeId;
+        this.value = value;
+        this.valueText = valueText;
+        this.isSelected = isSelected;
+    }
 
     @JsonProperty("Id")
     public Integer getId() {
@@ -79,11 +102,4 @@ public class Option {
         this.isSelected = isSelected;
     }
 
-    public Double getValue1() {
-        return value1;
-    }
-
-    public void setValue1(Double value1) {
-        this.value1 = value1;
-    }
 }

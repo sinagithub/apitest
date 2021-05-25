@@ -13,6 +13,7 @@ import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
 import apiEngine.models.response.Basket.Checkout.PaymentMethod;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
+import apiEngine.models.response.Basket.Checkout.TipInfo;
 import apiEngine.models.response.ProductDetail.Option;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.Product;
@@ -25,6 +26,7 @@ import org.junit.Assert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +65,7 @@ public class BasketSteps extends BaseSteps {
         return (IRestResponse<BasketCheckoutResponse>) getScenarioContext().getContext(Context.BASKET_CHECKOUT_RESPONSE);
     }
 
+
     private boolean getSelectedContactlessDeliveryStatus() {
         return (boolean) getScenarioContext().getContext(Context.CONTACTLESS_DELIVERY_SELECTION);
     }
@@ -77,6 +80,10 @@ public class BasketSteps extends BaseSteps {
 
     private Donation getSelectedDonation() {
         return (Donation) getScenarioContext().getContext(Context.DONATION_SELECTION);
+    }
+
+    private TipInfo getTipInfoListOnBasketCheckout() {
+        return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getTipInfo();
     }
 
     @Then("I get unique basket id")
@@ -612,5 +619,53 @@ public class BasketSteps extends BaseSteps {
         return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getPaymentTypes().get(1).getPaymentMethods();
     }
 
+    @Then("I check tip info is {string} on basket checkout response")
+    public void i_check_tip_info_is_on_basket_checkout_response(String expectedTipStatus) {
+        boolean actualTipStatus = getTipInfoListOnBasketCheckout().getEnabled();
+        if (expectedTipStatus.equalsIgnoreCase("true")) {
+            assertTrue(actualTipStatus, "Tip status shoul be true");
+        } else {
+            assertTrue(!actualTipStatus, "Tip status shoul be false");
+        }
+    }
 
+    private static double roundDouble(double d) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return Double.parseDouble(df.format(d));
+    }
+
+    @Then("I check tip value is valid {int}")
+    public void i_check_tip_value_is_valid(Integer tipTypeId) {
+        List<apiEngine.models.response.Basket.Checkout.Option> optionList = getTipInfoListOnBasketCheckout().getOptions();
+       if (tipTypeId == 3){
+           assertTrue(optionList.get(2).getValue() == 0, "Tip value should be 0");
+       }
+       else if (tipTypeId == 2){
+           assertTrue(optionList.get(0).getValue() == 3, "Tip value should be 3");
+       }
+       else if (tipTypeId == 1){
+           List<apiEngine.models.response.Basket.Checkout.Option> option = getTipInfoListOnBasketCheckout().getOptions();
+           double actualValue = option.get(1).getValue();
+           double expectedValue = getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getBasketInfo().getTotal()/10;
+           int randValue = (int) roundDouble(expectedValue);
+           assertTrue(actualValue == randValue, "Tip value should be " + randValue + " not " + actualValue);
+       }
+    }
+
+    @Then("I check tip option {int} {int} {string} {string}")
+    public void i_check_tip_option(int rank, int expectedTypeId, String expectedValueText,
+                                   String expectedIsSelected) {
+        apiEngine.models.response.Basket.Checkout.Option option =
+                getTipInfoListOnBasketCheckout().getOptions().get(rank);
+        int actualTypeId = option.getTypeId();
+        String actualValueText = option.getValueText();
+
+        assertTrue(actualTypeId== expectedTypeId, "Type ip should be " + expectedTypeId);
+        assertEqual("Value text should be " + expectedValueText, actualValueText, expectedValueText);
+        if (expectedIsSelected.equalsIgnoreCase("true")) {
+            assertTrue(option.getIsSelected(), "IsSelected should be true");
+        } else {
+            assertTrue(!option.getIsSelected(), "IsSelected should be false");
+        }
+    }
 }
