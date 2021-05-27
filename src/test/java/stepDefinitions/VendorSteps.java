@@ -194,6 +194,24 @@ public class VendorSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
     }
 
+    @Then("I select a random product with price upper than is {double}")
+    public void i_select_a_random_product_upper_than(double priceValue) {
+        IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
+                (IRestResponse<VendorProductsResponse>) getScenarioContext()
+                        .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
+        List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
+
+        int index = 0;
+        for (Product product : products){
+            if (product.getPrice() > priceValue){
+                index = products.indexOf(product);
+                break;
+            }
+        }
+        Product product = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
+        getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
+    }
+
     @Then("I select random {int} products")
     public void i_select_random_products(int size) {
         IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =

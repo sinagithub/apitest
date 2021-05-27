@@ -1,5 +1,4 @@
 package apiEngine.models.response.Basket.Checkout;
-
 import java.util.List;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,7 +19,7 @@ public class DonationInfo {
     @JsonProperty("Enabled")
     private Boolean enabled;
     @JsonProperty("Options")
-    private List<Option> options = null;
+    private List<Option1> options = null;
 
     @JsonProperty("Foundations")
     public List<Foundation> getFoundations() {
@@ -43,8 +42,13 @@ public class DonationInfo {
     }
 
     @JsonProperty("Options")
-    public List<Option> getOptions() {
+    public List<Option1> getOptions() {
         return options;
+    }
+
+    @JsonProperty("Options")
+    public void setOptions(List<Option1> options) {
+        this.options = options;
     }
 
 }
