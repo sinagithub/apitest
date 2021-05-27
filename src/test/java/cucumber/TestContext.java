@@ -42,7 +42,7 @@ public class TestContext {
     }
 
     public CarsiProductClient getCarsiProductClient() {
-        return new CarsiProductClient("http://carsi-api-stg.yemeksepeti.com");
+        return new CarsiProductClient(BaseUrls.getCarsiBaseUrl());
     }
 
     public CarsiSplashClient getCarsiSplashClient() {

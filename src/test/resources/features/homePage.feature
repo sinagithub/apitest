@@ -26,7 +26,7 @@ Feature: Homepage Api controls
     And Check Banabi vendor DeliveryTimeInfo is not empty
     And Check Banabi vendor MinBasketPriceInfo is not empty
     And Check Banabi vendor DeliveryFeeInfo is not empty
-    And Check Banabi vendor IsOpen should be "false"
+    And Check Banabi vendor IsOpen should be "true"
 
   Scenario: HomePage Banner listing
     And  HomePage banners are available

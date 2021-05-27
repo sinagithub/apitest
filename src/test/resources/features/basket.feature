@@ -128,7 +128,7 @@ Feature: Basket Controls
     Then I select a random product
     And I navigate selected product
     When I want add product more than stock
-    Then I can see "Maksimum satış limiti aşıldı" warning on add basket response
+    Then I can see "MaximumSaleAmountExceeded" warning on add basket response
     Then I can valid add basket response is 400
     Then I get the basket
     And I can validate basket is empty
@@ -136,7 +136,7 @@ Feature: Basket Controls
     Then I get the basket
     And I can check Quantity is valid on basket lines
     When I can add the selected product to basket quantity is 1
-    Then I can see "Maksimum satış limiti aşıldı" warning on add basket response
+    Then I can see "MaximumSaleAmountExceeded" warning on add basket response
     And I delete basket
 
     Scenario: User can delete and line item from basket
