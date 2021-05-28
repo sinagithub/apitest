@@ -1,6 +1,6 @@
 @SmokeTest @OrderNote
 Feature: Order Api note controls
-
+##Get order note sislindi refactor ihtiyacımız var !
   Background: Login user
     Given I am an authorized new user
 

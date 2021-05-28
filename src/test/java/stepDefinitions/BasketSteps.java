@@ -178,7 +178,7 @@ public class BasketSteps extends BaseSteps {
         List<Option> options = getOptionIfHasOptionFromProductDetail();
         AddProductWithoutCampaignToBasketReq addProductWithoutCampaignToBasketReq =
                 new AddProductWithoutCampaignToBasketReq(productId,
-                        null,
+                        productId,
                         quantity,
                         null,
                         null,
@@ -216,14 +216,17 @@ public class BasketSteps extends BaseSteps {
 
     private double getExpectedBasketTotalPrice() {
         BigDecimal bd = BigDecimal.valueOf(getAddedProductsTotalPrice() + getSelectedVendorDeliveryFee()).setScale(2,
-                RoundingMode.HALF_UP);
+                RoundingMode.UP);
         return bd.doubleValue();
     }
 
     @Then("I can check basket subTotal is valid on basket")
     public void i_can_check_basket_sub_total_is_valid_on_basket() {
         double actualSubTotal = getBasketResponse().getBody().getData().getBasketInfo().getSubTotal();
-        double expectedSubTotal = getAddedProductsTotalPrice();
+        BigDecimal bd = BigDecimal.valueOf(getAddedProductsTotalPrice()).setScale(2,
+                RoundingMode.HALF_UP);
+
+        double expectedSubTotal = bd.doubleValue();
         assertTrue(actualSubTotal == expectedSubTotal,
                 "Product sub total should be " + expectedSubTotal + " not " + actualSubTotal);
     }
@@ -232,7 +235,6 @@ public class BasketSteps extends BaseSteps {
     public void i_can_check_basket_total_is_valid() {
         double expectedPrice = getExpectedBasketTotalPrice();
         double actualTotalPrice = getBasketResponse().getBody().getData().getBasketInfo().getTotal();
-
         assertTrue(actualTotalPrice == expectedPrice,
                 "Basket total price should be " + expectedPrice + " not " + actualTotalPrice);
 
@@ -576,13 +578,13 @@ public class BasketSteps extends BaseSteps {
         }
     }
 
-    @When("I set paymentMethodId is {string}, PaymentTypeId : {string} , BinNumber: {int} , IsApproved : {string}")
-    public void i_set_payment_type_is(String paymentMethodId, String paymentTypeId, int binNumber, String isApproved) {
+    @When("I set paymentMethodId is {string}, PaymentType : {int} , BinNumber: {int} , IsApproved : {string}")
+    public void i_set_payment_type_is(String paymentMethodId, Integer paymentType, int binNumber, String isApproved) {
         boolean approvedSelection = false;
         if (isApproved.equalsIgnoreCase("true")) {
             approvedSelection = true;
         }
-        Payment selectedPayment = new Payment(paymentMethodId, paymentTypeId, binNumber, approvedSelection);
+        Payment selectedPayment = new Payment(paymentMethodId, paymentType, binNumber, approvedSelection);
         getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
     }
 
@@ -629,11 +631,6 @@ public class BasketSteps extends BaseSteps {
         }
     }
 
-    private static double roundDouble(double d) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        return Double.parseDouble(df.format(d));
-    }
-
     @Then("I check tip value is valid {int}")
     public void i_check_tip_value_is_valid(Integer tipTypeId) {
         List<apiEngine.models.response.Basket.Checkout.Option> optionList =
@@ -648,8 +645,8 @@ public class BasketSteps extends BaseSteps {
             double actualValue = option.get(1).getValue();
             double expectedValue =
                     getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getBasketInfo().getTotal() / 10;
-            int randValue = (int) roundDouble(expectedValue);
-            assertTrue(actualValue == randValue, "Tip value should be " + randValue + " not " + actualValue);
+            int roundValue = (int) roundDouble(expectedValue,"#.##");
+            assertTrue(actualValue == roundValue, "Tip value should be " + roundValue + " not " + actualValue);
         }
     }
 

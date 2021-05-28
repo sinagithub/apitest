@@ -4,11 +4,12 @@ import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.cucumber.java.sl.In;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "PaymentMethodId",
-        "PaymentTypeId",
+        "PaymentType",
         "BinNumber",
         "IsApproved"
 })
@@ -18,7 +19,7 @@ public class Payment {
     @JsonProperty("PaymentMethodId")
     private String paymentMethodId;
     @JsonProperty("PaymentType")
-    private String paymentType;
+    private Integer paymentType;
     @JsonProperty("BinNumber")
     private Integer binNumber;
     @JsonProperty("IsApproved")
@@ -38,7 +39,7 @@ public class Payment {
      * @param binNumber
      * @param isApproved
      */
-    public Payment(String paymentMethodId, String paymentType, Integer binNumber, Boolean isApproved) {
+    public Payment(String paymentMethodId, Integer paymentType, Integer binNumber, Boolean isApproved) {
         super();
         this.paymentMethodId = paymentMethodId;
         this.paymentType = paymentType;
@@ -56,13 +57,13 @@ public class Payment {
         this.paymentMethodId = paymentMethodId;
     }
 
-    @JsonProperty("PaymentTypeId")
-    public String getPaymentType() {
+    @JsonProperty("PaymentType")
+    public Integer getPaymentType() {
         return paymentType;
     }
 
-    @JsonProperty("PaymentTypeId")
-    public void setPaymentType(String paymentType) {
+    @JsonProperty("PaymentType")
+    public void setPaymentType(Integer paymentType) {
         this.paymentType = paymentType;
     }
 

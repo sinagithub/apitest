@@ -31,33 +31,16 @@ public class CarsiHomePageClient extends CarsiClient {
         return new RestResponse(HomePageCarsiResponse.class, response);
     }
 
-    public IRestResponse<HomePageBanabiResponse> getBanabiVendor(
-                                                                 String addressId,
-                                                                 String areaId,
-                                                                 Double latitude,
-                                                                 Double longitude,
-                                                                 String guid) {
-        Response response = createRequest().
-                queryParam("AddressId", addressId)
-                .queryParam("AreaId", areaId)
-                .queryParam("Latitude", latitude)
-                .queryParam("Longitude", longitude)
+    public IRestResponse<HomePageBanabiResponse> getBanabiVendor(String guid) {
+        Response response = createRequest()
                 .queryParam("SessionId",guid)
                 .get(Route.homepageBanabi());
         writeStepLog();
         return new RestResponse(HomePageBanabiResponse.class, response);
     }
 
-    public IRestResponse<HomePageBannersResponse> getHomePageBanners(
-                                                                     String addressId,
-                                                                     String areaId,
-                                                                     Double latitude,
-                                                                     Double longitude) {
-        Response response = createRequest().
-                queryParam("AddressId", addressId)
-                .queryParam("AreaId", areaId)
-                .queryParam("Latitude", latitude)
-                .queryParam("Longitude", longitude)
+    public IRestResponse<HomePageBannersResponse> getHomePageBanners() {
+        Response response = createRequest()
                 .get(Route.homepageBanners());
         writeStepLog();
         return new RestResponse(HomePageBannersResponse.class, response);

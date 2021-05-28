@@ -119,7 +119,7 @@ public class FavoriteSteps extends BaseSteps {
         }
     }
 
-    @Then("I can validate vendor favorite product size is {int} on vendor vendor favorites list")
+    @Then("I validate vendor favorite product size is {int} on vendor favorites list")
     public void i_can_validate_vendor_favorite_products_size_is(Integer size) {
         String vendorId = getSelectedVendorId();
         IRestResponse<VendorFavoriteResponse> vendorFavoriteResponseResponse =
@@ -175,9 +175,9 @@ public class FavoriteSteps extends BaseSteps {
         List<Vendor> vendorList = getCarsiFavoriteClient().getFavoriteList().getBody().getData().getVendors();
         for (Vendor vendor : vendorList) {
             if (vendor.getId().equalsIgnoreCase(vendorId)) {
-                if (vendor.getPlatformType().equalsIgnoreCase("1")) {
+                if (vendor.getPlatformType().equalsIgnoreCase("0")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Carsi");
-                } else {
+                } else if (vendor.getPlatformType().equalsIgnoreCase("2")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Banabi");
                 }
 
@@ -273,8 +273,7 @@ public class FavoriteSteps extends BaseSteps {
         String vendorId = getSelectedVendorId();
         Product selectedProduct = getSelectedProduct();
         String productId = selectedProduct.getId();
-        String platformType = PlatformTypeHelper.getInstance().getPlatformType();
-        getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, platformType);
+        getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId);
     }
 
     @Then("I can validate product is deleted vendor detail favorite")
@@ -296,7 +295,6 @@ public class FavoriteSteps extends BaseSteps {
 
         for (Vendor vendor : vendorList) {
             String vendorId = vendor.getId();
-            String vendorType = vendor.getPlatformType();
 
             setVendorPlatformType(vendorId);
 
@@ -308,7 +306,7 @@ public class FavoriteSteps extends BaseSteps {
 
             for (apiEngine.models.response.Favorite.Product product : productList) {
                 String productId = product.getId();
-                getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId, vendorType);
+                getCarsiFavoriteClient().deleteFavoriteProduct(productId, vendorId);
             }
 
         }
@@ -405,11 +403,11 @@ public class FavoriteSteps extends BaseSteps {
     public void i_check_added_favorite_vendor_delivery_fee_info_is_valid() {
         CarsiVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
-        String minBasketPrice = favoriteVendor.getDeliveryFeeInfo();
-        String expectedDeliveryTime = selectedVendor.getDeliveryTimeInfo();
-        assertTrue(!minBasketPrice.isEmpty(), "DeliveryFeeInfo must not null");
+        String actualDeliveryFeeInfo = favoriteVendor.getDeliveryFeeInfo();
+        String expectedDeliveryFeeInfo = selectedVendor.getDeliveryFeeInfo();
+        assertTrue(!actualDeliveryFeeInfo.isEmpty(), "DeliveryFeeInfo must not null");
         assertEqual("Selected vendor and favorite vendor DeliveryFeeInfo should be equal",
-                minBasketPrice, expectedDeliveryTime);
+                actualDeliveryFeeInfo, expectedDeliveryFeeInfo);
     }
 
     @Then("I check added favorite vendor  IsOpen is valid on favorite list")
@@ -543,7 +541,7 @@ public class FavoriteSteps extends BaseSteps {
         String selectedProductId = selectedProduct.getId();
         double selectedProductPrice = selectedProduct.getPrice();
         double actualProductPrice = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getPrice();
-        assertNotNull(actualProductPrice);
+        assertNotNull(actualProductPrice,"Product price should empty");
         assertTrue(selectedProductPrice == actualProductPrice, "Selected product + " + selectedProductPrice + " price" +
                 " should be equal with vendor product price " + actualProductPrice);
     }
@@ -564,12 +562,12 @@ public class FavoriteSteps extends BaseSteps {
         Vendor firstVendor = getFavoriteVendorList().get(0);
         String expectedVendorType = firstVendor.getPlatformType();
 
-        if (vendorType.equalsIgnoreCase("Banabi")){
+        if (vendorType.equalsIgnoreCase("Banabi")) {
             assertTrue(expectedVendorType.equalsIgnoreCase("2"),
                     "First vendor type should be banabi on vendor list");
 
         }
-        if (vendorType.equalsIgnoreCase("çarşi")){
+        if (vendorType.equalsIgnoreCase("çarşi")) {
             assertTrue(expectedVendorType.equalsIgnoreCase("1"),
                     "First vendor type should be carsi on vendor list");
         }

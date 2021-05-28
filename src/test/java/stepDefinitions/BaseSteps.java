@@ -9,6 +9,8 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.text.DecimalFormat;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -112,8 +114,8 @@ public class BaseSteps {
         Assert.assertFalse(property.isEmpty());
     }
 
-    public void assertNotNull(Double property) {
-        Assert.assertFalse(property.isNaN());
+    public void assertNotNull(Double property, String message) {
+        assertThat(message, property, is(notNullValue()));
     }
 
     public void assertNotNull(String property , String message) {
@@ -138,6 +140,11 @@ public class BaseSteps {
 
     public void assertEqual(String reason, String actual, String expected) {
         assertThat(reason, actual, equalToIgnoringCase(expected));
+    }
+
+    public double roundDouble(double d,String formatPattern) {
+        DecimalFormat df = new DecimalFormat(formatPattern);
+        return Double.parseDouble(df.format(d));
     }
 
 

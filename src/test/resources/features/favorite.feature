@@ -26,7 +26,6 @@ Feature: Favorite Api controls
     Then I can validate the vendor is removed on the favorite list
 
   Scenario: I can add/delete product to favorite list
-    Given Set platform type to "Carsi"
     When A list of Carşı Vendor are available on home page
     And I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -56,13 +55,13 @@ Feature: Favorite Api controls
     Then I select random 5 products
     And I can add all selected product to favorites
     And I get vendor favorite list
-    And I can validate vendor favorite product size is 5 on vendor vendor favorites list
+    And I validate vendor favorite product size is 5 on vendor favorites list
     When I get Favorite list
     Then I can validate favorite vendor  size is 1 on favorite list
     And I can validate favorite vendor product size is 3 on favorite list
     When I get all favorite vendor list
     Then I delete all added favorite products
-    And I can validate vendor favorite product size is 0 on vendor vendor favorites list
+    And I validate vendor favorite product size is 0 on vendor favorites list
     When I get Favorite list
     And I delete all vendor
     When I get Favorite list
@@ -116,10 +115,10 @@ Feature: Favorite Api controls
     Then I select random 5 products
     And I can add all selected product to favorites
     And I get vendor favorite list
-    And I can validate vendor favorite product size is 5 on vendor vendor favorites list
+    And I validate vendor favorite product size is 5 on vendor favorites list
     And I get all favorite vendor list
     And I delete all added favorite products
-    And I can validate vendor favorite product size is 0 on vendor vendor favorites list
+    And I validate vendor favorite product size is 0 on vendor favorites list
     When I get Favorite list
     And I delete all vendor
     When I get Favorite list
@@ -135,5 +134,4 @@ Feature: Favorite Api controls
     Then I select banabi vendor
     Then I add selected vendor to favorite list
     When I get Favorite list
-   #Then I can see the added vendor on the favorite list
     And I check first vendor is "banabi" on favorite vendor list

@@ -427,7 +427,7 @@ public class VendorSteps extends BaseSteps {
     public void i_check_selected_product_s_price_is_valid() {
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         double price = selectedProduct.getPrice();
-        assertNotNull(price);
+        assertNotNull(price,"Product Price should not empty");
     }
 
     @Then("I check selected product's MaximumSaleAmount is valid on vendor detail")

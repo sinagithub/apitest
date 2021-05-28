@@ -10,6 +10,9 @@ import enums.Context;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 @SuppressWarnings("unchecked")
 public class ProductSteps extends BaseSteps {
 
@@ -17,36 +20,36 @@ public class ProductSteps extends BaseSteps {
         super(testContext);
     }
 
+    private Data getProductData() {
+        return (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
+    }
+
 
     @Then("I validate product name is valid on product detail")
     public void validateProductNameIsValid() {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
-        assertNotNull(productData.getName(), "Product name must not null");
+        assertNotNull(getProductData().getName(), "Product name must not null");
     }
 
     @Then("I validate product desc is valid on product detail")
     public void validateDescIsValid() {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
-        assertNotNull(productData.getDescription(), "Product desc must not null");
+        assertNotNull(getProductData().getDescription(), "Product desc must not null");
     }
 
     @Then("I validate product Badge is valid on product detail")
     public void validateProductBadgeIsValid() {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
-        assertNotNull(productData.getBadgeType(), "Badge type must not null");
+        assertNotNull(getProductData().getBadgeType(), "Badge type must not null");
     }
 
     @Then("I validate product unit mass is valid on product detail")
     public void validateProductUnitMassIsValid() {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
-        assertNotNull(productData.getUnitMass());
+        assertNotNull(getProductData().getUnitMass());
     }
 
     @Then("I validate image urls is valid on product detail")
     public void validateImageUrls() {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
-
-        for (String url : productData.getImageUrl()) {
+        List<String> imageUrlList = getProductData().getImageUrl();
+        assertTrue(!imageUrlList.isEmpty(), "Image url list can not be empty");
+        for (String url : imageUrlList) {
             Response response = getCarsiProductClient().getImageUrlResponse(url);
             assertTrue(response.statusCode() == 200, "Image status should be 200 !");
         }
@@ -54,15 +57,13 @@ public class ProductSteps extends BaseSteps {
 
     @Then("I validate product price is valid on product detail")
     public void validateProductPrice() {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
-        assertNotNull(productData.getPrice(), "Product price must not null");
+        assertNotNull(getProductData().getPrice(), "Product price must not null");
     }
 
     @Then("I validate product is {string} on product detail")
     public void validateProductStatus(String isActive) {
-        Data productData = (Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
         boolean selectType = isActive.equalsIgnoreCase("true");
-        assertTrue(productData.getIsActive() == selectType, "Product should be " + isActive);
+        assertTrue(getProductData().getIsActive() == selectType, "Product should be " + isActive);
     }
 
     @Then("I can check product favorite status {string}")
@@ -71,10 +72,32 @@ public class ProductSteps extends BaseSteps {
                 (IRestResponse<ProductResponse>) getScenarioContext().getContext(Context.PRODUCT_DETAIL_RESPONSE);
 
         if (favoriteStatus.equalsIgnoreCase("True")) {
-            assertTrue(selectedProductResponse.getBody().getData().getFavorite(),"Favorite status should be true");
+            assertTrue(selectedProductResponse.getBody().getData().getFavorite(), "Favorite status should be true");
+        } else {
+            assertTrue(!selectedProductResponse.getBody().getData().getFavorite(), "Favorite status should be false");
         }
-        else {
-            assertTrue(!selectedProductResponse.getBody().getData().getFavorite(),"Favorite status should be false");
-        }
+    }
+
+    @Then("I validate PriceText is valid on product detail")
+    public void i_validate_price_text_is_valid_on_product_detail() {
+        double price = getProductData().getPrice();
+        String convertedPrice = String.format("%.2f", price);
+
+
+        String expectedPriceText = convertedPrice.replace(".",",") + " TL";
+        String actualPriceText = getProductData().getPriceText();
+        assertEqual("PriceText should be " + expectedPriceText, actualPriceText, expectedPriceText);
+    }
+
+    @Then("I validate DiscountedPrice is valid on product detail")
+    public void i_validate_discounted_price_is_valid_on_product_detail() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+    @Then("I validate DiscountedPriceText is valid on product detail")
+    public void i_validate_discounted_price_text_is_valid_on_product_detail() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
     }
 }

@@ -1,10 +1,17 @@
 package apiEngine.models.response.ProductDetail;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import javax.annotation.Generated;
+
+import apiEngine.models.DoubleContextualSerializer;
+import apiEngine.models.Precision;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -13,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Description",
         "UnitMass",
         "Price",
+        "PriceText",
         "DiscountedPrice",
+        "DiscountedPriceText",
         "IsActive",
         "BadgeType",
         "ImageUrl",
@@ -34,9 +43,13 @@ public class Data {
     @JsonProperty("UnitMass")
     private String unitMass;
     @JsonProperty("Price")
-    private Integer price;
+    private Double price;
+    @JsonProperty("PriceText")
+    private String priceText;
     @JsonProperty("DiscountedPrice")
     private Integer discountedPrice;
+    @JsonProperty("DiscountedPriceText")
+    private String discountedPriceText;
     @JsonProperty("IsActive")
     private Boolean isActive;
     @JsonProperty("BadgeType")
@@ -93,14 +106,17 @@ public class Data {
         this.unitMass = unitMass;
     }
 
+    @JsonSerialize(using = DoubleContextualSerializer.class)
+    @Precision(precision = 4)
     @JsonProperty("Price")
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @JsonProperty("Price")
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setPrice(Double price) {
+        BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.FLOOR);
+        this.price = bd.doubleValue();
     }
 
     @JsonProperty("DiscountedPrice")
@@ -187,5 +203,21 @@ public class Data {
 
     public void setFavorite(Boolean favorite) {
         isFavorite = favorite;
+    }
+
+    public String getPriceText() {
+        return priceText;
+    }
+
+    public void setPriceText(String priceText) {
+        this.priceText = priceText;
+    }
+
+    public String getDiscountedPriceText() {
+        return discountedPriceText;
+    }
+
+    public void setDiscountedPriceText(String discountedPriceText) {
+        this.discountedPriceText = discountedPriceText;
     }
 }
