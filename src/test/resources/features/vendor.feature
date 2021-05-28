@@ -57,7 +57,7 @@ Feature: Vendor detail and listings Controls
     Then I validate category product is listed with 21 products
     And I validate category HasNextPage is "true"
     And I can validate CurrentOffset is 0
-    #And I validate category HasPrevPage "false"
+    And I validate category HasPrevPage "false"
     And I validate category NextOffset is 21
     When I list sub category products with offset 21
     Then I can validate PrevOffset is 0
