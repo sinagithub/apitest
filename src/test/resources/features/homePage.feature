@@ -13,11 +13,14 @@ Feature: Homepage Api controls
     Then I check all carsı vendor names is not empty
 
   Scenario: HomePage closed Vendor listing
-    And A list of Carşı Vendor are available on home page
+    When A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Super Market" category on home page
+    # And I set isOpen parameter as false for selected vendor in internal vendor close service
     Then I should see closed vendor on home vendor list
     When I select closed Carsı vendor
     Then I check all carsı vendor image url status is 200
     Then I check all carsı vendor names is not empty
+   #Then And I set isOpen parameter as true for selected vendor in internal vendor open service
 
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available
@@ -31,10 +34,3 @@ Feature: Homepage Api controls
   Scenario: HomePage Banner listing
     And  HomePage banners are available
     Then HomePage banners urls are valid
-
-  Scenario: HomePage Platform listing
-    And  HomePage platform is available
-    Then HomePage platform is valid
-      | Carsi       |
-      | Banabi      |
-      | Yemeksepeti |

@@ -51,15 +51,8 @@ public class CarsiFavoriteClient extends CarsiClient {
         return new RestResponse<>(VendorPutFavoriteResponse.class, response);
     }
 
-    public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteProduct(String productId, String vendorId,
-                                                                            String platformType) {
+    public RestResponse<VendorDeleteFavoriteResponse> deleteFavoriteProduct(String productId, String vendorId) {
 
-        if (platformType.equalsIgnoreCase("1")){
-            PlatformTypeHelper.getInstance().setPlatformType("Carsi");
-        }
-        else {
-            PlatformTypeHelper.getInstance().setPlatformType("Banabi");
-        }
         Response response = createRequest()
                 .pathParam("productId", productId)
                 .pathParam("vendorId", vendorId)

@@ -19,11 +19,14 @@ Feature: Product Api controls
     Then I select a random product
     And I navigate selected product
     Then I validate product name is valid on product detail
-    Then I validate product desc is valid on product detail
+    And I validate product desc is valid on product detail
     And  I validate product Badge is valid on product detail
     And I validate product price is valid on product detail
     And I validate product is "false" on product detail
-    And I validate image urls is valid on product detail
+    #And I validate image urls is valid on product detail
+    And I validate PriceText is valid on product detail
+    And I validate DiscountedPrice is valid on product detail
+    And I validate DiscountedPriceText is valid on product detail
 
   Scenario: User can see the product favorite status
     When  A list of Carşı Vendor are available on home page

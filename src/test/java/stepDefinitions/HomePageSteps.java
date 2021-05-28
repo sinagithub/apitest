@@ -126,15 +126,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
         GuidHelper.getInstance().setGuid();
         String guid = GuidHelper.getInstance().getGuid();
-        IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(
-                banabiAddress.getAddressId(),
-                banabiAddress.getAreaId(),
-                banabiAddress.getLatitude(),
-                banabiAddress.getLongitude(),
-                guid);
+        IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(guid);
         CarsiVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
         getScenarioContext().setContext(Context.BANABI_VENDOR_INFO, banabiVendor);
         getScenarioContext().setContext(Context.BANABI_VENDOR_RESPONSE, homePageBanabi);
@@ -229,12 +223,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Given("HomePage banners are available")
     public void home_banners_are_available() {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
-        IRestResponse<HomePageBannersResponse> homeBanners = getCarsiHomePageClient().getHomePageBanners(
-                banabiAddress.getAddressId(),
-                banabiAddress.getAreaId(),
-                banabiAddress.getLatitude(),
-                banabiAddress.getLongitude());
+        IRestResponse<HomePageBannersResponse> homeBanners = getCarsiHomePageClient().getHomePageBanners();
         Assert.assertTrue(homeBanners.isSuccessful());
         List<Banner> bannerList = homeBanners.getBody().getData().getBanners();
         getScenarioContext().setContext(Context.BANNER_LIST, bannerList);
@@ -256,29 +245,6 @@ public class HomePageSteps extends BaseSteps {
         }
     }
 
-    @When("HomePage platform is available")
-    public void homepage_platform_is_available() {
-        IRestResponse<HomePagePlatformResponse> platformResponse = getCarsiHomePageClient().getPlatform();
-        getScenarioContext().setContext(Context.HOME_PLATFORM_RESPONSE, platformResponse);
-    }
-
-    @Then("HomePage platform is valid$")
-    public void homepage_platform_is_valid(List<String> testData) {
-        IRestResponse<HomePagePlatformResponse> homePagePlatformResponse =
-                (IRestResponse<HomePagePlatformResponse>) getScenarioContext().getContext(Context.HOME_PLATFORM_RESPONSE);
-        List<PlatformData> platformList = homePagePlatformResponse.getBody().getData();
-        List<String> platformNameList = new ArrayList<>();
-        for (PlatformData platform : platformList) {
-            platformNameList.add(platform.getPlatform());
-        }
-
-        for (String platformName : testData) {
-            int index = platformNameList.indexOf(platformName);
-            System.out.println(index);
-            assertTrue(index != -1, "Platform should be available on selected city : " + platformName);
-        }
-
-    }
 
     @Then("Set platform type to {string}")
     public void set_platform_type_to(String platformType) {

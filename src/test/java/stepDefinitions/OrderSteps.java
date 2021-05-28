@@ -6,14 +6,10 @@ import apiEngine.IRestResponse;
 import apiEngine.models.response.Order.GetOrderNoteData;
 import apiEngine.models.response.Order.GetOrderNotesResponse;
 import apiEngine.models.response.Order.WriteOrderNoteResponse;
-import com.sun.org.apache.regexp.internal.RE;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
-
-import javax.xml.ws.Response;
 import java.io.IOException;
 import java.util.List;
 

@@ -25,14 +25,14 @@ Feature: Checkout User Tip controls
     And I check tip status "<IsSelected>" <Rank> on get basket checkout
     And I check tip value is valid <TypeId>
 
-    Examples: Expected Card details
+    Examples: Expected Tip details
       | Rank | TypeId | ValueText                | IsSelected |
       | 0    | 2      | 3 TL                     | false      |
       | 1    | 1      | %10                      | false      |
       | 2    | 3      | TipInfoCustomPaymentText | false      |
 
 
-  Scenario: User can select tip on checkout with Mahalle vendor
+  Scenario: User can select custom tip on checkout with Mahalle vendor
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
@@ -48,7 +48,7 @@ Feature: Checkout User Tip controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "true" on basket checkout response
-    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentTypeId : "1" , BinNumber: 0 , IsApproved : "true"
+    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
     Then I set tip to 5 tl option type is 3
     Then I set ContactlessDelivery is "false"
     And I put basket to checkout LastChangedProperty is 2
