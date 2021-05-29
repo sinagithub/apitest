@@ -3,6 +3,7 @@ package cucumber;
 import clients.BaseUrls;
 import clients.carsi.*;
 import clients.OauthCoreClient;
+import clients.carsi.microServiceClients.CarsiInternalVendor;
 
 public class TestContext {
 
@@ -10,6 +11,7 @@ public class TestContext {
     private static ScenarioContext scenarioContext;
     private static CarsiBasketClient carsiBasketClient;
     private static CarsiUserClient carsiUserClient;
+    private static CarsiInternalVendor carsiInternalVendor;
 
 
     public TestContext() {
@@ -67,6 +69,10 @@ public class TestContext {
 
    public CarsiPaymentClient getCarsiPaymentClient(){
         return new CarsiPaymentClient(BaseUrls.getCarsiBaseUrl());
+   }
+
+   public CarsiInternalVendor getCarsiInternalVendor() {
+        return new CarsiInternalVendor(BaseUrls.getInternalVendorUrl());
    }
 
 }

@@ -119,9 +119,15 @@ Feature: Vendor detail and listings Controls
 
   Scenario: User can list closed carsi vendor
     When  A list of Carşı Vendor are available on home page
-    Then I select closed Carsı vendor
+    Then I select random vendor from "Super Market" category on home page
+    And Vendor staff close the selected shop
+    When  A list of Carşı Vendor are available on home page
+    And I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+   # And I select closed Carsı vendor
     When  I navigate selected vendor
-    Then I check vendor status should be false
+   # Then I check vendor status should be false
+    And Vendor staff open the selected shop
+
 
   Scenario: User should see banabi vendor correctly
     When  Banabi Vendor is available
