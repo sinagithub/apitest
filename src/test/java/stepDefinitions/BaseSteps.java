@@ -3,6 +3,7 @@ package stepDefinitions;
 import apiEngine.PlatformTypeHelper;
 import clients.OauthCoreClient;
 import clients.carsi.*;
+import clients.carsi.microServiceClients.CarsiInternalVendor;
 import cucumber.ScenarioContext;
 import cucumber.TestContext;
 import io.restassured.http.ContentType;
@@ -30,6 +31,7 @@ public class BaseSteps {
     private CarsiContentClient carsiContentClient;
     private CarsiOrderClient carsiOrderClient;
     private CarsiPaymentClient carsiPaymentClient;
+    private CarsiInternalVendor carsiInternalVendor;
 
 
     public BaseSteps(TestContext testContext) {
@@ -46,6 +48,7 @@ public class BaseSteps {
         carsiContentClient = testContext.getCarsiContentClient();
         carsiOrderClient = testContext.getCarsiOrderClient();
         carsiPaymentClient = testContext.getCarsiPaymentClient();
+        carsiInternalVendor = testContext.getCarsiInternalVendor();
     }
 
 
@@ -109,6 +112,10 @@ public class BaseSteps {
 
     public CarsiPaymentClient getCarsiPaymentClient(){return carsiPaymentClient;}
 
+    public CarsiInternalVendor getCarsiInternalVendor(){
+        return carsiInternalVendor;
+    }
+
 
     public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());
@@ -146,6 +153,5 @@ public class BaseSteps {
         DecimalFormat df = new DecimalFormat(formatPattern);
         return Double.parseDouble(df.format(d));
     }
-
 
 }

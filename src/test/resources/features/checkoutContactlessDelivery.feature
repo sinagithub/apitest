@@ -11,7 +11,7 @@ Feature: Checkout ContactlessDelivery delivery control
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 3
+    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
@@ -47,7 +47,7 @@ Feature: Checkout ContactlessDelivery delivery control
     And  My addresses list should be available
     When  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 2
+    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -137,3 +137,27 @@ Feature: Checkout ContactlessDelivery delivery control
     And I put basket to checkout LastChangedProperty is 4
     And I check ContactlessDelivery is "false" on put basket checkout response
     And I check selected payment MethodId is "f825f3b8-9545-45f1-bc1e-38b34e369592" on put basket checkout response
+
+
+  Scenario: Contactless Delivery selectable status should be false when vendor has not online payment method
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
+    When  A list of Carşı Vendor are available on home page
+    Then I select Carsı vendor with order - 0
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+    When I navigate selected vendor
+    Then I choose a category with more than 10 products
+    Then I choose a sub category with more than 11 products
+    When I list the products from selected sub category
+    Then I select a random product
+    And I can add the selected product to basket quantity is 1
+    When I get checkout options
+    Then I check Contactless Delivery Option is showed "false" on basket checkout response
+    And Staff update vendor payment method
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |

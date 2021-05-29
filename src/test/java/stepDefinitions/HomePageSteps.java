@@ -23,6 +23,10 @@ public class HomePageSteps extends BaseSteps {
         super(testContext);
     }
 
+    private List<CarsiVendor> getHomeVendorList(){
+        return  (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+    }
+
     @Given("A list of Carşı Vendor are available on home page")
     public void a_list_of_Vendor_are_available() {
         BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
@@ -41,7 +45,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select first vendor from {string} category on home page")
     public void select_first_vendor_from_category(String categoryName) {
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList) {
             if (vendor.getCategoryName().equalsIgnoreCase(categoryName)) {
@@ -52,9 +56,10 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
+
     @Then("Select {string} vendor name on home page")
     public void select_vendor_with_vendorName(String vendorName) {
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList) {
             if (vendor.getName().equalsIgnoreCase(vendorName)) {
@@ -73,10 +78,24 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
+
+    @Then("I select random vendor from {string} category on home page")
+    public void select_random_vendor_from_category(String categoryName) {
+        List<CarsiVendor> vendorList = getHomeVendorList();
+        CarsiVendor selectedVendor = null;
+        for (CarsiVendor vendor : vendorList) {
+            if (vendor.getCategoryName().equalsIgnoreCase(categoryName)) {
+                selectedVendor = vendor;
+                break;
+            }
+        }
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
+    }
+
     @Then("I select closed Carsı vendor")
     public void select_closed_carsi_vendor() {
         PlatformTypeHelper.getInstance().setPlatformType("Carsi");
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList){
             if (!vendor.getIsOpen()){
@@ -90,7 +109,7 @@ public class HomePageSteps extends BaseSteps {
     @Then("I should see closed vendor on home vendor list")
     public void check_closed_vendor() {
         PlatformTypeHelper.getInstance().setPlatformType("Carsi");
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList){
             if (!vendor.getIsOpen()){
@@ -186,7 +205,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I check all carsı vendor names is not empty")
     public void check_carsiVendor_names_is_valid() {
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
 
         for (CarsiVendor vendor : vendorList) {
             assertTrue(!vendor.getName().isEmpty(), "Vendor name should not empty");
@@ -196,7 +215,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I check all vendor id is not empty")
     public void check_carsiVendor_id_is_valid() {
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
 
         for (CarsiVendor vendor : vendorList) {
             assertTrue(!vendor.getId().isEmpty(), "Vendor id should not empty");
@@ -207,7 +226,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I check all carsı vendor image url status is 200")
     public void check_carsiVendor_imageUrl_is_valid() {
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<CarsiVendor> vendorList = getHomeVendorList();
 
         for (CarsiVendor vendor : vendorList) {
             String imageUrl = vendor.getImageUrl();
