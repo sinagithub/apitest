@@ -9,6 +9,7 @@ import apiEngine.models.requests.Basket.DeleteProductRequest;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
+import apiEngine.models.response.Basket.Upsell.BasketUpsellResponse;
 import apiEngine.models.response.DeleteBasketResponse;
 import apiEngine.models.response.DeleteProductResponse;
 import io.restassured.response.Response;
@@ -96,6 +97,14 @@ public class CarsiBasketClient extends CarsiClient {
                 .put(BasketRoute.getBasketCheckout());
         writeStepLog();
         return new RestResponse<>(BasketPutResponse.class, response);
+    }
+
+    public IRestResponse<BasketUpsellResponse> getUpsell(String basketId){
+        Response response = createRequest()
+                .pathParam("id",basketId)
+                .get(BasketRoute.getBasketUpsell());
+        writeStepLog();
+        return new RestResponse<>(BasketUpsellResponse.class, response);
     }
 
 }

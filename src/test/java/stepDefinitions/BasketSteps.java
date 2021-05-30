@@ -12,8 +12,10 @@ import apiEngine.models.response.*;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
 import apiEngine.models.response.Basket.Checkout.PaymentMethod;
+import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketInfo;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
 import apiEngine.models.response.Basket.Checkout.TipInfo;
+import apiEngine.models.response.Basket.Upsell.BasketUpsellResponse;
 import apiEngine.models.response.ProductDetail.Option;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.Product;
@@ -645,7 +647,7 @@ public class BasketSteps extends BaseSteps {
             double actualValue = option.get(1).getValue();
             double expectedValue =
                     getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getBasketInfo().getTotal() / 10;
-            int roundValue = (int) roundDouble(expectedValue,"#.##");
+            int roundValue = (int) roundDouble(expectedValue, "#.##");
             assertTrue(actualValue == roundValue, "Tip value should be " + roundValue + " not " + actualValue);
         }
     }
@@ -686,11 +688,10 @@ public class BasketSteps extends BaseSteps {
     @Then("I check tip status {string} {int} on get basket checkout")
     public void i_check_tip_status_on_get_basket_checkout(String expectedIsSelected, Integer rank) {
         boolean actualIsSelected = getTipOption(rank).getIsSelected();
-        if (expectedIsSelected.equalsIgnoreCase("True")){
-            assertTrue(actualIsSelected,"IsSelected should be true");
-        }
-        else {
-            assertTrue(!actualIsSelected,"IsSelected should be false");
+        if (expectedIsSelected.equalsIgnoreCase("True")) {
+            assertTrue(actualIsSelected, "IsSelected should be true");
+        } else {
+            assertTrue(!actualIsSelected, "IsSelected should be false");
         }
     }
 
@@ -708,8 +709,62 @@ public class BasketSteps extends BaseSteps {
         assertTrue(actualTip == expectedTipValue, "Total Tip should be " + expectedTipValue + " not " + actualTip);
     }
 
-    @Then("I check tip isEnabled is {string} on put basket checkout response")
-    public void i_check_tip_isEnabled_is_valid_on_put_basket(String expectedIsEnabledStatus) {
+    private int getSelectedTipIndex(List<apiEngine.models.response.Basket.Checkout.Option> optionList, int typeId) {
+        int selectedOptionIndex = -1;
+        for (apiEngine.models.response.Basket.Checkout.Option option : optionList) {
+            if (option.getTypeId() == typeId) {
+                selectedOptionIndex = optionList.indexOf(option);
+                break;
+            }
+        }
+        return selectedOptionIndex;
+    }
+
+    @Then("I check tip isEnabled is {string} tip type is {int} on put basket checkout response")
+    public void i_check_tip_isEnabled_is_valid_on_put_basket(String expectedIsEnabledStatus, int typeId) {
+        apiEngine.models.response.Basket.Checkout.PutCheckout.TipInfo tipInfo =
+                getPutBasketCheckoutResponse().getBody().getData().getBasketCheckout().getTipInfo();
+        List<apiEngine.models.response.Basket.Checkout.Option> options = tipInfo.getOptions();
+        int selectedOptionIndex = getSelectedTipIndex(options, typeId);
+
+        boolean actualTipStatus = options.get(selectedOptionIndex).getIsSelected();
+        if (expectedIsEnabledStatus.equalsIgnoreCase("true")) {
+            assertTrue(actualTipStatus, "Tip status should be true");
+        } else {
+            assertTrue(!actualTipStatus, "Tip status should be false");
+        }
+    }
+
+    private IRestResponse<BasketUpsellResponse> getBasketUpsellResponse() {
+        return (IRestResponse<BasketUpsellResponse>) getScenarioContext().getContext(Context.BASKET_UPSELL_RESPONSE);
+    }
+
+    @Then("I get upsell products")
+    public void i_get_upsell_products() {
+        String basketId = getBasketId();
+        IRestResponse<BasketUpsellResponse> upsellResponse = getCarsiBasketClient().getUpsell(basketId);
+        assertTrue(upsellResponse.isSuccessful(), "Upsell response should be OK");
+        getScenarioContext().setContext(Context.BASKET_UPSELL_RESPONSE, upsellResponse);
+    }
+
+    @Then("I validate upsell type is {int}")
+    public void i_validate_upsell_type_is(int upsellType) {
+        assertTrue(getBasketUpsellResponse().getBody().getData().getUpsellType() == upsellType,
+                "Basket upsell type should be 0");
+    }
+
+    @Then("I check total is valid for tip amount {int} on put basket checkout response")
+    public void i_check_total_is_valid_for_tip_amount_on_put_basket_checkout_response(Integer tipAmount) {
+        BasketInfo basketInfo = getPutBasketCheckoutResponse().getBody().getData().
+                getBasketCheckout().getBasketInfo();
+
+        double actualTotal = basketInfo.getTotal();
+        double deliveryFee = basketInfo.getDeliveryFree();
+        double subTotal = basketInfo.getSubTotal();
+
+        double expectedTotal = tipAmount + deliveryFee + subTotal;
+        assertTrue(actualTotal == expectedTotal,
+                "Total amount should be " + expectedTotal + " not " + actualTotal);
     }
 
 }
