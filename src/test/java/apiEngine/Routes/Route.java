@@ -11,7 +11,7 @@ public class Route {
     private static final String ADDRESSES = "/address";
     private static final String AVAILABLE_ADDRESSES = "/available-addresses";
     private static final String HOMEPAGE = "/homepage";
-    private static final String CARSI = "/carsi";
+    private static final String MAHALLE = "/mahalle";
     private static final String BANABI = "/banabi";
     private static final String VENDOR = "/vendor/{vendorId}";
     private static final String PRODUCTS = "/products";
@@ -41,7 +41,7 @@ public class Route {
     }
 
     public static String homepageCarsi() {
-        return API + VERSION + HOMEPAGE + CARSI;
+        return API + VERSION + HOMEPAGE + MAHALLE;
     }
 
     public static String homepageBanabi() {
@@ -91,6 +91,7 @@ public class Route {
     public static String getVendorProducts(){
         return API + VERSION + VENDOR + PRODUCTS;
     }
+
 
 
 

@@ -4,6 +4,7 @@ Feature: Order Api note controls
   Background: Login user
     Given I am an authorized new user
 
+
   Scenario: New User can validate order not is empty and can add Order note and can validate order note limit, order note title
     Given I select city "TR_ISTANBUL"
     When I get order notes

@@ -189,6 +189,7 @@ Feature: Basket Controls
     When I list the products from selected sub category
     Then I select a random product
     And I can add the selected product to basket quantity is 1
+    # CCarsi listesi ekle  When  A list of Carşı Vendor are available on home page
     When I select Carsı vendor with order - 3
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -230,21 +231,6 @@ Feature: Basket Controls
     Then I get the basket
     And I can validate basket is empty
     And I can validate basket total is 0.0
-
-  Scenario: User can see alternate product options for banabi vendors
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random product
-    And I can add the selected product to basket quantity is 2
-    When I get alternate product options
-    Then I can validate alternate product text "Alternatif ürün için beni arayın" is exist and rank is 2 type is 2
-    And I can validate alternate product text "Alternatif ürün gönderin" is exist and rank is 1 type is 1
-    And I can validate alternate product text "Ürün yoksa siparişten çıkarın" is exist and rank is 3 type is 3
-    And I can validate alternate product text "Ürün yoksa siparişi iptal edin" is exist and rank is 4 type is 4
 
   Scenario: User can see max stock error when add more than stock quantity for banabi vendors
     When  Banabi Vendor is available

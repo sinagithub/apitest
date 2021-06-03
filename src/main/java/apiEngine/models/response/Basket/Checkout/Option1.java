@@ -22,7 +22,7 @@ public class Option1 {
     @JsonProperty("TypeId")
     private Integer typeId;
     @JsonProperty("Value")
-    private Integer value;
+    private Double value;
     @JsonProperty("ValueText")
     private String valueText;
     @JsonProperty("IsSelected")
@@ -43,7 +43,7 @@ public class Option1 {
      * @param id
      * @param value
      */
-    public Option1(Integer id, Integer typeId, Integer value, String valueText, Boolean isSelected) {
+    public Option1(Integer id, Integer typeId, Double value, String valueText, Boolean isSelected) {
         super();
         this.id = id;
         this.typeId = typeId;
@@ -73,12 +73,12 @@ public class Option1 {
     }
 
     @JsonProperty("Value")
-    public Integer getValue() {
+    public Double getValue() {
         return value;
     }
 
     @JsonProperty("Value")
-    public void setValue(Integer value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
