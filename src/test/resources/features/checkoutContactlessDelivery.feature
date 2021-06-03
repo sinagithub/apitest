@@ -41,7 +41,6 @@ Feature: Checkout ContactlessDelivery delivery control
     And I check ContactlessDelivery is "false" on put basket checkout response
     And I check selected payment MethodId is "062" on put basket checkout response
 
-
   Scenario: ContactlessDelivery auto selection with no saved cards
     And I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
     And  My addresses list should be available
@@ -70,6 +69,7 @@ Feature: Checkout ContactlessDelivery delivery control
     And I put basket to checkout LastChangedProperty is 4
     And I check ContactlessDelivery is "false" on put basket checkout response
     And I check selected payment MethodId is "f825f3b8-9545-45f1-bc1e-38b34e369592" on put basket checkout response
+
 
   Scenario: ContactlessDelivery auto selection for payment selections - Banabi Vendors
     When I am an authorized  user "Login"

@@ -7,11 +7,9 @@ import clients.carsi.microServiceClients.CarsiInternalVendor;
 
 public class TestContext {
 
-    private static OauthCoreClient oauthCoreClient;
     private static ScenarioContext scenarioContext;
-    private static CarsiBasketClient carsiBasketClient;
     private static CarsiUserClient carsiUserClient;
-    private static CarsiInternalVendor carsiInternalVendor;
+
 
 
     public TestContext() {
@@ -71,7 +69,7 @@ public class TestContext {
         return new CarsiPaymentClient(BaseUrls.getCarsiBaseUrl());
    }
 
-   public CarsiInternalVendor getCarsiInternalVendor() {
+   public CarsiInternalVendor getCarsiInternalVendorClient() {
         return new CarsiInternalVendor(BaseUrls.getInternalVendorUrl());
    }
 

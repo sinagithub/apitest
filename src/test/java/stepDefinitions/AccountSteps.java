@@ -35,7 +35,6 @@ public class AccountSteps extends BaseSteps {
 
     @Given("I am an authorized user with {string} {string}")
     public void i_am_an_authorized_user_with_parameters(String userName, String password) throws IOException {
-
         AuthorizationRequest authRequest = new AuthorizationRequest(userName, password);
         getOauthCoreClient().authenticateUser(authRequest, true);
     }
@@ -48,14 +47,6 @@ public class AccountSteps extends BaseSteps {
         AuthorizationRequest authRequest = new AuthorizationRequest(userName, passWord);
         getOauthCoreClient().authenticateUser(authRequest, true);
     }
-
-    @Given("I have pinned address")
-    public void i_have_pinned_address() {
-        System.out.println("List address and get address info");
-
-
-    }
-
 
     @Given("My addresses list should be available")
     public void my_addresses_list_available() {
@@ -127,6 +118,5 @@ public class AccountSteps extends BaseSteps {
     public void i_should_see_the_product_on_my_favorites() {
         System.out.println("Check selected product is on favorite list");
     }
-
 
 }

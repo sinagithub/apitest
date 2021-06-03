@@ -33,7 +33,6 @@ public class BaseSteps {
     private CarsiPaymentClient carsiPaymentClient;
     private CarsiInternalVendor carsiInternalVendor;
 
-
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
         carsiClient = testContext.getCarsiClient();
@@ -48,7 +47,7 @@ public class BaseSteps {
         carsiContentClient = testContext.getCarsiContentClient();
         carsiOrderClient = testContext.getCarsiOrderClient();
         carsiPaymentClient = testContext.getCarsiPaymentClient();
-        carsiInternalVendor = testContext.getCarsiInternalVendor();
+        carsiInternalVendor = testContext.getCarsiInternalVendorClient();
     }
 
 
@@ -63,6 +62,7 @@ public class BaseSteps {
     public OauthCoreClient getOauthCoreClient() {
         return oauthCoreClient;
     }
+
 
     public CarsiUserClient getCarsiUserClient() {
         return carsiUserClient;
@@ -115,7 +115,6 @@ public class BaseSteps {
     public CarsiInternalVendor getCarsiInternalVendor(){
         return carsiInternalVendor;
     }
-
 
     public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());

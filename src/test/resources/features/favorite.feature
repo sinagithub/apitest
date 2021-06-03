@@ -42,8 +42,6 @@ Feature: Favorite Api controls
     Then I can validate product is deleted vendor detail favorite
     When I get Favorite list
     And I can validate favorite vendor  size is 0 on favorite list
-    And I can validate vendor favorite product size is 0 on vendor vendor favorites list
-
 
   Scenario: I validate vendor favorite products and favorite list product size
     When A list of Carşı Vendor are available on home page
@@ -78,19 +76,19 @@ Feature: Favorite Api controls
     And I can add the selected product to favorites
     When I get Favorite list
     Then I check added favorite vendor id is valid on favorite list
-    #And I check added favorite vendor name is valid on favorite list
+    And I check added favorite vendor name is valid on favorite list
     And I check added favorite vendor LogoUrl status is 200 on favorite list
-    #And I check added favorite vendor DeliveryTimeInfo is valid on favorite list
-    #And I check added favorite vendor  MinBasketPriceInfo is valid on favorite list
-    #And I check added favorite vendor  DeliveryFeeInfo is valid on favorite list
-  # And I check added favorite vendor  IsOpen is valid on favorite list
-#    And I check added favorite vendor  Products is valid on favorite list
+    And I check added favorite vendor DeliveryTimeInfo is valid on favorite list
+    And I check added favorite vendor  MinBasketPriceInfo is valid on favorite list
+    And I check added favorite vendor  DeliveryFeeInfo is valid on favorite list
+    And I check added favorite vendor  IsOpen is valid on favorite list
+    And I check added favorite vendor  Products is valid on favorite list
     When I get vendor favorite list
     Then I check added product id is valid on favorite product list
     And I check added product Name is valid on favorite product list
-    #And I check added product UnitMass is valid on favorite product list
+    And I check added product UnitMass is valid on favorite product list
     And I check added product Price is valid on favorite product list
-    #And I check added product ImageUrl status is 200 on favorite product list
+    And I check added product ImageUrl status is 200 on favorite product list
     And I get all favorite vendor list
     And I delete all added favorite products
 
@@ -100,7 +98,7 @@ Feature: Favorite Api controls
     Then I navigate selected vendor
     Then I add selected vendor to favorite list
     When I get Favorite list
-    #Then I can see the added vendor on the favorite list
+    Then I can see the added vendor on the favorite list
     When I remove the added vendor from favorite list
     And I get Favorite list
     Then I can validate the vendor is removed on the favorite list

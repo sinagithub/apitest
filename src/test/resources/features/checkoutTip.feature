@@ -103,3 +103,8 @@ Feature: Checkout User Tip controls
     And Staff update vendor payment method
       | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+
+
+
+
+

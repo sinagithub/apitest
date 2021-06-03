@@ -15,16 +15,15 @@ Feature: Vendor detail and listings Controls
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I check product list not empty
-    #Dummy data ile vendor detaydaki datalar uyusmuyor
-    #Then I check vendor DeliveryTimeInfo is valid
-    #And I check vendor MinBasketPriceInfo is valid
-    #And I check vendor DeliveryFeeInfo is valid
+    Then I check vendor DeliveryTimeInfo is valid
+    And I check vendor MinBasketPriceInfo is valid
+    And I check vendor DeliveryFeeInfo is valid
     And I check vendor category list is valid
     And I check category names  are valid
     And I check banner url is valid
     And I check banner seo urls are valid
-    #And I check vendor name is valid
-    #And I check vendor category name should be valid
+    And I check vendor name is valid
+    And I check vendor category name should be valid
     And I check vendor logo url is 200
 
   Scenario: User should list products on the vendor detail
@@ -39,11 +38,9 @@ Feature: Vendor detail and listings Controls
     Then I should see selected product's id is not empty on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
-    # Dummy data product IsActive default false dönmekte
-    # And I check selected product's IsActive is "false"
+    And I check selected product's IsActive is "true"
     And I check selected product's HasOptions should be "false" on vendor detail
     And  I check selected product's CategoryId is valid on vendor detail
-    # Dummy data image url göndermiyor
     And I check selected product's image url is 200 on vendor detail
 
   Scenario: User can list category product pages on Çarşı
@@ -78,7 +75,7 @@ Feature: Vendor detail and listings Controls
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
     # Dummy data product IsActive default false dönmekte
-    # And I check selected product's IsActive is "false"
+    And I check selected product's IsActive is "true"
     And I check selected product's HasOptions should be "false" on vendor detail
     And  I check selected product's CategoryId is valid on vendor detail
     # Dummy data image url göndermiyor
@@ -95,7 +92,7 @@ Feature: Vendor detail and listings Controls
     Then I validate category product is listed with 21 products
     And I validate category HasNextPage is "true"
     And I can validate CurrentOffset is 0
-    #And I validate category HasPrevPage "false"
+    And I validate category HasPrevPage "false"
     And I validate category NextOffset is 21
     When I list sub category products with offset 21
     Then I check product list not empty
@@ -125,7 +122,7 @@ Feature: Vendor detail and listings Controls
     And I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
    # And I select closed Carsı vendor
     When  I navigate selected vendor
-   # Then I check vendor status should be false
+    Then I check vendor status should be false
     And Vendor staff open the selected shop
 
 
