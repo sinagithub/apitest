@@ -93,7 +93,7 @@ Feature: Basket Controls
     When I delete basket
     Then I get the basket
     And I can validate basket is empty
-    And I can validate basket total is 0.0
+    And I can validate basket sub total is 0.0
 
   Scenario: User can see alternate product options
     When  A list of Carşı Vendor are available on home page
@@ -138,7 +138,7 @@ Feature: Basket Controls
     Then I can see "MaximumSaleAmountExceeded" warning on add basket response
     And I delete basket
 
-  Scenario: User can delete and line item from basket
+  Scenario: User can delete line item from basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -156,55 +156,36 @@ Feature: Basket Controls
   Scenario: User can get add/delete product without options to basket for banabi
     When  Banabi Vendor is available
     Then I select banabi vendor
+    Then I delete basket
     Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "İçecek" product category from category list
+    Then I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
     Then I select a random product
     And I can add the selected product to basket quantity is 1
     And I check added product exists on add basket response
-    Then I check added vendorId on the basket on add basket response
     And  I check TotalLinesItemCount is 1 on add basket response
     And I can add the selected product to basket quantity is 1
     And  I check TotalLinesItemCount is 1 on add basket response
     When I select a random product
-    Then I can add the selected product to basket quantity is 2
+    Then I can add the selected product to basket quantity is 1
     And  I check TotalLinesItemCount is 2 on add basket response
     When I get the basket
     Then I can check product exists in basket
-    And I can check ProductDescription is valid on basket lines
     And I can check ProductName is valid on basket lines
     And I can check ListPrice is valid on basket lines
     And I can check DiscountedPrice is valid on basket lines
-    And I can check Product Quantity is 2 on basket lines
+    And I can check Product Quantity is 1 on basket lines
     And I can check basket subTotal is valid on basket
     And I can check basket total is valid
 
-  Scenario: User can not add add product while basket not empty for banabi vendors
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random product
-    And I can add the selected product to basket quantity is 1
-    # CCarsi listesi ekle  When  A list of Carşı Vendor are available on home page
-    When I select Carsı vendor with order - 3
-    When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random product
-    And I can add the selected product to basket quantity is 1
-    Then I check added product "VendorsNotMatchedInBasket" error message and status is 400
 
   Scenario: User can see basket items count on the vendor detail with lite basket service for banabi vendors
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "İçecek" product category from category list
+    And I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
     Then I select a random product
     And I can add the selected product to basket quantity is 2
@@ -220,8 +201,8 @@ Feature: Basket Controls
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "İçecek" product category from category list
+    And I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
     Then I select a random product
     And I can add the selected product to basket quantity is 2
@@ -230,35 +211,37 @@ Feature: Basket Controls
     When I delete basket
     Then I get the basket
     And I can validate basket is empty
-    And I can validate basket total is 0.0
+    And I can validate basket sub total is 0.0
 
   Scenario: User can see max stock error when add more than stock quantity for banabi vendors
     When  Banabi Vendor is available
     Then I select banabi vendor
+    And I delete basket
     Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Su" product category from category list
+    Then I choose "Damacana" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select product with name "İadeli Damla Damacana Su"
     And I navigate selected product
     When I want add product more than stock
-    Then I can see "MaximumSaleAmountExceeded" warning on add basket response
-    Then I can valid add basket response is 400
+    Then I can see "Sepetinize eklemek istediğiniz üründen şu anda stoklarımızda" warning on add basket response
+    Then I can valid add basket response is 200
     Then I get the basket
     And I can validate basket is empty
     When I add products as many as the max stock quantity
     Then I get the basket
     And I can check Quantity is valid on basket lines
-    When I can add the selected product to basket quantity is 1
-    Then I can see "MaximumSaleAmountExceeded" warning on add basket response
+    When I can add the selected product to basket quantity is 2
+    Then I can see "Sepetinize eklemek istediğiniz üründen şu anda stoklarımızda" warning on add basket response
     And I delete basket
 
   Scenario: User can delete and line item from basket for banabi vendors
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    And I delete basket
+    Then I choose "İçecek" product category from category list
+    And I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
     Then I select a random product
     And I can add the selected product to basket quantity is 2

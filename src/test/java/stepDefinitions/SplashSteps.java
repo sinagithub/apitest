@@ -33,41 +33,10 @@ public class SplashSteps extends BaseSteps {
 
     @Then("I get carsi status")
     public void I_get_carsi_status() {
-        CarsiSplashClient mockSplash = new CarsiSplashClient("http://localhost:3464");
-        IRestResponse<SplashResponse> splashResponse = mockSplash.getSplash();
+        IRestResponse<SplashResponse> splashResponse = getCarsiSplashClient().getSplash();
         getScenarioContext().setContext(Context.SPLASH_RESPONSE_DATA, splashResponse.getBody().getData());
     }
 
-    @Then("User check campaign id list are valid")
-    public void campaigns_Id_should_valid() {
-        SplashData splashData = (SplashData) getScenarioContext().getContext(Context.SPLASH_RESPONSE_DATA);
-        for (CampaignsItem campaignsItem : splashData.getCampaigns()) {
-            assertTrue(campaignsItem.getCampaignId() != null, "CampaignId id should not null");
-        }
-    }
-    @Then("User carsi Logo url is valid")
-    public void carsiLogo_should_valid() {
-        SplashData splashData = (SplashData) getScenarioContext().getContext(Context.SPLASH_RESPONSE_DATA);
-        String carsiUrl = splashData.getCarsiLogoUrl();
-        assertTrue(!carsiUrl.isEmpty(),"Carsi logo url should not empty" );
-    }
-
-    @Then("User check campaign Seo list are valid")
-    public void campaigns_seoUrl_should_valid() {
-        SplashData splashData = (SplashData) getScenarioContext().getContext(Context.SPLASH_RESPONSE_DATA);
-
-        for (CampaignsItem campaignsItem : splashData.getCampaigns()) {
-            assertTrue(!campaignsItem.getSeoUrl().isEmpty(), "Campaign seo url should not empty");
-        }
-    }
-
-    @Then("User check campaign ThumbImage list are valid")
-    public void campaigns_ThumbImage_should_valid() {
-        SplashData splashData = (SplashData) getScenarioContext().getContext(Context.SPLASH_RESPONSE_DATA);
-        for (CampaignsItem campaignsItem : splashData.getCampaigns()) {
-            assertTrue(!campaignsItem.getCampaignThumbImageUrl().isEmpty(), "Campaign CampaignThumbImage url should not empty");
-        }
-    }
 
 
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
-        "TypeId",
         "Text",
         "Rank"
 })
@@ -15,33 +14,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class AlternateOption {
 
     @JsonProperty("Id")
-    private String id;
-    @JsonProperty("TypeId")
-    private Integer typeId;
+    private Integer id;
     @JsonProperty("Text")
     private String text;
     @JsonProperty("Rank")
     private Integer rank;
 
     @JsonProperty("Id")
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
     @JsonProperty("Id")
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @JsonProperty("TypeId")
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    @JsonProperty("TypeId")
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
 
     @JsonProperty("Text")
     public String getText() {
