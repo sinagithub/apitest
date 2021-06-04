@@ -40,7 +40,7 @@ public class HomePageSteps extends BaseSteps {
         assertTrue(vendorList.size() > 0, "Vendor list should not be empty");
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
-        setCurrentPlatformType("Carsi");
+        setCurrentPlatformType("Mahalle");
     }
 
     @Then("I select first vendor from {string} category on home page")

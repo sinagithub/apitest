@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import apiEngine.GenerateFakeData;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
@@ -14,8 +15,10 @@ import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
 import apiEngine.models.response.Basket.Checkout.PaymentMethod;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketInfo;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
+import apiEngine.models.response.Basket.Checkout.SavedNote;
 import apiEngine.models.response.Basket.Checkout.TipInfo;
 import apiEngine.models.response.Basket.Upsell.BasketUpsellResponse;
+import apiEngine.models.response.Order.WriteOrderNoteResponse;
 import apiEngine.models.response.ProductDetail.Option;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.Product;
@@ -26,9 +29,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +70,6 @@ public class BasketSteps extends BaseSteps {
         return (IRestResponse<BasketCheckoutResponse>) getScenarioContext().getContext(Context.BASKET_CHECKOUT_RESPONSE);
     }
 
-
     private boolean getSelectedContactlessDeliveryStatus() {
         return (boolean) getScenarioContext().getContext(Context.CONTACTLESS_DELIVERY_SELECTION);
     }
@@ -86,6 +88,14 @@ public class BasketSteps extends BaseSteps {
 
     private TipInfo getTipInfoListOnBasketCheckout() {
         return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getTipInfo();
+    }
+
+    private IRestResponse<WriteOrderNoteResponse> writeOrderNote(String note) {
+        return getCarsiOrderClient().writeOrderNote(note);
+    }
+
+    private List<SavedNote> getSavedNoteDataList() {
+        return (List<SavedNote>) getScenarioContext().getContext(Context.ORDER_NOTE_LIST);
     }
 
     @Then("I get unique basket id")
@@ -290,7 +300,7 @@ public class BasketSteps extends BaseSteps {
         String productId = product.getId();
         int index = -1;
         for (BasketLine line : lineList) {
-            if (line.getId().equalsIgnoreCase(productId)) {
+            if (line.getProductId().equalsIgnoreCase(productId)) {
                 index = lineList.indexOf(line);
             }
         }
@@ -432,10 +442,10 @@ public class BasketSteps extends BaseSteps {
     }
 
 
-    @Then("I can validate basket total is {double}")
+    @Then("I can validate basket sub total is {double}")
     public void i_can_validate_basket_total_is(Double expectedTotalPrice) {
-        double actualTotalPrice = getBasketResponse().getBody().getData().getBasketInfo().getTotal();
-        assertTrue(actualTotalPrice == expectedTotalPrice, "Basket total price should be " + expectedTotalPrice +
+        double actualTotalPrice = getBasketResponse().getBody().getData().getBasketInfo().getSubTotal();
+        assertTrue(actualTotalPrice == expectedTotalPrice, "Basket sub total price should be " + expectedTotalPrice +
                 " Not :" + actualTotalPrice);
     }
 
@@ -456,7 +466,7 @@ public class BasketSteps extends BaseSteps {
         AlternateOption option = alternateProductResponse.getBody().getData().getAlternateOptions().get(optionRank - 1);
         int actualOptionRank = option.getRank();
         String actualOptionText = option.getText();
-        int actualType = option.getTypeId();
+        int actualType = option.getId();
 
         assertTrue(actualOptionRank == optionRank, "Option rank should be " + optionRank + " not " + actualOptionRank);
         assertTrue(actualType == type, "Option type should be " + type + " not " + actualType);
@@ -479,7 +489,7 @@ public class BasketSteps extends BaseSteps {
         List<Info> infoList = addProductResponse.getBody().getInfoList();
         assertTrue(infoList.size() > 0, "Info liste should not empty");
         String actualMessage = infoList.get(0).getMessage();
-        assertEqual("Max sale amount warning should be " + warningText, actualMessage, warningText);
+        assertTrue(actualMessage.contains(warningText), "Max sale amount warning should contain " + warningText);
     }
 
     @Then("I can valid add basket response is {int}")
@@ -494,6 +504,7 @@ public class BasketSteps extends BaseSteps {
     public void i_add_products_as_many_as_the_max_stock_quantity() {
         IRestResponse<ProductResponse> selectedProductResponse =
                 (IRestResponse<ProductResponse>) getScenarioContext().getContext(Context.PRODUCT_DETAIL_RESPONSE);
+
 
         int maxSaleAmount = selectedProductResponse.getBody().getData().getMaximumSaleAmount();
         i_can_add_the_selected_product_to_basket(maxSaleAmount);
@@ -523,13 +534,26 @@ public class BasketSteps extends BaseSteps {
 
     }
 
+    private String getProductLineItemIdFromGetBasket(Product product) {
+        List<BasketLine> lines = getBasketResponse().getBody().getData().getLines();
+        String expectedProductId = product.getId();
+        for (BasketLine line : lines) {
+            String lineProductId = line.getProductId();
+            if (lineProductId.equalsIgnoreCase(expectedProductId)) {
+                return line.getId();
+            }
+        }
+        return "Line item id bulunamadı";
+    }
+
     @When("I delete the selected product from basket quantity is {int}")
     public void i_delete_the_selected_product_from_basket_quantity_is(Integer expectedQuantity) {
         String basketId = getBasketId();
         Product selectedProduct = getSelectedProduct();
         int quantity = expectedQuantity;
         String productId = selectedProduct.getId();
-        DeleteProductRequest deleteProductRequest = new DeleteProductRequest(productId, productId, quantity);
+        String productLineItemId = getProductLineItemIdFromGetBasket(selectedProduct);
+        DeleteProductRequest deleteProductRequest = new DeleteProductRequest(productId, productLineItemId, quantity);
         IRestResponse<DeleteProductResponse> deleteProductResponse =
                 getCarsiBasketClient().deleteProduct(basketId, deleteProductRequest);
         getScenarioContext().setContext(Context.DELETE_PRODUCT_RESPONSE, deleteProductResponse);
@@ -587,6 +611,27 @@ public class BasketSteps extends BaseSteps {
             approvedSelection = true;
         }
         Payment selectedPayment = new Payment(paymentMethodId, paymentType, binNumber, approvedSelection);
+        getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
+    }
+
+    @When("I set paymentMethodId is {string}, PaymentType : {int}, IsApproved : {string} without binNumber")
+    public void i_set_payment_type_is_without_bin(String paymentMethodId, Integer paymentType, String isApproved) {
+        boolean approvedSelection = false;
+        if (isApproved.equalsIgnoreCase("true")) {
+            approvedSelection = true;
+        }
+        Payment selectedPayment = new Payment(paymentMethodId, paymentType, null, approvedSelection);
+        getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
+    }
+
+    @When("I set paymentMethodId is {string}, PaymentType : {int} , BinNumber: {int} , IsApproved : {string} for " +
+            "Banabi")
+    public void i_set_payment_type_is_for_banabi(String paymentMethodId, Integer paymentType, String isApproved) {
+        boolean approvedSelection = false;
+        if (isApproved.equalsIgnoreCase("true")) {
+            approvedSelection = true;
+        }
+        Payment selectedPayment = new Payment(paymentMethodId, paymentType, null, approvedSelection);
         getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
     }
 
@@ -760,11 +805,82 @@ public class BasketSteps extends BaseSteps {
 
         double actualTotal = basketInfo.getTotal();
         double deliveryFee = basketInfo.getDeliveryFree();
-        double subTotal = basketInfo.getSubTotal();
+        double lineItemsTotal = basketInfo.getLineItemsTotal();
 
-        double expectedTotal = tipAmount + deliveryFee + subTotal;
+        double expectedTotal = tipAmount + deliveryFee + lineItemsTotal;
         assertTrue(actualTotal == expectedTotal,
                 "Total amount should be " + expectedTotal + " not " + actualTotal);
     }
+
+    @Then("I get order notes on checkout")
+    public void i_get_order_notes_on_checkout() {
+        List<SavedNote> savedNotes =
+                getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getSavedNotes();
+        getScenarioContext().setContext(Context.ORDER_NOTE_LIST, savedNotes);
+        getScenarioContext().setContext(Context.ORDER_NOTE_SIZE, savedNotes.size());
+    }
+
+    @Then("I validate order notes is empty on checkout")
+    public void i_validate_order_notes_is_empty_on_checkout() {
+        assertTrue(getSavedNoteDataList().isEmpty(), "User saved notes should be empty ");
+    }
+
+    @When("I can write order note with character count {int} on checkout")
+    public void i_can_write_order_note_with_character_count_on_checkout(Integer maxCharacterSize) throws IOException {
+        String note = GenerateFakeData.getFakeLorem(maxCharacterSize);
+        getScenarioContext().setContext(Context.WRITED_NOTE_TEXT, note);
+        IRestResponse<WriteOrderNoteResponse> writeOrderNoteResponse = writeOrderNote(note);
+        getScenarioContext().setContext(Context.WRITE_ORDER_NOTE_RESPONSE, writeOrderNoteResponse);
+    }
+
+    private String orderNoteFirstXCharacterFromNote(int characterSize) {
+        String note = (String) getScenarioContext().getContext(Context.WRITED_NOTE_TEXT);
+        String expectedTitle;
+        if (note.length() > characterSize) {
+            expectedTitle = note.substring(0, characterSize);
+        } else {
+            expectedTitle = note;
+        }
+
+        return expectedTitle;
+
+    }
+
+    private SavedNote getAddedOrderNoteData() {
+        String expectedTitle = orderNoteFirstXCharacterFromNote(20);
+        int index = -1;
+        for (SavedNote savedNote : getSavedNoteDataList()) {
+            if (savedNote.getTitle().equalsIgnoreCase(expectedTitle)) {
+                index = getSavedNoteDataList().indexOf(savedNote);
+            }
+        }
+        return getSavedNoteDataList().get(index);
+    }
+
+    @Then("I validate order note title is saved with first {int} character on checkout")
+    public void i_validate_order_title_is_saved_with_first_character_on_checkout(Integer firstCharacterSize) {
+        String actualTitle = getAddedOrderNoteData().getTitle();
+        String expectedTitle = orderNoteFirstXCharacterFromNote(firstCharacterSize);
+        assertEqual("Expected title should be equal first " + firstCharacterSize, actualTitle, expectedTitle);
+    }
+
+    @Then("I validate order note desc listed in checkout saved notes")
+    public void i_validate_not_desc_listed_in_checkout() {
+        String actualNote = getAddedOrderNoteData().getNote();
+        String lastAddedNote = (String) getScenarioContext().getContext(Context.WRITED_NOTE_TEXT);
+        assertEqual("Added note should be in saved note list ", actualNote, lastAddedNote);
+    }
+
+    @Then("I validate order note response status code is {int}")
+    public void i_can_validate_order_note_response_is(Integer statusCode) {
+        IRestResponse<WriteOrderNoteResponse> writeOrderNoteResponse =
+                (IRestResponse<WriteOrderNoteResponse>) getScenarioContext().getContext(Context.WRITE_ORDER_NOTE_RESPONSE);
+
+        int actualStatus = writeOrderNoteResponse.getStatusCode();
+        assertTrue(actualStatus == statusCode,
+                "Assert status code should be "
+                        + statusCode + "not " + actualStatus);
+    }
+
 
 }

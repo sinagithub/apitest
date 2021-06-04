@@ -1,4 +1,4 @@
-package apiEngine.models.response.Basket.Checkout;
+package apiEngine.models.response.Basket.Refresh;
 
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,18 +8,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
+        "Content",
         "Title",
-        "Note"
+        "AgreementType"
 })
 @Generated("jsonschema2pojo")
-public class SavedNote {
+public class Datum {
 
     @JsonProperty("Id")
     private String id;
+    @JsonProperty("Content")
+    private String content;
     @JsonProperty("Title")
     private String title;
-    @JsonProperty("Note")
-    private String note;
+    @JsonProperty("AgreementType")
+    private String agreementType;
 
     @JsonProperty("Id")
     public String getId() {
@@ -29,6 +32,16 @@ public class SavedNote {
     @JsonProperty("Id")
     public void setId(String id) {
         this.id = id;
+    }
+
+    @JsonProperty("Content")
+    public String getContent() {
+        return content;
+    }
+
+    @JsonProperty("Content")
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @JsonProperty("Title")
@@ -41,13 +54,14 @@ public class SavedNote {
         this.title = title;
     }
 
-    @JsonProperty("Note")
-    public String getNote() {
-        return note;
+    @JsonProperty("AgreementType")
+    public String getAgreementType() {
+        return agreementType;
     }
 
-    @JsonProperty("Note")
-    public void setNote(String note) {
-        this.note = note;
+    @JsonProperty("AgreementType")
+    public void setAgreementType(String agreementType) {
+        this.agreementType = agreementType;
     }
+
 }

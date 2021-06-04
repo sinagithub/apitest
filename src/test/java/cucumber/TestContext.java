@@ -21,7 +21,7 @@ public class TestContext {
     }
 
     public OauthCoreClient getOauthCoreClient() {
-        return new OauthCoreClient("https://oauthcore.yemeksepeti.com");
+        return new OauthCoreClient(BaseUrls.getOauthBaseUrl());
     }
 
     public CarsiClient getCarsiClient() {

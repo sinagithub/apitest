@@ -127,10 +127,10 @@ Feature: Checkout ContactlessDelivery delivery control
     Then I check Contactless Delivery Option is showed "true" on basket checkout response
 
     When I set ContactlessDelivery is "true"
-    Then I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
+    Then I set paymentMethodId is "2", PaymentType : 1, IsApproved : "true" without binNumber
     And I put basket to checkout LastChangedProperty is 1
     And I check ContactlessDelivery is "true" on put basket checkout response
-    And I check selected payment MethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3" on put basket checkout response
+    And I check selected payment MethodId is "2" on put basket checkout response
 
     When I set ContactlessDelivery is "true"
     Then I set paymentMethodId is "f825f3b8-9545-45f1-bc1e-38b34e369592", PaymentType : 2 , BinNumber: 0 , IsApproved : "true"

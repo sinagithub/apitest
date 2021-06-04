@@ -187,9 +187,18 @@ public class VendorSteps extends BaseSteps {
                 (IRestResponse<VendorProductsResponse>) getScenarioContext()
                         .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
         List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
-
+        int index = -1;
+        Product selectedProduct;
         Random random = new Random();
-        int index = random.nextInt(products.size() - 1);
+        for (int i= 0; i<= products.size(); i++){
+            index = random.nextInt(products.size() - 1);
+            selectedProduct = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
+            if (selectedProduct.getIsActive()){
+                break;
+            }
+        }
+
+
         Product product = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
     }
@@ -265,7 +274,7 @@ public class VendorSteps extends BaseSteps {
 
         IRestResponse<ProductResponse> productDetailResponse = getCarsiProductClient().getProduct(productId,
                 vendorId, basketId);
-
+        assertTrue(productDetailResponse.isSuccessful(),"Product detail response status should be Ok" +" not " + productDetailResponse.getStatusCode());
         Data productDetailProductResponseData = productDetailResponse.getBody().getData();
         getScenarioContext().setContext(Context.PRODUCT_DETAIL_DATA, productDetailProductResponseData);
         getScenarioContext().setContext(Context.PRODUCT_DETAIL_RESPONSE, productDetailResponse);

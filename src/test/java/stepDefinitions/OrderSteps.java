@@ -37,7 +37,7 @@ public class OrderSteps extends BaseSteps {
         IRestResponse<GetOrderNotesResponse> getOrderNotes = getOrderNoteResponse();
         List<GetOrderNoteData> getOrderNoteDataList = getOrderNotes.getBody().getData();
         getScenarioContext().setContext(Context.GET_ORDER_NOTE_RESPONSE, getOrderNoteResponse());
-        getScenarioContext().setContext(Context.GET_ORDER_NOTE_LIST, getOrderNoteDataList);
+        getScenarioContext().setContext(Context.ORDER_NOTE_LIST, getOrderNoteDataList);
 
     }
 
@@ -47,7 +47,7 @@ public class OrderSteps extends BaseSteps {
         assertTrue(orderNotesSize == 0, "Order note size should be 0" + " not " + orderNotesSize);
     }
 
-    @Then("I can write order not with upper than max character {int}")
+    @Then("I can write order note with upper than max character {int}")
     public void i_can_write_order_not_with_upper_than_max_character_limit_is(int maxCharacterSize) throws IOException {
         String note = GenerateFakeData.getFakeLorem(maxCharacterSize + 1);
         getScenarioContext().setContext(Context.WRITED_NOTE_TEXT, note);
@@ -77,7 +77,7 @@ public class OrderSteps extends BaseSteps {
     }
 
     private List<GetOrderNoteData> getOrderNoteDataList() {
-        return (List<GetOrderNoteData>) getScenarioContext().getContext(Context.GET_ORDER_NOTE_LIST);
+        return (List<GetOrderNoteData>) getScenarioContext().getContext(Context.ORDER_NOTE_LIST);
     }
 
     private GetOrderNoteData getAddedOrderNoteData() {
@@ -104,7 +104,7 @@ public class OrderSteps extends BaseSteps {
         assertNotNull(getAddedOrderNoteData().getCreatedDate());
     }
 
-    @Then("Order can validate order title is saved with first {int} character")
+    @Then("I validate order title is saved with first {int} character")
     public void order_can_validate_order_title_is_saved_with_first_character(int firstCharacterSize) {
         String actualTitle = getAddedOrderNoteData().getTitle();
         String expectedTitle = orderNoteFirstXCharacterFromNote(firstCharacterSize);
