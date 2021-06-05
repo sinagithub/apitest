@@ -57,6 +57,7 @@ public class VendorSteps extends BaseSteps {
         String sessionId = GuidHelper.getInstance().getGuid();
         IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId, sessionId);
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
+        getScenarioContext().setContext(Context.SELECTED_VENDOR_DETAIL_DATA, vendorResponse.getBody().getData());
     }
 
     @Then("I navigate vendor with {string}")

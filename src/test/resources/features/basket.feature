@@ -17,7 +17,7 @@ Feature: Basket Controls
     Then I get unique basket id
     And I check basket id is same than old basket id
 
-  Scenario: User can get add/delete product without options to basket
+  Scenario: User can get add product without options to basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -44,7 +44,7 @@ Feature: Basket Controls
     And I can check basket subTotal is valid on basket
     And I can check basket total is valid
 
-  Scenario: User can not add add product while basket not empty
+  Scenario: User can not add product while basket not empty
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -235,7 +235,7 @@ Feature: Basket Controls
     Then I can see "Sepetinize eklemek istediğiniz üründen şu anda stoklarımızda" warning on add basket response
     And I delete basket
 
-  Scenario: User can delete and line item from basket for banabi vendors
+  Scenario: User can delete line item from basket for banabi vendors
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
@@ -250,3 +250,49 @@ Feature: Basket Controls
     When I delete the selected product from basket quantity is 2
     Then I get the basket
     And I can validate basket is empty
+
+
+  Scenario: User can get basket info smoothly
+    When  A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Super Market" category on home page
+    When I navigate selected vendor
+    Then I delete basket
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random product
+    And I can add the selected product to basket quantity is 2
+    When I get the basket
+    Then I validate VendorName is valid in basket info
+    And I validate VendorId is valid in basket info
+    And I validate IsFreeOrder is "false" in basket info
+    And I validate MinimumDeliveryTotal is valid in basket info
+    #And I can check basket total is valid
+    And I validate VendorCategory is valid in basket info
+    And I validate VendorLogo is valid in basket info
+    And I validate VendorCategory is valid in basket info
+    And I validate BasketStatus is 1 in basket info
+    And I validate BasketId is valid in basket info
+
+  Scenario: User can get basket info smoothly - Banabi
+    When  Banabi Vendor is available
+    Then I select banabi vendor
+    Then I navigate selected vendor
+    And I delete basket
+    Then I choose "İçecek" product category from category list
+    And I choose "Gazlı İçecek" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random product
+    And I can add the selected product to basket quantity is 2
+    When I get the basket
+    Then I validate VendorName is valid in basket info
+    And I validate VendorId is valid in basket info
+    And I validate IsFreeOrder is "false" in basket info
+    And I validate MinimumDeliveryTotal is valid in basket info
+    #And I can check basket total is valid
+    And I validate VendorCategory is valid in basket info
+    And I validate VendorLogo is valid in basket info
+    And I validate VendorCategory is valid in basket info
+    And I validate BasketStatus is 2 in basket info
+    And I validate BasketId is valid in basket info
+

@@ -66,7 +66,7 @@ public class AccountSteps extends BaseSteps {
         BanabiAddress selectedBanabiAddress;
         List<BanabiAddress> availableBanabiAddresses = new ArrayList<BanabiAddress>();
         for (BanabiAddress banabiAddress : banabiAddressList) {
-            if (banabiAddress.getLatitude() != 0.0 && banabiAddress.getAvailabilityStatus() ==1) {
+            if (banabiAddress.getLatitude() != 0.0 && banabiAddress.getAvailabilityStatus() ==2) {
                 availableBanabiAddresses.add(banabiAddress);
             }
         }

@@ -136,5 +136,11 @@ public class CheckoutSteps extends BaseSteps {
         }
     }
 
+    @Then("I validate CreditCards list is empty in user cards response")
+    public void i_validate_credit_cards_list_is_empty_in_user_cards_response() {
+       int cardListSize = getUserCreditCardList().size();
+       assertTrue(cardListSize == 0, "CreditCards should be empty");
+    }
+
 
 }
