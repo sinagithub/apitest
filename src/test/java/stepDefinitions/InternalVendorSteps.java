@@ -17,9 +17,12 @@ import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("unchecked")
 public class InternalVendorSteps extends BaseSteps {
@@ -63,6 +66,10 @@ public class InternalVendorSteps extends BaseSteps {
         return false;
     }
 
+    private boolean paymentMethodsIsExist(List<String> vendorPaymentMethodList, List<String> expectedPaymentMethods) {
+        return vendorPaymentMethodList.containsAll(expectedPaymentMethods);
+    }
+
     @When("I select vendor with payment method {string}")
     public void i_select_vendor_with_payment_method(String paymentMethodId) {
         List<CarsiVendor> vendorList = getHomeVendorList();
@@ -70,6 +77,19 @@ public class InternalVendorSteps extends BaseSteps {
             String vendorId = vendor.getId();
             List<String> paymentsMethods = getCarsiInternalVendor().getPaymentTypes(vendorId).jsonPath().get();
             if (paymentMethodIsExist(paymentsMethods, paymentMethodId)) {
+                getScenarioContext().setContext(Context.SELECTED_VENDOR, vendor);
+                break;
+            }
+        }
+    }
+
+    @When("I select vendor with payment methods$")
+    public void i_select_vendor_with_payment_methods(List<String> expectedPaymentMethodIdList) {
+        List<CarsiVendor> vendorList = getHomeVendorList();
+        for (CarsiVendor vendor : vendorList) {
+            String vendorId = vendor.getId();
+            List<String> paymentsMethods = getCarsiInternalVendor().getPaymentTypes(vendorId).jsonPath().get();
+            if (paymentMethodsIsExist(paymentsMethods, expectedPaymentMethodIdList)) {
                 getScenarioContext().setContext(Context.SELECTED_VENDOR, vendor);
                 break;
             }

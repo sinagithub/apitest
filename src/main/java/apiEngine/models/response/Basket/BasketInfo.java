@@ -14,7 +14,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "MinimumDeliveryTotal",
         "DeliveryFree",
         "Total",
-        "SubTotal"
+        "SubTotal",
+        "VendorCategory",
+        "VendorLogo"
 })
 
 public class BasketInfo {
@@ -37,6 +39,10 @@ public class BasketInfo {
     private Double total;
     @JsonProperty("SubTotal")
     private Double subTotal;
+    @JsonProperty("VendorCategory")
+    private String vendorCategory;
+    @JsonProperty("VendorLogo")
+    private String vendorLogo;
 
     @JsonProperty("BasketId")
     public String getBasketId() {
@@ -128,4 +134,27 @@ public class BasketInfo {
         this.subTotal = subTotal;
     }
 
+    public Boolean getFreeOrder() {
+        return isFreeOrder;
+    }
+
+    public void setFreeOrder(Boolean freeOrder) {
+        isFreeOrder = freeOrder;
+    }
+
+    public String getVendorCategory() {
+        return vendorCategory;
+    }
+
+    public void setVendorCategory(String vendorCategory) {
+        this.vendorCategory = vendorCategory;
+    }
+
+    public String getVendorLogo() {
+        return vendorLogo;
+    }
+
+    public void setVendorLogo(String vendorLogo) {
+        this.vendorLogo = vendorLogo;
+    }
 }
