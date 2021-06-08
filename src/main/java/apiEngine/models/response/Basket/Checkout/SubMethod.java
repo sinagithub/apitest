@@ -9,12 +9,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "Id",
         "Name",
-        "ImageUrl",
-        "Pan",
+        "IconUrl",
+        "Description",
         "BinNumber",
         "PointAmount",
         "IsSelected",
-        "CheckoutTypeId"
+        "CheckoutTypeId",
+        "PaymentType"
 })
 @Generated("jsonschema2pojo")
 public class SubMethod {
@@ -23,10 +24,10 @@ public class SubMethod {
     private String id;
     @JsonProperty("Name")
     private String name;
-    @JsonProperty("ImageUrl")
-    private String imageUrl;
-    @JsonProperty("Pan")
-    private String pan;
+    @JsonProperty("IconUrl")
+    private String iconUrl;
+    @JsonProperty("Description")
+    private String description;
     @JsonProperty("BinNumber")
     private Integer binNumber;
     @JsonProperty("PointAmount")
@@ -35,6 +36,9 @@ public class SubMethod {
     private Boolean isSelected;
     @JsonProperty("CheckoutTypeId")
     private Integer checkoutTypeId;
+    @JsonProperty("PaymentType")
+    private Integer paymentType;
+
 
     @JsonProperty("Id")
     public String getId() {
@@ -56,24 +60,24 @@ public class SubMethod {
         this.name = name;
     }
 
-    @JsonProperty("ImageUrl")
-    public String getImageUrl() {
-        return imageUrl;
+    @JsonProperty("IconUrl")
+    public String getIconUrl() {
+        return iconUrl;
     }
 
-    @JsonProperty("ImageUrl")
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    @JsonProperty("IconUrl")
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
-    @JsonProperty("Pan")
-    public String getPan() {
-        return pan;
+    @JsonProperty("Description")
+    public String getDescription() {
+        return description;
     }
 
-    @JsonProperty("Pan")
-    public void setPan(String pan) {
-        this.pan = pan;
+    @JsonProperty("Description")
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @JsonProperty("BinNumber")
@@ -116,4 +120,19 @@ public class SubMethod {
         this.checkoutTypeId = checkoutTypeId;
     }
 
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
+
+    public Integer getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(Integer paymentType) {
+        this.paymentType = paymentType;
+    }
 }

@@ -7,8 +7,7 @@ Feature: Checkout User cards controls
   Scenario Outline: User can list cards and can check card details
     When I list my credit cards
     Then I validate user cards response AskCVV is "true"
-    #And I validate user cards response code "200"
-    And I validate user cards response HasSavedCreditCard is "false"
+    And I validate user cards response HasSavedCreditCard is "true"
     And I validate user cards response Success is "true"
     Then I select card with "<Pan>"
     Then I validate card name is "<Name>"

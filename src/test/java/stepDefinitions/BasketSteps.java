@@ -12,6 +12,7 @@ import apiEngine.models.requests.Basket.DeleteProductRequest;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.Basket.Checkout.*;
+import apiEngine.models.response.Basket.Checkout.BasketInfo;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
 import apiEngine.models.response.Basket.Upsell.BasketUpsellResponse;
 import apiEngine.models.response.Order.WriteOrderNoteResponse;
@@ -24,7 +25,6 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.sl.In;
 import org.junit.Assert;
 
 import java.io.IOException;
@@ -70,6 +70,10 @@ public class BasketSteps extends BaseSteps {
 
     private IRestResponse<BasketCheckoutResponse> getBasketCheckoutResponse() {
         return (IRestResponse<BasketCheckoutResponse>) getScenarioContext().getContext(Context.BASKET_CHECKOUT_RESPONSE);
+    }
+
+    private BasketInfo getCheckOutBasketInfo() {
+        return getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getBasketInfo();
     }
 
     private boolean getSelectedContactlessDeliveryStatus() {
@@ -919,7 +923,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I validate MinimumDeliveryTotal is valid in basket info")
     public void i_validate_minimum_delivery_total_is_valid_in_basket_info() {
-        Double actualMinimumDeliveryTotal = getBasketInfo().getDeliveryFree();
+        Double actualMinimumDeliveryTotal = getBasketInfo().getDeliveryFee();
         assertNotNull(actualMinimumDeliveryTotal, "MinimumDeliveryTotal should not null");
     }
 
@@ -1004,10 +1008,12 @@ public class BasketSteps extends BaseSteps {
                 "Payment type id should be listed ");
     }
 
-    @Then("I check payment type IconUrl {string} is exist in basket checkout response")
-    public void i_check_payment_type_icon_url_in_basket_checkout_response(String expectedIconUrl) {
-        assertTrue(paymentTypeIconIsExistOnGetCheckOut(expectedIconUrl), expectedIconUrl + " " +
-                "Payment type icon should be listed ");
+    @Then("I check payment type IconUrl {string} {string} is exist in basket checkout response")
+    public void i_check_payment_type_icon_url_in_basket_checkout_response(String expectedIconUrl, String paymentType) {
+        if (!paymentType.equalsIgnoreCase("Kapıda Ödeme")) {
+            assertTrue(paymentTypeIconIsExistOnGetCheckOut(expectedIconUrl), expectedIconUrl + " " +
+                    "Payment type icon should be listed ");
+        }
     }
 
     private PaymentType getSelectedPaymentType() {
@@ -1034,7 +1040,7 @@ public class BasketSteps extends BaseSteps {
         Assert.fail("Payment type can not find");
     }
 
-    @Then("I select payment method id {string} in selected payment method")
+    @Then("I select payment method id {string} in selected payment type")
     public void i_select_payment_type_method_id_in_basket_checkout_response(String methodId) {
         List<PaymentMethod> paymentMethodList = getSelectedPaymentType().getPaymentMethods();
 
@@ -1069,13 +1075,13 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check sub ImageUrl is {string} is exist in selected payment sub method")
     public void i_check_sub_image_url_is_is_exist(String expectedIconUrl) {
-        String actualSubImageUrl = getSelectedSubMethod().getImageUrl();
+        String actualSubImageUrl = getSelectedSubMethod().getIconUrl();
         assertEqual("Payment sub ImageUrl should be valid", actualSubImageUrl, expectedIconUrl);
     }
 
     @Then("I check sub Pan is {string} is exist in selected payment sub method")
     public void i_check_sub_pan_is_is_exist(String expectedPan) {
-        String actualSubPan = getSelectedSubMethod().getPan();
+        String actualSubPan = getSelectedSubMethod().getDescription();
         assertEqual("Payment sub ImageUrl should be valid", actualSubPan, expectedPan);
     }
 
@@ -1105,8 +1111,194 @@ public class BasketSteps extends BaseSteps {
     @Then("I check sub CheckoutTypeId is {int} is exist in selected payment sub method")
     public void i_check_sub_checkout_type_id_is_is_exist(Integer expectedCheckoutTypeId) {
         int actualTypeId = getSelectedSubMethod().getCheckoutTypeId();
-        assertTrue(actualTypeId == expectedCheckoutTypeId, "CheckoutTypeIdshould be " + expectedCheckoutTypeId + " Not " + actualTypeId);
+        assertTrue(actualTypeId == expectedCheckoutTypeId, "CheckoutTypeIdshould be " + expectedCheckoutTypeId + " " +
+                "Not " + actualTypeId);
 
+    }
+
+    @Then("I check sub PaymentType is {int} is exist in selected payment sub method")
+    public void i_check_sub_payment_type_is_is_exist(Integer expectedPaymentType) {
+        int paymentTypeId = getSelectedSubMethod().getPaymentType();
+        assertTrue(paymentTypeId == expectedPaymentType, "PaymentType should be " + expectedPaymentType + " " +
+                "Not " + paymentTypeId);
+
+    }
+
+    @Then("I check PaymentType {int} in selected payment method")
+    public void i_check_payment_type_in_selected_payment_method(Integer expectedPaymentType) {
+        int actualPaymentType = getSelectedPaymentMethod().getPaymentType();
+        assertTrue(actualPaymentType == expectedPaymentType, "Payment type should be " + expectedPaymentType + " not "
+                + actualPaymentType);
+    }
+
+    @Then("I check Rank {int} in selected payment method")
+    public void i_check_rank_in_selected_payment_method(int expectedRank) {
+        int actualRank = getSelectedPaymentMethod().getRank();
+        assertTrue(expectedRank == actualRank, "Payment method rank should be " + expectedRank + " not "
+                + actualRank);
+    }
+
+    @Then("I check CheckoutTypeId {int} in selected payment method")
+    public void i_check_checkout_type_id_in_selected_payment_method(int expectedCheckoutTypeId) {
+        int actualCheckoutTypeId = getSelectedPaymentMethod().getCheckoutTypeId();
+        assertTrue(expectedCheckoutTypeId == actualCheckoutTypeId,
+                "Payment method CheckoutTypeId should be " + expectedCheckoutTypeId + " not "
+                        + actualCheckoutTypeId);
+    }
+
+    @Then("I check Name {string} in selected payment method")
+    public void i_check_name_in_selected_payment_method(String expectedPaymentMethodName) {
+        String actualMethodName = getSelectedPaymentMethod().getName();
+        assertEqual("Payment method name should be valid", actualMethodName, expectedPaymentMethodName);
+    }
+
+    @Then("I check Description {string} in selected payment method")
+    public void i_check_description_in_selected_payment_method(String expectedDescription) {
+        String actualDescription = getSelectedPaymentMethod().getDescription();
+        assertEqual("Payment method Description should be valid", actualDescription, expectedDescription);
+    }
+
+    @Then("I check IconUrl {string} in selected payment method")
+    public void i_check_icon_url_in_selected_payment_method(String expectedIconUrl) {
+        String actualIconUrl = getSelectedPaymentMethod().getIconUrl();
+        assertEqual("Payment method Description should be valid", actualIconUrl, expectedIconUrl);
+    }
+
+    @Then("I check IsSelected {string} in selected payment method")
+    public void i_check_is_selected_in_selected_payment_method(String expectedIsSelected) {
+        boolean actualIsSelected = getSelectedPaymentMethod().getIsSelected();
+        if (expectedIsSelected.equalsIgnoreCase("True")) {
+            assertTrue(actualIsSelected, "Payment method IsSelected should be true");
+        } else {
+            assertTrue(!actualIsSelected, "Payment method IsSelected should be false");
+        }
+    }
+
+    @Then("I check IsExpandable {string} in selected payment method")
+    public void i_check_is_expandable_in_selected_payment_method(String expectedIsExpandable) {
+        boolean actualIsExpandable = getSelectedPaymentMethod().getIsExpandable();
+        if (expectedIsExpandable.equalsIgnoreCase("True")) {
+            assertTrue(actualIsExpandable, "Payment method IsExpandable should be true");
+        } else {
+            assertTrue(!actualIsExpandable, "Payment method IsExpandable should be false");
+        }
+    }
+
+    @Then("I check IsExpanded {string} in selected payment method")
+    public void i_check_is_expanded_in_selected_payment_method(String expectedIsExpanded) {
+        boolean actualIsExpanded = getSelectedPaymentMethod().getIsExpanded();
+        if (expectedIsExpanded.equalsIgnoreCase("True")) {
+            assertTrue(actualIsExpanded, "Payment method IsExpanded should be true");
+        } else {
+            assertTrue(!actualIsExpanded, "Payment method IsExpanded should be false");
+        }
+    }
+
+    @Then("I check BasketId is valid on get checkout response")
+    public void i_check_basket_id_is_valid_on_get_checkout_response() {
+        String expectedBasketId = getBasketId();
+        String actualBasketId = getCheckOutBasketInfo().getBasketId();
+        assertEqual("BasketId should be valid ", actualBasketId, expectedBasketId);
+    }
+
+    @Then("I check BasketStatus should be {int} on get checkout response")
+    public void i_check_basket_status_is_valid_on_get_checkout_response(Integer expectedBasketStatus) {
+        int actualBasketStatus = getCheckOutBasketInfo().getBasketStatus();
+        assertTrue(actualBasketStatus == expectedBasketStatus, "Basket status should be " + expectedBasketStatus);
+    }
+
+    @Then("I check IsFreeOrder should be {string} on get checkout response")
+    public void i_check_is_free_order_is_valid_on_get_checkout_response(String expectedIsFreeOrder) {
+        boolean actualIsFreeOrder = getCheckOutBasketInfo().getIsFreeOrder();
+        if (expectedIsFreeOrder.equalsIgnoreCase("True")) {
+            assertTrue(actualIsFreeOrder, "IsFreeOrder should be true");
+        } else {
+            assertTrue(!actualIsFreeOrder, "IsFreeOrder should be true");
+        }
+    }
+
+    @Then("I check DonationTotal should be {double} on get checkout response")
+    public void i_check_donation_total_is_valid_on_get_checkout_response(double expectedDonationTotal) {
+        double actualDonationTotal = getCheckOutBasketInfo().getDonationTotal();
+        assertTrue(actualDonationTotal == expectedDonationTotal,
+                "DonationTotal should be " + expectedDonationTotal + "not " + actualDonationTotal);
+    }
+
+    @Then("I check DeliveryFree is valid on get checkout response")
+    public void i_check_delivery_free_is_valid_on_get_checkout_response() {
+        double actualDeliveryFree = getCheckOutBasketInfo().getDeliveryFree();
+        double expectedDeliveryFree = getBasketInfo().getDeliveryFee();
+        assertTrue(actualDeliveryFree == expectedDeliveryFree, "DeliveryFree should be " + expectedDeliveryFree + " " +
+                "not " + actualDeliveryFree);
+    }
+
+    @Then("I check Total is valid on get checkout response")
+    public void i_check_total_is_valid_on_get_checkout_response() {
+        double expectedTotal = getExpectedBasketTotalPrice();
+        double actualTotal = getCheckOutBasketInfo().getTotal();
+        assertTrue(expectedTotal == actualTotal, "Total should be " + expectedTotal + " not " + actualTotal);
+    }
+
+    private List<BasketLine> getBasketLines() {
+        return getBasketResponse().getBody().getData().getLines();
+    }
+
+    private double getExpectedLineTotal() {
+        List<BasketLine> lineList = getBasketLines();
+        double totalLinePrice = 0.0;
+        for (BasketLine basketLine : lineList) {
+            double listPrice = basketLine.getListPrice();
+            totalLinePrice += listPrice;
+        }
+        return totalLinePrice;
+    }
+
+    private double getExpectedTotalDiscountedPrices() {
+        List<BasketLine> lineList = getBasketLines();
+        double totalLineDiscountedPrice = 0.0;
+        for (BasketLine basketLine : lineList) {
+            double lineDiscountedPrice = basketLine.getDiscountedPrice();
+            double listPrice = basketLine.getListPrice();
+            totalLineDiscountedPrice += lineDiscountedPrice - listPrice;
+        }
+        return totalLineDiscountedPrice;
+    }
+
+    @Then("I check DiscountTotal is valid on get checkout response")
+    public void i_check_discount_total_is_valid_on_get_checkout_response() {
+        double expectedDiscountTotal = getExpectedTotalDiscountedPrices();
+        double actualDiscountTotal = getCheckOutBasketInfo().getDiscountTotal();
+
+        assertTrue(expectedDiscountTotal == actualDiscountTotal,
+                "DiscountTotal should be " + expectedDiscountTotal + " not " + actualDiscountTotal);
+    }
+
+    @Then("I check LineItemsTotal is valid on get checkout response")
+    public void i_check_line_items_total_is_valid_on_get_checkout_response() {
+        double expectedLineTotal = getExpectedLineTotal();
+        double actualLineTotal = getCheckOutBasketInfo().getLineItemsTotal();
+        assertTrue(expectedLineTotal == actualLineTotal,
+                "LineItemsTotal should be " + expectedLineTotal + " not " + actualLineTotal);
+
+    }
+
+    @Then("I check BagQuantity should be {int} on get checkout response")
+    public void i_check_bag_quantity_is_valid_on_get_checkout_response(int expectedBagQuantity) {
+        int actualBagQuantity = getCheckOutBasketInfo().getBagQuantity();
+        assertTrue(actualBagQuantity == expectedBagQuantity,
+                "BagQuantity should be " + expectedBagQuantity + "not " + actualBagQuantity);
+    }
+
+    @Then("I check BagTotal is valid on get checkout response")
+    public void i_check_bag_total_is_valid_on_get_checkout_response() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+    @Then("I check DiscountedDeliveryFee is valid on get checkout response")
+    public void i_check_discounted_delivery_fee_is_valid_on_get_checkout_response() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
     }
 
 
