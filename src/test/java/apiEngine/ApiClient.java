@@ -24,7 +24,7 @@ public class ApiClient extends Hooks {
 
 
     public RequestSpecification createRequest() {
-        RequestSpecification request = RestAssured.given().config(config).with().filter(logFilter);
+        RequestSpecification request = RestAssured.given().log().all().config(config).with().filter(logFilter);
         request.baseUri(baseUrl);
         request.header("Content-Type", "application/json");
         request.header("YS-Culture", "tr-TR");

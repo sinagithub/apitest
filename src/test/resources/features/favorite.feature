@@ -98,7 +98,7 @@ Feature: Favorite Api controls
     Then I navigate selected vendor
     Then I add selected vendor to favorite list
     When I get Favorite list
-    Then I can see the added vendor on the favorite list
+    Then I can see the added banabi vendor on the favorite list
     When I remove the added vendor from favorite list
     And I get Favorite list
     Then I can validate the vendor is removed on the favorite list

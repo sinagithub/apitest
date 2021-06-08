@@ -164,6 +164,18 @@ public class FavoriteSteps extends BaseSteps {
 
     }
 
+    private boolean isBanabiOnTheFavoriteList(String vendorName) {
+        List<Vendor> vendorList = getFavoriteVendorList();
+        for (Vendor vendor : vendorList) {
+            if (vendor.getName().equals(vendorName)) {
+
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
     @Then("I can see the added vendor on the favorite list")
     public void i_can_see_the_added_vendor_on_the_favorite_list() {
@@ -171,11 +183,17 @@ public class FavoriteSteps extends BaseSteps {
         assertTrue(isVendorOnTheFavoriteList(addedVendorId), "Vendor not on the favorite list !");
     }
 
+    @Then("I can see the added banabi vendor on the favorite list")
+    public void i_can_see_the_added_banabi_vendor_on_the_favorite_list() {
+        String addedVendorName = getSelectedVendor().getName();
+        assertTrue(isBanabiOnTheFavoriteList(addedVendorName), "Banabi Vendor not on the favorite list !");
+    }
+
     private void setVendorPlatformType(String vendorId) {
         List<Vendor> vendorList = getCarsiFavoriteClient().getFavoriteList().getBody().getData().getVendors();
         for (Vendor vendor : vendorList) {
             if (vendor.getId().equalsIgnoreCase(vendorId)) {
-                if (vendor.getPlatformType().equalsIgnoreCase("0")) {
+                if (vendor.getPlatformType().equalsIgnoreCase("1")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Carsi");
                 } else if (vendor.getPlatformType().equalsIgnoreCase("2")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Banabi");
