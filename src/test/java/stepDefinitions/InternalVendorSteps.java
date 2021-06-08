@@ -20,6 +20,7 @@ import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -134,6 +135,61 @@ public class InternalVendorSteps extends BaseSteps {
         String brandImageUrl = internalVendorDetails.getBody().getBrandImageUrl();
         boolean acceptFutureOrder = internalVendorDetails.getBody().getAcceptsFutureOrder();
         boolean isTipAvailable = internalVendorDetails.getBody().getIsTipAvailable();
+        List<DeliveryType> deliveryTypes = internalVendorDetails.getBody().getDeliveryTypes();
+        List<Category> categoryList = internalVendorDetails.getBody().getCategories();
+
+        UpdateVendorRequest updateVendorRequest = new UpdateVendorRequest(
+                name,
+                cityId,
+                areaId, area,
+                email, phone,
+                address, latitude,
+                longitude, minDeliveryTime,
+                maxDeliveryMinutes, minBasketAmount,
+                maxBasketCapacity, deliveryFee,
+                logoUrl, brandImageUrl,
+                acceptFutureOrder, isTipAvailable,
+                deliveryTypes, categoryList, paymentMethodList, operatingUserId);
+        getCarsiInternalVendor().setVendorInformation(updateVendorRequest,selectedVendorId);
+    }
+
+
+    @Then("Staff update vendor delivery time method set AcceptsFutureOrder {string}")
+    public void staff_update_vendor_payment_method(String acceptsFutureOrder) {
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        GuidHelper.getInstance().setGuid();
+        String selectedVendorId = getSelectedVendor().getId();
+        String operatingUserId = "12345";
+        IRestResponse<InternalVendorDetailResponse> internalVendorDetails = getSelectedVendorDetail();
+        String name = internalVendorDetails.getBody().getName();
+        String cityId = internalVendorDetails.getBody().getCity();
+        String area = internalVendorDetails.getBody().getArea();
+        String email = internalVendorDetails.getBody().getEmail();
+        String phone = internalVendorDetails.getBody().getPhone();
+        String address = internalVendorDetails.getBody().getAddress();
+        String areaId = banabiAddress.getAreaId();
+
+        int latitude = internalVendorDetails.getBody().getLatitude();
+        int longitude = internalVendorDetails.getBody().getLongitude();
+        int minDeliveryTime = internalVendorDetails.getBody().getMinDeliveryMinutes();
+        int maxDeliveryMinutes = internalVendorDetails.getBody().getMaxDeliveryMinutes();
+        int minBasketAmount = internalVendorDetails.getBody().getMinBasketAmount();
+        int maxBasketCapacity = internalVendorDetails.getBody().getMaxBasketCapacity();
+        double deliveryFee = internalVendorDetails.getBody().getDeliveryFee();
+        String logoUrl = internalVendorDetails.getBody().getLogoUrl();
+        String brandImageUrl = internalVendorDetails.getBody().getBrandImageUrl();
+        boolean isTipAvailable = internalVendorDetails.getBody().getIsTipAvailable();
+        List<String> paymentMethodList = Arrays.asList("111fb8a2-45a4-4e09-8a10-4d7d94d70be3", "de2e3a82-8b55-4334-8a2e-467fe7f7db24");
+
+        boolean acceptFutureOrder = true;
+        if (acceptsFutureOrder.equalsIgnoreCase("True")){
+            acceptFutureOrder = true;
+        }
+        else {
+            acceptFutureOrder = false;
+        }
+
+
         List<DeliveryType> deliveryTypes = internalVendorDetails.getBody().getDeliveryTypes();
         List<Category> categoryList = internalVendorDetails.getBody().getCategories();
 
