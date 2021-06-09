@@ -126,3 +126,22 @@ Feature: Delivery time controls in checkout
     And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff update vendor working days with selected times for deliveryInterval 120
+
+  Scenario: User can select delivery time as Now for banabi
+    Given I am an authorized  user "Login"
+    And  My addresses list should be available
+    And  I select pinned available address
+    And I get unique basket id
+    When  Banabi Vendor is available
+    Then I select banabi vendor
+    When I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random product
+    And I can add the selected product to basket quantity is 1
+    When I get checkout options
+    Then I list DeliveryTimeOptions in basket checkout response
+    And I check Title "Hemen" in now DeliveryTime option
+    And I check Description "Siparişiniz hazırlanıp hemen yola çıkarılacaktır." in now DeliveryTime option
+    And I check future option not exist in delivery time option list
