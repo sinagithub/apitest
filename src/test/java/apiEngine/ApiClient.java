@@ -20,6 +20,7 @@ public class ApiClient extends Hooks {
     private final String baseUrl;
     private final Double latitude;
     private final Double longitude;
+    private final String sessionId;
 
 
 
@@ -36,6 +37,7 @@ public class ApiClient extends Hooks {
             request.header("YS-Catalog", catalog);
         }
 
+
         if (latitude != null) {
             request.header("X-Address-Lat", latitude);
         }
@@ -43,6 +45,11 @@ public class ApiClient extends Hooks {
         if (longitude != null) {
             request.header("X-Address-Long", longitude);
         }
+
+        if (sessionId != null) {
+            request.header("X-Session-Id", sessionId);
+        }
+
         return request;
     }
 
@@ -53,8 +60,10 @@ public class ApiClient extends Hooks {
         platformType = PlatformTypeHelper.getInstance().getPlatformType();
         latitude = LatLongHelper.getInstance().getLatitude();
         longitude = LatLongHelper.getInstance().getLongitude();
+        sessionId = GuidHelper.getInstance().getGuid();
         config = RestConfig.createConfig();
         logFilter = new CustomLogFilter();
+
     }
 
     public void writeStepLog() {

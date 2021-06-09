@@ -1289,17 +1289,112 @@ public class BasketSteps extends BaseSteps {
                 "BagQuantity should be " + expectedBagQuantity + "not " + actualBagQuantity);
     }
 
-    @Then("I check BagTotal is valid on get checkout response")
-    public void i_check_bag_total_is_valid_on_get_checkout_response() {
+    private DeliveryTimeOptions getDeliveryTimeOptionsFromGetCheckout() {
+        return (DeliveryTimeOptions) getScenarioContext().getContext(Context.DELIVERY_TIME_OPTIONS);
+    }
+
+    private Future getFutureDeliveryTimeOption() {
+        return getDeliveryTimeOptionsFromGetCheckout().getFuture();
+    }
+
+    private Now getNowDeliveryTimeOption() {
+        return getDeliveryTimeOptionsFromGetCheckout().getNow();
+    }
+
+    @Then("I list DeliveryTimeOptions in basket checkout response")
+    public void i_list_delivery_time_options_in_basket_checkout_response() {
+        DeliveryTimeOptions deliveryTimeOptions =
+                getBasketCheckoutResponse().getBody().getData().getBasketCheckout().getDeliveryTimeOptions();
+        getScenarioContext().setContext(Context.DELIVERY_TIME_OPTIONS, deliveryTimeOptions);
+    }
+
+    @Then("I check Title {string} in future DeliveryTime option")
+    public void i_check_title_in_future_delivery_time_option(String expectedTitle) {
+        String actualTitle = getFutureDeliveryTimeOption().getTitle();
+        assertEqual("Future delivery time option Title should be valid", actualTitle, expectedTitle);
+    }
+
+    @Then("I check Description {string} in future DeliveryTime option")
+    public void i_check_description_in_future_delivery_time_option(String expectedDescription) {
+        String actualDescription = getFutureDeliveryTimeOption().getDescription();
+        assertEqual("Future delivery time option Description should be valid", actualDescription, expectedDescription);
+    }
+
+    @Then("I check Title {string} in now DeliveryTime option")
+    public void i_check_title_in_now_delivery_time_option(String expectedTitle) {
+        String actualTitle = getNowDeliveryTimeOption().getTitle();
+        assertEqual("Now delivery time option Title should be valid", actualTitle, expectedTitle);
+    }
+
+    @Then("I check Description {string} in now DeliveryTime option")
+    public void i_check_description_in_now_delivery_time_option(String expectedDescription) {
+        String actualDescription = getNowDeliveryTimeOption().getDescription();
+        assertEqual("Now delivery time option Description should be valid", actualDescription, expectedDescription);
+    }
+
+    @Then("I list working days")
+    public void i_list_working_days() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
 
-    @Then("I check DiscountedDeliveryFee is valid on get checkout response")
-    public void i_check_discounted_delivery_fee_is_valid_on_get_checkout_response() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("I check working day size is {int}")
+    public void i_check_working_day_size_is(Integer expectedWorkDaySize) {
+        int actualSize = getFutureDeliveryTimeOption().getDays().size();
+        assertTrue(actualSize == expectedWorkDaySize,
+                "Work day size should be " + expectedWorkDaySize + " not" + actualSize);
     }
 
+    @Then("I check available working day size is {int} or {int}")
+    public void i_check_available_working_day_size_is_or(Integer daySizeOption1, Integer daySizeOption2) {
+        List<Day> dayList = getFutureDeliveryTimeOption().getDays();
+        int availableSize = 0;
+        for (Day day : dayList) {
+            boolean isEnabled = day.getIsEnabled();
+            if (isEnabled) {
+                availableSize++;
+            }
+        }
+        if (availableSize == daySizeOption1 || availableSize == daySizeOption2) {
+            return;
+        } else {
+            Assert.fail("Available Day size should be " + daySizeOption1 + " or " + daySizeOption2);
+        }
+    }
 
+    @Then("I check future option not exist in delivery time option list")
+    public void i_check_future_option_not_exist_in_delivery_time_option_list() {
+        if (getFutureDeliveryTimeOption() == null) {
+            return;
+        } else {
+            Assert.fail("Future option should not list");
+        }
+
+    }
+
+    @Then("I check future delivery option only enabled on tomorrow")
+    public void i_check_future_delivery_option_only_enabled_on_tomorrow() {
+       List<Day> dayList =  getFutureDeliveryTimeOption().getDays();
+
+       for (Day day : dayList){
+          boolean isSelected =  day.getIsEnabled();
+          if (dayList.indexOf(day) == 1){
+              assertTrue(isSelected,"Future options isSelected should be true");
+          }
+          else {
+              assertTrue(!isSelected,"Future options isSelected should be false");
+          }
+
+       }
+    }
+
+    @Then("I check tomorrow delivery time all hours is enabled")
+    public void i_check_tomorrow_delivery_time_all_hours_is_enabled() {
+        Day tomorrow =  getFutureDeliveryTimeOption().getDays().get(1);
+        List<Hour> hourList = tomorrow.getHours();
+        for (Hour hour : hourList){
+           boolean isEnabled =  hour.getEnabled();
+           assertTrue(isEnabled, "Future Hours IsEnabled should be True");
+        }
+    }
 }

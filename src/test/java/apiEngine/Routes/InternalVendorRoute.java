@@ -10,6 +10,7 @@ public class InternalVendorRoute {
     private static final String CLOSE = "/close";
     private static final String OPEN = "/open";
     private static final String PAYMENT_TYPES = "/payment-types";
+    private static final String WORKING_DAYS = "/working-days";
 
     public static String getVendor() {
         return API + VERSION + VENDOR;
@@ -29,6 +30,10 @@ public class InternalVendorRoute {
 
     public static String vendorPaymentTypes(){
         return getVendor() + PAYMENT_TYPES;
+    }
+
+    public static String getWorkingDay(){
+        return getVendor() + WORKING_DAYS;
     }
 
 }

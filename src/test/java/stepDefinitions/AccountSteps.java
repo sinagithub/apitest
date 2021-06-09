@@ -111,6 +111,7 @@ public class AccountSteps extends BaseSteps {
     public void i_select_city(String catalogName) {
         CatalogSelector.getInstance().setCatalogName(catalogName);
         getScenarioContext().setContext(Context.SELECTED_CATALOG_NAME, catalogName);
+        GuidHelper.getInstance().setGuid();
     }
 
 

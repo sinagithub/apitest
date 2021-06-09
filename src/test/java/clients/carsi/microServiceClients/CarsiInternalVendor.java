@@ -4,6 +4,7 @@ import apiEngine.ApiClient;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Routes.InternalVendorRoute;
+import apiEngine.models.requests.InternalVendor.SetVendorWorkingDaysRequest;
 import apiEngine.models.requests.InternalVendor.UpdateVendorRequest;
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorBasicResponse;
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorDetailResponse;
@@ -62,6 +63,15 @@ public class CarsiInternalVendor extends ApiClient {
                 .pathParam("vendorId",vendorId)
                 .body(updateVendorRequest)
                 .put(InternalVendorRoute.getVendor());
+        writeStepLog();
+        return response;
+    }
+
+    public Response setVendorWorkingDay(String vendorId, SetVendorWorkingDaysRequest setVendorWorkingDaysRequest){
+        Response response = createRequest()
+                .pathParam("vendorId",vendorId)
+                .body(setVendorWorkingDaysRequest)
+                .put(InternalVendorRoute.getWorkingDay());
         writeStepLog();
         return response;
     }
