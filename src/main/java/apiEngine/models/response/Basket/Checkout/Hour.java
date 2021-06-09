@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Time",
-        "Text"
+        "Text",
+        "IsEnabled"
 })
 @Generated("jsonschema2pojo")
 public class Hour {
@@ -17,6 +18,9 @@ public class Hour {
     private String time;
     @JsonProperty("Text")
     private String text;
+
+    @JsonProperty("IsEnabled")
+    private Boolean isEnabled;
 
     @JsonProperty("Time")
     public String getTime() {
@@ -38,4 +42,11 @@ public class Hour {
         this.text = text;
     }
 
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
+    }
 }

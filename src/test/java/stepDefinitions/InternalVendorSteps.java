@@ -4,7 +4,10 @@ import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
 import apiEngine.Routes.InternalVendorRoute;
 import apiEngine.Routes.Route;
+import apiEngine.Utils;
+import apiEngine.models.requests.InternalVendor.SetVendorWorkingDaysRequest;
 import apiEngine.models.requests.InternalVendor.UpdateVendorRequest;
+import apiEngine.models.requests.InternalVendor.WorkingDay;
 import apiEngine.models.response.BanabiAddress;
 import apiEngine.models.response.CarsiVendor;
 import apiEngine.models.response.HomePage.HomePagePlatformResponse;
@@ -19,8 +22,10 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -149,8 +154,101 @@ public class InternalVendorSteps extends BaseSteps {
                 logoUrl, brandImageUrl,
                 acceptFutureOrder, isTipAvailable,
                 deliveryTypes, categoryList, paymentMethodList, operatingUserId);
-        getCarsiInternalVendor().setVendorInformation(updateVendorRequest,selectedVendorId);
+        getCarsiInternalVendor().setVendorInformation(updateVendorRequest, selectedVendorId);
     }
 
+
+    @Then("Staff update vendor delivery time method set AcceptsFutureOrder {string}")
+    public void staff_update_vendor_payment_method(String acceptsFutureOrder) {
+        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        GuidHelper.getInstance().setGuid();
+        String selectedVendorId = getSelectedVendor().getId();
+        String operatingUserId = "12345";
+        IRestResponse<InternalVendorDetailResponse> internalVendorDetails = getSelectedVendorDetail();
+        String name = internalVendorDetails.getBody().getName();
+        String cityId = internalVendorDetails.getBody().getCity();
+        String area = internalVendorDetails.getBody().getArea();
+        String email = internalVendorDetails.getBody().getEmail();
+        String phone = internalVendorDetails.getBody().getPhone();
+        String address = internalVendorDetails.getBody().getAddress();
+        String areaId = banabiAddress.getAreaId();
+
+        int latitude = internalVendorDetails.getBody().getLatitude();
+        int longitude = internalVendorDetails.getBody().getLongitude();
+        int minDeliveryTime = internalVendorDetails.getBody().getMinDeliveryMinutes();
+        int maxDeliveryMinutes = internalVendorDetails.getBody().getMaxDeliveryMinutes();
+        int minBasketAmount = internalVendorDetails.getBody().getMinBasketAmount();
+        int maxBasketCapacity = internalVendorDetails.getBody().getMaxBasketCapacity();
+        double deliveryFee = internalVendorDetails.getBody().getDeliveryFee();
+        String logoUrl = internalVendorDetails.getBody().getLogoUrl();
+        String brandImageUrl = internalVendorDetails.getBody().getBrandImageUrl();
+        boolean isTipAvailable = internalVendorDetails.getBody().getIsTipAvailable();
+        List<String> paymentMethodList = Arrays.asList("111fb8a2-45a4-4e09-8a10-4d7d94d70be3", "de2e3a82-8b55-4334" +
+                "-8a2e-467fe7f7db24");
+
+        boolean acceptFutureOrder = true;
+        if (acceptsFutureOrder.equalsIgnoreCase("True")) {
+            acceptFutureOrder = true;
+        } else {
+            acceptFutureOrder = false;
+        }
+
+
+        List<DeliveryType> deliveryTypes = internalVendorDetails.getBody().getDeliveryTypes();
+        List<Category> categoryList = internalVendorDetails.getBody().getCategories();
+
+        UpdateVendorRequest updateVendorRequest = new UpdateVendorRequest(
+                name,
+                cityId,
+                areaId, area,
+                email, phone,
+                address, latitude,
+                longitude, minDeliveryTime,
+                maxDeliveryMinutes, minBasketAmount,
+                maxBasketCapacity, deliveryFee,
+                logoUrl, brandImageUrl,
+                acceptFutureOrder, isTipAvailable,
+                deliveryTypes, categoryList, paymentMethodList, operatingUserId);
+        getCarsiInternalVendor().setVendorInformation(updateVendorRequest, selectedVendorId);
+    }
+
+    @Then("Staff create working pool for selected vendor")
+    public void staff_create_working_pool_for_selected_vendor() {
+        List<WorkingDay> workingDays = new ArrayList<>();
+        getScenarioContext().setContext(Context.WORK_DAY_POOL, workingDays);
+    }
+
+    @Then("Staff select working day DayOfWeek {int}, StartHour {int}, StartMinute {int}, EndHour {int}, EndMinute " +
+            "{int}")
+    public void staff_select_working_day_of_week_start_hour_start_minute_end_hour_end_minute(Integer dayOfWeek,
+                                                                                             Integer startHour,
+                                                                                             Integer startMinute,
+                                                                                             Integer endHour,
+                                                                                             Integer endMinute) {
+        List<WorkingDay> workingDayPool = (List<WorkingDay>) getScenarioContext().getContext(Context.WORK_DAY_POOL);
+        WorkingDay workingDay = new WorkingDay(dayOfWeek, startHour, startMinute, endHour, endMinute);
+        workingDayPool.add(workingDay);
+        getScenarioContext().setContext(Context.WORK_DAY_POOL, workingDayPool);
+
+    }
+
+    @Then("Staff update vendor working days with selected times for deliveryInterval {int}")
+    public void staff_update_vendor_working_days_with_selected_times(int deliveryInterval) throws IOException {
+        String selectedVendorId = getSelectedVendor().getId();
+        String operationUserId = Utils.getGlobalValue("internalOperationUserId");
+        List<WorkingDay> workingDayPool = (List<WorkingDay>) getScenarioContext().getContext(Context.WORK_DAY_POOL);
+        SetVendorWorkingDaysRequest setVendorWorkingDaysRequest = new SetVendorWorkingDaysRequest(deliveryInterval,
+                workingDayPool, operationUserId);
+        getCarsiInternalVendor().setVendorWorkingDay(selectedVendorId, setVendorWorkingDaysRequest);
+    }
+
+    @Then("Staff select vendor workday for only tomorrow StartHour {int}, StartMinute {int}, EndHour {int}, EndMinute" +
+            " {int}")
+    public void staff_select_vendor_workday_for_only_tomorrow(int startHour, int startMinute, int endHour,
+                                                              int endMinute) {
+        int nextDayOfWeek = LocalDate.now().getDayOfWeek().getValue() + 1;
+        staff_select_working_day_of_week_start_hour_start_minute_end_hour_end_minute(nextDayOfWeek,startHour,startMinute,endHour,endMinute);
+
+    }
 
 }
