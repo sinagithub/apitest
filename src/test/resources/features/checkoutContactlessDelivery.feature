@@ -42,7 +42,7 @@ Feature: Checkout ContactlessDelivery delivery control
     And I check selected payment MethodId is "062" on put basket checkout response
 
   Scenario: ContactlessDelivery auto selection with no saved cards
-    And I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
+    And I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
     And  My addresses list should be available
     When  I select pinned available address
     When  A list of Carşı Vendor are available on home page

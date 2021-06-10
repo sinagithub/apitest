@@ -1,14 +1,6 @@
 @Basket
 Feature: Basket Controls
 
-  Background: Login and Address Listing
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    And I delete basket
-
   Scenario: User can get basket id : every time same id
     Given I select city "TR_ISTANBUL"
     And I am an authorized  user "Login"
@@ -18,6 +10,12 @@ Feature: Basket Controls
     And I check basket id is same than old basket id
 
   Scenario: User can get add product without options to basket
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -45,6 +43,12 @@ Feature: Basket Controls
     And I can check basket total is valid
 
   Scenario: User can not add product while basket not empty
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -63,6 +67,12 @@ Feature: Basket Controls
     Then I check added product "VendorsNotMatchedInBasket" error message and status is 400
 
   Scenario: User can see basket items count on the vendor detail with lite basket service
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -80,6 +90,12 @@ Feature: Basket Controls
     And I check line products is valid on lite basket response
 
   Scenario: User can clear all products from basket with clear basket service
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -96,6 +112,12 @@ Feature: Basket Controls
     And I can validate basket sub total is 0.0
 
   Scenario: User can see alternate product options
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -111,6 +133,12 @@ Feature: Basket Controls
     And I can validate alternate product text "Ürün yoksa siparişi iptal edin" is exist and rank is 4 type is 4
 
   Scenario: User can't see alternate product options on banabi basket
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When Banabi Vendor is available
     Then I select banabi vendor
     When I navigate selected vendor
@@ -118,6 +146,12 @@ Feature: Basket Controls
     Then I can validate alternate product option list is null
 
   Scenario: User can see max stock error when add more than stock quantity
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -139,6 +173,12 @@ Feature: Basket Controls
     And I delete basket
 
   Scenario: User can delete line item from basket
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -154,6 +194,12 @@ Feature: Basket Controls
     And I can validate basket is empty
 
   Scenario: User can get add/delete product without options to basket for banabi
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I delete basket
@@ -181,6 +227,12 @@ Feature: Basket Controls
 
 
   Scenario: User can see basket items count on the vendor detail with lite basket service for banabi vendors
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
@@ -198,6 +250,12 @@ Feature: Basket Controls
     And I check line products is valid on lite basket response
 
   Scenario: User can clear all products from basket with clear basket service for banabi vendors
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
@@ -214,6 +272,12 @@ Feature: Basket Controls
     And I can validate basket sub total is 0.0
 
   Scenario: User can see max stock error when add more than stock quantity for banabi vendors
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     And I delete basket
@@ -236,6 +300,12 @@ Feature: Basket Controls
     And I delete basket
 
   Scenario: User can delete line item from basket for banabi vendors
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
@@ -253,6 +323,12 @@ Feature: Basket Controls
 
 
   Scenario: User can get basket info smoothly
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
@@ -275,6 +351,12 @@ Feature: Basket Controls
     And I validate BasketId is valid in basket info
 
   Scenario: User can get basket info smoothly - Banabi
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor

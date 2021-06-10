@@ -3,7 +3,7 @@ Feature: Order Api note controls
 
   Scenario: New User can save order note and can get with get checkout
     Given I select city "TR_ISTANBUL"
-    And I am an authorized user with "mahalletestuser" "Mahalle1!"
+    And I am an authorized user with "mahalletestuser" "123456"
     When  My addresses list should be available
     Then  I select pinned available address
     And I get unique basket id
@@ -27,7 +27,7 @@ Feature: Order Api note controls
 
   Scenario: New User can save order note and can get with get checkout - Banabi
     Given I select city "TR_ISTANBUL"
-    And I am an authorized user with "mahalletestuser" "Mahalle1!"
+    And I am an authorized user with "mahalletestuser" "123456"
     When  My addresses list should be available
     Then  I select pinned available address
     And I get unique basket id
@@ -52,7 +52,7 @@ Feature: Order Api note controls
 
   Scenario: New User can't save order note upper max character size - 300
     Given I select city "TR_ISTANBUL"
-    And I am an authorized user with "mahalletestuser" "Mahalle1!"
+    And I am an authorized user with "mahalletestuser" "123456"
     When  My addresses list should be available
     Then  I select pinned available address
     And I get unique basket id
@@ -74,7 +74,7 @@ Feature: Order Api note controls
 
     Scenario: User can not save order note with 0 character
       Given I select city "TR_ISTANBUL"
-      And I am an authorized user with "mahalletestuser" "Mahalle1!"
+      And I am an authorized user with "mahalletestuser" "123456"
       When  My addresses list should be available
       Then  I select pinned available address
       And I get unique basket id

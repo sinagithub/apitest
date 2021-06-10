@@ -75,7 +75,7 @@ public class OauthCoreClient extends ApiClient {
         TokenHelper.getInstance().setToken(token);
     }
 
-    public void registerNewUser(String email) throws IOException {
+    public void registerNewUser(String email, String password) throws IOException {
         tokenRequest = RestAssured.given();
         tokenRequest.baseUri(baseUrl);
         tokenRequest.header("Content-Type", "application/json");
@@ -94,7 +94,7 @@ public class OauthCoreClient extends ApiClient {
                 "true",
                 "YsCarsi",
                 "ApiTest",
-                "test11",
+                password,
                 "test11",
                 "true");
 

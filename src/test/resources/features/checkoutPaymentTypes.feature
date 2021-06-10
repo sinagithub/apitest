@@ -5,7 +5,7 @@ Feature: Checkout User Payment Method controls
     Given I select city "TR_ISTANBUL"
 
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes
-    Given I am an authorized user with "mahalletestuser" "Mahalle1!"
+    Given I am an authorized user with "mahalletestuser" "123456"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
@@ -64,13 +64,13 @@ Feature: Checkout User Payment Method controls
     And I check sub PaymentType is <PaymentType> is exist in selected payment sub method
 
     Examples: Expected Payment sub methods
-      | PaymentTypeId                        | PaymentMethodId                      | subId | Name           | IconUrl                                                                  | Description      | BinNumber | PointAmount | IsSelected | CheckoutTypeId |PaymentType|
-      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 062   | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              |1          |
-      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 046   | Akbank Hilal   | https://images.yemeksepetim.com/App_Themes/BankLogos/akbank.png          | 520932******6435 | 520932    | 0           | false      | 4              |1          |
+      | PaymentTypeId                        | PaymentMethodId                      | subId | Name           | IconUrl                                                                  | Description      | BinNumber | PointAmount | IsSelected | CheckoutTypeId | PaymentType |
+      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 062   | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |
+      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 046   | Akbank Hilal   | https://images.yemeksepetim.com/App_Themes/BankLogos/akbank.png          | 520932******6435 | 520932    | 0           | false      | 4              | 1           |
 
 
   Scenario Outline: User can list offline payment options on checkout
-    Given I am an authorized user with "vertlapin" "test11"
+    Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
@@ -105,14 +105,13 @@ Feature: Checkout User Payment Method controls
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
 
     Examples: Expected Payment Method details
-      | PaymentMainTypeId                    | Rank | PaymentMethodId                      | PaymentMethodsName | PaymentType | CheckoutTypeId | IconUrl                                                                         | Description        | IsSelected | IsExpandable | IsExpanded |
-      | da037061-192e-42fd-996f-74fe47444344 | 4    | de2e3a82-8b55-4334-8a2e-467fe7f7db24 | Kapıda nakit ödeme | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png             | Nakit              | false      | false        | false      |
-      | da037061-192e-42fd-996f-74fe47444344 | 5    | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 | Kapida Kredi Karti | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/creditcardonstep.png | Kapida Kredi Karti | false      | false        | false      |
-      | da037061-192e-42fd-996f-74fe47444344 | 7    | f825f3b8-9545-45f1-bc1e-38b34e369592 | Diger              | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/other.png            | Diger              | false      | true         | false      |
+      | PaymentMainTypeId                    | Rank | PaymentMethodId                      | PaymentMethodsName | PaymentType | CheckoutTypeId | IconUrl                                                                         | Description                  | IsSelected | IsExpandable | IsExpanded |
+      | da037061-192e-42fd-996f-74fe47444344 | 4    | de2e3a82-8b55-4334-8a2e-467fe7f7db24 | Nakit              | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png             | Kapıda nakit ödeme           | false      | false        | false      |
+      | da037061-192e-42fd-996f-74fe47444344 | 5    | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 | Kapida Kredi Karti | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/creditcardonstep.png | Kapıda kredi kartı ile ödeme | false      | false        | false      |
 
 
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes for banabi
-    Given I am an authorized user with "mahalletestuser" "Mahalle1!"
+    Given I am an authorized user with "mahalletestuser" "123456"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
@@ -137,7 +136,7 @@ Feature: Checkout User Payment Method controls
       | 5             | Kapıda Ödeme     | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png             |
 
   Scenario Outline: User can list offline payment options on checkout for banabi
-    Given I am an authorized user with "vertlapin" "test11"
+    Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id

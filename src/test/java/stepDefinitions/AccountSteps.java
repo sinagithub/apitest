@@ -42,16 +42,16 @@ public class AccountSteps extends BaseSteps {
     @Given("I am an authorized new user")
     public void i_am_a_new_authorized_user() throws IOException {
         String userName = GenerateFakeData.getFakeEmail();
-        getOauthCoreClient().registerNewUser(userName);
-        String passWord = Utils.getGlobalValue("test1_password");
+        String passWord = "test11";
+        getOauthCoreClient().registerNewUser(userName, passWord);
         AuthorizationRequest authRequest = new AuthorizationRequest(userName, passWord);
         getOauthCoreClient().authenticateUser(authRequest, true);
     }
 
     @Given("My addresses list should be available")
-    public void my_addresses_list_available() {
+    public void my_addresses_list_available() throws IOException {
         String catalogName = (String) getScenarioContext().getContext(Context.SELECTED_CATALOG_NAME);
-        CarsiUserClient mockBanabi = new CarsiUserClient("https://store-user-api.yemeksepeti.com");
+        CarsiUserClient mockBanabi = new CarsiUserClient(Utils.getGlobalValue("banabiServiceBaseUrl"));
 
         IRestResponse<AddressResponse> addressesResponse = mockBanabi.getAddresses(catalogName);
         Assert.assertTrue(addressesResponse.isSuccessful());
