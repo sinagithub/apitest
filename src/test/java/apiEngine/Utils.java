@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.ZoneId;
 import java.util.Properties;
 
 public class Utils {
@@ -23,4 +24,8 @@ public class Utils {
         return properties.getProperty(key);
     }
 
+    public static String generateOrderDate(){
+        return java.time.Clock.systemUTC().instant().atZone(ZoneId.systemDefault()).toLocalDateTime().toString() +"Z";
+    }
 }
+

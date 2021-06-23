@@ -4,6 +4,7 @@ import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
 import apiEngine.PlatformTypeHelper;
 import apiEngine.models.response.*;
+import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.HomePage.*;
 import cucumber.TestContext;
 import enums.Context;
@@ -13,7 +14,6 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -27,14 +27,18 @@ public class HomePageSteps extends BaseSteps {
         return  (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
     }
 
+    private AvailableAddressData getSelectedAddress(){
+        return (AvailableAddressData) getScenarioContext().getContext(Context.ADDRESS);
+    }
+
     @Given("A list of Carşı Vendor are available on home page")
     public void a_list_of_Vendor_are_available() {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        AvailableAddressData availableAddress = getSelectedAddress();
         IRestResponse<HomePageCarsiResponse> homePageCarsiResponse = getCarsiHomePageClient().getVendorList(
-                banabiAddress.getAddressId(),
-                banabiAddress.getAreaId(),
-                banabiAddress.getLatitude(),
-                banabiAddress.getLongitude());
+                availableAddress.getAddressId(),
+                availableAddress.getAreaId(),
+                availableAddress.getLatitude(),
+                availableAddress.getLongitude());
         Assert.assertTrue(homePageCarsiResponse.isSuccessful());
         List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
         assertTrue(vendorList.size() > 0, "Vendor list should not be empty");
@@ -48,7 +52,7 @@ public class HomePageSteps extends BaseSteps {
         List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList) {
-            if (vendor.getCategoryName().equalsIgnoreCase(categoryName)) {
+            if (vendor.getCategoryName().equalsIgnoreCase(categoryName) && vendor.getIsOpen()) {
                 selectedVendor = vendor;
                 break;
             }
@@ -72,7 +76,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select Carsı vendor with order - {int}")
     public void select_carsi_vendor_with_order(int vendorOrder) {
-        PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+        PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
         List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         CarsiVendor selectedVendor = vendorList.get(vendorOrder);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
@@ -94,7 +98,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select closed Carsı vendor")
     public void select_closed_carsi_vendor() {
-        PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+        PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
         List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList){
@@ -108,7 +112,6 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I should see closed vendor on home vendor list")
     public void check_closed_vendor() {
-        PlatformTypeHelper.getInstance().setPlatformType("Carsi");
         List<CarsiVendor> vendorList = getHomeVendorList();
         CarsiVendor selectedVendor = null;
         for (CarsiVendor vendor : vendorList){
@@ -145,9 +148,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
-        GuidHelper.getInstance().setGuid();
-        String guid = GuidHelper.getInstance().getGuid();
-        IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor(guid);
+        IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor();
         CarsiVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
         getScenarioContext().setContext(Context.BANABI_VENDOR_INFO, banabiVendor);
         getScenarioContext().setContext(Context.BANABI_VENDOR_RESPONSE, homePageBanabi);

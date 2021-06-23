@@ -19,10 +19,8 @@ import static org.hamcrest.Matchers.*;
 public class BaseSteps {
 
     private OauthCoreClient oauthCoreClient;
-    private CarsiClient carsiClient;
     private CarsiSplashClient carsiSplashClient;
     private ScenarioContext scenarioContext;
-    private CarsiUserClient carsiUserClient;
     private CarsiHomePageClient carsiHomePageClient;
     private CarsiProductClient carsiProductClient;
     private CarsiBasketClient carsiBasketClient;
@@ -32,12 +30,12 @@ public class BaseSteps {
     private CarsiOrderClient carsiOrderClient;
     private CarsiPaymentClient carsiPaymentClient;
     private CarsiInternalVendor carsiInternalVendor;
+    private CarsiCheckoutClient carsiCheckoutClient;
+    private CarsiAddressesClient carsiAddressClient;
 
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
-        carsiClient = testContext.getCarsiClient();
         scenarioContext = testContext.getScenarioContext();
-        carsiUserClient = testContext.getCarsiUserClient();
         carsiHomePageClient = testContext.getCarsiHomePageClient();
         carsiProductClient = testContext.getCarsiProductClient();
         carsiSplashClient = testContext.getCarsiSplashClient();
@@ -48,12 +46,10 @@ public class BaseSteps {
         carsiOrderClient = testContext.getCarsiOrderClient();
         carsiPaymentClient = testContext.getCarsiPaymentClient();
         carsiInternalVendor = testContext.getCarsiInternalVendorClient();
+        carsiCheckoutClient = testContext.getCarsiCheckoutClient();
+        carsiAddressClient = testContext.getCarsiAddressClient();
     }
 
-
-    public CarsiClient getCarsiClient() {
-        return carsiClient;
-    }
 
     public CarsiVendorClient getCarsiVendorClient() {
         return carsiVendorClient;
@@ -61,11 +57,6 @@ public class BaseSteps {
 
     public OauthCoreClient getOauthCoreClient() {
         return oauthCoreClient;
-    }
-
-
-    public CarsiUserClient getCarsiUserClient() {
-        return carsiUserClient;
     }
 
     public CarsiSplashClient getCarsiSplashClient() {
@@ -93,7 +84,9 @@ public class BaseSteps {
 
         }
     }
-
+    public CarsiAddressesClient getCarsiAddressClient() {
+        return carsiAddressClient;
+    }
     public CarsiHomePageClient getCarsiHomePageClient() {
         return carsiHomePageClient;
     }
@@ -112,9 +105,13 @@ public class BaseSteps {
 
     public CarsiPaymentClient getCarsiPaymentClient(){return carsiPaymentClient;}
 
+    public CarsiCheckoutClient getCarsiCheckoutClient(){return carsiCheckoutClient;}
+
     public CarsiInternalVendor getCarsiInternalVendor(){
         return carsiInternalVendor;
     }
+
+
 
     public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());

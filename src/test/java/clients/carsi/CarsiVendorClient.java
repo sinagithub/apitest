@@ -4,6 +4,7 @@ import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Routes.Route;
 import apiEngine.Routes.VendorRoute;
+import apiEngine.TokenHelper;
 import apiEngine.models.response.Vendor.VendorProductSearchResponse;
 import apiEngine.models.response.Vendor.VendorProductsResponse;
 import apiEngine.models.response.Vendor.VendorResponse;
@@ -24,10 +25,11 @@ public class CarsiVendorClient extends CarsiClient {
         return new RestResponse<>(VendorProductsResponse.class, response);
     }
 
-    public IRestResponse<VendorResponse> getVendor(String vendorId, String sessionId) {
+    public IRestResponse<VendorResponse> getVendor(String vendorId) {
+       String token = TokenHelper.getInstance().getToken();
         Response response = createRequest()
+                .header("YS-Token", token)
                 .pathParam("vendorId", vendorId)
-                .queryParam("sessionId", sessionId)
                 .get(VendorRoute.getVendor());
         writeStepLog();
         return new RestResponse<>(VendorResponse.class, response);

@@ -11,7 +11,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Id",
         "Title",
         "Description",
-        "Days"
+        "Days",
+        "IsSelected"
 })
 @Generated("jsonschema2pojo")
 public class Future {
@@ -24,6 +25,8 @@ public class Future {
     private String description;
     @JsonProperty("Days")
     private List<Day> days = null;
+    @JsonProperty("IsSelected")
+    private Boolean isSelected;
 
     @JsonProperty("Id")
     public String getId() {
@@ -64,5 +67,12 @@ public class Future {
     public void setDays(List<Day> days) {
         this.days = days;
     }
-
+    @JsonProperty("IsSelected")
+    public Boolean getSelected() {
+        return isSelected;
+    }
+    @JsonProperty("IsSelected")
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
 }

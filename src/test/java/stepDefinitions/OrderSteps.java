@@ -50,7 +50,7 @@ public class OrderSteps extends BaseSteps {
     @Then("I can write order note with upper than max character {int}")
     public void i_can_write_order_not_with_upper_than_max_character_limit_is(int maxCharacterSize) throws IOException {
         String note = GenerateFakeData.getFakeLorem(maxCharacterSize + 1);
-        getScenarioContext().setContext(Context.WRITED_NOTE_TEXT, note);
+        getScenarioContext().setContext(Context.WRITTEN_NOTE_TEXT, note);
         IRestResponse<WriteOrderNoteResponse> writeOrderNoteResponse = writeOrderNote(note);
         getScenarioContext().setContext(Context.WRITE_ORDER_NOTE_RESPONSE, writeOrderNoteResponse);
     }
@@ -58,13 +58,13 @@ public class OrderSteps extends BaseSteps {
     @Then("I can write order note with character count {int}")
     public void i_can_write_order_not_with_than_max_character(int maxCharacterSize) throws IOException {
         String note = GenerateFakeData.getFakeLorem(maxCharacterSize);
-        getScenarioContext().setContext(Context.WRITED_NOTE_TEXT, note);
+        getScenarioContext().setContext(Context.WRITTEN_NOTE_TEXT, note);
         IRestResponse<WriteOrderNoteResponse> writeOrderNoteResponse = writeOrderNote(note);
         getScenarioContext().setContext(Context.WRITE_ORDER_NOTE_RESPONSE, writeOrderNoteResponse);
     }
 
     private String orderNoteFirstXCharacterFromNote(int characterSize) {
-        String note = (String) getScenarioContext().getContext(Context.WRITED_NOTE_TEXT);
+        String note = (String) getScenarioContext().getContext(Context.WRITTEN_NOTE_TEXT);
         String expectedTitle;
         if (note.length() > characterSize) {
             expectedTitle = note.substring(0, characterSize);

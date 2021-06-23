@@ -22,8 +22,6 @@ public class ApiClient extends Hooks {
     private final Double longitude;
     private final String sessionId;
 
-
-
     public RequestSpecification createRequest() {
         RequestSpecification request = RestAssured.given().log().all().config(config).with().filter(logFilter);
         request.baseUri(baseUrl);
@@ -33,6 +31,7 @@ public class ApiClient extends Hooks {
             request.header("PlatformType", PlatformTypeHelper.getInstance().getPlatformType());
         }
         request.header("Authorization", "Bearer " + token);
+
         if (catalog != null) {
             request.header("YS-Catalog", catalog);
         }
@@ -63,7 +62,6 @@ public class ApiClient extends Hooks {
         sessionId = GuidHelper.getInstance().getGuid();
         config = RestConfig.createConfig();
         logFilter = new CustomLogFilter();
-
     }
 
     public void writeStepLog() {

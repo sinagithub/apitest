@@ -15,7 +15,6 @@ Feature: Favorite Api controls
   Scenario: I can add/delete vendor to empty favorite list
     When I get Favorite list
     Then I can see the favorite list is empty
-    Given Set platform type to "Carsi"
     When A list of Carşı Vendor are available on home page
     And I select first vendor from "Super Market" category on home page
     Then I add selected vendor to favorite list

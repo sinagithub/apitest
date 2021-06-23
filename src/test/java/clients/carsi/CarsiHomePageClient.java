@@ -3,6 +3,7 @@ package clients.carsi;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Routes.Route;
+import apiEngine.TokenHelper;
 import apiEngine.models.response.HomePage.HomePageBanabiResponse;
 import apiEngine.models.response.HomePage.HomePageBannersResponse;
 import apiEngine.models.response.HomePage.HomePageCarsiResponse;
@@ -31,16 +32,17 @@ public class CarsiHomePageClient extends CarsiClient {
         return new RestResponse(HomePageCarsiResponse.class, response);
     }
 
-    public IRestResponse<HomePageBanabiResponse> getBanabiVendor(String guid) {
+    public IRestResponse<HomePageBanabiResponse> getBanabiVendor() {
         Response response = createRequest()
-                .queryParam("SessionId",guid)
                 .get(Route.homepageBanabi());
         writeStepLog();
         return new RestResponse(HomePageBanabiResponse.class, response);
     }
 
     public IRestResponse<HomePageBannersResponse> getHomePageBanners() {
+        String token = TokenHelper.getInstance().getToken();
         Response response = createRequest()
+                .header("YS-Token",token)
                 .get(Route.homepageBanners());
         writeStepLog();
         return new RestResponse(HomePageBannersResponse.class, response);

@@ -194,7 +194,7 @@ public class FavoriteSteps extends BaseSteps {
         for (Vendor vendor : vendorList) {
             if (vendor.getId().equalsIgnoreCase(vendorId)) {
                 if (vendor.getPlatformType().equalsIgnoreCase("1")) {
-                    PlatformTypeHelper.getInstance().setPlatformType("Carsi");
+                    PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
                 } else if (vendor.getPlatformType().equalsIgnoreCase("2")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Banabi");
                 }

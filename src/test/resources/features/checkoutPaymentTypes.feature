@@ -5,7 +5,7 @@ Feature: Checkout User Payment Method controls
     Given I select city "TR_ISTANBUL"
 
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes
-    Given I am an authorized user with "mahalletestuser" "123456"
+    Given I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
@@ -111,7 +111,7 @@ Feature: Checkout User Payment Method controls
 
 
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes for banabi
-    Given I am an authorized user with "mahalletestuser" "123456"
+    Given I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
@@ -199,4 +199,3 @@ Feature: Checkout User Payment Method controls
     Examples: Expected Payment sub methods
       | PaymentTypeId | PaymentMethodId | subId | Name           | IconUrl                                                                  | Desc             | BinNumber | PointAmount | IsSelected | CheckoutTypeId | PaymentType |
       | 1             | 2               | 103   | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |
-      | 1             | 2               | 203   | Akbank Hilal   | https://images.yemeksepetim.com/App_Themes/BankLogos/akbank.png          | 520932******6435 | 520932    | 0           | false      | 4              | 1           |
