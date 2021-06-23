@@ -277,10 +277,20 @@ public class CheckoutOrderSteps extends BaseSteps {
 
     @Then("Send refund email to {string}")
     public void send_refund_email_to(String emailTo) throws MessagingException {
-        String orderId = getPostCheckoutResponse().getBody().getData().getOrderId();
+        boolean tipIsSelected = getTipIsSelected();
         double basketTotal = getBasketInfoFromPutResponse().getTotal();
-        EmailSender.emailSender("Iade edilecek order id " + orderId
-                + " Iade Miktari : " + basketTotal + " TL"
+
+        String orderId = getPostCheckoutResponse().getBody().getData().getOrderId();
+        String mailBody = "Iade edilecek order id " + orderId
+                + " Iade Miktari : " + basketTotal + " TL";
+
+        if (tipIsSelected){
+            int selectedDonationIndex = getSelectedDonationIndex();
+            mailBody += " Tip Amount : " +  getTipInfo().getOptions().get(selectedDonationIndex).getValue();
+        }
+
+
+        EmailSender.emailSender(mailBody
                 , emailTo, "Mahalle Sipariş Iptali : Automation");
     }
 
