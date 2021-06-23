@@ -4,6 +4,7 @@ import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.sun.istack.internal.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -38,6 +39,7 @@ public class Option {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     @JsonProperty("TypeId")
     public Integer getTypeId() {

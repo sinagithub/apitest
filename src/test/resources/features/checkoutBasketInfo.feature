@@ -18,18 +18,18 @@ Feature: Checkout User Tip controls
     When I list the products from selected sub category
     Then I select a random product with price upper than is 5.0
     And I can add the selected product to basket quantity is 1
-    And I get the basket
+    * I get the basket
     When I get checkout options
     Then I check BasketId is valid on get checkout response
     And I check BasketStatus should be 1 on get checkout response
-    And I check IsFreeOrder should be "false" on get checkout response
-    And I check DonationTotal should be 0.0 on get checkout response
-    And I check DeliveryFree is valid on get checkout response
+    * I check IsFreeOrder should be "false" on get checkout response
+    * I check DonationTotal should be 0.0 on get checkout response
+    * I check DeliveryFree is valid on get checkout response
 
    # And I check Total is valid on get checkout response
-    And I check DiscountTotal is valid on get checkout response
-    And I check LineItemsTotal is valid on get checkout response
-    And I check BagQuantity should be 0 on get checkout response
+    * I check DiscountTotal is valid on get checkout response
+    * I check LineItemsTotal is valid on get checkout response
+    * I check BagQuantity should be 0 on get checkout response
 
 
     #DiscountedDeliveryFee ve BagTotal hesabı için bir test yazılmalı bunu hesaplayan task varsa o o case de cover edilebilir
@@ -53,10 +53,10 @@ Feature: Checkout User Tip controls
     When I get checkout options
     Then I check BasketId is valid on get checkout response
     And I check BasketStatus should be 1 on get checkout response
-    And I check IsFreeOrder should be "false" on get checkout response
-    And I check DonationTotal should be 0.0 on get checkout response
-    And I check DeliveryFree is valid on get checkout response
+    * I check IsFreeOrder should be "false" on get checkout response
+    * I check DonationTotal should be 0.0 on get checkout response
+    * I check DeliveryFree is valid on get checkout response
    # And I check Total is valid on get checkout response
-    And I check DiscountTotal is valid on get checkout response
-    And I check LineItemsTotal is valid on get checkout response
-    And I check BagQuantity should be 0 on get checkout response
+    * I check DiscountTotal is valid on get checkout response
+    * I check LineItemsTotal is valid on get checkout response
+    * I check BagQuantity should be 0 on get checkout response

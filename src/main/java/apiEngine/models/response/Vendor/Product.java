@@ -5,6 +5,18 @@ import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+
+import java.util.List;
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.cucumber.java.eo.Do;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
         "Name",
@@ -15,7 +27,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "MaximumSaleAmount",
         "IsActive",
         "HasOptions",
-        "CategoryId"
+        "CategoryId",
+        "BadgeType"
 })
 @Generated("jsonschema2pojo")
 public class Product {
@@ -27,19 +40,21 @@ public class Product {
     @JsonProperty("UnitMass")
     private String unitMass;
     @JsonProperty("ImageUrl")
-    private String imageUrl;
+    private List<String> imageUrl = null;
     @JsonProperty("Price")
     private Double price;
     @JsonProperty("DiscountedPrice")
-    private Double discountedPrice;
+    private Integer discountedPrice;
     @JsonProperty("MaximumSaleAmount")
     private Integer maximumSaleAmount;
     @JsonProperty("IsActive")
     private Boolean isActive;
+    @JsonProperty("HasOptions")
+    private Boolean hasOptions;
     @JsonProperty("CategoryId")
     private String categoryId;
-    @JsonProperty("HasOptions")
-    private boolean hasOptions;
+    @JsonProperty("BadgeType")
+    private Integer badgeType;
 
     @JsonProperty("Id")
     public String getId() {
@@ -72,12 +87,12 @@ public class Product {
     }
 
     @JsonProperty("ImageUrl")
-    public String getImageUrl() {
+    public List<String> getImageUrl() {
         return imageUrl;
     }
 
     @JsonProperty("ImageUrl")
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -92,12 +107,12 @@ public class Product {
     }
 
     @JsonProperty("DiscountedPrice")
-    public Double getDiscountedPrice() {
+    public Integer getDiscountedPrice() {
         return discountedPrice;
     }
 
     @JsonProperty("DiscountedPrice")
-    public void setDiscountedPrice(Double discountedPrice) {
+    public void setDiscountedPrice(Integer discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
 
@@ -121,6 +136,16 @@ public class Product {
         this.isActive = isActive;
     }
 
+    @JsonProperty("HasOptions")
+    public Boolean getHasOptions() {
+        return hasOptions;
+    }
+
+    @JsonProperty("HasOptions")
+    public void setHasOptions(Boolean hasOptions) {
+        this.hasOptions = hasOptions;
+    }
+
     @JsonProperty("CategoryId")
     public String getCategoryId() {
         return categoryId;
@@ -131,14 +156,14 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    @JsonProperty("HasOptions")
-    public Boolean getHasOptions() {
-        return hasOptions;
+    @JsonProperty("BadgeType")
+    public Integer getBadgeType() {
+        return badgeType;
     }
 
-    @JsonProperty("HasOptions")
-    public void setHasOptions(Boolean hasOptions) {
-        this.hasOptions = hasOptions;
+    @JsonProperty("BadgeType")
+    public void setBadgeType(Integer badgeType) {
+        this.badgeType = badgeType;
     }
 
 }

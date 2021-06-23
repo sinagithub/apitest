@@ -41,7 +41,7 @@ Feature: Checkout ContactlessDelivery delivery control
     And I check ContactlessDelivery is "false" on put basket checkout response
     And I check selected payment MethodId is "062" on put basket checkout response
 
-  Scenario: ContactlessDelivery auto selection with no saved cards
+  Scenario: ContactlessDelivery selectable control with no saved cards
     And I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
     And  My addresses list should be available
     When  I select pinned available address
@@ -161,3 +161,4 @@ Feature: Checkout ContactlessDelivery delivery control
     And Staff update vendor payment method
       | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+

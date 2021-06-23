@@ -82,6 +82,7 @@ public class Category {
         this.subCategories = subCategories;
     }
 
+    @JsonProperty("ProductCount")
     public Integer getProductCount() {
         return productCount;
     }

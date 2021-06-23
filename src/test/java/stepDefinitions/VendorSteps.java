@@ -54,8 +54,7 @@ public class VendorSteps extends BaseSteps {
     public void i_navigate_selected_vendor() {
         CarsiVendor selectedVendor = getSelectedVendor();
         String vendorId = selectedVendor.getId();
-        String sessionId = GuidHelper.getInstance().getGuid();
-        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId, sessionId);
+        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId);
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
         getScenarioContext().setContext(Context.SELECTED_VENDOR_DETAIL_DATA, vendorResponse.getBody().getData());
     }
@@ -63,7 +62,7 @@ public class VendorSteps extends BaseSteps {
     @Then("I navigate vendor with {string}")
     public void i_navigate_vendor_with_id(String vendorId) {
         String sessionId = GuidHelper.getInstance().getGuid();
-        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId, sessionId);
+        IRestResponse<VendorResponse> vendorResponse = getCarsiVendorClient().getVendor(vendorId);
         getScenarioContext().setContext(Context.VENDOR_DETAIL_RESPONSE, vendorResponse);
     }
 
@@ -209,6 +208,7 @@ public class VendorSteps extends BaseSteps {
         IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
                 (IRestResponse<VendorProductsResponse>) getScenarioContext()
                         .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
+
         List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
 
         int index = 0;
@@ -413,7 +413,6 @@ public class VendorSteps extends BaseSteps {
                 + error + " not " + status);
     }
 
-
     @Then("I should see selected product's id is not empty on vendor detail")
     public void i_should_see_selected_product_s_id_is_not_empty() {
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
@@ -424,7 +423,7 @@ public class VendorSteps extends BaseSteps {
     @Then("I check selected product's image url is {int} on vendor detail")
     public void i_check_selected_product_s_image_url_is(Integer status) {
         Product selectedProduct = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
-        String imageUrl = selectedProduct.getImageUrl();
+        String imageUrl = selectedProduct.getImageUrl().get(0);
         assertNotNull(imageUrl, "Image url must not null");
         Response response = getCarsiVendorClient().getImageUrlResponse(imageUrl);
 
@@ -479,9 +478,8 @@ public class VendorSteps extends BaseSteps {
         CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
 
-        CarsiVendorClient mockCarsiVendorClient = new CarsiVendorClient(BaseUrls.mockBaseUrl());
         IRestResponse<VendorProductSearchResponse> vendorProductSearchResponse =
-                mockCarsiVendorClient.searchProduct(vendorId, searchText, pageIndex);
+                getCarsiVendorClient().searchProduct(vendorId, searchText, pageIndex);
 
         getScenarioContext().setContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE, vendorProductSearchResponse);
     }
@@ -492,8 +490,9 @@ public class VendorSteps extends BaseSteps {
                 (IRestResponse<VendorProductSearchResponse>) getScenarioContext().getContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE);
 
         List<Product> searchResultProducts = vendorProductsResponse.getBody().getData();
+
         for (Product product : searchResultProducts) {
-            assertTrue(product.getName().contains(searchText), "Search result restaurant's name not contain "
+            assertTrue(product.getName().contains(searchText), "Search result product's name not contain "
                     + searchText);
         }
     }
@@ -552,7 +551,7 @@ public class VendorSteps extends BaseSteps {
         Random random = new Random();
         int index = random.nextInt(products.size() - 1);
         Product product = products.get(index);
-        getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
+        getScenarioContext().setContext(Context.SELECTED_SEARCHED_PRODUCT, product);
     }
 
     @Then("I validate category product is listed with {int} products")

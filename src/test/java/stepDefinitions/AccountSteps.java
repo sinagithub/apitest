@@ -3,19 +3,11 @@ package stepDefinitions;
 
 import apiEngine.*;
 import apiEngine.models.requests.AuthorizationRequest;
-import apiEngine.models.response.BanabiAddress;
-import apiEngine.models.response.AddressResponse;
-import clients.carsi.CarsiUserClient;
 import cucumber.TestContext;
-import enums.Context;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.junit.Assert;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 @SuppressWarnings("unchecked")
 public class AccountSteps extends BaseSteps {
@@ -39,7 +31,7 @@ public class AccountSteps extends BaseSteps {
         getOauthCoreClient().authenticateUser(authRequest, true);
     }
 
-    @Given("I am an authorized new user")
+   /* @Given("I am an authorized new user")
     public void i_am_a_new_authorized_user() throws IOException {
         String userName = GenerateFakeData.getFakeEmail();
         String passWord = "test11";
@@ -112,7 +104,7 @@ public class AccountSteps extends BaseSteps {
         CatalogSelector.getInstance().setCatalogName(catalogName);
         getScenarioContext().setContext(Context.SELECTED_CATALOG_NAME, catalogName);
         GuidHelper.getInstance().setGuid();
-    }
+    } */
 
 
     @Then("I should see the product on my favorites")

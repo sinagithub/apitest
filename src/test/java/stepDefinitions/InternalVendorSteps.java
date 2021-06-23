@@ -2,16 +2,12 @@ package stepDefinitions;
 
 import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
-import apiEngine.Routes.InternalVendorRoute;
-import apiEngine.Routes.Route;
 import apiEngine.Utils;
 import apiEngine.models.requests.InternalVendor.SetVendorWorkingDaysRequest;
 import apiEngine.models.requests.InternalVendor.UpdateVendorRequest;
 import apiEngine.models.requests.InternalVendor.WorkingDay;
-import apiEngine.models.response.BanabiAddress;
+import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.CarsiVendor;
-import apiEngine.models.response.HomePage.HomePagePlatformResponse;
-import apiEngine.models.response.HomePage.PlatformData;
 import apiEngine.models.response.MicroServices.InternalVendor.Category;
 import apiEngine.models.response.MicroServices.InternalVendor.DeliveryType;
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorDetailResponse;
@@ -19,11 +15,8 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -41,6 +34,10 @@ public class InternalVendorSteps extends BaseSteps {
 
     private CarsiVendor getSelectedVendor() {
         return (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+    }
+
+    private AvailableAddressData getSelectedAddress(){
+      return (AvailableAddressData) getScenarioContext().getContext(Context.ADDRESS);
     }
 
     @Then("Vendor staff close the selected shop")
@@ -116,7 +113,7 @@ public class InternalVendorSteps extends BaseSteps {
 
     @Then("Staff update vendor payment method$")
     public void staff_update_vendor_payment_method(List<String> paymentMethodList) {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+       AvailableAddressData selectedAddress = getSelectedAddress();
         GuidHelper.getInstance().setGuid();
         String selectedVendorId = getSelectedVendor().getId();
         String operatingUserId = "12345";
@@ -127,7 +124,7 @@ public class InternalVendorSteps extends BaseSteps {
         String email = internalVendorDetails.getBody().getEmail();
         String phone = internalVendorDetails.getBody().getPhone();
         String address = internalVendorDetails.getBody().getAddress();
-        String areaId = banabiAddress.getAreaId();
+        String areaId = selectedAddress.getAreaId();
         int latitude = internalVendorDetails.getBody().getLatitude();
         int longitude = internalVendorDetails.getBody().getLongitude();
         int minDeliveryTime = internalVendorDetails.getBody().getMinDeliveryMinutes();
@@ -160,7 +157,7 @@ public class InternalVendorSteps extends BaseSteps {
 
     @Then("Staff update vendor delivery time method set AcceptsFutureOrder {string}")
     public void staff_update_vendor_payment_method(String acceptsFutureOrder) {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
+        AvailableAddressData selectedAddress = getSelectedAddress();
         GuidHelper.getInstance().setGuid();
         String selectedVendorId = getSelectedVendor().getId();
         String operatingUserId = "12345";
@@ -171,7 +168,7 @@ public class InternalVendorSteps extends BaseSteps {
         String email = internalVendorDetails.getBody().getEmail();
         String phone = internalVendorDetails.getBody().getPhone();
         String address = internalVendorDetails.getBody().getAddress();
-        String areaId = banabiAddress.getAreaId();
+        String areaId = getSelectedAddress().getAreaId();
 
         int latitude = internalVendorDetails.getBody().getLatitude();
         int longitude = internalVendorDetails.getBody().getLongitude();

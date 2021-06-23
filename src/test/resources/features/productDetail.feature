@@ -28,6 +28,7 @@ Feature: Product Api controls
     And I validate DiscountedPrice is valid on product detail
     And I validate DiscountedPriceText is valid on product detail
 
+  @Favorite
   Scenario: User can see the product favorite status
     When  A list of Carşı Vendor are available on home page
     Then I select first vendor from "Super Market" category on home page

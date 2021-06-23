@@ -10,6 +10,7 @@ import apiEngine.models.requests.Basket.Checkout.Payment;
 import apiEngine.models.requests.Basket.Checkout.Tip;
 import apiEngine.models.requests.Basket.DeleteProductRequest;
 import apiEngine.models.response.*;
+import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.Basket.*;
 import apiEngine.models.response.Basket.Checkout.*;
 import apiEngine.models.response.Basket.Checkout.BasketInfo;
@@ -42,6 +43,11 @@ public class BasketSteps extends BaseSteps {
 
     private String getBasketId() {
         return (String) getScenarioContext().getContext(Context.BASKET_ID);
+    }
+
+    private String getSelectedAddressId(){
+        AvailableAddressData availableAddressData = (AvailableAddressData) getScenarioContext().getContext(Context.ADDRESS);
+        return availableAddressData.getAddressId();
     }
 
     private IRestResponse<BasketResponse> getBasketResponse() {
@@ -114,8 +120,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I get unique basket id")
     public void user_get_unique_basket_id() {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
-        String addressId = banabiAddress.getAddressId();
+        String addressId = getSelectedAddressId();
 
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String basketId = basketIdResponse.getBody().getData().getBasketId();
@@ -127,8 +132,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check basket id is same than old basket id")
     public void i_can_get_basket_id_same_old_basket_id() {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
-        String addressId = banabiAddress.getAddressId();
+        String addressId = getSelectedAddressId();
 
         String oldBasketId = getBasketId();
 
@@ -141,8 +145,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I can get new basket id")
     public void i_can_get_new_basket_id() {
-        BanabiAddress banabiAddress = (BanabiAddress) getScenarioContext().getContext(Context.ADDRESS);
-        String addressId = banabiAddress.getAddressId();
+        String addressId = getSelectedAddressId();
         String oldBasketId = getBasketId();
 
 
@@ -384,7 +387,7 @@ public class BasketSteps extends BaseSteps {
             double actualPrice = productLine.getDiscountedPrice();
             double discountedPrice = product.getDiscountedPrice();
             assertTrue(discountedPrice == actualPrice, "Product detail discount price and basket line discount price " +
-                    "should be equal");
+                    " should be equal " + discountedPrice + " Actual is " + actualPrice);
         }
 
     }
@@ -470,6 +473,11 @@ public class BasketSteps extends BaseSteps {
                 getCarsiBasketClient().getAlternateOptions(basketId);
 
         getScenarioContext().setContext(Context.ALTERNATE_PRODUCTS_RESPONSE, alternateProductResponse);
+    }
+
+    @Then("I select alternate product option type is {int}")
+    public void i_select_alternate_product_option_type_is(Integer optionTypeId) {
+       getScenarioContext().setContext(Context.SELECTED_ALTERNATE_PRODUCT_OPTION, optionTypeId);
     }
 
     @Then("I can validate alternate product text {string} is exist and rank is {int} type is {int}")
@@ -843,13 +851,13 @@ public class BasketSteps extends BaseSteps {
     @When("I can write order note with character count {int} on checkout")
     public void i_can_write_order_note_with_character_count_on_checkout(Integer maxCharacterSize) throws IOException {
         String note = GenerateFakeData.getFakeLorem(maxCharacterSize);
-        getScenarioContext().setContext(Context.WRITED_NOTE_TEXT, note);
+        getScenarioContext().setContext(Context.WRITTEN_NOTE_TEXT, note);
         IRestResponse<WriteOrderNoteResponse> writeOrderNoteResponse = writeOrderNote(note);
         getScenarioContext().setContext(Context.WRITE_ORDER_NOTE_RESPONSE, writeOrderNoteResponse);
     }
 
     private String orderNoteFirstXCharacterFromNote(int characterSize) {
-        String note = (String) getScenarioContext().getContext(Context.WRITED_NOTE_TEXT);
+        String note = (String) getScenarioContext().getContext(Context.WRITTEN_NOTE_TEXT);
         String expectedTitle;
         if (note.length() > characterSize) {
             expectedTitle = note.substring(0, characterSize);
@@ -882,7 +890,7 @@ public class BasketSteps extends BaseSteps {
     @Then("I validate order note desc listed in checkout saved notes")
     public void i_validate_not_desc_listed_in_checkout() {
         String actualNote = getAddedOrderNoteData().getNote();
-        String lastAddedNote = (String) getScenarioContext().getContext(Context.WRITED_NOTE_TEXT);
+        String lastAddedNote = (String) getScenarioContext().getContext(Context.WRITTEN_NOTE_TEXT);
         assertEqual("Added note should be in saved note list ", actualNote, lastAddedNote);
     }
 
@@ -1374,27 +1382,45 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check future delivery option only enabled on tomorrow")
     public void i_check_future_delivery_option_only_enabled_on_tomorrow() {
-       List<Day> dayList =  getFutureDeliveryTimeOption().getDays();
+        List<Day> dayList = getFutureDeliveryTimeOption().getDays();
 
-       for (Day day : dayList){
-          boolean isSelected =  day.getIsEnabled();
-          if (dayList.indexOf(day) == 1){
-              assertTrue(isSelected,"Future options isSelected should be true");
-          }
-          else {
-              assertTrue(!isSelected,"Future options isSelected should be false");
-          }
+        for (Day day : dayList) {
+            boolean isSelected = day.getIsEnabled();
+            if (dayList.indexOf(day) == 1) {
+                assertTrue(isSelected, "Future options isSelected should be true");
+            } else {
+                assertTrue(!isSelected, "Future options isSelected should be false");
+            }
 
-       }
+        }
     }
 
     @Then("I check tomorrow delivery time all hours is enabled")
     public void i_check_tomorrow_delivery_time_all_hours_is_enabled() {
-        Day tomorrow =  getFutureDeliveryTimeOption().getDays().get(1);
+        Day tomorrow = getFutureDeliveryTimeOption().getDays().get(1);
         List<Hour> hourList = tomorrow.getHours();
-        for (Hour hour : hourList){
-           boolean isEnabled =  hour.getEnabled();
-           assertTrue(isEnabled, "Future Hours IsEnabled should be True");
+        for (Hour hour : hourList) {
+            boolean isEnabled = hour.getEnabled();
+            assertTrue(isEnabled, "Future Hours IsEnabled should be True");
         }
     }
+
+    @Then("I add selected product until the basket amount is higher than minimum delivery price")
+    public void i_add_selected_product_until_the_basket_amount_is_higher_than_minimum_delivery_price() {
+        double deliveryFee = getSelectedVendorDeliveryFee();
+        int maxQuantity = 30;
+        i_can_add_the_selected_product_to_basket(1);
+        for (int i = 0; i < maxQuantity; i++) {
+            maxQuantity--;
+            i_get_the_basket();
+            double basketTotal = getBasketInfo().getTotal();
+            if (basketTotal < deliveryFee && maxQuantity != 0) {
+                i_can_add_the_selected_product_to_basket(1);
+            } else {
+                break;
+            }
+        }
+    }
+
+
 }
