@@ -2,7 +2,7 @@ package stepDefinitions;
 
 
 import apiEngine.IRestResponse;
-import apiEngine.PlatformTypeHelper;
+import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
 import apiEngine.models.requests.Favorite.AddFavoriteVendorRequest;
 import apiEngine.models.response.CarsiVendor;

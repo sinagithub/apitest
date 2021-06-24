@@ -1,6 +1,6 @@
 package clients.carsi;
 
-import apiEngine.PlatformTypeHelper;
+import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.RestResponse;
 import apiEngine.Routes.FavoriteRoute;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;

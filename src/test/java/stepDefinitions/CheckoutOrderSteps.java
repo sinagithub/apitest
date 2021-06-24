@@ -1,9 +1,9 @@
 package stepDefinitions;
 
 
-import apiEngine.EmailSender;
 import apiEngine.IRestResponse;
-import apiEngine.Utils;
+import apiEngine.Utilies.DateUtil;
+import apiEngine.Utilies.EmailSender;
 import apiEngine.models.requests.Basket.Checkout.Payment;
 import apiEngine.models.requests.Checkout.*;
 import apiEngine.models.response.Address.AvailableAddressData;
@@ -250,7 +250,7 @@ public class CheckoutOrderSteps extends BaseSteps {
                 addressId,
                 alternateProductTypeIdd,
                 isContactlessDelivery,
-                Utils.generateOrderDate(),
+                DateUtil.generateDateNow(),
                 selectedSlot,
                 usePoints,
                 threeDModel,

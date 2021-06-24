@@ -1,8 +1,7 @@
 package stepDefinitions;
 
-import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
-import apiEngine.PlatformTypeHelper;
+import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.HomePage.*;

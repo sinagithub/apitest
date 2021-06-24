@@ -1,6 +1,6 @@
 package clients;
 
-import apiEngine.Utils;
+import apiEngine.Utilies.Utils;
 
 import java.io.IOException;
 
@@ -29,9 +29,9 @@ public class BaseUrls {
         return MOCK_BASE_URL;
     }
 
-    public static String getInternalVendorUrl(){
+    public static String getInternalMicroBaseUrl(){
         try {
-          return Utils.getGlobalValue("internalVendorBaseUrl");
+          return Utils.getGlobalValue("internalBaseUrl");
         } catch (IOException e) {
             e.printStackTrace();
         }

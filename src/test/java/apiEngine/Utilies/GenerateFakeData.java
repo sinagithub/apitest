@@ -1,11 +1,8 @@
-package apiEngine;
+package apiEngine.Utilies;
 
 import com.github.javafaker.Faker;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
-import java.util.Random;
 
 public class GenerateFakeData {
 
@@ -22,6 +19,15 @@ public class GenerateFakeData {
         Faker faker1 = new Faker();
         return faker1.lorem().characters(size);
     }
+
+    public static String getRandomNameWithNumbers() throws IOException {
+
+        Faker faker1 = new Faker();
+        String name = faker1.lordOfTheRings().character();
+        int number = faker1.number().numberBetween(0 , 1000000);
+        return name + "--" + number;
+    }
+
 
 
 }

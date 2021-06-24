@@ -5,7 +5,8 @@ import java.lang.reflect.Field;
 public class InternalVendorRoute {
     private static final String API = "/api";
     private static final String VERSION = "/v1";
-    private static final String VENDOR = "/vendor/{vendorId}";
+    private static final String VENDOR = "/vendor";
+    private static final String VENDOR_ID = "/vendor/{vendorId}";
     private static final String BASIC = "/basic";
     private static final String CLOSE = "/close";
     private static final String OPEN = "/open";
@@ -13,7 +14,7 @@ public class InternalVendorRoute {
     private static final String WORKING_DAYS = "/working-days";
 
     public static String getVendor() {
-        return API + VERSION + VENDOR;
+        return VENDOR+ API + VERSION + VENDOR_ID;
     }
 
     public static String getVendorBasic(){

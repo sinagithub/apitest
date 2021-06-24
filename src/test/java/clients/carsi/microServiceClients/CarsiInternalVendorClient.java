@@ -10,9 +10,9 @@ import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorBasi
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorDetailResponse;
 import io.restassured.response.Response;
 
-public class CarsiInternalVendor extends ApiClient {
+public class CarsiInternalVendorClient extends ApiClient {
 
-    public CarsiInternalVendor(String baseUrl) {
+    public CarsiInternalVendorClient(String baseUrl) {
         super(baseUrl);
     }
 
@@ -75,4 +75,5 @@ public class CarsiInternalVendor extends ApiClient {
         writeStepLog();
         return response;
     }
+
 }

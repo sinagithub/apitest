@@ -1,7 +1,5 @@
 package cucumber;
 
-
-import apiEngine.ApiClient;
 import enums.Context;
 
 import java.util.HashMap;

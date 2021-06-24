@@ -1,14 +1,12 @@
 package stepDefinitions;
 
 
-import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
+import apiEngine.Utilies.GuidHelper;
 import apiEngine.models.response.*;
 import apiEngine.models.response.ProductDetail.Data;
 import apiEngine.models.response.ProductDetail.ProductResponse;
 import apiEngine.models.response.Vendor.*;
-import clients.BaseUrls;
-import clients.carsi.CarsiVendorClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.ParameterType;

@@ -1,8 +1,8 @@
 package stepDefinitions;
 
-import apiEngine.GenerateFakeData;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
+import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
 import apiEngine.models.requests.Basket.Checkout.BasketCheckOutRequest;
 import apiEngine.models.requests.Basket.Checkout.Donation;
