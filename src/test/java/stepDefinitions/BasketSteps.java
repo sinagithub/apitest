@@ -271,12 +271,12 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check added product exists on add basket response")
     public void i_check_added_product_exists_in_basket() {
-        List<Line> lineList = getAddProductResponse().getBody().getData().getLightBasket().getLines();
+        List<BasketLine> basketLineList = getAddProductResponse().getBody().getData().getLightBasket().getLines();
         Product product = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String productId = product.getId();
 
-        for (Line line : lineList) {
-            if (line.getProductId().equalsIgnoreCase(productId)) {
+        for (BasketLine basketLine : basketLineList) {
+            if (basketLine.getProductId().equalsIgnoreCase(productId)) {
                 return;
             }
         }
@@ -324,18 +324,18 @@ public class BasketSteps extends BaseSteps {
         return lineList.get(index);
     }
 
-    private Line getBasketLiteLineInfo(Product product) {
+    private BasketLine getBasketLiteLineInfo(Product product) {
         IRestResponse<LiteBasketResponse> liteBasketResponse =
                 (IRestResponse<LiteBasketResponse>) getScenarioContext().getContext(Context.LITE_BASKET_RESPONSE);
-        List<Line> lineList = liteBasketResponse.getBody().getData().getLines();
+        List<BasketLine> basketLineList = liteBasketResponse.getBody().getData().getLines();
         String productId = product.getId();
         int index = -1;
-        for (Line line : lineList) {
-            if (line.getId().equalsIgnoreCase(productId)) {
-                index = lineList.indexOf(line);
+        for (BasketLine basketLine : basketLineList) {
+            if (basketLine.getId().equalsIgnoreCase(productId)) {
+                index = basketLineList.indexOf(basketLine);
             }
         }
-        return lineList.get(index);
+        return basketLineList.get(index);
     }
 
     @Then("I can check product exists in basket")
@@ -425,8 +425,8 @@ public class BasketSteps extends BaseSteps {
     public void i_can_see_the_product_quantity_is_product_index(Integer expectedQuantity, Integer productIndex) {
         IRestResponse<LiteBasketResponse> liteBasketResponse =
                 (IRestResponse<LiteBasketResponse>) getScenarioContext().getContext(Context.LITE_BASKET_RESPONSE);
-        Line line = liteBasketResponse.getBody().getData().getLines().get(productIndex);
-        int actualQuantity = line.getQuantity();
+        BasketLine basketLine = liteBasketResponse.getBody().getData().getLines().get(productIndex);
+        int actualQuantity = basketLine.getQuantity();
         assertTrue(expectedQuantity == actualQuantity, "Product quantity should "
                 + expectedQuantity + " not " + actualQuantity);
     }
@@ -444,8 +444,8 @@ public class BasketSteps extends BaseSteps {
     public void i_check_line_products_is_valid_on_lite_basket_response() {
         List<Product> addedProductList = (List<Product>) getScenarioContext().getContext(Context.ADDED_PRODUCT_LIST);
         for (Product product : addedProductList) {
-            Line productLine = getBasketLiteLineInfo(product);
-            String productId = productLine.getProductId();
+            BasketLine productBasketLine = getBasketLiteLineInfo(product);
+            String productId = productBasketLine.getProductId();
             String expectedLineProductId = product.getId();
             assertTrue(expectedLineProductId.contains(productId), "Product id should be " + expectedLineProductId +
                     " not " + productId);
@@ -541,16 +541,16 @@ public class BasketSteps extends BaseSteps {
                 (IRestResponse<AddProductToBasketResponse>) getScenarioContext().getContext(Context.ADD_BASKET_RESPONSE);
         String addedProductId = addedProductRequest.getProductId();
 
-        List<Line> basketLines = addProductResponse.getBody().getData().getLightBasket().getLines();
+        List<BasketLine> basketBasketLines = addProductResponse.getBody().getData().getLightBasket().getLines();
         int addedProductIndex = -1;
-        for (Line line : basketLines) {
-            if (line.getProductId().equalsIgnoreCase(addedProductId)) {
-                addedProductIndex = basketLines.indexOf(line);
+        for (BasketLine basketLine : basketBasketLines) {
+            if (basketLine.getProductId().equalsIgnoreCase(addedProductId)) {
+                addedProductIndex = basketBasketLines.indexOf(basketLine);
             }
         }
         int expectedQuantity =
                 addProductResponse.getBody().getData().getLightBasket().getLines().get(addedProductIndex).getQuantity();
-        int actualQuantity = basketLines.get(addedProductIndex).getQuantity();
+        int actualQuantity = basketBasketLines.get(addedProductIndex).getQuantity();
 
         assertTrue(expectedQuantity == actualQuantity, "Added quantity and basket product quantity should be equal");
 

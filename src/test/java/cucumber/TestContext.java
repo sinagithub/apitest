@@ -82,4 +82,7 @@ public class TestContext {
         return new InternalMarketingClient(BaseUrls.getInternalMicroBaseUrl());
     }
 
+    public CarsiCampaignsClient getCampaignsClient(){
+        return new CarsiCampaignsClient(BaseUrls.getCarsiBaseUrl());
+    }
 }

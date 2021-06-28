@@ -1,17 +1,21 @@
 package stepDefinitions;
 
+import apiEngine.IRestResponse;
 import apiEngine.Utilies.DateUtil;
+import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.InternalVendor.Marketing.*;
+import apiEngine.models.response.MicroServices.InternalMarketing.CreateCampaignResponse;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.hu.De;
+import io.restassured.response.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class InternalCampaignSteps extends BaseSteps {
     public InternalCampaignSteps(TestContext testContext) {
         super(testContext);
@@ -25,46 +29,42 @@ public class InternalCampaignSteps extends BaseSteps {
         getScenarioContext().setContext(Context.DEFINATED_CAMPAIGN, definedCampaignInfo);
     }
 
+    private String getCreatedCampaignId() {
+        return (String) getScenarioContext().getContext(Context.CREATED_CAMPAIGN_ID);
+    }
+
     @Then("Staff select Campaign with Name {string}, UsageLimit {int}, IsOtpRequired {string}, IsOneTimePerUser " +
             "{string}, IsCouponRequired {string}, IsShownOnCheckout {string}, StartDate, EndDate")
-    public void staff_select_campaign_with_name_usage_limit_is_otp_required_is_one_time_per_user_is_coupon_required_is_shown_on_checkout_start_date_end_date(String name, Integer usageLimit, String isOtpRequired, String isOneTimePerUser, String isCouponRequired, String isShownOnCheckout) {
+    public void staff_select_campaign_with_name_usage_limit_is_otp_required_is_one_time_per_user_is_coupon_required_is_shown_on_checkout_start_date_end_date(String name, Integer usageLimit, String isOtpRequired, String isOneTimePerUser, String isCouponRequired, String isShownOnCheckout) throws IOException {
+        String randomName = name + "--" + GenerateFakeData.getRandomNameWithNumbers();
         HashMap definedCampaignInfo = new HashMap();
-        definedCampaignInfo.put("CampaignName", name);
+        definedCampaignInfo.put("CampaignName", randomName);
         definedCampaignInfo.put("UsageLimit", usageLimit);
-
+        boolean otpSelection = false;
         if (isOtpRequired.contains("true")) {
-            definedCampaignInfo.put("IsOtpRequired", true);
-        } else {
-            definedCampaignInfo.put("IsOtpRequired", false);
+            otpSelection = true;
         }
-
+        boolean isOneTimePerUserSelection = false;
         if (isOneTimePerUser.contains("true")) {
-            definedCampaignInfo.put("IsOneTimePerUser", true);
-        } else {
-            definedCampaignInfo.put("IsOneTimePerUser", false);
+            isOneTimePerUserSelection = true;
         }
-
+        boolean isCouponRequiredSelection = false;
         if (isCouponRequired.contains("true")) {
-            definedCampaignInfo.put("IsCouponRequired", true);
-        } else {
-            definedCampaignInfo.put("IsCouponRequired", false);
+            isCouponRequiredSelection = true;
         }
-
+        boolean isShownOnCheckoutSelection = false;
         if (isShownOnCheckout.contains("true")) {
-            definedCampaignInfo.put("IsShownOnCheckout", true);
-        } else {
-            definedCampaignInfo.put("IsShownOnCheckout", false);
+            isShownOnCheckoutSelection = true;
         }
         String dateNow = DateUtil.generateDateNow();
-        String dateEnd = DateUtil.getTimeAfterHour(2);
-
-        definedCampaignInfo.put("StartDate", dateNow);
-        definedCampaignInfo.put("EndDate", dateEnd);
-
+        String dateEnd = DateUtil.getNextDay(1);
+        Campaign campaign = new Campaign(randomName, usageLimit,otpSelection,isOneTimePerUserSelection,isCouponRequiredSelection,isShownOnCheckoutSelection, dateNow,dateEnd );
+        definedCampaignInfo.put("Campaign", campaign);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    @Then("Staff select campaign Award with TypeId {int}, DiscountTypeId {int}, DiscountValue {int}, MaxDiscountValue {int}")
+    @Then("Staff select campaign Award with TypeId {int}, DiscountTypeId {int}, DiscountValue {int}, MaxDiscountValue" +
+            " {int}")
     public void staff_select_campaign_award_with_type_id_discount_type_id_discount_value(Integer typeId,
                                                                                          Integer discountTypeId,
                                                                                          Integer discountValue,
@@ -79,10 +79,11 @@ public class InternalCampaignSteps extends BaseSteps {
 
     @Then("Staff select campaign DescriptionTr with Title {string}, Description {string}, ImageUrl {string}")
     public void staff_select_campaign_description_tr_with_title_description_image_url(String title, String description,
-                                                                                      String imageUrl) {
+                                                                                      String imageUrl) throws IOException {
+        String randomTitle = title + "--" + GenerateFakeData.getRandomNameWithNumbers();
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        DescriptionTr descriptionTr = new DescriptionTr(title,description,imageUrl);
-        DescriptionEn descriptionEn = new DescriptionEn(title,description,imageUrl);
+        DescriptionTr descriptionTr = new DescriptionTr(randomTitle, description, imageUrl);
+        DescriptionEn descriptionEn = new DescriptionEn(randomTitle, description, imageUrl);
         definedCampaignInfo.put("DescriptionTr", descriptionTr);
         definedCampaignInfo.put("DescriptionEn", descriptionEn);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
@@ -93,7 +94,7 @@ public class InternalCampaignSteps extends BaseSteps {
                                                                                      Integer operatorTypeId,
                                                                                      String value) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        Condition condition = new Condition(conditionTypeId,operatorTypeId,value);
+        Condition condition = new Condition(conditionTypeId, operatorTypeId, value);
         List<Condition> conditions = new ArrayList<>();
         conditions.add(condition);
         definedCampaignInfo.put("Conditions", conditions);
@@ -105,7 +106,7 @@ public class InternalCampaignSteps extends BaseSteps {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
         String createdTagId = getScenarioContext().getContext(Context.CREATED_TAG_ID).toString();
         int targetTagType = 4;
-        Target target = new Target(createdTagId,targetTagType);
+        Target target = new Target(createdTagId, targetTagType);
         List<Target> targetList = new ArrayList<>();
         targetList.add(target);
 
@@ -113,17 +114,20 @@ public class InternalCampaignSteps extends BaseSteps {
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    @Then("Staff select campaign Coupon with CreateCoupon {string}, CouponCount {int}, prefixSuffix {int}, ConstantCode {string}, UsageLimit" +
+    @Then("Staff select campaign Coupon with CreateCoupon {string}, CouponCount {int}, prefixSuffix {int}, " +
+            "ConstantCode {string}, UsageLimit" +
             " {int}, couponCode {string}")
     public void staff_select_campaign_coupon_with_create_coupon_coupon_count_prefix_suffix_usage_limit_coupon_code(String createCoupon,
-                                                                                                                   Integer couponCount, Integer prefixSuffix, String constantCode, Integer usageLimit, String couponCode) {
+                                                                                                                   Integer couponCount, Integer prefixSuffix, String constantCode, Integer usageLimit, String couponCode) throws IOException {
+        String randomCouponCode = couponCode + "--" + GenerateFakeData.getRandomNameWithNumbers();
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
         boolean createCouponStatus = false;
-        if (couponCode.equalsIgnoreCase("True")){
+        if (createCoupon.equalsIgnoreCase("True")) {
             createCouponStatus = true;
         }
 
-        Coupon coupon = new Coupon(createCouponStatus,prefixSuffix,constantCode,couponCount,usageLimit,couponCode);
+        Coupon coupon = new Coupon(createCouponStatus, prefixSuffix, constantCode, couponCount, usageLimit,
+                randomCouponCode);
         definedCampaignInfo.put("Coupon", coupon);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
@@ -135,31 +139,14 @@ public class InternalCampaignSteps extends BaseSteps {
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    private Campaign getSelectedCampaign() {
-        HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        String name = definedCampaignInfo.get("CampaignName").toString();
-        int usageLimit = (Integer) definedCampaignInfo.get("UsageLimit");
-        boolean isOtpRequired = (Boolean) definedCampaignInfo.get("IsOtpRequired");
-        boolean isOneTimePerUser = (Boolean) definedCampaignInfo.get("IsOneTimePerUser");
-        boolean isCouponRequired = (Boolean) definedCampaignInfo.get("IsCouponRequired");
-        boolean isShownOnCheckout = (Boolean) definedCampaignInfo.get("IsShownOnCheckout");
-        String startDate = (String) definedCampaignInfo.get("StartDate");
-        String endDate = (String) definedCampaignInfo.get("EndDate");
-
-        return new Campaign(name, usageLimit, isOtpRequired, isOneTimePerUser, isCouponRequired, isShownOnCheckout,
-                startDate, endDate);
-    }
-
     private DescriptionTr getSelectedCampaignDescriptionTr() {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        DescriptionTr descriptionTr = (DescriptionTr) definedCampaignInfo.get("DescriptionTr");
-        return descriptionTr;
+        return (DescriptionTr) definedCampaignInfo.get("DescriptionTr");
     }
 
     private DescriptionEn getSelectedCampaignDescriptionEn() {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        DescriptionEn descriptionEn = (DescriptionEn) definedCampaignInfo.get("DescriptionEn");
-        return descriptionEn;
+        return (DescriptionEn) definedCampaignInfo.get("DescriptionEn");
     }
 
     private Award getSelectedCampaignAward() {
@@ -168,7 +155,7 @@ public class InternalCampaignSteps extends BaseSteps {
         int discountTypeId = (int) definedCampaignInfo.get("DiscountTypeId");
         int discountValue = (int) definedCampaignInfo.get("DiscountValue");
         int maxDiscountValue = (int) definedCampaignInfo.get("MaxDiscountValue");
-        return new Award(typeId,discountTypeId,discountValue,maxDiscountValue);
+        return new Award(typeId, discountTypeId, discountValue, maxDiscountValue);
     }
 
 
@@ -176,30 +163,28 @@ public class InternalCampaignSteps extends BaseSteps {
     public void staff_create_campaign_in_marketing(String operationUserMail) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
 
-        Campaign campaign = getSelectedCampaign();
+        Campaign campaign = (Campaign) definedCampaignInfo.get("Campaign");
         DescriptionTr descriptionTr = getSelectedCampaignDescriptionTr();
         DescriptionEn descriptionEn = getSelectedCampaignDescriptionEn();
         Award award = getSelectedCampaignAward();
         List<Condition> conditionList = (List<Condition>) getDefinedCampaignInfo().get("Conditions");
         List<Target> targetList = (List<Target>) definedCampaignInfo.get("TargetList");
-        Coupon coupon =(Coupon) definedCampaignInfo.get("Coupon");
+        Coupon coupon = (Coupon) definedCampaignInfo.get("Coupon");
         String stateInfo = (String) definedCampaignInfo.get("StateInfo");
 
-        PostCampaignRequest postCampaignRequest = new PostCampaignRequest(campaign, descriptionTr, descriptionEn,award,conditionList,targetList,coupon,stateInfo);
-        getInternalMarketingClient().createCampaign(postCampaignRequest,operationUserMail);
-
+        PostCampaignRequest postCampaignRequest = new PostCampaignRequest(campaign, descriptionTr, descriptionEn,
+                award, conditionList, targetList, coupon, stateInfo);
+        IRestResponse<CreateCampaignResponse> campaignResponse =
+                getInternalMarketingClient().createCampaign(postCampaignRequest, operationUserMail);
+        assertTrue(campaignResponse.isSuccessful(), "Create campaign status should be true");
+        String campaignId = campaignResponse.getBody().getCampaignId();
+        getScenarioContext().setContext(Context.CREATED_CAMPAIGN_ID, campaignId);
     }
 
-    @Then("Staff activate created campaign in marketing")
-    public void staff_activate_created_campaign_in_marketing() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("Staff get created campaign coupon id in marketing")
-    public void staff_get_created_campaign_coupon_id_in_marketing() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("Staff activate created campaign in marketing operation User email {string}")
+    public void staff_activate_created_campaign_in_marketing(String operationEmail) {
+        Response response = getInternalMarketingClient().activateCampaign(getCreatedCampaignId(), operationEmail);
+        assertTrue(response.statusCode() == 200, "Campaign activate should be 200");
     }
 
 

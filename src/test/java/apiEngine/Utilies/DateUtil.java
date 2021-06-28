@@ -18,5 +18,11 @@ public class DateUtil {
         LocalDateTime end = start.plusHours(hour).truncatedTo(ChronoUnit.HOURS);
         return end.toString() + ":00.000Z";
     }
+
+    public static String getNextDay(int day) {
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.plusDays(day).truncatedTo(ChronoUnit.DAYS);
+        return end.toString() + ":00.000Z";
+    }
 }
 

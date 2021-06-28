@@ -36,6 +36,7 @@ public class BaseSteps {
     private CarsiAddressesClient carsiAddressClient;
     private InternalTaggingClient internalTaggingClient;
     private InternalMarketingClient internalMarketingClient;
+    private CarsiCampaignsClient carsiCampaignsClient;
 
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
@@ -54,6 +55,7 @@ public class BaseSteps {
         carsiAddressClient = testContext.getCarsiAddressClient();
         internalTaggingClient = testContext.getInternalTaggingClint();
         internalMarketingClient = testContext.getInternalMarketingClient();
+        carsiCampaignsClient = testContext.getCampaignsClient();
     }
 
 
@@ -123,6 +125,10 @@ public class BaseSteps {
 
     public InternalMarketingClient getInternalMarketingClient(){
         return internalMarketingClient;
+    }
+
+    public CarsiCampaignsClient getCarsiCampaignsClient() {
+        return carsiCampaignsClient;
     }
 
     public void assertNotNull(String property) {

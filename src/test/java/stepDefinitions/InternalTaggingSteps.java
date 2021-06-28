@@ -10,8 +10,6 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -37,7 +35,7 @@ public class InternalTaggingSteps extends BaseSteps {
         String endDate = DateUtil.getTimeAfterHour(2);
         UserTagRequest userTagRequest = new UserTagRequest(randomTagName, description, createdUserId, createdUserName,
                 endDate, userIdList);
-        Response response = getInternalTaggingClient().setUserTag(userTagRequest);
+        Response response = getInternalTaggingClient().createUserTag(userTagRequest);
         String tagId = response.getBody().asString();
         getScenarioContext().setContext(Context.CREATED_TAG_ID, tagId);
     }

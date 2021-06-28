@@ -1,4 +1,4 @@
-package apiEngine.models.response.Basket;
+package apiEngine.models.response.Campaign;
 
 import java.util.List;
 import javax.annotation.Generated;
@@ -12,10 +12,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList"
 })
 @Generated("jsonschema2pojo")
-public class BasketResponse {
+public class CampaignCouponsResponse {
 
     @JsonProperty("Data")
-    private BasketData data;
+    private List<CampaignsData> data = null;
     @JsonProperty("InfoList")
     private List<Object> infoList = null;
 
@@ -23,7 +23,7 @@ public class BasketResponse {
      * No args constructor for use in serialization
      *
      */
-    public BasketResponse() {
+    public CampaignCouponsResponse() {
     }
 
     /**
@@ -31,19 +31,19 @@ public class BasketResponse {
      * @param data
      * @param infoList
      */
-    public BasketResponse(BasketData data, List<Object> infoList) {
+    public CampaignCouponsResponse(List<CampaignsData> data, List<Object> infoList) {
         super();
         this.data = data;
         this.infoList = infoList;
     }
 
     @JsonProperty("Data")
-    public BasketData getData() {
+    public List<CampaignsData> getData() {
         return data;
     }
 
     @JsonProperty("Data")
-    public void setData(BasketData data) {
+    public void setData(List<CampaignsData> data) {
         this.data = data;
     }
 

@@ -11,10 +11,19 @@ public class InternalTaggingClient extends MicroBaseClient {
         super(baseUrl);
     }
 
-    public Response setUserTag(UserTagRequest userTagRequest){
+    public Response createUserTag(UserTagRequest userTagRequest){
         Response response = createRequest()
                 .body(userTagRequest)
                 .post(TaggingRoute.getUserTag());
+        writeStepLog();
+        return response;
+    }
+    public Response deleteUserTag(String tagId, String deletedUserId, String deletedUserName){
+        Response response = createRequest()
+                .pathParam("id", tagId)
+                .queryParam("deletedUserId",deletedUserId)
+                .queryParam("deletedUserName", deletedUserName)
+                .delete(TaggingRoute.deleteUserTag());
         writeStepLog();
         return response;
     }

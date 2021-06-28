@@ -10,27 +10,22 @@ Feature: Coupon controls in basket and user coupons menu
     * My addresses list should be available
     * I select pinned available address
     * I get unique basket id
-    When A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creation
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign ", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=1"
+    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=1"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff select campaign Coupon with CreateCoupon "false", CouponCount 1, prefixSuffix 0, ConstantCode "automation", UsageLimit 1, couponCode "userCouponForAutomation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is basket total, discount type is fixed discount"
-    # Postman -> Microservices > Marketing > post/api/v1/campaign
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
-    # Postman -> Microservices > Marketing > put/api/v1/campaign/{campaignId}/activate
-    * Staff activate created campaign in marketing
-    # Postman -> Microservices > Marketing > get/api/v1/campaign/{campaignId}/coupon
-    * Staff get created campaign coupon id in marketing
-    When I navigate coupons
-    Then I list Coupons in campaign coupons response
+    * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
+    When I list Coupons in campaign coupons response
     * I validate created coupon is listed in campaign coupons response
+    When A list of Carşı Vendor are available on home page
+    Then I select first vendor from "Super Market" category on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -40,12 +35,17 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Coupons in basket response
     * I validate created coupon is listed in basket response
-    * I validate campaign of created coupon is not listed in basket response
+    * I validate coupon image url is valid in basket response
+    * I vaidate coupon name is valid in basket response
+    * I validate coupon code is valid in basket response
+    * I validate coupon IsOtpRequired is valid in basket response
+    Then I list Campaigns in basket response
+    * I validate campaign of created coupon is not listed in basket campaigns
     * I check created coupon IsSelected value is "false"
     # Yazılacak
-    * Staff delete created campaign in marketing
+    #* Staff delete created campaign in marketing
     # postman: Internal-APIS > Tagging > delete/api/v1/usertag/{id}
-    * Staff delete created tag in tagging
+    * Staff delete created tag in tagging  createdUserId "1",createdUserName "automation"
 
   @Basket @IgnoreLive @Coupon
   Scenario: User can list created Fixed Discount Coupon without creating coupon name
@@ -98,7 +98,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 0
@@ -138,7 +138,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Stag get tag Id in tagging
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
@@ -194,7 +194,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
       # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Stag get tag Id in tagging
@@ -266,7 +266,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
@@ -306,7 +306,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
@@ -346,7 +346,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
@@ -384,7 +384,7 @@ Feature: Coupon controls in basket and user coupons menu
     And My addresses list should be available
     And I select pinned available address
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
 
@@ -417,7 +417,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
@@ -634,7 +634,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
 
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
@@ -684,7 +684,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
 
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
@@ -734,7 +734,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
 
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
@@ -780,7 +780,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select vendor with payment method "3027292b-517b-495a-b14b-9ab0a18b73db"
     * Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate, details "8d66ee87-ddbb-4593-bbf0-d11571ef49a0"When Staff define users for tag creating
-      |8d66ee87-ddbb-4593-bbf0-d11571ef49a0|
+      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate

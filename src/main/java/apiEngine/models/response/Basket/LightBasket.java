@@ -16,20 +16,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class LightBasket {
 
     @JsonProperty("Lines")
-    private List<Line> lines = null;
+    private List<BasketLine> basketLines = null;
     @JsonProperty("TotalLinesItemCount")
     private Integer totalLinesItemCount;
     @JsonProperty("VendorId")
     private String vendorId;
 
     @JsonProperty("Lines")
-    public List<Line> getLines() {
-        return lines;
+    public List<BasketLine> getLines() {
+        return basketLines;
     }
 
     @JsonProperty("Lines")
-    public void setLines(List<Line> lines) {
-        this.lines = lines;
+    public void setLines(List<BasketLine> basketLines) {
+        this.basketLines = basketLines;
     }
 
     @JsonProperty("TotalLinesItemCount")
