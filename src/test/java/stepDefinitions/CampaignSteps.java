@@ -106,10 +106,10 @@ public class CampaignSteps extends BaseSteps {
 
     private int getCreatedCouponIndexFromBasketCoupons() {
         List<Coupon> couponList = getBasketCouponList();
-        String definedCouponCode = getSelectedCouponInfo().getCouponCode();
+        String selectedCampaignName = getSelectedCampaignDescriptionTr().getTitle();
         int selectedCouponIndex = -1;
         for (Coupon coupon : couponList) {
-            if (coupon.getCode().equalsIgnoreCase(definedCouponCode)) {
+            if (coupon.getName().equalsIgnoreCase(selectedCampaignName)) {
                 selectedCouponIndex = couponList.indexOf(coupon);
                 break;
             }
@@ -178,7 +178,7 @@ public class CampaignSteps extends BaseSteps {
         assertTrue(index == -1, "Coupons should not list on the basket campaigns");
     }
 
-    @Then("I check created coupon IsSelected value is {string}")
+    @Then("I validate created coupon IsSelected value is {string}")
     public void i_check_created_coupon_is_selected_value_is(String isSelected) {
         List<Coupon> couponList = getBasketCouponList();
         boolean actualIsSelected = couponList.get(getCreatedCouponIndexFromBasketCoupons()).getIsSelected();

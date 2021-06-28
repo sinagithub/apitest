@@ -70,10 +70,8 @@ public class InternalCampaignSteps extends BaseSteps {
                                                                                          Integer discountValue,
                                                                                          Integer maxDiscountValue) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        definedCampaignInfo.put("AwardTypeId", typeId);
-        definedCampaignInfo.put("DiscountTypeId", discountTypeId);
-        definedCampaignInfo.put("DiscountValue", discountValue);
-        definedCampaignInfo.put("MaxDiscountValue", maxDiscountValue);
+        Award award = new Award(typeId,discountTypeId,discountValue,maxDiscountValue);
+        definedCampaignInfo.put("Award", award);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
@@ -105,8 +103,9 @@ public class InternalCampaignSteps extends BaseSteps {
     public void staff_select_campaign_targets_with_type_id_target_id() {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
         String createdTagId = getScenarioContext().getContext(Context.CREATED_TAG_ID).toString();
-        int targetTagType = 4;
-        Target target = new Target(createdTagId, targetTagType);
+        int targetType = 4;
+
+        Target target = new Target(createdTagId, targetType);
         List<Target> targetList = new ArrayList<>();
         targetList.add(target);
 
@@ -114,20 +113,26 @@ public class InternalCampaignSteps extends BaseSteps {
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    @Then("Staff select campaign Coupon with CreateCoupon {string}, CouponCount {int}, prefixSuffix {int}, " +
+    @Then("Staff select campaign Coupon with CreateCoupon false, CouponCount {int}, prefixSuffix {int}, " +
             "ConstantCode {string}, UsageLimit" +
             " {int}, couponCode {string}")
-    public void staff_select_campaign_coupon_with_create_coupon_coupon_count_prefix_suffix_usage_limit_coupon_code(String createCoupon,
+    public void staff_select_campaign_coupon_with_create_coupon_coupon_count_prefix_suffix_usage_limit_coupon_code(
                                                                                                                    Integer couponCount, Integer prefixSuffix, String constantCode, Integer usageLimit, String couponCode) throws IOException {
         String randomCouponCode = couponCode + "--" + GenerateFakeData.getRandomNameWithNumbers();
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        boolean createCouponStatus = false;
-        if (createCoupon.equalsIgnoreCase("True")) {
-            createCouponStatus = true;
-        }
-
-        Coupon coupon = new Coupon(createCouponStatus, prefixSuffix, constantCode, couponCount, usageLimit,
+        Coupon coupon = new Coupon(false, prefixSuffix, constantCode, couponCount, usageLimit,
                 randomCouponCode);
+        definedCampaignInfo.put("Coupon", coupon);
+        updateDefinedCampaignInfoFromContext(definedCampaignInfo);
+    }
+
+    @Then("Staff select campaign Coupon with CreateCoupon true, CouponCount {int}, UsageLimit {int}, prefixSuffix {int}, constantCode {string}")
+    public void staff_select_campaign_coupon_with_create_coupon_coupon_count_usage_limit_prefix_suffix_constant_code(Integer couponCount, Integer usageLimit, Integer prefixSuffix, String constantCode) {
+        HashMap definedCampaignInfo = getDefinedCampaignInfo();
+        boolean createCouponStatus = true;
+        Coupon coupon = new Coupon(createCouponStatus, prefixSuffix, constantCode, couponCount, usageLimit,
+                    null);
+
         definedCampaignInfo.put("Coupon", coupon);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
@@ -149,16 +154,6 @@ public class InternalCampaignSteps extends BaseSteps {
         return (DescriptionEn) definedCampaignInfo.get("DescriptionEn");
     }
 
-    private Award getSelectedCampaignAward() {
-        HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        int typeId = (int) definedCampaignInfo.get("AwardTypeId");
-        int discountTypeId = (int) definedCampaignInfo.get("DiscountTypeId");
-        int discountValue = (int) definedCampaignInfo.get("DiscountValue");
-        int maxDiscountValue = (int) definedCampaignInfo.get("MaxDiscountValue");
-        return new Award(typeId, discountTypeId, discountValue, maxDiscountValue);
-    }
-
-
     @Then("Staff create campaign in marketing with selected campaign info operation User email {string}")
     public void staff_create_campaign_in_marketing(String operationUserMail) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
@@ -166,7 +161,7 @@ public class InternalCampaignSteps extends BaseSteps {
         Campaign campaign = (Campaign) definedCampaignInfo.get("Campaign");
         DescriptionTr descriptionTr = getSelectedCampaignDescriptionTr();
         DescriptionEn descriptionEn = getSelectedCampaignDescriptionEn();
-        Award award = getSelectedCampaignAward();
+        Award award = (Award) getDefinedCampaignInfo().get("Award");
         List<Condition> conditionList = (List<Condition>) getDefinedCampaignInfo().get("Conditions");
         List<Target> targetList = (List<Target>) definedCampaignInfo.get("TargetList");
         Coupon coupon = (Coupon) definedCampaignInfo.get("Coupon");
@@ -186,8 +181,6 @@ public class InternalCampaignSteps extends BaseSteps {
         Response response = getInternalMarketingClient().activateCampaign(getCreatedCampaignId(), operationEmail);
         assertTrue(response.statusCode() == 200, "Campaign activate should be 200");
     }
-
-
 }
 
 

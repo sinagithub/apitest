@@ -31,13 +31,16 @@ public class InternalTaggingSteps extends BaseSteps {
                                                                                                   String createdUserId,
                                                                                                   String createdUserName) throws IOException {
         String randomTagName = tagName + "-" + GenerateFakeData.getRandomNameWithNumbers();
-        List<String> userIdList = (List<String>) getScenarioContext().getContext(Context.TAG_USER_USER_LIST);
+        List<String> details = (List<String>) getScenarioContext().getContext(Context.TAG_USER_USER_LIST);
         String endDate = DateUtil.getTimeAfterHour(2);
+
         UserTagRequest userTagRequest = new UserTagRequest(randomTagName, description, createdUserId, createdUserName,
-                endDate, userIdList);
+                endDate, details);
+
         Response response = getInternalTaggingClient().createUserTag(userTagRequest);
         String tagId = response.getBody().asString();
         getScenarioContext().setContext(Context.CREATED_TAG_ID, tagId);
+        assertTrue(response.statusCode() == 200, "Tag create response should be 200");
     }
 
 }
