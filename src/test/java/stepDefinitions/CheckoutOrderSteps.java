@@ -221,7 +221,12 @@ public class CheckoutOrderSteps extends BaseSteps {
         String paymentGroupId = getSelectedPayment().getPaymentMethodId();
         Boolean isFutureOrder = getDeliveryTimeOptions().getFuture().getSelected();
         String addressId = getSelectedAddress().getAddressId();
-        int alternateProductTypeIdd = getSelectedAlternateProductOptionTypeId();
+
+        int alternateProductTypeIdd = 0;
+        if (getSelectedAlternateProductOptionTypeId() != null){
+            alternateProductTypeIdd = getSelectedAlternateProductOptionTypeId();
+        }
+
         boolean isContactlessDelivery = getBasketCheckOutFromPutResponse().getContactlessDelivery();
         String selectedSlot = (String) getScenarioContext().getContext(Context.SELECTED_DELIVERY_TIME_TEXT);
         boolean usePoints = (boolean) getScenarioContext().getContext(Context.USE_POINT_SELECTION);

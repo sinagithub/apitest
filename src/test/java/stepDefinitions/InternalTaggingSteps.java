@@ -3,6 +3,7 @@ package stepDefinitions;
 import apiEngine.Utilies.DateUtil;
 import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.InternalVendor.Tagging.UserTagRequest;
+import apiEngine.models.response.CarsiVendor;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
@@ -10,6 +11,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -20,7 +22,15 @@ public class InternalTaggingSteps extends BaseSteps {
 
     @When("Staff define users for tag creation$")
     public void staff_define_users_for_tag_creating(List<String> userIdList) {
-        getScenarioContext().setContext(Context.TAG_USER_USER_LIST, userIdList);
+        getScenarioContext().setContext(Context.TAG_USER_LIST, userIdList);
+    }
+
+    @When("Staff define vendor id list with home index for tag creation {int}")
+    public void staff_define_vendor_for_tag_creating(int index) {
+        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<String> vendorIdList = new ArrayList<>();
+        vendorIdList.add(vendorList.get(index).getId());
+        getScenarioContext().setContext(Context.TAG_VENDOR, vendorIdList);
     }
 
 
@@ -31,7 +41,7 @@ public class InternalTaggingSteps extends BaseSteps {
                                                                                                   String createdUserId,
                                                                                                   String createdUserName) throws IOException {
         String randomTagName = tagName + "-" + GenerateFakeData.getRandomNameWithNumbers();
-        List<String> details = (List<String>) getScenarioContext().getContext(Context.TAG_USER_USER_LIST);
+        List<String> details = (List<String>) getScenarioContext().getContext(Context.TAG_USER_LIST);
         String endDate = DateUtil.getTimeAfterHour(2);
 
         UserTagRequest userTagRequest = new UserTagRequest(randomTagName, description, createdUserId, createdUserName,

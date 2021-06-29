@@ -46,6 +46,16 @@ public class HomePageSteps extends BaseSteps {
         setCurrentPlatformType("Mahalle");
     }
 
+    @Given("I select Banabi platform")
+    public void i_select_banabi_platform() {
+        setCurrentPlatformType("Banabi");
+    }
+
+    @Given("I select Mahalle platform")
+    public void i_select_mahalle_platform() {
+        setCurrentPlatformType("Mahalle");
+    }
+
     @Then("I select first vendor from {string} category on home page")
     public void select_first_vendor_from_category(String categoryName) {
         List<CarsiVendor> vendorList = getHomeVendorList();

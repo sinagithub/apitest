@@ -58,7 +58,8 @@ public class InternalCampaignSteps extends BaseSteps {
         }
         String dateNow = DateUtil.generateDateNow();
         String dateEnd = DateUtil.getNextDay(1);
-        Campaign campaign = new Campaign(randomName, usageLimit,otpSelection,isOneTimePerUserSelection,isCouponRequiredSelection,isShownOnCheckoutSelection, dateNow,dateEnd );
+        Campaign campaign = new Campaign(randomName, usageLimit, otpSelection, isOneTimePerUserSelection,
+                isCouponRequiredSelection, isShownOnCheckoutSelection, dateNow, dateEnd);
         definedCampaignInfo.put("Campaign", campaign);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
@@ -70,7 +71,7 @@ public class InternalCampaignSteps extends BaseSteps {
                                                                                          Integer discountValue,
                                                                                          Integer maxDiscountValue) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        Award award = new Award(typeId,discountTypeId,discountValue,maxDiscountValue);
+        Award award = new Award(typeId, discountTypeId, discountValue, maxDiscountValue);
         definedCampaignInfo.put("Award", award);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
@@ -101,37 +102,59 @@ public class InternalCampaignSteps extends BaseSteps {
 
     @Then("Staff select campaign target TypeId for created user tag")
     public void staff_select_campaign_targets_with_type_id_target_id() {
-        HashMap definedCampaignInfo = getDefinedCampaignInfo();
         String createdTagId = getScenarioContext().getContext(Context.CREATED_TAG_ID).toString();
         int targetType = 4;
-
         Target target = new Target(createdTagId, targetType);
-        List<Target> targetList = new ArrayList<>();
+        List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
         targetList.add(target);
+        getScenarioContext().setContext(Context.TARGET_LIST, targetList);
+    }
 
+    @Then("Staff create target poll")
+    public void staff_create_target_poll() {
+        List<Target> targetList = new ArrayList<>();
+        getScenarioContext().setContext(Context.TARGET_LIST, targetList);
+    }
+
+    @Then("Staff set selected targets")
+    public void staff_set_selected_target() {
+        HashMap definedCampaignInfo = getDefinedCampaignInfo();
+        List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
         definedCampaignInfo.put("TargetList", targetList);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    @Then("Staff select campaign Coupon with CreateCoupon false, CouponCount {int}, prefixSuffix {int}, " +
-            "ConstantCode {string}, UsageLimit" +
-            " {int}, couponCode {string}")
+    @Then("Staff select campaign target TypeId of defined Vendor index")
+    public void staff_select_campaign_target_type_id_of_selected_vendor() {
+        String targetVendorId =
+                getScenarioContext().getContext(Context.TAG_VENDOR).toString().replace("[", "").replace("]", "");
+        int targetType = 2;
+        List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
+        Target target = new Target(targetVendorId, targetType);
+        targetList.add(target);
+        getScenarioContext().setContext(Context.TARGET_LIST, targetList);
+    }
+
+    @Then("Staff select campaign Coupon with CreateCoupon false, CouponCount {int}, prefixSuffix 0, UsageLimit {int}," +
+            " " +
+            "couponCode {string}")
     public void staff_select_campaign_coupon_with_create_coupon_coupon_count_prefix_suffix_usage_limit_coupon_code(
-                                                                                                                   Integer couponCount, Integer prefixSuffix, String constantCode, Integer usageLimit, String couponCode) throws IOException {
+            Integer couponCount, Integer usageLimit, String couponCode) throws IOException {
         String randomCouponCode = couponCode + "--" + GenerateFakeData.getRandomNameWithNumbers();
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-        Coupon coupon = new Coupon(false, prefixSuffix, constantCode, couponCount, usageLimit,
+        Coupon coupon = new Coupon(false, null, null, couponCount, usageLimit,
                 randomCouponCode);
         definedCampaignInfo.put("Coupon", coupon);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    @Then("Staff select campaign Coupon with CreateCoupon true, CouponCount {int}, UsageLimit {int}, prefixSuffix {int}, constantCode {string}")
+    @Then("Staff select campaign Coupon with CreateCoupon true, CouponCount {int}, UsageLimit {int}, prefixSuffix " +
+            "{int}, constantCode {string}")
     public void staff_select_campaign_coupon_with_create_coupon_coupon_count_usage_limit_prefix_suffix_constant_code(Integer couponCount, Integer usageLimit, Integer prefixSuffix, String constantCode) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
         boolean createCouponStatus = true;
         Coupon coupon = new Coupon(createCouponStatus, prefixSuffix, constantCode, couponCount, usageLimit,
-                    null);
+                null);
 
         definedCampaignInfo.put("Coupon", coupon);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
