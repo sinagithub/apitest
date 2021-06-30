@@ -3,6 +3,11 @@ package apiEngine.models.response.Basket.Campaign;
 
 import java.util.List;
 import javax.annotation.Generated;
+
+import apiEngine.models.response.Basket.BagInfo;
+import apiEngine.models.response.Basket.BasketInfo;
+import apiEngine.models.response.Basket.BasketLine;
+import apiEngine.models.response.Basket.ValidationInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -19,14 +24,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Coupons"
 })
 @Generated("jsonschema2pojo")
-public class Data {
+public class CouponCampaignData {
 
     @JsonProperty("TotalCampaignCount")
     private Integer totalCampaignCount;
     @JsonProperty("BasketInfo")
     private BasketInfo basketInfo;
     @JsonProperty("Lines")
-    private List<Line> lines = null;
+    private List<BasketLine> lines = null;
     @JsonProperty("Campaigns")
     private List<Campaign> campaigns = null;
     @JsonProperty("ValidationInfo")
@@ -59,12 +64,12 @@ public class Data {
     }
 
     @JsonProperty("Lines")
-    public List<Line> getLines() {
+    public List<BasketLine> getLines() {
         return lines;
     }
 
     @JsonProperty("Lines")
-    public void setLines(List<Line> lines) {
+    public void setLines(List<BasketLine> lines) {
         this.lines = lines;
     }
 

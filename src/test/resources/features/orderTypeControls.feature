@@ -67,7 +67,7 @@ Feature: Order type controls
 
 
   Scenario: User can order with Online payment - Saved Credit Card
-    Given I am an authorized user with "mahalletestuser" "Mahalle1!"
+    Given I am an authorized user with "mahalletestuser" "123456"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page

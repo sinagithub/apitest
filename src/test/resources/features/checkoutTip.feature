@@ -106,5 +106,3 @@ Feature: Checkout User Tip controls
 
 
 
-
-

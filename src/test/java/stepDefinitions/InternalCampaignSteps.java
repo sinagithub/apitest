@@ -3,11 +3,15 @@ package stepDefinitions;
 import apiEngine.IRestResponse;
 import apiEngine.Utilies.DateUtil;
 import apiEngine.Utilies.GenerateFakeData;
+import apiEngine.models.requests.Campaign.CreateCompensationRequest;
+import apiEngine.models.requests.Campaign.UpdateCampaignRequest;
 import apiEngine.models.requests.InternalVendor.Marketing.*;
 import apiEngine.models.response.MicroServices.InternalMarketing.CreateCampaignResponse;
 import cucumber.TestContext;
 import enums.Context;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
 import java.io.IOException;
@@ -110,6 +114,15 @@ public class InternalCampaignSteps extends BaseSteps {
         getScenarioContext().setContext(Context.TARGET_LIST, targetList);
     }
 
+    @Given("Staff select campaign target TypeId for all users")
+    public void staff_select_campaign_target_type_id_for_all_users() {
+        int targetType = 1;
+        Target targetAllUser = new Target(null, targetType);
+        List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
+        targetList.add(targetAllUser);
+        getScenarioContext().setContext(Context.TARGET_LIST, targetList);
+    }
+
     @Then("Staff create target poll")
     public void staff_create_target_poll() {
         List<Target> targetList = new ArrayList<>();
@@ -199,11 +212,40 @@ public class InternalCampaignSteps extends BaseSteps {
         getScenarioContext().setContext(Context.CREATED_CAMPAIGN_ID, campaignId);
     }
 
+    @Then("Staff delete created campaign in marketing")
+    public void staff_delete_created_campaign_in_marketing() {
+        String campaignId = getCreatedCampaignId();
+        getInternalMarketingClient().deleteCampaign(campaignId);
+    }
+
     @Then("Staff activate created campaign in marketing operation User email {string}")
     public void staff_activate_created_campaign_in_marketing(String operationEmail) {
         Response response = getInternalMarketingClient().activateCampaign(getCreatedCampaignId(), operationEmail);
         assertTrue(response.statusCode() == 200, "Campaign activate should be 200");
     }
+
+    @When("Staff convert campaign to compensation coupon campaign in marketing")
+    public void staff_convert_campaign_to_compensation_coupon_campaign_in_marketing() {
+        String campaignId = getCreatedCampaignId();
+        int compensationStatus = 6;
+        UpdateCampaignRequest updateCampaignRequest = new UpdateCampaignRequest(compensationStatus,null,null);
+        getInternalMarketingClient().updateCampaign(campaignId,"automation@gmail.com",updateCampaignRequest);
+    }
+    @When("Staff create compensation coupon for user id {string} whose endDate is next {int} day in marketing")
+    public void staff_create_compensation_coupon_for_user_in_marketing(String userId, Integer nextDayValue) {
+        String campaignId = getCreatedCampaignId();
+        String endDate = DateUtil.getNextDay(nextDayValue);
+        CreateCompensationRequest createCompensationRequest = new CreateCompensationRequest(campaignId,userId,endDate);
+        Response response = getInternalMarketingClient().createCompensation(createCompensationRequest);
+        assertTrue(response.statusCode() == 200, "Create compensation status should be 200");
+    }
+
+    @When("Staff get created compensation campaign coupon id in marketing")
+    public void staff_get_created_compensation_campaign_coupon_id_in_marketing() {
+        String campaignId = getCreatedCampaignId();
+
+    }
+
 }
 
 

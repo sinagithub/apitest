@@ -53,6 +53,14 @@ public class InternalTaggingSteps extends BaseSteps {
         assertTrue(response.statusCode() == 200, "Tag create response should be 200");
     }
 
+    @Then("Staff delete created tag in tagging createdUserId {string},createdUserName {string}")
+    public void staff_delete_created_tag_in_tagging(String createdUserId, String createdUserName) {
+        String createdTagId = getScenarioContext().getContext(Context.CREATED_TAG_ID).toString();
+        Response response = getInternalTaggingClient().deleteUserTag(createdTagId, createdUserId, createdUserName);
+        assertTrue(response.statusCode() == 200, "Delete tag should be 200");
+
+    }
+
 }
 
 

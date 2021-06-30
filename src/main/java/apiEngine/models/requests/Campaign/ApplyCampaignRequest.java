@@ -7,17 +7,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "Code",
-        "PaymentMethodId",
+        "CampaignId",
+        "CouponCode",
         "UserHasOtpValidation"
 })
 @Generated("jsonschema2pojo")
-public class ApplyCouponRequest {
+public class ApplyCampaignRequest {
 
-    @JsonProperty("Code")
-    private String code;
-    @JsonProperty("PaymentMethodId")
-    private String paymentMethodId;
+    @JsonProperty("CampaignId")
+    private String campaignId;
+    @JsonProperty("CouponCode")
+    private String couponCode;
     @JsonProperty("UserHasOtpValidation")
     private Boolean userHasOtpValidation;
 
@@ -25,40 +25,40 @@ public class ApplyCouponRequest {
      * No args constructor for use in serialization
      *
      */
-    public ApplyCouponRequest() {
+    public ApplyCampaignRequest() {
     }
 
     /**
      *
      * @param userHasOtpValidation
-     * @param code
-     * @param paymentMethodId
+     * @param campaignId
+     * @param couponCode
      */
-    public ApplyCouponRequest(String code, String paymentMethodId, Boolean userHasOtpValidation) {
+    public ApplyCampaignRequest(String campaignId, String couponCode, Boolean userHasOtpValidation) {
         super();
-        this.code = code;
-        this.paymentMethodId = paymentMethodId;
+        this.campaignId = campaignId;
+        this.couponCode = couponCode;
         this.userHasOtpValidation = userHasOtpValidation;
     }
 
-    @JsonProperty("Code")
-    public String getCode() {
-        return code;
+    @JsonProperty("CampaignId")
+    public String getCampaignId() {
+        return campaignId;
     }
 
-    @JsonProperty("Code")
-    public void setCode(String code) {
-        this.code = code;
+    @JsonProperty("CampaignId")
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
     }
 
-    @JsonProperty("PaymentMethodId")
-    public String getPaymentMethodId() {
-        return paymentMethodId;
+    @JsonProperty("CouponCode")
+    public String getCouponCode() {
+        return couponCode;
     }
 
-    @JsonProperty("PaymentMethodId")
-    public void setPaymentMethodId(String paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+    @JsonProperty("CouponCode")
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
     }
 
     @JsonProperty("UserHasOtpValidation")

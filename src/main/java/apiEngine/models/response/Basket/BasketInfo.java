@@ -33,7 +33,7 @@ public class BasketInfo {
     @JsonProperty("VendorName")
     private String vendorName;
     @JsonProperty("MinimumDeliveryTotal")
-    private Integer minimumDeliveryTotal;
+    private Double minimumDeliveryTotal;
     @JsonProperty("DeliveryFee")
     private Double deliveryFee;
     @JsonProperty("Total")
@@ -66,7 +66,7 @@ public class BasketInfo {
      * @param vendorLogo
      * @param minimumDeliveryTotal
      */
-    public BasketInfo(String basketId, Integer basketStatus, Boolean isFreeOrder, String vendorId, String vendorName, Integer minimumDeliveryTotal, Double deliveryFee, Double total, Double subTotal, String vendorCategory, String vendorLogo) {
+    public BasketInfo(String basketId, Integer basketStatus, Boolean isFreeOrder, String vendorId, String vendorName, Double minimumDeliveryTotal, Double deliveryFee, Double total, Double subTotal, String vendorCategory, String vendorLogo) {
         super();
         this.basketId = basketId;
         this.basketStatus = basketStatus;
@@ -132,12 +132,12 @@ public class BasketInfo {
     }
 
     @JsonProperty("MinimumDeliveryTotal")
-    public Integer getMinimumDeliveryTotal() {
+    public Double getMinimumDeliveryTotal() {
         return minimumDeliveryTotal;
     }
 
     @JsonProperty("MinimumDeliveryTotal")
-    public void setMinimumDeliveryTotal(Integer minimumDeliveryTotal) {
+    public void setMinimumDeliveryTotal(Double minimumDeliveryTotal) {
         this.minimumDeliveryTotal = minimumDeliveryTotal;
     }
 

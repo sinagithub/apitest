@@ -310,6 +310,7 @@ public class BasketSteps extends BaseSteps {
         String basketId = getBasketId();
         IRestResponse<BasketResponse> getBasketResponse = getCarsiBasketClient().getBasket(basketId);
         getScenarioContext().setContext(Context.BASKET_RESPONSE, getBasketResponse);
+        assertTrue(getBasketResponse.isSuccessful(),"Basket response status should be 200");
     }
 
     private BasketLine getBasketLineInfo(Product product) {
@@ -1407,20 +1408,21 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I add selected product until the basket amount is higher than minimum delivery price")
     public void i_add_selected_product_until_the_basket_amount_is_higher_than_minimum_delivery_price() {
-        double deliveryFee = getSelectedVendorDeliveryFee();
+        i_get_the_basket();
+        double minDeliveryTotal = getBasketResponse().getBody().getData().getBasketInfo().getMinimumDeliveryTotal();
+
         int maxQuantity = 30;
         i_can_add_the_selected_product_to_basket(1);
         for (int i = 0; i < maxQuantity; i++) {
             maxQuantity--;
             i_get_the_basket();
             double basketTotal = getBasketInfo().getTotal();
-            if (basketTotal < deliveryFee && maxQuantity != 0) {
+            if (basketTotal < minDeliveryTotal && maxQuantity != 0) {
                 i_can_add_the_selected_product_to_basket(1);
             } else {
                 break;
             }
         }
     }
-
 
 }

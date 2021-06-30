@@ -15,14 +15,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Data"
 })
 @Generated("jsonschema2pojo")
-public class ApplyCouponResponse {
+public class DeleteCouponResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
     private List<Info> infoList = null;
     @JsonProperty("Data")
-    private CouponCampaignData applyCouponData;
+    private CouponCampaignData data;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -46,12 +46,12 @@ public class ApplyCouponResponse {
 
     @JsonProperty("Data")
     public CouponCampaignData getData() {
-        return applyCouponData;
+        return data;
     }
 
     @JsonProperty("Data")
-    public void setData(CouponCampaignData applyCouponData) {
-        this.applyCouponData = applyCouponData;
+    public void setData(CouponCampaignData data) {
+        this.data = data;
     }
 
 }
