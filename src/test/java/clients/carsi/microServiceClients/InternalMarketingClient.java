@@ -55,7 +55,7 @@ public class InternalMarketingClient extends ApiClient {
                 .pathParam("campaignId",campaignId)
                 .queryParam("operatingUserEmail", operatingUserEmail)
                 .body(updateCampaignRequest)
-                .put(MarketingRoute.getCampaignId());
+                .put(MarketingRoute.getConvertCompensation());
         writeStepLog();
         return response;
     }

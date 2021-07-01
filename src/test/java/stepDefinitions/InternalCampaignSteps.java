@@ -228,14 +228,27 @@ public class InternalCampaignSteps extends BaseSteps {
     public void staff_convert_campaign_to_compensation_coupon_campaign_in_marketing() {
         String campaignId = getCreatedCampaignId();
         int compensationStatus = 6;
-        UpdateCampaignRequest updateCampaignRequest = new UpdateCampaignRequest(compensationStatus,null,null);
-        getInternalMarketingClient().updateCampaign(campaignId,"automation@gmail.com",updateCampaignRequest);
+        UpdateCampaignRequest updateCampaignRequest = new UpdateCampaignRequest(compensationStatus, null, null);
+        Response response = getInternalMarketingClient().updateCampaign(campaignId, "automation@gmail.com",
+                updateCampaignRequest);
+        assertTrue(response.statusCode() == 200, "Convert campaign to compensation should be 200 ");
     }
+
+    @When("Staff Manipulate campaign status {int}")
+    public void staff_manipulate_campaign_status(Integer status) {
+        String campaignId = getCreatedCampaignId();
+        UpdateCampaignRequest updateCampaignRequest = new UpdateCampaignRequest(status, null, null);
+        Response response = getInternalMarketingClient().updateCampaign(campaignId, "automation@gmail.com",
+                updateCampaignRequest);
+        assertTrue(response.statusCode() == 200, "Manipulate campaign should be 200 ");
+    }
+
     @When("Staff create compensation coupon for user id {string} whose endDate is next {int} day in marketing")
     public void staff_create_compensation_coupon_for_user_in_marketing(String userId, Integer nextDayValue) {
         String campaignId = getCreatedCampaignId();
         String endDate = DateUtil.getNextDay(nextDayValue);
-        CreateCompensationRequest createCompensationRequest = new CreateCompensationRequest(campaignId,userId,endDate);
+        CreateCompensationRequest createCompensationRequest = new CreateCompensationRequest(campaignId, userId,
+                endDate);
         Response response = getInternalMarketingClient().createCompensation(createCompensationRequest);
         assertTrue(response.statusCode() == 200, "Create compensation status should be 200");
     }

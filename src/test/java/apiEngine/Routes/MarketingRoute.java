@@ -46,4 +46,8 @@ public class MarketingRoute {
     public static String getDeleteCampaign() {
         return MARKETING+ API + VERSION + AUTOMATION + CAMPAIGN + CAMPAIGN_ID;
     }
+
+    public static String getConvertCompensation(){
+        return MARKETING+ API + VERSION + AUTOMATION + CAMPAIGN + CAMPAIGN_ID;
+    }
 }

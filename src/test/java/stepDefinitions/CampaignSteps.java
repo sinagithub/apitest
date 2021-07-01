@@ -3,7 +3,6 @@ package stepDefinitions;
 
 import apiEngine.IRestResponse;
 import apiEngine.JsonUtil;
-import apiEngine.RestResponse;
 import apiEngine.models.requests.Campaign.ApplyCampaignRequest;
 import apiEngine.models.requests.Campaign.ApplyCouponRequest;
 import apiEngine.models.requests.InternalVendor.Marketing.Campaign;
@@ -16,16 +15,17 @@ import apiEngine.models.response.Basket.Campaign.Coupon;
 import apiEngine.models.response.Basket.Campaign.DeleteCouponResponse;
 import apiEngine.models.response.Campaign.CampaignCouponsResponse;
 import apiEngine.models.response.Campaign.CampaignsData;
-import apiEngine.models.response.DeleteBasketResponse;
-import apiEngine.models.response.MicroServices.InternalMarketing.CampaignCouponResponse;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import static jdk.internal.org.objectweb.asm.util.Printer.TYPES;
 
 
 @SuppressWarnings("unchecked")
@@ -128,6 +128,28 @@ public class CampaignSteps extends BaseSteps {
             }
         }
         return selectedCouponIndex;
+    }
+
+    @Then("I get compensation coupon code with created campaign id")
+    public void i_get_compensation_coupon_code_with_created_campaign_id() {
+        String createdCampaignId = getCreatedCampaignId();
+        apiEngine.models.requests.InternalVendor.Marketing.Coupon couponInfo =
+                (apiEngine.models.requests.InternalVendor.Marketing.Coupon) getDefinedCampaignInfo().get("Coupon");
+        String couponCode = couponInfo.getCouponCode();
+
+        Response response = getInternalMarketingClient().getCampaignDetail(createdCampaignId);
+        String code = JsonUtil.getJsonElement(response, "Code").replace("[", "").replace("]", "");
+        ;
+        String[] codes = code.split(",");
+        int index = -1;
+        for (String c : codes) {
+            if (!c.contains(couponCode)) {
+                index = Arrays.asList(codes).lastIndexOf(c);
+                break;
+            }
+        }
+        String convertedCoupon = codes[index];
+        getScenarioContext().setContext(Context.CREATED_COUPON_CODE, convertedCoupon.replace(" ", ""));
     }
 
     private int getCreatedCouponIndexFromBasketCampaigns() {
@@ -238,6 +260,23 @@ public class CampaignSteps extends BaseSteps {
         IRestResponse<ApplyCouponResponse> applyCouponResponse =
                 getCarsiBasketClient().applyCoupon(applyCouponRequest, basketId);
         getScenarioContext().setContext(Context.APPLY_COUPON_RESPONSE, applyCouponResponse);
+    }
+
+    @Then("I add created compensation coupon to basket PaymentMethodId is {string}, UserHasOtpValidation is {string}")
+    public void i_add_compensation_created_coupon_to_basket_payment_method_id_is_user_has_otp_validation_is(String paymentMethodId
+            , String userHasOtpValidation) {
+        i_get_compensation_coupon_code_with_created_campaign_id();
+        String basketId = getBasketId();
+        String couponCode = (String) getScenarioContext().getContext(Context.CREATED_COUPON_CODE);
+        boolean hasOtp = false;
+        if (userHasOtpValidation.equalsIgnoreCase("True")) {
+            hasOtp = true;
+        }
+        ApplyCouponRequest applyCouponRequest = new ApplyCouponRequest(couponCode, null, hasOtp);
+        IRestResponse<ApplyCouponResponse> applyCouponResponse =
+                getCarsiBasketClient().applyCoupon(applyCouponRequest, basketId);
+        getScenarioContext().setContext(Context.APPLY_COUPON_RESPONSE, applyCouponResponse);
+        assertTrue(applyCouponResponse.isSuccessful(), "Apply coupon should be 200");
     }
 
     @Then("I validate apply coupon status is {int} and message is {string}")
