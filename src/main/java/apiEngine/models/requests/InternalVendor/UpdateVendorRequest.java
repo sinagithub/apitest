@@ -1,7 +1,7 @@
 package apiEngine.models.requests.InternalVendor;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.MicroServices.InternalVendor.Category;
 import apiEngine.models.response.MicroServices.InternalVendor.DeliveryType;
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "PaymentTypes",
         "OperatingUserId"
 })
-@Generated("jsonschema2pojo")
+
 public class UpdateVendorRequest {
 
     @JsonProperty("Name")

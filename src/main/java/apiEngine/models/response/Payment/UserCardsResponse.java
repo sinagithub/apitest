@@ -1,7 +1,7 @@
 package apiEngine.models.response.Payment;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Data",
         "InfoList"
 })
-@Generated("jsonschema2pojo")
+
 public class UserCardsResponse {
 
     @JsonProperty("Data")

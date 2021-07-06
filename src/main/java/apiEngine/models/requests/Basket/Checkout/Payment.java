@@ -1,6 +1,6 @@
 package apiEngine.models.requests.Basket.Checkout;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -13,7 +13,7 @@ import io.cucumber.java.sl.In;
         "BinNumber",
         "IsApproved"
 })
-@Generated("jsonschema2pojo")
+
 public class Payment {
 
     @JsonProperty("PaymentMethodId")

@@ -80,8 +80,9 @@ public class ProductSteps extends BaseSteps {
 
     @Then("I validate PriceText is valid on product detail")
     public void i_validate_price_text_is_valid_on_product_detail() {
+        DecimalFormat formatter = new DecimalFormat("#0.00");
         double price = getProductData().getPrice();
-        String convertedPrice = String.format("%.2f", price);
+        String convertedPrice = formatter.format(price);
 
 
         String expectedPriceText = convertedPrice.replace(".",",") + " TL";
@@ -89,15 +90,4 @@ public class ProductSteps extends BaseSteps {
         assertEqual("PriceText should be " + expectedPriceText, actualPriceText, expectedPriceText);
     }
 
-    @Then("I validate DiscountedPrice is valid on product detail")
-    public void i_validate_discounted_price_is_valid_on_product_detail() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("I validate DiscountedPriceText is valid on product detail")
-    public void i_validate_discounted_price_text_is_valid_on_product_detail() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
 }

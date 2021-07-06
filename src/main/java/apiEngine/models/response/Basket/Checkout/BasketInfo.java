@@ -1,6 +1,6 @@
 package apiEngine.models.response.Basket.Checkout;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "MinimumDeliveryTotal",
         "TipTotal",
         "DonationTotal",
-        "DeliveryFree",
+        "DeliveryFee",
         "Total",
         "SubTotal",
         "DiscountTotal",
@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "DiscountedDeliveryFee"
 })
 
-@Generated("jsonschema2pojo")
+
 public class BasketInfo {
 
     @JsonProperty("BasketId")
@@ -152,12 +152,12 @@ public class BasketInfo {
         this.donationTotal = donationTotal;
     }
 
-    @JsonProperty("DeliveryFree")
-    public Double getDeliveryFree() {
+    @JsonProperty("DeliveryFee")
+    public Double getDeliveryFee() {
         return deliveryFree;
     }
 
-    @JsonProperty("DeliveryFree")
+    @JsonProperty("DeliveryFee")
     public void setDeliveryFree(Double deliveryFree) {
         this.deliveryFree = deliveryFree;
     }

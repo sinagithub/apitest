@@ -1,10 +1,19 @@
 package apiEngine.models.response.Basket;
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Id",
+        "ImageUrl",
         "ProductId",
         "ProductName",
         "ProductDescription",
@@ -20,6 +29,8 @@ public class BasketLine {
 
     @JsonProperty("Id")
     private String id;
+    @JsonProperty("ImageUrl")
+    private String imageUrl;
     @JsonProperty("ProductId")
     private String productId;
     @JsonProperty("ProductName")
@@ -33,11 +44,47 @@ public class BasketLine {
     @JsonProperty("ListPrice")
     private Double listPrice;
     @JsonProperty("DiscountedPrice")
-    private Double discountedPrice;
+    private Integer discountedPrice;
     @JsonProperty("Quantity")
     private Integer quantity;
     @JsonProperty("Volume")
     private Integer volume;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public BasketLine() {
+    }
+
+    /**
+     *
+     * @param volume
+     * @param productOptions
+     * @param quantity
+     * @param productId
+     * @param discountedPrice
+     * @param imageUrl
+     * @param id
+     * @param productUnitMass
+     * @param productName
+     * @param productDescription
+     * @param listPrice
+     */
+    public BasketLine(String id, String imageUrl, String productId, String productName, String productDescription, String productOptions, String productUnitMass, Double listPrice, Integer discountedPrice, Integer quantity, Integer volume) {
+        super();
+        this.id = id;
+        this.imageUrl = imageUrl;
+        this.productId = productId;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.productOptions = productOptions;
+        this.productUnitMass = productUnitMass;
+        this.listPrice = listPrice;
+        this.discountedPrice = discountedPrice;
+        this.quantity = quantity;
+        this.volume = volume;
+    }
 
     @JsonProperty("Id")
     public String getId() {
@@ -47,6 +94,16 @@ public class BasketLine {
     @JsonProperty("Id")
     public void setId(String id) {
         this.id = id;
+    }
+
+    @JsonProperty("ImageUrl")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @JsonProperty("ImageUrl")
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @JsonProperty("ProductId")
@@ -110,12 +167,12 @@ public class BasketLine {
     }
 
     @JsonProperty("DiscountedPrice")
-    public Double getDiscountedPrice() {
+    public Integer getDiscountedPrice() {
         return discountedPrice;
     }
 
     @JsonProperty("DiscountedPrice")
-    public void setDiscountedPrice(Double discountedPrice) {
+    public void setDiscountedPrice(Integer discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
 

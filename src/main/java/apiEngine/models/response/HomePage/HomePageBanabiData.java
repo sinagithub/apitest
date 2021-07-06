@@ -3,8 +3,7 @@ package apiEngine.models.response.HomePage;
 import java.util.List;
 
 import apiEngine.models.response.BanabiCategoryModel;
-import apiEngine.models.response.CarsiVendor;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import apiEngine.models.response.MahalleVendor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -17,19 +16,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class HomePageBanabiData {
 
     @JsonProperty("VendorInfo")
-    private CarsiVendor vendorInfo;
+    private MahalleVendor vendorInfo;
     @JsonProperty("BanabiCategoryModel")
     private List<BanabiCategoryModel> banabiCategoryModel = null;
     @JsonProperty("HasBanabiFavorites")
     private Boolean hasBanabiFavorites;
 
     @JsonProperty("VendorInfo")
-    public CarsiVendor getVendorInfo() {
+    public MahalleVendor getVendorInfo() {
         return vendorInfo;
     }
 
     @JsonProperty("VendorInfo")
-    public void setVendorInfo(CarsiVendor vendorInfo) {
+    public void setVendorInfo(MahalleVendor vendorInfo) {
         this.vendorInfo = vendorInfo;
     }
 

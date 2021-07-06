@@ -1,6 +1,6 @@
 package apiEngine.models.requests.Basket.Checkout;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

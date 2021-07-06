@@ -10,7 +10,7 @@ Feature: Delivery time controls in checkout
     And  I select pinned available address
     And I get unique basket id
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff create working pool for selected vendor
     And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
@@ -47,7 +47,7 @@ Feature: Delivery time controls in checkout
     And  I select pinned available address
     And I get unique basket id
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff create working pool for selected vendor
     And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
@@ -82,7 +82,7 @@ Feature: Delivery time controls in checkout
     And  I select pinned available address
     And I get unique basket id
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor delivery time method set AcceptsFutureOrder "false"
     When I navigate selected vendor
@@ -102,7 +102,7 @@ Feature: Delivery time controls in checkout
     And  I select pinned available address
     And I get unique basket id
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff create working pool for selected vendor
     And Staff select vendor workday for only tomorrow StartHour 10, StartMinute 0, EndHour 22, EndMinute 0

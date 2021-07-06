@@ -1,6 +1,6 @@
 package apiEngine.models.response.Basket.Checkout;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "CheckoutTypeId",
         "PaymentType"
 })
-@Generated("jsonschema2pojo")
+
 public class SubMethod {
 
     @JsonProperty("Id")

@@ -3,12 +3,13 @@ package cucumber;
 import clients.BaseUrls;
 import clients.carsi.*;
 import clients.OauthCoreClient;
-import clients.carsi.microServiceClients.CarsiInternalVendor;
+import clients.carsi.microServiceClients.CarsiInternalVendorClient;
+import clients.carsi.microServiceClients.InternalMarketingClient;
+import clients.carsi.microServiceClients.InternalTaggingClient;
 
 public class TestContext {
 
     private static ScenarioContext scenarioContext;
-    private static CarsiAddressesClient carsiAddressesClient;
 
 
     public TestContext() {
@@ -61,8 +62,8 @@ public class TestContext {
         return new CarsiPaymentClient(BaseUrls.getCarsiBaseUrl());
     }
 
-    public CarsiInternalVendor getCarsiInternalVendorClient() {
-        return new CarsiInternalVendor(BaseUrls.getInternalVendorUrl());
+    public CarsiInternalVendorClient getCarsiInternalVendorClient() {
+        return new CarsiInternalVendorClient(BaseUrls.getInternalMicroBaseUrl());
     }
 
     public CarsiCheckoutClient getCarsiCheckoutClient() {
@@ -70,8 +71,18 @@ public class TestContext {
     }
 
     public CarsiAddressesClient getCarsiAddressClient() {
-        carsiAddressesClient =  new CarsiAddressesClient(BaseUrls.getCarsiBaseUrl());
-        return carsiAddressesClient;
+        return new CarsiAddressesClient(BaseUrls.getCarsiBaseUrl());
     }
 
+    public InternalTaggingClient getInternalTaggingClint(){
+        return new InternalTaggingClient(BaseUrls.getInternalMicroBaseUrl());
+    }
+
+    public InternalMarketingClient getInternalMarketingClient(){
+        return new InternalMarketingClient(BaseUrls.getInternalMicroBaseUrl());
+    }
+
+    public CarsiCampaignsClient getCampaignsClient(){
+        return new CarsiCampaignsClient(BaseUrls.getCarsiBaseUrl());
+    }
 }

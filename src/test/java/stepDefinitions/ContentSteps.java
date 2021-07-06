@@ -1,8 +1,6 @@
 package stepDefinitions;
 
-import apiEngine.IRestResponse;
 import apiEngine.models.response.Content.FaqData;
-import clients.carsi.CarsiContentClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;

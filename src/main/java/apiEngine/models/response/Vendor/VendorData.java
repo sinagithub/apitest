@@ -1,7 +1,6 @@
 package apiEngine.models.response.Vendor;
 
 import java.util.List;
-import javax.annotation.Generated;
 
 import apiEngine.models.response.Banner;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "DeliveryFeeInfo",
         "Banners",
         "Categories",
-        "IsOpen"
+        "IsFavorite"
 })
-@Generated("jsonschema2pojo")
+
 public class VendorData {
 
     @JsonProperty("Id")
@@ -44,12 +43,12 @@ public class VendorData {
     private String minBasketPriceInfo;
     @JsonProperty("DeliveryFeeInfo")
     private String deliveryFeeInfo;
-    @JsonProperty("IsOpen")
-    private Boolean isOpen;
     @JsonProperty("Banners")
     private List<Banner> banners = null;
     @JsonProperty("Categories")
     private List<Category> categories = null;
+    @JsonProperty("IsFavorite")
+    private Boolean isFavorite;
 
     @JsonProperty("Id")
     public String getId() {
@@ -161,13 +160,14 @@ public class VendorData {
         this.categories = categories;
     }
 
-    @JsonProperty("IsOpen")
-    public Boolean getOpen() {
-        return isOpen;
+    @JsonProperty("IsFavorite")
+    public Boolean getIsFavorite() {
+        return isFavorite;
     }
 
-    @JsonProperty("IsOpen")
-    public void setOpen(Boolean open) {
-        isOpen = open;
+    @JsonProperty("IsFavorite")
+    public void setIsFavorite(Boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
+
 }

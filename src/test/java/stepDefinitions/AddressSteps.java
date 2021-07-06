@@ -2,6 +2,8 @@ package stepDefinitions;
 
 
 import apiEngine.*;
+import apiEngine.Utilies.GuidHelper;
+import apiEngine.Utilies.LatLongHelper;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.Address.AvailableAddressResponse;
 import clients.BaseUrls;
@@ -30,7 +32,7 @@ public class AddressSteps extends BaseSteps {
     private List<AvailableAddressData> getAvailableAddress(){
         List<AvailableAddressData> addressDataList = getAllAddress();
 
-        List<AvailableAddressData> availableAddresses = new ArrayList<AvailableAddressData>();
+        List<AvailableAddressData> availableAddresses = new ArrayList<>();
         for (AvailableAddressData addressData : addressDataList) {
             if (addressData.getIsAvailable()) {
                 availableAddresses.add(addressData);
@@ -40,14 +42,13 @@ public class AddressSteps extends BaseSteps {
     }
 
     @Given("My addresses list should be available")
-    public void my_addresses_list_available() throws IOException {
+    public void my_addresses_list_available() {
         CarsiAddressesClient carsiAddressesClient = new CarsiAddressesClient(BaseUrls.getCarsiBaseUrl());
         IRestResponse<AvailableAddressResponse> addressesResponse = carsiAddressesClient.getAddresses();
         Assert.assertTrue(addressesResponse.isSuccessful());
 
         List<AvailableAddressData> addressDataList = addressesResponse.getBody().getData();
         getScenarioContext().setContext(Context.ADDRESS_LIST, addressDataList);
-
     }
 
     @Given("I select pinned available address")

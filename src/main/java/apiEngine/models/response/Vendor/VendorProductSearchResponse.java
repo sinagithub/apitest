@@ -1,7 +1,7 @@
 package apiEngine.models.response.Vendor;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,18 +10,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "Version",
+        "InfoList",
+        "Data",
         "TotalCount",
         "PageIndex",
         "PageSize",
         "HasNext",
         "HasPrev",
-        "TotalPageCount",
-        "Data",
-        "InfoList"
+        "TotalPageCount"
 })
-@Generated("jsonschema2pojo")
+
 public class VendorProductSearchResponse {
 
+    @JsonProperty("Version")
+    private String version;
+    @JsonProperty("InfoList")
+    private List<Info> infoList = null;
+    @JsonProperty("Data")
+    private List<Product> data = null;
     @JsonProperty("TotalCount")
     private Integer totalCount;
     @JsonProperty("PageIndex")
@@ -34,10 +41,36 @@ public class VendorProductSearchResponse {
     private Boolean hasPrev;
     @JsonProperty("TotalPageCount")
     private Integer totalPageCount;
-    @JsonProperty("Data")
-    private List<Product> data = null;
+
+    @JsonProperty("Version")
+    public String getVersion() {
+        return version;
+    }
+
+    @JsonProperty("Version")
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     @JsonProperty("InfoList")
-    private List<Info> infoList = null;
+    public List<Info> getInfoList() {
+        return infoList;
+    }
+
+    @JsonProperty("InfoList")
+    public void setInfoList(List<Info> infoList) {
+        this.infoList = infoList;
+    }
+
+    @JsonProperty("Data")
+    public List<Product> getData() {
+        return data;
+    }
+
+    @JsonProperty("Data")
+    public void setData(List<Product> data) {
+        this.data = data;
+    }
 
     @JsonProperty("TotalCount")
     public Integer getTotalCount() {
@@ -97,26 +130,6 @@ public class VendorProductSearchResponse {
     @JsonProperty("TotalPageCount")
     public void setTotalPageCount(Integer totalPageCount) {
         this.totalPageCount = totalPageCount;
-    }
-
-    @JsonProperty("Data")
-    public List<Product> getData() {
-        return data;
-    }
-
-    @JsonProperty("Data")
-    public void setData(List<Product> data) {
-        this.data = data;
-    }
-
-    @JsonProperty("InfoList")
-    public List<Info> getInfoList() {
-        return infoList;
-    }
-
-    @JsonProperty("InfoList")
-    public void setInfoList(List<Info> infoList) {
-        this.infoList = infoList;
     }
 
 }

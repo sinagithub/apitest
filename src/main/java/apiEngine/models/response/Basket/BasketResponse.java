@@ -15,18 +15,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class BasketResponse {
 
     @JsonProperty("Data")
-    private BasketData basketData;
+    private BasketData data;
     @JsonProperty("InfoList")
     private List<Object> infoList = null;
 
-    @JsonProperty("Data")
-    public BasketData getData() {
-        return basketData;
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public BasketResponse() {
+    }
+
+    /**
+     *
+     * @param data
+     * @param infoList
+     */
+    public BasketResponse(BasketData data, List<Object> infoList) {
+        super();
+        this.data = data;
+        this.infoList = infoList;
     }
 
     @JsonProperty("Data")
-    public void setData(BasketData basketData) {
-        this.basketData = basketData;
+    public BasketData getData() {
+        return data;
+    }
+
+    @JsonProperty("Data")
+    public void setData(BasketData data) {
+        this.data = data;
     }
 
     @JsonProperty("InfoList")

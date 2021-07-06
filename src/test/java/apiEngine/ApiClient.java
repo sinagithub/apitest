@@ -1,5 +1,9 @@
 package apiEngine;
 
+import apiEngine.Utilies.GuidHelper;
+import apiEngine.Utilies.LatLongHelper;
+import apiEngine.Utilies.PlatformTypeHelper;
+import apiEngine.Utilies.TokenHelper;
 import cucumber.CustomLogFilter;
 import cucumber.Storage;
 import io.restassured.RestAssured;
@@ -82,7 +86,6 @@ public class ApiClient extends Hooks {
     }
 
     public Response getImageUrlResponse(String imageUrl) {
-        writeStepLog(false, true);
         RestAssuredConfig config = RestConfig.createConfig();
         cdnRequest = RestAssured.given().config(config);
         return cdnRequest.get(imageUrl);

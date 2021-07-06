@@ -1,20 +1,10 @@
 package apiEngine.models.response.Vendor;
 
-import javax.annotation.Generated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-
-import java.util.List;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.cucumber.java.eo.Do;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -30,7 +20,7 @@ import io.cucumber.java.eo.Do;
         "CategoryId",
         "BadgeType"
 })
-@Generated("jsonschema2pojo")
+
 public class Product {
 
     @JsonProperty("Id")
@@ -42,7 +32,7 @@ public class Product {
     @JsonProperty("ImageUrl")
     private List<String> imageUrl = null;
     @JsonProperty("Price")
-    private Double price;
+    private Integer price;
     @JsonProperty("DiscountedPrice")
     private Integer discountedPrice;
     @JsonProperty("MaximumSaleAmount")
@@ -97,12 +87,12 @@ public class Product {
     }
 
     @JsonProperty("Price")
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
     @JsonProperty("Price")
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

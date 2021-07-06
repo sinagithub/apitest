@@ -10,14 +10,15 @@ import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorBasi
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorDetailResponse;
 import io.restassured.response.Response;
 
-public class CarsiInternalVendor extends ApiClient {
+public class CarsiInternalVendorClient extends ApiClient {
 
-    public CarsiInternalVendor(String baseUrl) {
+    public CarsiInternalVendorClient(String baseUrl) {
         super(baseUrl);
     }
 
     public IRestResponse<InternalVendorBasicResponse> getVendorBasic(String vendorId){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .get(InternalVendorRoute.getVendorBasic());
         writeStepLog();
@@ -26,6 +27,7 @@ public class CarsiInternalVendor extends ApiClient {
 
     public Response setVendorClose(String vendorId, String operatingUserId){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .queryParam("operatingUserId",operatingUserId)
                 .put(InternalVendorRoute.closeVendor());
@@ -35,6 +37,7 @@ public class CarsiInternalVendor extends ApiClient {
 
     public Response setVendorOpen(String vendorId, String operatingUserId){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .queryParam("operatingUserId",operatingUserId)
                 .put(InternalVendorRoute.openVendor());
@@ -44,6 +47,7 @@ public class CarsiInternalVendor extends ApiClient {
 
     public Response getPaymentTypes(String vendorId){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .get(InternalVendorRoute.vendorPaymentTypes());
         writeStepLog();
@@ -52,6 +56,7 @@ public class CarsiInternalVendor extends ApiClient {
 
     public IRestResponse<InternalVendorDetailResponse> getVendorDetail(String vendorId){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .get(InternalVendorRoute.getVendor());
         writeStepLog();
@@ -60,6 +65,7 @@ public class CarsiInternalVendor extends ApiClient {
 
     public Response setVendorInformation(UpdateVendorRequest updateVendorRequest, String vendorId){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .body(updateVendorRequest)
                 .put(InternalVendorRoute.getVendor());
@@ -69,10 +75,12 @@ public class CarsiInternalVendor extends ApiClient {
 
     public Response setVendorWorkingDay(String vendorId, SetVendorWorkingDaysRequest setVendorWorkingDaysRequest){
         Response response = createRequest()
+                .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
                 .body(setVendorWorkingDaysRequest)
                 .put(InternalVendorRoute.getWorkingDay());
         writeStepLog();
         return response;
     }
+
 }

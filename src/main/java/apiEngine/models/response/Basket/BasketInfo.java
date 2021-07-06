@@ -1,5 +1,6 @@
 package apiEngine.models.response.Basket;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "VendorId",
         "VendorName",
         "MinimumDeliveryTotal",
-        "DeliveryFree",
+        "DeliveryFee",
         "Total",
         "SubTotal",
         "VendorCategory",
@@ -43,6 +44,42 @@ public class BasketInfo {
     private String vendorCategory;
     @JsonProperty("VendorLogo")
     private String vendorLogo;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public BasketInfo() {
+    }
+
+    /**
+     *
+     * @param basketId
+     * @param total
+     * @param deliveryFee
+     * @param vendorCategory
+     * @param basketStatus
+     * @param vendorId
+     * @param subTotal
+     * @param isFreeOrder
+     * @param vendorName
+     * @param vendorLogo
+     * @param minimumDeliveryTotal
+     */
+    public BasketInfo(String basketId, Integer basketStatus, Boolean isFreeOrder, String vendorId, String vendorName, Double minimumDeliveryTotal, Double deliveryFee, Double total, Double subTotal, String vendorCategory, String vendorLogo) {
+        super();
+        this.basketId = basketId;
+        this.basketStatus = basketStatus;
+        this.isFreeOrder = isFreeOrder;
+        this.vendorId = vendorId;
+        this.vendorName = vendorName;
+        this.minimumDeliveryTotal = minimumDeliveryTotal;
+        this.deliveryFee = deliveryFee;
+        this.total = total;
+        this.subTotal = subTotal;
+        this.vendorCategory = vendorCategory;
+        this.vendorLogo = vendorLogo;
+    }
 
     @JsonProperty("BasketId")
     public String getBasketId() {
@@ -104,12 +141,12 @@ public class BasketInfo {
         this.minimumDeliveryTotal = minimumDeliveryTotal;
     }
 
-    @JsonProperty("DeliveryFree")
+    @JsonProperty("DeliveryFee")
     public Double getDeliveryFee() {
         return deliveryFee;
     }
 
-    @JsonProperty("DeliveryFree")
+    @JsonProperty("DeliveryFee")
     public void setDeliveryFee(Double deliveryFee) {
         this.deliveryFee = deliveryFee;
     }
@@ -134,27 +171,24 @@ public class BasketInfo {
         this.subTotal = subTotal;
     }
 
-    public Boolean getFreeOrder() {
-        return isFreeOrder;
-    }
-
-    public void setFreeOrder(Boolean freeOrder) {
-        isFreeOrder = freeOrder;
-    }
-
+    @JsonProperty("VendorCategory")
     public String getVendorCategory() {
         return vendorCategory;
     }
 
+    @JsonProperty("VendorCategory")
     public void setVendorCategory(String vendorCategory) {
         this.vendorCategory = vendorCategory;
     }
 
+    @JsonProperty("VendorLogo")
     public String getVendorLogo() {
         return vendorLogo;
     }
 
+    @JsonProperty("VendorLogo")
     public void setVendorLogo(String vendorLogo) {
         this.vendorLogo = vendorLogo;
     }
+
 }

@@ -1,22 +1,22 @@
 @SmokeTest @Favorite
 Feature: Favorite Api controls
 
-  Background: Login and Address Listing
+  Background: Login
     Given I select city "TR_ISTANBUL"
     And I am an authorized  user "Login"
     And  My addresses list should be available
     When  I select pinned available address
+
+  Scenario: I can add/delete vendor to empty favorite list
+    Then I select Mahalle platform
     And I get Favorite list
     And I delete all vendor
     And I get all favorite vendor list
     And I delete all added favorite products
-
-
-  Scenario: I can add/delete vendor to empty favorite list
     When I get Favorite list
     Then I can see the favorite list is empty
     When A list of Carşı Vendor are available on home page
-    And I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     Then I add selected vendor to favorite list
     When I get Favorite list
     Then I can see the added vendor on the favorite list
@@ -26,7 +26,7 @@ Feature: Favorite Api controls
 
   Scenario: I can add/delete product to favorite list
     When A list of Carşı Vendor are available on home page
-    And I select first vendor from "Super Market" category on home page
+    And I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -44,7 +44,7 @@ Feature: Favorite Api controls
 
   Scenario: I validate vendor favorite products and favorite list product size
     When A list of Carşı Vendor are available on home page
-    And I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -66,7 +66,7 @@ Feature: Favorite Api controls
 
   Scenario: Favorite parameter validations
     When A list of Carşı Vendor are available on home page
-    And I select first vendor from "Super Market" category on home page
+  Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -85,7 +85,6 @@ Feature: Favorite Api controls
     When I get vendor favorite list
     Then I check added product id is valid on favorite product list
     And I check added product Name is valid on favorite product list
-    And I check added product UnitMass is valid on favorite product list
     And I check added product Price is valid on favorite product list
     And I check added product ImageUrl status is 200 on favorite product list
     And I get all favorite vendor list
@@ -123,7 +122,7 @@ Feature: Favorite Api controls
 
   Scenario: Vendor sorting validation when both banabi & carsi vendors exist in favorite list
     When A list of Carşı Vendor are available on home page
-    And I select first vendor from "Super Market" category on home page
+  Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     Then I add selected vendor to favorite list
     When I get Favorite list
     And I can see the added vendor on the favorite list

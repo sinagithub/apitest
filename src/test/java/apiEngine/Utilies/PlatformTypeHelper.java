@@ -1,4 +1,4 @@
-package apiEngine;
+package apiEngine.Utilies;
 
 public class PlatformTypeHelper {
     private String platformType;

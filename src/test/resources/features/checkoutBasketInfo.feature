@@ -9,7 +9,7 @@ Feature: Checkout User Tip controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor

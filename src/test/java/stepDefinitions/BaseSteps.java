@@ -1,9 +1,11 @@
 package stepDefinitions;
 
-import apiEngine.PlatformTypeHelper;
+import apiEngine.Utilies.PlatformTypeHelper;
 import clients.OauthCoreClient;
 import clients.carsi.*;
-import clients.carsi.microServiceClients.CarsiInternalVendor;
+import clients.carsi.microServiceClients.CarsiInternalVendorClient;
+import clients.carsi.microServiceClients.InternalMarketingClient;
+import clients.carsi.microServiceClients.InternalTaggingClient;
 import cucumber.ScenarioContext;
 import cucumber.TestContext;
 import io.restassured.http.ContentType;
@@ -29,9 +31,12 @@ public class BaseSteps {
     private CarsiContentClient carsiContentClient;
     private CarsiOrderClient carsiOrderClient;
     private CarsiPaymentClient carsiPaymentClient;
-    private CarsiInternalVendor carsiInternalVendor;
+    private CarsiInternalVendorClient carsiInternalVendorClient;
     private CarsiCheckoutClient carsiCheckoutClient;
     private CarsiAddressesClient carsiAddressClient;
+    private InternalTaggingClient internalTaggingClient;
+    private InternalMarketingClient internalMarketingClient;
+    private CarsiCampaignsClient carsiCampaignsClient;
 
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
@@ -45,9 +50,12 @@ public class BaseSteps {
         carsiContentClient = testContext.getCarsiContentClient();
         carsiOrderClient = testContext.getCarsiOrderClient();
         carsiPaymentClient = testContext.getCarsiPaymentClient();
-        carsiInternalVendor = testContext.getCarsiInternalVendorClient();
+        carsiInternalVendorClient = testContext.getCarsiInternalVendorClient();
         carsiCheckoutClient = testContext.getCarsiCheckoutClient();
         carsiAddressClient = testContext.getCarsiAddressClient();
+        internalTaggingClient = testContext.getInternalTaggingClint();
+        internalMarketingClient = testContext.getInternalMarketingClient();
+        carsiCampaignsClient = testContext.getCampaignsClient();
     }
 
 
@@ -107,11 +115,21 @@ public class BaseSteps {
 
     public CarsiCheckoutClient getCarsiCheckoutClient(){return carsiCheckoutClient;}
 
-    public CarsiInternalVendor getCarsiInternalVendor(){
-        return carsiInternalVendor;
+    public CarsiInternalVendorClient getCarsiInternalVendorClient(){
+        return carsiInternalVendorClient;
     }
 
+    public InternalTaggingClient getInternalTaggingClient() {
+        return internalTaggingClient;
+    }
 
+    public InternalMarketingClient getInternalMarketingClient(){
+        return internalMarketingClient;
+    }
+
+    public CarsiCampaignsClient getCarsiCampaignsClient() {
+        return carsiCampaignsClient;
+    }
 
     public void assertNotNull(String property) {
         Assert.assertFalse(property.isEmpty());

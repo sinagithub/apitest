@@ -1,5 +1,5 @@
 @SmokeTest @OrderNote
-Feature: Order Api note controls
+Feature: Order note controls
 
   Scenario: New User can save order note and can get with get checkout
     Given I select city "TR_ISTANBUL"
@@ -9,7 +9,7 @@ Feature: Order Api note controls
     And I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
@@ -58,7 +58,7 @@ Feature: Order Api note controls
     And I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
@@ -67,9 +67,8 @@ Feature: Order Api note controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I get order notes on checkout
-    When I can write order note with character count 301 on checkout
-    ##Burda validasyon 500 dönüyor ?
-    Then I validate order note response status code is 500
+    When I can write order note with character count 401 on checkout
+    Then I validate order note response status code is 400
 
 
     Scenario: User can not save order note with 0 character
@@ -80,7 +79,7 @@ Feature: Order Api note controls
       And I get unique basket id
       And I delete basket
       When  A list of Carşı Vendor are available on home page
-      Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+      Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
       When I navigate selected vendor
       Then I choose a category with more than 10 products
       Then I choose a sub category with more than 11 products

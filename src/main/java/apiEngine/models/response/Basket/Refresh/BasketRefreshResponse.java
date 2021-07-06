@@ -1,7 +1,7 @@
 package apiEngine.models.response.Basket.Refresh;
 
 
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,7 +16,7 @@ import java.util.List;
         "InfoList",
         "Data"
 })
-@Generated("jsonschema2pojo")
+
 public class BasketRefreshResponse {
 
     @JsonProperty("Version")

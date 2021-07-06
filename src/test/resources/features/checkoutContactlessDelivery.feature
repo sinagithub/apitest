@@ -11,7 +11,7 @@ Feature: Checkout ContactlessDelivery delivery control
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
@@ -42,11 +42,11 @@ Feature: Checkout ContactlessDelivery delivery control
     And I check selected payment MethodId is "062" on put basket checkout response
 
   Scenario: ContactlessDelivery selectable control with no saved cards
-    And I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
+    And I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
     And  My addresses list should be available
     When  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -109,7 +109,7 @@ Feature: Checkout ContactlessDelivery delivery control
     And I check selected payment MethodId is "103" on put basket checkout response
 
   Scenario: ContactlessDelivery auto selection with no saved cards for banabi
-    And I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
+    And I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
     And  My addresses list should be available
     When  I select pinned available address
     When  Banabi Vendor is available
@@ -146,10 +146,10 @@ Feature: Checkout ContactlessDelivery delivery control
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
@@ -159,6 +159,9 @@ Feature: Checkout ContactlessDelivery delivery control
     When I get checkout options
     Then I check Contactless Delivery Option is showed "false" on basket checkout response
     And Staff update vendor payment method
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 3027292b-517b-495a-b14b-9ab0a18b73db |
+      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
 

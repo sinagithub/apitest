@@ -1,9 +1,9 @@
 package stepDefinitions;
 
 
-import apiEngine.EmailSender;
 import apiEngine.IRestResponse;
-import apiEngine.Utils;
+import apiEngine.Utilies.DateUtil;
+import apiEngine.Utilies.EmailSender;
 import apiEngine.models.requests.Basket.Checkout.Payment;
 import apiEngine.models.requests.Checkout.*;
 import apiEngine.models.response.Address.AvailableAddressData;
@@ -221,7 +221,12 @@ public class CheckoutOrderSteps extends BaseSteps {
         String paymentGroupId = getSelectedPayment().getPaymentMethodId();
         Boolean isFutureOrder = getDeliveryTimeOptions().getFuture().getSelected();
         String addressId = getSelectedAddress().getAddressId();
-        int alternateProductTypeIdd = getSelectedAlternateProductOptionTypeId();
+
+        int alternateProductTypeIdd = 0;
+        if (getSelectedAlternateProductOptionTypeId() != null){
+            alternateProductTypeIdd = getSelectedAlternateProductOptionTypeId();
+        }
+
         boolean isContactlessDelivery = getBasketCheckOutFromPutResponse().getContactlessDelivery();
         String selectedSlot = (String) getScenarioContext().getContext(Context.SELECTED_DELIVERY_TIME_TEXT);
         boolean usePoints = (boolean) getScenarioContext().getContext(Context.USE_POINT_SELECTION);
@@ -250,7 +255,7 @@ public class CheckoutOrderSteps extends BaseSteps {
                 addressId,
                 alternateProductTypeIdd,
                 isContactlessDelivery,
-                Utils.generateOrderDate(),
+                DateUtil.generateDateNow(),
                 selectedSlot,
                 usePoints,
                 threeDModel,

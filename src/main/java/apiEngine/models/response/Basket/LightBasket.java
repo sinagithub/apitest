@@ -1,7 +1,7 @@
 package apiEngine.models.response.Basket;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -12,24 +12,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "TotalLinesItemCount",
         "VendorId"
 })
-@Generated("jsonschema2pojo")
+
 public class LightBasket {
 
     @JsonProperty("Lines")
-    private List<Line> lines = null;
+    private List<BasketLine> basketLines = null;
     @JsonProperty("TotalLinesItemCount")
     private Integer totalLinesItemCount;
     @JsonProperty("VendorId")
     private String vendorId;
 
     @JsonProperty("Lines")
-    public List<Line> getLines() {
-        return lines;
+    public List<BasketLine> getLines() {
+        return basketLines;
     }
 
     @JsonProperty("Lines")
-    public void setLines(List<Line> lines) {
-        this.lines = lines;
+    public void setLines(List<BasketLine> basketLines) {
+        this.basketLines = basketLines;
     }
 
     @JsonProperty("TotalLinesItemCount")

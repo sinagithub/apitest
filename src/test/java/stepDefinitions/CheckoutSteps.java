@@ -113,7 +113,7 @@ public class CheckoutSteps extends BaseSteps {
     @Then("I validate user cards response code {string}")
     public void i_validate_user_cards_response_code(String expectedResponseCode) {
         String actualResponseCode = getUserCardResponse().getBody().getData().getResponseCode();
-        assertTrue(actualResponseCode.equalsIgnoreCase( expectedResponseCode), "ResponseCode sshould be " + expectedResponseCode);
+        assertTrue(actualResponseCode.equalsIgnoreCase( expectedResponseCode), "ResponseCode should be " + expectedResponseCode);
     }
 
     @Then("I validate user cards response HasSavedCreditCard is {string}")

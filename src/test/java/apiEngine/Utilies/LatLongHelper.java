@@ -1,4 +1,4 @@
-package apiEngine;
+package apiEngine.Utilies;
 
 public class LatLongHelper {
     private double latitude;

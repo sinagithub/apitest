@@ -1,8 +1,8 @@
 package stepDefinitions;
 
-import apiEngine.GenerateFakeData;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
+import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
 import apiEngine.models.requests.Basket.Checkout.BasketCheckOutRequest;
 import apiEngine.models.requests.Basket.Checkout.Donation;
@@ -110,8 +110,8 @@ public class BasketSteps extends BaseSteps {
         return (List<SavedNote>) getScenarioContext().getContext(Context.ORDER_NOTE_LIST);
     }
 
-    private CarsiVendor getSelectedVendor() {
-        return (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+    private MahalleVendor getSelectedVendor() {
+        return (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
     }
 
     private VendorData getSelectedVendorDetailData() {
@@ -160,7 +160,7 @@ public class BasketSteps extends BaseSteps {
     private List<Option> getOptionIfHasOptionFromProductDetail() {
         String basketId = getBasketId();
         Product product = getSelectedProduct();
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
 
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
@@ -177,7 +177,7 @@ public class BasketSteps extends BaseSteps {
     private String getProductDescFromDetail() {
         String basketId = getBasketId();
         Product product = getSelectedProduct();
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
 
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
@@ -201,7 +201,7 @@ public class BasketSteps extends BaseSteps {
     public void i_can_add_the_selected_product_to_basket(int quantity) {
         String basketId = getBasketId();
         Product product = getSelectedProduct();
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
         List<Option> options = getOptionIfHasOptionFromProductDetail();
@@ -271,12 +271,12 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check added product exists on add basket response")
     public void i_check_added_product_exists_in_basket() {
-        List<Line> lineList = getAddProductResponse().getBody().getData().getLightBasket().getLines();
+        List<BasketLine> basketLineList = getAddProductResponse().getBody().getData().getLightBasket().getLines();
         Product product = (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
         String productId = product.getId();
 
-        for (Line line : lineList) {
-            if (line.getProductId().equalsIgnoreCase(productId)) {
+        for (BasketLine basketLine : basketLineList) {
+            if (basketLine.getProductId().equalsIgnoreCase(productId)) {
                 return;
             }
         }
@@ -285,7 +285,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check added vendorId on the basket on add basket response")
     public void i_check_added_vendor_id_on_the_basket() {
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String addedVendorId = getAddProductResponse().getBody().getData().getLightBasket().getVendorId();
         assertEqual("Added vendor id should be valid on the basket ", selectedVendor.getId(), addedVendorId);
 
@@ -310,6 +310,7 @@ public class BasketSteps extends BaseSteps {
         String basketId = getBasketId();
         IRestResponse<BasketResponse> getBasketResponse = getCarsiBasketClient().getBasket(basketId);
         getScenarioContext().setContext(Context.BASKET_RESPONSE, getBasketResponse);
+        assertTrue(getBasketResponse.isSuccessful(),"Basket response status should be 200");
     }
 
     private BasketLine getBasketLineInfo(Product product) {
@@ -324,18 +325,18 @@ public class BasketSteps extends BaseSteps {
         return lineList.get(index);
     }
 
-    private Line getBasketLiteLineInfo(Product product) {
+    private BasketLine getBasketLiteLineInfo(Product product) {
         IRestResponse<LiteBasketResponse> liteBasketResponse =
                 (IRestResponse<LiteBasketResponse>) getScenarioContext().getContext(Context.LITE_BASKET_RESPONSE);
-        List<Line> lineList = liteBasketResponse.getBody().getData().getLines();
+        List<BasketLine> basketLineList = liteBasketResponse.getBody().getData().getLines();
         String productId = product.getId();
         int index = -1;
-        for (Line line : lineList) {
-            if (line.getId().equalsIgnoreCase(productId)) {
-                index = lineList.indexOf(line);
+        for (BasketLine basketLine : basketLineList) {
+            if (basketLine.getId().equalsIgnoreCase(productId)) {
+                index = basketLineList.indexOf(basketLine);
             }
         }
-        return lineList.get(index);
+        return basketLineList.get(index);
     }
 
     @Then("I can check product exists in basket")
@@ -421,12 +422,19 @@ public class BasketSteps extends BaseSteps {
         getScenarioContext().setContext(Context.LITE_BASKET_RESPONSE, liteBasketResponse);
     }
 
+    @When("I check lite basket response status is {int}")
+    public void i_get_basket_line_counts_with_lite_basket(Integer status) {
+        String basketId = getBasketId();
+        IRestResponse<LiteBasketResponse> liteBasketResponse = getCarsiBasketClient().getLiteBasket(basketId);
+        getScenarioContext().setContext(Context.LITE_BASKET_RESPONSE, liteBasketResponse);
+    }
+
     @Then("I can see the product quantity is {int} product index {int} in lite basket")
     public void i_can_see_the_product_quantity_is_product_index(Integer expectedQuantity, Integer productIndex) {
         IRestResponse<LiteBasketResponse> liteBasketResponse =
                 (IRestResponse<LiteBasketResponse>) getScenarioContext().getContext(Context.LITE_BASKET_RESPONSE);
-        Line line = liteBasketResponse.getBody().getData().getLines().get(productIndex);
-        int actualQuantity = line.getQuantity();
+        BasketLine basketLine = liteBasketResponse.getBody().getData().getLines().get(productIndex);
+        int actualQuantity = basketLine.getQuantity();
         assertTrue(expectedQuantity == actualQuantity, "Product quantity should "
                 + expectedQuantity + " not " + actualQuantity);
     }
@@ -444,8 +452,8 @@ public class BasketSteps extends BaseSteps {
     public void i_check_line_products_is_valid_on_lite_basket_response() {
         List<Product> addedProductList = (List<Product>) getScenarioContext().getContext(Context.ADDED_PRODUCT_LIST);
         for (Product product : addedProductList) {
-            Line productLine = getBasketLiteLineInfo(product);
-            String productId = productLine.getProductId();
+            BasketLine productBasketLine = getBasketLiteLineInfo(product);
+            String productId = productBasketLine.getProductId();
             String expectedLineProductId = product.getId();
             assertTrue(expectedLineProductId.contains(productId), "Product id should be " + expectedLineProductId +
                     " not " + productId);
@@ -541,16 +549,16 @@ public class BasketSteps extends BaseSteps {
                 (IRestResponse<AddProductToBasketResponse>) getScenarioContext().getContext(Context.ADD_BASKET_RESPONSE);
         String addedProductId = addedProductRequest.getProductId();
 
-        List<Line> basketLines = addProductResponse.getBody().getData().getLightBasket().getLines();
+        List<BasketLine> basketBasketLines = addProductResponse.getBody().getData().getLightBasket().getLines();
         int addedProductIndex = -1;
-        for (Line line : basketLines) {
-            if (line.getProductId().equalsIgnoreCase(addedProductId)) {
-                addedProductIndex = basketLines.indexOf(line);
+        for (BasketLine basketLine : basketBasketLines) {
+            if (basketLine.getProductId().equalsIgnoreCase(addedProductId)) {
+                addedProductIndex = basketBasketLines.indexOf(basketLine);
             }
         }
         int expectedQuantity =
                 addProductResponse.getBody().getData().getLightBasket().getLines().get(addedProductIndex).getQuantity();
-        int actualQuantity = basketLines.get(addedProductIndex).getQuantity();
+        int actualQuantity = basketBasketLines.get(addedProductIndex).getQuantity();
 
         assertTrue(expectedQuantity == actualQuantity, "Added quantity and basket product quantity should be equal");
 
@@ -1234,7 +1242,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check DeliveryFree is valid on get checkout response")
     public void i_check_delivery_free_is_valid_on_get_checkout_response() {
-        double actualDeliveryFree = getCheckOutBasketInfo().getDeliveryFree();
+        double actualDeliveryFree = getCheckOutBasketInfo().getDeliveryFee();
         double expectedDeliveryFree = getBasketInfo().getDeliveryFee();
         assertTrue(actualDeliveryFree == expectedDeliveryFree, "DeliveryFree should be " + expectedDeliveryFree + " " +
                 "not " + actualDeliveryFree);
@@ -1407,20 +1415,21 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I add selected product until the basket amount is higher than minimum delivery price")
     public void i_add_selected_product_until_the_basket_amount_is_higher_than_minimum_delivery_price() {
-        double deliveryFee = getSelectedVendorDeliveryFee();
+        i_get_the_basket();
+        double minDeliveryTotal = getBasketResponse().getBody().getData().getBasketInfo().getMinimumDeliveryTotal();
+
         int maxQuantity = 30;
         i_can_add_the_selected_product_to_basket(1);
         for (int i = 0; i < maxQuantity; i++) {
             maxQuantity--;
             i_get_the_basket();
             double basketTotal = getBasketInfo().getTotal();
-            if (basketTotal < deliveryFee && maxQuantity != 0) {
+            if (basketTotal < minDeliveryTotal && maxQuantity != 0) {
                 i_can_add_the_selected_product_to_basket(1);
             } else {
                 break;
             }
         }
     }
-
 
 }

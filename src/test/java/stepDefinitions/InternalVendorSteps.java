@@ -1,13 +1,13 @@
 package stepDefinitions;
 
-import apiEngine.GuidHelper;
 import apiEngine.IRestResponse;
-import apiEngine.Utils;
+import apiEngine.Utilies.GuidHelper;
+import apiEngine.Utilies.Utils;
 import apiEngine.models.requests.InternalVendor.SetVendorWorkingDaysRequest;
 import apiEngine.models.requests.InternalVendor.UpdateVendorRequest;
 import apiEngine.models.requests.InternalVendor.WorkingDay;
 import apiEngine.models.response.Address.AvailableAddressData;
-import apiEngine.models.response.CarsiVendor;
+import apiEngine.models.response.MahalleVendor;
 import apiEngine.models.response.MicroServices.InternalVendor.Category;
 import apiEngine.models.response.MicroServices.InternalVendor.DeliveryType;
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorDetailResponse;
@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("unchecked")
 public class InternalVendorSteps extends BaseSteps {
@@ -28,12 +27,12 @@ public class InternalVendorSteps extends BaseSteps {
         super(testContext);
     }
 
-    private List<CarsiVendor> getHomeVendorList() {
-        return (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+    private List<MahalleVendor> getHomeVendorList() {
+        return (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
     }
 
-    private CarsiVendor getSelectedVendor() {
-        return (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+    private MahalleVendor getSelectedVendor() {
+        return (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
     }
 
     private AvailableAddressData getSelectedAddress(){
@@ -45,8 +44,7 @@ public class InternalVendorSteps extends BaseSteps {
         String selectedVendorId = getSelectedVendor().getId();
         GuidHelper.getInstance().setGuid();
         String operatingUserId = GuidHelper.getInstance().getGuid();
-        ;
-        getCarsiInternalVendor().setVendorClose(selectedVendorId, operatingUserId);
+        getCarsiInternalVendorClient().setVendorClose(selectedVendorId, operatingUserId);
     }
 
     @Then("Vendor staff open the selected shop")
@@ -54,8 +52,7 @@ public class InternalVendorSteps extends BaseSteps {
         String selectedVendorId = getSelectedVendor().getId();
         GuidHelper.getInstance().setGuid();
         String operatingUserId = GuidHelper.getInstance().getGuid();
-        ;
-        getCarsiInternalVendor().setVendorOpen(selectedVendorId, operatingUserId);
+        getCarsiInternalVendorClient().setVendorOpen(selectedVendorId, operatingUserId);
     }
 
     private boolean paymentMethodIsExist(List<String> vendorPaymentMethodList, String paymentMethodId) {
@@ -74,10 +71,10 @@ public class InternalVendorSteps extends BaseSteps {
 
     @When("I select vendor with payment method {string}")
     public void i_select_vendor_with_payment_method(String paymentMethodId) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        for (MahalleVendor vendor : vendorList) {
             String vendorId = vendor.getId();
-            List<String> paymentsMethods = getCarsiInternalVendor().getPaymentTypes(vendorId).jsonPath().get();
+            List<String> paymentsMethods = getCarsiInternalVendorClient().getPaymentTypes(vendorId).jsonPath().get();
             if (paymentMethodIsExist(paymentsMethods, paymentMethodId)) {
                 getScenarioContext().setContext(Context.SELECTED_VENDOR, vendor);
                 break;
@@ -87,10 +84,10 @@ public class InternalVendorSteps extends BaseSteps {
 
     @When("I select vendor with payment methods$")
     public void i_select_vendor_with_payment_methods(List<String> expectedPaymentMethodIdList) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        for (MahalleVendor vendor : vendorList) {
             String vendorId = vendor.getId();
-            List<String> paymentsMethods = getCarsiInternalVendor().getPaymentTypes(vendorId).jsonPath().get();
+            List<String> paymentsMethods = getCarsiInternalVendorClient().getPaymentTypes(vendorId).jsonPath().get();
             if (paymentMethodsIsExist(paymentsMethods, expectedPaymentMethodIdList)) {
                 getScenarioContext().setContext(Context.SELECTED_VENDOR, vendor);
                 break;
@@ -103,7 +100,7 @@ public class InternalVendorSteps extends BaseSteps {
     public void staff_get_selected_vendor_details_from_internal_vendor() {
         String selectedVendorId = getSelectedVendor().getId();
         IRestResponse<InternalVendorDetailResponse> vendorDetailResponse =
-                getCarsiInternalVendor().getVendorDetail(selectedVendorId);
+                getCarsiInternalVendorClient().getVendorDetail(selectedVendorId);
         getScenarioContext().setContext(Context.INTERNAL_VENDOR_DETAIL, vendorDetailResponse);
     }
 
@@ -151,13 +148,12 @@ public class InternalVendorSteps extends BaseSteps {
                 logoUrl, brandImageUrl,
                 acceptFutureOrder, isTipAvailable,
                 deliveryTypes, categoryList, paymentMethodList, operatingUserId);
-        getCarsiInternalVendor().setVendorInformation(updateVendorRequest, selectedVendorId);
+        getCarsiInternalVendorClient().setVendorInformation(updateVendorRequest, selectedVendorId);
     }
 
 
     @Then("Staff update vendor delivery time method set AcceptsFutureOrder {string}")
     public void staff_update_vendor_payment_method(String acceptsFutureOrder) {
-        AvailableAddressData selectedAddress = getSelectedAddress();
         GuidHelper.getInstance().setGuid();
         String selectedVendorId = getSelectedVendor().getId();
         String operatingUserId = "12345";
@@ -183,12 +179,8 @@ public class InternalVendorSteps extends BaseSteps {
         List<String> paymentMethodList = Arrays.asList("111fb8a2-45a4-4e09-8a10-4d7d94d70be3", "de2e3a82-8b55-4334" +
                 "-8a2e-467fe7f7db24");
 
-        boolean acceptFutureOrder = true;
-        if (acceptsFutureOrder.equalsIgnoreCase("True")) {
-            acceptFutureOrder = true;
-        } else {
-            acceptFutureOrder = false;
-        }
+        boolean acceptFutureOrderReq;
+        acceptFutureOrderReq = acceptsFutureOrder.equalsIgnoreCase("True");
 
 
         List<DeliveryType> deliveryTypes = internalVendorDetails.getBody().getDeliveryTypes();
@@ -204,9 +196,9 @@ public class InternalVendorSteps extends BaseSteps {
                 maxDeliveryMinutes, minBasketAmount,
                 maxBasketCapacity, deliveryFee,
                 logoUrl, brandImageUrl,
-                acceptFutureOrder, isTipAvailable,
+                acceptFutureOrderReq, isTipAvailable,
                 deliveryTypes, categoryList, paymentMethodList, operatingUserId);
-        getCarsiInternalVendor().setVendorInformation(updateVendorRequest, selectedVendorId);
+        getCarsiInternalVendorClient().setVendorInformation(updateVendorRequest, selectedVendorId);
     }
 
     @Then("Staff create working pool for selected vendor")
@@ -236,7 +228,7 @@ public class InternalVendorSteps extends BaseSteps {
         List<WorkingDay> workingDayPool = (List<WorkingDay>) getScenarioContext().getContext(Context.WORK_DAY_POOL);
         SetVendorWorkingDaysRequest setVendorWorkingDaysRequest = new SetVendorWorkingDaysRequest(deliveryInterval,
                 workingDayPool, operationUserId);
-        getCarsiInternalVendor().setVendorWorkingDay(selectedVendorId, setVendorWorkingDaysRequest);
+        getCarsiInternalVendorClient().setVendorWorkingDay(selectedVendorId, setVendorWorkingDaysRequest);
     }
 
     @Then("Staff select vendor workday for only tomorrow StartHour {int}, StartMinute {int}, EndHour {int}, EndMinute" +
@@ -247,5 +239,7 @@ public class InternalVendorSteps extends BaseSteps {
         staff_select_working_day_of_week_start_hour_start_minute_end_hour_end_minute(nextDayOfWeek,startHour,startMinute,endHour,endMinute);
 
     }
+
+
 
 }

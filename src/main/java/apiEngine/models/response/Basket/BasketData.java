@@ -1,6 +1,9 @@
 package apiEngine.models.response.Basket;
-
 import java.util.List;
+
+
+import apiEngine.models.response.Basket.Campaign.Campaign;
+import apiEngine.models.response.Basket.Campaign.Coupon;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -12,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Lines",
         "Campaigns",
         "ValidationInfo",
-        "BasketVolume"
+        "BasketVolume",
+        "Coupons"
 })
 
 public class BasketData {
@@ -22,13 +26,43 @@ public class BasketData {
     @JsonProperty("BasketInfo")
     private BasketInfo basketInfo;
     @JsonProperty("Lines")
-    private List<BasketLine> lines = null;
+    private List<BasketLine> basketLines = null;
     @JsonProperty("Campaigns")
-    private List<Object> campaigns = null;
+    private List<Campaign> campaigns = null;
     @JsonProperty("ValidationInfo")
     private ValidationInfo validationInfo;
     @JsonProperty("BasketVolume")
     private Integer basketVolume;
+    @JsonProperty("Coupons")
+    private List<Coupon> coupons = null;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public BasketData() {
+    }
+
+    /**
+     *
+     * @param totalCampaignCount
+     * @param campaigns
+     * @param coupons
+     * @param basketInfo
+     * @param validationInfo
+     * @param basketVolume
+     * @param basketLines
+     */
+    public BasketData(Integer totalCampaignCount, BasketInfo basketInfo, List<BasketLine> basketLines, List<Campaign> campaigns, ValidationInfo validationInfo, Integer basketVolume, List<Coupon> coupons) {
+        super();
+        this.totalCampaignCount = totalCampaignCount;
+        this.basketInfo = basketInfo;
+        this.basketLines = basketLines;
+        this.campaigns = campaigns;
+        this.validationInfo = validationInfo;
+        this.basketVolume = basketVolume;
+        this.coupons = coupons;
+    }
 
     @JsonProperty("TotalCampaignCount")
     public Integer getTotalCampaignCount() {
@@ -52,21 +86,21 @@ public class BasketData {
 
     @JsonProperty("Lines")
     public List<BasketLine> getLines() {
-        return lines;
+        return basketLines;
     }
 
     @JsonProperty("Lines")
-    public void setLines(List<BasketLine> lines) {
-        this.lines = lines;
+    public void setLines(List<BasketLine> basketLines) {
+        this.basketLines = basketLines;
     }
 
     @JsonProperty("Campaigns")
-    public List<Object> getCampaigns() {
+    public List<Campaign> getCampaigns() {
         return campaigns;
     }
 
     @JsonProperty("Campaigns")
-    public void setCampaigns(List<Object> campaigns) {
+    public void setCampaigns(List<Campaign> campaigns) {
         this.campaigns = campaigns;
     }
 
@@ -88,6 +122,16 @@ public class BasketData {
     @JsonProperty("BasketVolume")
     public void setBasketVolume(Integer basketVolume) {
         this.basketVolume = basketVolume;
+    }
+
+    @JsonProperty("Coupons")
+    public List<Coupon> getCoupons() {
+        return coupons;
+    }
+
+    @JsonProperty("Coupons")
+    public void setCoupons(List<Coupon> coupons) {
+        this.coupons = coupons;
     }
 
 }

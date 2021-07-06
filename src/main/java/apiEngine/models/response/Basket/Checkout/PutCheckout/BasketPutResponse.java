@@ -1,7 +1,7 @@
 package apiEngine.models.response.Basket.Checkout.PutCheckout;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,7 +14,7 @@ import io.cucumber.java.sl.In;
         "Data",
         "InfoList"
 })
-@Generated("jsonschema2pojo")
+
 public class BasketPutResponse {
 
     @JsonProperty("Data")

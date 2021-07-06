@@ -2,6 +2,7 @@ package apiEngine.models.response.Basket.Campaign;
 
 import java.util.List;
 
+
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,14 +14,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList",
         "Data"
 })
-public class GetCampaignsResponse {
+
+public class DeleteCouponResponse {
 
     @JsonProperty("Version")
     private String version;
     @JsonProperty("InfoList")
-    private List<Info> info = null;
+    private List<Info> infoList = null;
     @JsonProperty("Data")
-    private CampaignData campaignData;
+    private CouponCampaignData data;
 
     @JsonProperty("Version")
     public String getVersion() {
@@ -34,22 +36,22 @@ public class GetCampaignsResponse {
 
     @JsonProperty("InfoList")
     public List<Info> getInfoList() {
-        return info;
+        return infoList;
     }
 
     @JsonProperty("InfoList")
-    public void setInfoList(List<Info> info) {
-        this.info = info;
+    public void setInfoList(List<Info> infoList) {
+        this.infoList = infoList;
     }
 
     @JsonProperty("Data")
-    public CampaignData getData() {
-        return campaignData;
+    public CouponCampaignData getData() {
+        return data;
     }
 
     @JsonProperty("Data")
-    public void setData(CampaignData campaignData) {
-        this.campaignData = campaignData;
+    public void setData(CouponCampaignData data) {
+        this.data = data;
     }
 
 }

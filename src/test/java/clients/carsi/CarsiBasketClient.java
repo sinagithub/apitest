@@ -6,7 +6,12 @@ import apiEngine.Routes.BasketRoute;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
 import apiEngine.models.requests.Basket.Checkout.BasketCheckOutRequest;
 import apiEngine.models.requests.Basket.DeleteProductRequest;
+import apiEngine.models.requests.Campaign.ApplyCampaignRequest;
+import apiEngine.models.requests.Campaign.ApplyCouponRequest;
 import apiEngine.models.response.Basket.*;
+import apiEngine.models.response.Basket.Campaign.ApplyCampaignResponse;
+import apiEngine.models.response.Basket.Campaign.ApplyCouponResponse;
+import apiEngine.models.response.Basket.Campaign.DeleteCouponResponse;
 import apiEngine.models.response.Basket.Checkout.BasketCheckoutResponse;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
 import apiEngine.models.response.Basket.Upsell.BasketUpsellResponse;
@@ -92,19 +97,47 @@ public class CarsiBasketClient extends CarsiClient {
 
     public IRestResponse<BasketPutResponse> putCheckout(String basketId, BasketCheckOutRequest basketCheckOutRequest) {
         Response response = createRequest()
-                .pathParam("id",basketId)
+                .pathParam("id", basketId)
                 .body(basketCheckOutRequest)
                 .put(BasketRoute.getBasketCheckout());
         writeStepLog();
         return new RestResponse<>(BasketPutResponse.class, response);
     }
 
-    public IRestResponse<BasketUpsellResponse> getUpsell(String basketId){
+    public IRestResponse<BasketUpsellResponse> getUpsell(String basketId) {
         Response response = createRequest()
-                .pathParam("id",basketId)
+                .pathParam("id", basketId)
                 .get(BasketRoute.getBasketUpsell());
         writeStepLog();
         return new RestResponse<>(BasketUpsellResponse.class, response);
+    }
+
+    public IRestResponse<ApplyCouponResponse> applyCoupon(ApplyCouponRequest applyCouponRequest, String basketId) {
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .body(applyCouponRequest)
+                .post(BasketRoute.getCoupon());
+        writeStepLog();
+        return new RestResponse<>(ApplyCouponResponse.class, response);
+    }
+
+    public IRestResponse<ApplyCampaignResponse> applyCampaign(ApplyCampaignRequest applyCampaignRequest,
+                                                              String basketId) {
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .body(applyCampaignRequest)
+                .post(BasketRoute.getCampaign());
+        writeStepLog();
+        return new RestResponse<>(ApplyCampaignResponse.class, response);
+    }
+
+    public IRestResponse<DeleteCouponResponse> deleteCoupon(String basketId, String couponCode) {
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .pathParam("couponCode", couponCode)
+                .delete(BasketRoute.getCouponCode());
+        writeStepLog();
+        return new RestResponse<>(DeleteCouponResponse.class, response);
     }
 
 }

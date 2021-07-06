@@ -1,6 +1,6 @@
 package clients.carsi;
 
-import apiEngine.PlatformTypeHelper;
+import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.RestResponse;
 import apiEngine.Routes.FavoriteRoute;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
@@ -27,7 +27,6 @@ public class CarsiFavoriteClient extends CarsiClient {
     public RestResponse<VendorFavoriteResponse> getFavoriteVendorDetail(String vendorId) {
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
-                .header("PlatformType",PlatformTypeHelper.getInstance().getPlatformType())
                 .get(FavoriteRoute.getFavoriteVendorDetail());
         return new RestResponse<>(VendorFavoriteResponse.class, response);
     }
@@ -56,7 +55,6 @@ public class CarsiFavoriteClient extends CarsiClient {
         Response response = createRequest()
                 .pathParam("productId", productId)
                 .pathParam("vendorId", vendorId)
-                .header("PlatformType",PlatformTypeHelper.getInstance().getPlatformType())
                 .delete(FavoriteRoute.getDeleteFavoriteProduct());
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }
@@ -65,7 +63,6 @@ public class CarsiFavoriteClient extends CarsiClient {
 
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
-                .header("PlatformType",PlatformTypeHelper.getInstance().getPlatformType())
                 .delete(FavoriteRoute.getDeleteVendor());
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }

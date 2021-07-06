@@ -9,7 +9,7 @@ Feature: Checkout User Donation controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -39,7 +39,7 @@ Feature: Checkout User Donation controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -66,7 +66,7 @@ Feature: Checkout User Donation controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -91,7 +91,7 @@ Feature: Checkout User Donation controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor payment method
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
@@ -114,7 +114,7 @@ Feature: Checkout User Donation controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor

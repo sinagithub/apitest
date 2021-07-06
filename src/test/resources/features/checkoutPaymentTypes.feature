@@ -5,18 +5,14 @@ Feature: Checkout User Payment Method controls
     Given I select city "TR_ISTANBUL"
 
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes
-    Given I am an authorized user with "yahya.kara@yemeksepeti.com" "123456"
+    Given I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
     When I list my credit cards
     Then I validate CreditCards list is empty in user cards response
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
-    Then Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -42,7 +38,7 @@ Feature: Checkout User Payment Method controls
     When I list my credit cards
     Then I validate user cards response HasSavedCreditCard is "true"
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -75,12 +71,14 @@ Feature: Checkout User Payment Method controls
     And  I select pinned available address
     And I get unique basket id
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor payment method
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
       | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
       | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 3027292b-517b-495a-b14b-9ab0a18b73db |
+      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -101,8 +99,11 @@ Feature: Checkout User Payment Method controls
     And I check IsExpandable "<IsExpandable>" in selected payment method
     And I check IsExpanded "<IsExpanded>" in selected payment method
     And Staff update vendor payment method
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 3027292b-517b-495a-b14b-9ab0a18b73db |
+      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
 
     Examples: Expected Payment Method details
       | PaymentMainTypeId                    | Rank | PaymentMethodId                      | PaymentMethodsName | PaymentType | CheckoutTypeId | IconUrl                                                                         | Description                  | IsSelected | IsExpandable | IsExpanded |

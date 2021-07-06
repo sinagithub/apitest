@@ -11,7 +11,7 @@ Feature: Basket upsell Api controls
 
   Scenario: User can not list upsell products for Carsi Vendor
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category

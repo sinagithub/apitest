@@ -1,7 +1,7 @@
 package apiEngine.models.response.Vendor;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList",
         "Data"
 })
-@Generated("jsonschema2pojo")
+
 public class VendorProductsResponse {
 
     @JsonProperty("Version")
