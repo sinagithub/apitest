@@ -24,8 +24,8 @@ public class GenerateFakeData {
 
         Faker faker1 = new Faker();
         String name = faker1.lordOfTheRings().character();
-        int number = faker1.number().numberBetween(0 , 1000000);
-        return name + "--" + number;
+        int number = faker1.number().numberBetween(0 , 1000);
+        return number + name + "--" + number;
     }
 
 
