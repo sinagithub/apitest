@@ -306,7 +306,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 2
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
