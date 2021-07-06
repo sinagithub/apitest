@@ -2,7 +2,7 @@ package apiEngine.models.response.Address;
 
 
 import java.util.List;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Data",
         "InfoList"
 })
-@Generated("jsonschema2pojo")
+
 public class AvailableAddressResponse {
 
     @JsonProperty("Data")

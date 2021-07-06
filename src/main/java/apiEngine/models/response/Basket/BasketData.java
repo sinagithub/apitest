@@ -1,6 +1,6 @@
 package apiEngine.models.response.Basket;
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Basket.Campaign.Campaign;
 import apiEngine.models.response.Basket.Campaign.Coupon;
@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "BasketVolume",
         "Coupons"
 })
-@Generated("jsonschema2pojo")
+
 public class BasketData {
 
     @JsonProperty("TotalCampaignCount")

@@ -1,7 +1,7 @@
 package apiEngine.models.response.Basket.Campaign;
 
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "CampaignItem"
 })
-@Generated("jsonschema2pojo")
+
 public class Campaign {
 
     @JsonProperty("CampaignItem")

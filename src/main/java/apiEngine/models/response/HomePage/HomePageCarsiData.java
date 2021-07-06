@@ -1,45 +1,45 @@
 package apiEngine.models.response.HomePage;
 
 import java.util.List;
-import javax.annotation.Generated;
 
-import apiEngine.models.response.CarsiCategory;
-import apiEngine.models.response.CarsiVendor;
+
+import apiEngine.models.response.MahalleCategory;
+import apiEngine.models.response.MahalleVendor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "CarsiCategories",
-        "CarsiVendors"
+        "MahalleCategories",
+        "MahalleVendors"
 })
-@Generated("jsonschema2pojo")
+
 public class HomePageCarsiData {
 
-    @JsonProperty("CarsiCategories")
-    private List<CarsiCategory> carsiCategories = null;
-    @JsonProperty("CarsiVendors")
-    private List<CarsiVendor> carsiVendors = null;
+    @JsonProperty("MahalleCategories")
+    private List<MahalleCategory> carsiCategories = null;
+    @JsonProperty("MahalleVendors")
+    private List<MahalleVendor> mahalleVendors = null;
 
-    @JsonProperty("CarsiCategories")
-    public List<CarsiCategory> getCarsiCategories() {
+    @JsonProperty("MahalleCategories")
+    public List<MahalleCategory> getCarsiCategories() {
         return carsiCategories;
     }
 
-    @JsonProperty("CarsiCategories")
-    public void setCarsiCategories(List<CarsiCategory> carsiCategories) {
+    @JsonProperty("MahalleCategories")
+    public void setCarsiCategories(List<MahalleCategory> carsiCategories) {
         this.carsiCategories = carsiCategories;
     }
 
-    @JsonProperty("CarsiVendors")
-    public List<CarsiVendor> getCarsiVendors() {
-        return carsiVendors;
+    @JsonProperty("MahalleVendors")
+    public List<MahalleVendor> getCarsiVendors() {
+        return mahalleVendors;
     }
 
-    @JsonProperty("CarsiVendors")
-    public void setCarsiVendors(List<CarsiVendor> carsiVendors) {
-        this.carsiVendors = carsiVendors;
+    @JsonProperty("MahalleVendors")
+    public void setCarsiVendors(List<MahalleVendor> mahalleVendors) {
+        this.mahalleVendors = mahalleVendors;
     }
 
 }

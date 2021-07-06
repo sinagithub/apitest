@@ -1,6 +1,6 @@
 package apiEngine.models.response.Campaign;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "CampaignTitle",
         "Description"
 })
-@Generated("jsonschema2pojo")
+
 public class CampaignsData {
 
     @JsonProperty("ImageUrl")

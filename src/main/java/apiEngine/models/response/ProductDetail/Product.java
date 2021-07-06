@@ -1,6 +1,6 @@
 package apiEngine.models.response.ProductDetail;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "DiscountAppliedValue",
         "IsSelected"
 })
-@Generated("jsonschema2pojo")
+
 public class Product {
 
     @JsonProperty("Id")

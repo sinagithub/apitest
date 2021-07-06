@@ -2,7 +2,7 @@ package apiEngine.models.response.Basket.Campaign;
 
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Basket.BagInfo;
 import apiEngine.models.response.Basket.BasketInfo;
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "BagInfo",
         "Coupons"
 })
-@Generated("jsonschema2pojo")
+
 public class CouponCampaignData {
 
     @JsonProperty("TotalCampaignCount")

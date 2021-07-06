@@ -3,7 +3,7 @@ package apiEngine.models.response.ProductDetail;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.DoubleContextualSerializer;
 import apiEngine.models.Precision;
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
         "Options",
         "IsFavorite"
 })
-@Generated("jsonschema2pojo")
+
 public class Data {
 
     @JsonProperty("Id")

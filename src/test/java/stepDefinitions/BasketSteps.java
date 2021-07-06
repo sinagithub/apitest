@@ -110,8 +110,8 @@ public class BasketSteps extends BaseSteps {
         return (List<SavedNote>) getScenarioContext().getContext(Context.ORDER_NOTE_LIST);
     }
 
-    private CarsiVendor getSelectedVendor() {
-        return (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+    private MahalleVendor getSelectedVendor() {
+        return (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
     }
 
     private VendorData getSelectedVendorDetailData() {
@@ -160,7 +160,7 @@ public class BasketSteps extends BaseSteps {
     private List<Option> getOptionIfHasOptionFromProductDetail() {
         String basketId = getBasketId();
         Product product = getSelectedProduct();
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
 
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
@@ -177,7 +177,7 @@ public class BasketSteps extends BaseSteps {
     private String getProductDescFromDetail() {
         String basketId = getBasketId();
         Product product = getSelectedProduct();
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
 
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
@@ -201,7 +201,7 @@ public class BasketSteps extends BaseSteps {
     public void i_can_add_the_selected_product_to_basket(int quantity) {
         String basketId = getBasketId();
         Product product = getSelectedProduct();
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
         List<Option> options = getOptionIfHasOptionFromProductDetail();
@@ -285,7 +285,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check added vendorId on the basket on add basket response")
     public void i_check_added_vendor_id_on_the_basket() {
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String addedVendorId = getAddProductResponse().getBody().getData().getLightBasket().getVendorId();
         assertEqual("Added vendor id should be valid on the basket ", selectedVendor.getId(), addedVendorId);
 
@@ -417,6 +417,13 @@ public class BasketSteps extends BaseSteps {
 
     @When("I get basket line counts with lite basket")
     public void i_get_basket_line_counts_with_lite_basket() {
+        String basketId = getBasketId();
+        IRestResponse<LiteBasketResponse> liteBasketResponse = getCarsiBasketClient().getLiteBasket(basketId);
+        getScenarioContext().setContext(Context.LITE_BASKET_RESPONSE, liteBasketResponse);
+    }
+
+    @When("I check lite basket response status is {int}")
+    public void i_get_basket_line_counts_with_lite_basket(Integer status) {
         String basketId = getBasketId();
         IRestResponse<LiteBasketResponse> liteBasketResponse = getCarsiBasketClient().getLiteBasket(basketId);
         getScenarioContext().setContext(Context.LITE_BASKET_RESPONSE, liteBasketResponse);
@@ -1235,7 +1242,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check DeliveryFree is valid on get checkout response")
     public void i_check_delivery_free_is_valid_on_get_checkout_response() {
-        double actualDeliveryFree = getCheckOutBasketInfo().getDeliveryFree();
+        double actualDeliveryFree = getCheckOutBasketInfo().getDeliveryFee();
         double expectedDeliveryFree = getBasketInfo().getDeliveryFee();
         assertTrue(actualDeliveryFree == expectedDeliveryFree, "DeliveryFree should be " + expectedDeliveryFree + " " +
                 "not " + actualDeliveryFree);

@@ -1,7 +1,7 @@
 package apiEngine.models.response.Basket.Checkout;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Addresses",
         "DeliveryTimeOptions"
 })
-@Generated("jsonschema2pojo")
+
 public class BasketCheckout {
 
     @JsonProperty("BasketInfo")

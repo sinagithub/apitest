@@ -1,6 +1,6 @@
 package apiEngine.models.requests.InternalVendor;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "EndHour",
         "EndMinute"
 })
-@Generated("jsonschema2pojo")
+
 public class WorkingDay {
 
     @JsonProperty("DayOfWeek")

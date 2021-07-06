@@ -5,7 +5,7 @@ import apiEngine.IRestResponse;
 import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.models.requests.Favorite.AddFavoriteProductRequest;
 import apiEngine.models.requests.Favorite.AddFavoriteVendorRequest;
-import apiEngine.models.response.CarsiVendor;
+import apiEngine.models.response.MahalleVendor;
 import apiEngine.models.response.Favorite.GetFavoritesResponse;
 import apiEngine.models.response.Favorite.Vendor;
 import apiEngine.models.response.Favorite.VendorFavoriteResponse;
@@ -29,7 +29,7 @@ public class FavoriteSteps extends BaseSteps {
     }
 
     private String getSelectedVendorId() {
-        CarsiVendor selectedVendor = (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         return selectedVendor.getId();
     }
 
@@ -37,8 +37,8 @@ public class FavoriteSteps extends BaseSteps {
         return (Product) getScenarioContext().getContext(Context.SELECTED_PRODUCT);
     }
 
-    private CarsiVendor getSelectedVendor() {
-        return ((CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR));
+    private MahalleVendor getSelectedVendor() {
+        return ((MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR));
     }
 
     private IRestResponse<GetFavoritesResponse> getFavoritesResponse() {
@@ -193,9 +193,9 @@ public class FavoriteSteps extends BaseSteps {
         List<Vendor> vendorList = getCarsiFavoriteClient().getFavoriteList().getBody().getData().getVendors();
         for (Vendor vendor : vendorList) {
             if (vendor.getId().equalsIgnoreCase(vendorId)) {
-                if (vendor.getPlatformType().equalsIgnoreCase("1")) {
+                if (vendor.getPlatformType().equalsIgnoreCase("Mahalle")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
-                } else if (vendor.getPlatformType().equalsIgnoreCase("2")) {
+                } else if (vendor.getPlatformType().equalsIgnoreCase("Banabi")) {
                     PlatformTypeHelper.getInstance().setPlatformType("Banabi");
                 }
 
@@ -371,7 +371,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor id is valid on favorite list")
     public void i_check_added_favorite_vendor_id_is_valid() {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         assertTrue(!favoriteVendor.getId().isEmpty(), "Vendor id must not be null");
         assertEqual("Vendor id not equal from selected", selectedVendor.getId(), favoriteVendor.getId());
@@ -379,7 +379,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor name is valid on favorite list")
     public void i_check_added_favorite_vendor_name_is_valid() {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         assertTrue(!favoriteVendor.getName().isEmpty(), "Vendor name must not be null");
         assertEqual("Vendor name not equal from selected", selectedVendor.getName(), favoriteVendor.getName());
@@ -387,7 +387,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor LogoUrl status is {int} on favorite list")
     public void i_check_added_favorite_vendor_logo_url_is_valid(int statusCode) {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         int imageStatus = getCarsiFavoriteClient().getImageUrlResponse(favoriteVendor.getLogoUrl()).getStatusCode();
 
@@ -397,7 +397,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor DeliveryTimeInfo is valid on favorite list")
     public void i_check_added_favorite_vendor_delivery_time_info_is_valid() {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         String actualDeliveryTime = favoriteVendor.getDeliveryTimeInfo();
         String expectedDeliveryTime = selectedVendor.getDeliveryTimeInfo();
@@ -408,7 +408,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor  MinBasketPriceInfo is valid on favorite list")
     public void i_check_added_favorite_vendor_min_basket_price_info_is_valid() {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         String minBasketPrice = favoriteVendor.getMinBasketPriceInfo();
         String expectedMinBasketPrice = selectedVendor.getMinBasketPriceInfo();
@@ -419,7 +419,7 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor  DeliveryFeeInfo is valid on favorite list")
     public void i_check_added_favorite_vendor_delivery_fee_info_is_valid() {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         String actualDeliveryFeeInfo = favoriteVendor.getDeliveryFeeInfo();
         String expectedDeliveryFeeInfo = selectedVendor.getDeliveryFeeInfo();
@@ -430,9 +430,9 @@ public class FavoriteSteps extends BaseSteps {
 
     @Then("I check added favorite vendor  IsOpen is valid on favorite list")
     public void i_check_added_favorite_vendor_is_open_is_valid() {
-        CarsiVendor selectedVendor = getSelectedVendor();
+        MahalleVendor selectedVendor = getSelectedVendor();
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
-        boolean actualIsOpen = favoriteVendor.getIsVendorAvailable();
+        boolean actualIsOpen = favoriteVendor.getIsOpen();
         boolean expectedIsOpen = selectedVendor.getIsOpen();
 
         if (expectedIsOpen) {
@@ -568,7 +568,7 @@ public class FavoriteSteps extends BaseSteps {
     public void i_check_added_product_image_url_status_is(Integer statusCode) {
         Product selectedProduct = getSelectedProduct();
         String selectedProductId = selectedProduct.getId();
-        String imageUrl = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getImageUrl();
+        String imageUrl = getFavoriteProductDetailOnVendorFavoriteProducts(selectedProductId).getImageUrl().get(0);
         assertNotNull(imageUrl, "Product image url should not null !");
         int imageStatus = getCarsiFavoriteClient().getImageUrlResponse(imageUrl).getStatusCode();
         assertTrue(imageStatus == statusCode, "Product image status should be " + statusCode
@@ -581,11 +581,11 @@ public class FavoriteSteps extends BaseSteps {
         String expectedVendorType = firstVendor.getPlatformType();
 
         if (vendorType.equalsIgnoreCase("Banabi")) {
-            assertTrue(expectedVendorType.equalsIgnoreCase("2"),
+            assertTrue(expectedVendorType.equalsIgnoreCase("Banabi"),
                     "First vendor type should be banabi on vendor list");
 
         }
-        if (vendorType.equalsIgnoreCase("çarşi")) {
+        if (vendorType.equalsIgnoreCase("Mahalle")) {
             assertTrue(expectedVendorType.equalsIgnoreCase("1"),
                     "First vendor type should be carsi on vendor list");
         }

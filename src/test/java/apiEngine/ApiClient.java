@@ -86,7 +86,6 @@ public class ApiClient extends Hooks {
     }
 
     public Response getImageUrlResponse(String imageUrl) {
-        writeStepLog(false, true);
         RestAssuredConfig config = RestConfig.createConfig();
         cdnRequest = RestAssured.given().config(config);
         return cdnRequest.get(imageUrl);

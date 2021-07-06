@@ -1,6 +1,7 @@
 package apiEngine.models.response.Favorite;
 
-import javax.annotation.Generated;
+
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -13,9 +14,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "UnitMass",
         "Price",
         "OriginalPrice",
-        "ImageUrl"
+        "ImageUrl",
+        "IsActive",
+        "HasOptions"
 })
-@Generated("jsonschema2pojo")
+
 public class Product {
 
     @JsonProperty("Id")
@@ -29,9 +32,13 @@ public class Product {
     @JsonProperty("Price")
     private Double price;
     @JsonProperty("OriginalPrice")
-    private Integer originalPrice;
+    private Double originalPrice;
     @JsonProperty("ImageUrl")
-    private String imageUrl;
+    private List<String> imageUrl = null;
+    @JsonProperty("IsActive")
+    private Boolean isActive;
+    @JsonProperty("HasOptions")
+    private Boolean hasOptions;
 
     @JsonProperty("Id")
     public String getId() {
@@ -79,28 +86,48 @@ public class Product {
     }
 
     @JsonProperty("Price")
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
     @JsonProperty("OriginalPrice")
-    public Integer getOriginalPrice() {
+    public Double getOriginalPrice() {
         return originalPrice;
     }
 
     @JsonProperty("OriginalPrice")
-    public void setOriginalPrice(Integer originalPrice) {
+    public void setOriginalPrice(Double originalPrice) {
         this.originalPrice = originalPrice;
     }
 
     @JsonProperty("ImageUrl")
-    public String getImageUrl() {
+    public List<String> getImageUrl() {
         return imageUrl;
     }
 
     @JsonProperty("ImageUrl")
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @JsonProperty("IsActive")
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    @JsonProperty("IsActive")
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @JsonProperty("HasOptions")
+    public Boolean getHasOptions() {
+        return hasOptions;
+    }
+
+    @JsonProperty("HasOptions")
+    public void setHasOptions(Boolean hasOptions) {
+        this.hasOptions = hasOptions;
     }
 
 }

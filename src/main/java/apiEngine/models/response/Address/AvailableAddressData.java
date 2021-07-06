@@ -1,6 +1,6 @@
 package apiEngine.models.response.Address;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Longitude",
         "FromAutoComplete"
 })
-@Generated("jsonschema2pojo")
+
 public class AvailableAddressData {
 
     @JsonProperty("IsAvailable")

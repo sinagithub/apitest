@@ -1,7 +1,7 @@
 package apiEngine.models.requests.InternalVendor.Marketing;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Coupon",
         "StateInfo"
 })
-@Generated("jsonschema2pojo")
+
 public class PostCampaignRequest {
 
     @JsonProperty("Campaign")

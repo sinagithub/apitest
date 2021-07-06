@@ -2,7 +2,7 @@ package apiEngine.models.response.Basket.Checkout.PutCheckout;
 
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Basket.Checkout.Option;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Enabled",
         "Options"
 })
-@Generated("jsonschema2pojo")
+
 public class DonationInfo {
 
     @JsonProperty("Enabled")

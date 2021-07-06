@@ -1,6 +1,6 @@
 package apiEngine.models.requests.Order;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "Note"
 })
-@Generated("jsonschema2pojo")
+
 public class WriteOrderNoteRequest {
 
     @JsonProperty("Note")

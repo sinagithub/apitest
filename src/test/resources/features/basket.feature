@@ -17,7 +17,7 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -50,14 +50,14 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    When I select Carsı vendor with order - 2
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I select a random product
     And I can add the selected product to basket quantity is 1
-    When I select Carsı vendor with order - 3
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -74,14 +74,14 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random product with order 1
     And I can add the selected product to basket quantity is 2
-    Then I select a random product
+    Then I select a random product with order 2
     And I can add the selected product to basket quantity is 1
     When I get basket line counts with lite basket
     Then I can see the product quantity is 2 product index 0 in lite basket
@@ -97,7 +97,7 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select "Beşiktaş BanabiAddress Dev" mahalle vendor name on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -119,7 +119,7 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -150,10 +150,10 @@ Feature: Basket Controls
     And I am an authorized  user "Login"
     And  My addresses list should be available
     When  I select pinned available address
+    When  A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
-    When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -180,7 +180,7 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -330,7 +330,7 @@ Feature: Basket Controls
     Then I get unique basket id
     And I delete basket
     When  A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I delete basket
     * I choose "Atıştırmalık" product category from category list
@@ -367,8 +367,8 @@ Feature: Basket Controls
     Then I select a random product
     And I can add the selected product to basket quantity is 2
     When I get the basket
-    #Then I validate VendorName is valid in basket info
-   # And I validate VendorId is valid in basket info
+    Then I validate VendorName is valid in basket info
+    And I validate VendorId is valid in basket info
     And I validate IsFreeOrder is "false" in basket info
     And I validate MinimumDeliveryTotal is valid in basket info
     #And I can check basket total is valid

@@ -2,7 +2,7 @@ package apiEngine.models.response;
 
 
 import java.util.List;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "CategoryName",
         "IsOpen"
 })
-@Generated("jsonschema2pojo")
-public class CarsiVendor {
+
+public class MahalleVendor {
 
     @JsonProperty("Id")
     private String id;

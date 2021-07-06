@@ -1,7 +1,7 @@
 package apiEngine.models.response.Order;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.Info;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Data",
         "InfoList"
 })
-@Generated("jsonschema2pojo")
+
 public class WriteOrderNoteResponse {
 
     @JsonProperty("Data")

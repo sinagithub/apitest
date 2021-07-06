@@ -14,7 +14,7 @@ Feature: Homepage Api controls
 
   Scenario: HomePage closed Vendor listing
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     # And I set isOpen parameter as false for selected vendor in internal vendor close service
     Then I should see closed vendor on home vendor list
     When I select closed Carsı vendor

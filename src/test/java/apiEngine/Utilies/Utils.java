@@ -21,11 +21,12 @@ public class Utils {
         Properties properties = new Properties();
         FileInputStream file = new FileInputStream("src/test/resources/global.properties");
         properties.load(file);
-        return properties.getProperty(key);
+        String value = properties.getProperty(key);
+        return new String(value.getBytes("ISO-8859-1") );
     }
 
-    public static String generateOrderDate(){
-        return java.time.Clock.systemUTC().instant().atZone(ZoneId.systemDefault()).toLocalDateTime().toString() +"Z";
+    public static String generateOrderDate() {
+        return java.time.Clock.systemUTC().instant().atZone(ZoneId.systemDefault()).toLocalDateTime().toString() + "Z";
     }
 }
 

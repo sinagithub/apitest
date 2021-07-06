@@ -1,6 +1,5 @@
 package apiEngine.models.response.Vendor;
 
-import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Id",
         "Name",
         "Order",
-        "Offset"
+        "Offset",
+        "ProductCount"
 })
-@Generated("jsonschema2pojo")
+
 public class SubCategory {
 
     @JsonProperty("Id")
@@ -67,11 +67,14 @@ public class SubCategory {
         this.offset = offset;
     }
 
+    @JsonProperty("ProductCount")
     public Integer getProductCount() {
         return productCount;
     }
 
+    @JsonProperty("ProductCount")
     public void setProductCount(Integer productCount) {
         this.productCount = productCount;
     }
+
 }

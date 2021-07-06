@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import apiEngine.IRestResponse;
 import apiEngine.Utilies.PlatformTypeHelper;
+import apiEngine.Utilies.Utils;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.HomePage.*;
@@ -13,6 +14,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.io.IOException;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -22,8 +24,8 @@ public class HomePageSteps extends BaseSteps {
         super(testContext);
     }
 
-    private List<CarsiVendor> getHomeVendorList(){
-        return  (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+    private List<MahalleVendor> getHomeVendorList(){
+        return  (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
     }
 
     private AvailableAddressData getSelectedAddress(){
@@ -39,7 +41,7 @@ public class HomePageSteps extends BaseSteps {
                 availableAddress.getLatitude(),
                 availableAddress.getLongitude());
         Assert.assertTrue(homePageCarsiResponse.isSuccessful());
-        List<CarsiVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
+        List<MahalleVendor> vendorList = homePageCarsiResponse.getBody().getData().getCarsiVendors();
         assertTrue(vendorList.size() > 0, "Vendor list should not be empty");
         getScenarioContext().setContext(Context.HOME_VENDOR_LIST, vendorList);
         getScenarioContext().setContext(Context.HOME_VENDOR_RESPONSE, homePageCarsiResponse);
@@ -58,9 +60,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select first vendor from {string} category on home page")
     public void select_first_vendor_from_category(String categoryName) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        CarsiVendor selectedVendor = null;
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        MahalleVendor selectedVendor = null;
+        for (MahalleVendor vendor : vendorList) {
             if (vendor.getCategoryName().equalsIgnoreCase(categoryName) && vendor.getIsOpen()) {
                 selectedVendor = vendor;
                 break;
@@ -69,12 +71,25 @@ public class HomePageSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
+    @Then("I select mahalle vendor from defined vendors type is {string} on home page")
+    public void select_vendor_with_defined_vendorName(String vendorType) throws IOException {
+        String vendorName = Utils.getGlobalValue(vendorType);
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        MahalleVendor selectedVendor = null;
+        for (MahalleVendor vendor : vendorList) {
+            if (vendor.getName().equalsIgnoreCase(vendorName)) {
+                selectedVendor = vendor;
+                break;
+            }
+        }
+        getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
+    }
 
-    @Then("Select {string} vendor name on home page")
+    @Then("I select {string} mahalle vendor name on home page")
     public void select_vendor_with_vendorName(String vendorName) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        CarsiVendor selectedVendor = null;
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        MahalleVendor selectedVendor = null;
+        for (MahalleVendor vendor : vendorList) {
             if (vendor.getName().equalsIgnoreCase(vendorName)) {
                 selectedVendor = vendor;
                 break;
@@ -86,17 +101,17 @@ public class HomePageSteps extends BaseSteps {
     @Then("I select Carsı vendor with order - {int}")
     public void select_carsi_vendor_with_order(int vendorOrder) {
         PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
-        CarsiVendor selectedVendor = vendorList.get(vendorOrder);
+        List<MahalleVendor> vendorList = (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        MahalleVendor selectedVendor = vendorList.get(vendorOrder);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
 
     @Then("I select random vendor from {string} category on home page")
     public void select_random_vendor_from_category(String categoryName) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        CarsiVendor selectedVendor = null;
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        MahalleVendor selectedVendor = null;
+        for (MahalleVendor vendor : vendorList) {
             if (vendor.getCategoryName().equalsIgnoreCase(categoryName)) {
                 selectedVendor = vendor;
                 break;
@@ -108,9 +123,9 @@ public class HomePageSteps extends BaseSteps {
     @Then("I select closed Carsı vendor")
     public void select_closed_carsi_vendor() {
         PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        CarsiVendor selectedVendor = null;
-        for (CarsiVendor vendor : vendorList){
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        MahalleVendor selectedVendor = null;
+        for (MahalleVendor vendor : vendorList){
             if (!vendor.getIsOpen()){
                 selectedVendor = vendor;
                 break;
@@ -121,9 +136,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I should see closed vendor on home vendor list")
     public void check_closed_vendor() {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        CarsiVendor selectedVendor = null;
-        for (CarsiVendor vendor : vendorList){
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        MahalleVendor selectedVendor = null;
+        for (MahalleVendor vendor : vendorList){
             if (!vendor.getIsOpen()){
                 selectedVendor = vendor;
                 break;
@@ -142,7 +157,7 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I select banabi vendor")
     public void i_select_banabi_vendor() {
-        CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor banabiVendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, banabiVendor);
         setCurrentPlatformType("Banabi");
     }
@@ -150,15 +165,15 @@ public class HomePageSteps extends BaseSteps {
 
     @When("I navigate banabi vendor")
     public void i_navigate_banabi_vendor() {
-        CarsiVendor banabiVendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
-        CarsiVendor selectedVendor = banabiVendor;
+        MahalleVendor banabiVendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor selectedVendor = banabiVendor;
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
 
     @Given("Banabi Vendor is available")
     public void banabi_are_available() {
         IRestResponse<HomePageBanabiResponse> homePageBanabi = getCarsiHomePageClient().getBanabiVendor();
-        CarsiVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
+        MahalleVendor banabiVendor = homePageBanabi.getBody().getData().getVendorInfo();
         getScenarioContext().setContext(Context.BANABI_VENDOR_INFO, banabiVendor);
         getScenarioContext().setContext(Context.BANABI_VENDOR_RESPONSE, homePageBanabi);
         setCurrentPlatformType("Banabi");
@@ -167,43 +182,43 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("Check Banabi vendor image url not empty")
     public void check_banabi_vendor_image_not_empty() {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getImageUrl().isEmpty());
     }
 
     @Then("Check Banabi vendor id is valid")
     public void check_banabi_vendor_id_is_valid() {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getId().isEmpty());
     }
 
     @Then("Check Banabi vendor DeliveryTimeInfo is not empty")
     public void check_banabi_vendor_DeliveryTimeInfo_is_not_empty() {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getDeliveryTimeInfo().isEmpty());
     }
 
     @Then("Check Banabi vendor MinBasketPriceInfo is not empty")
     public void check_banabi_vendor_MinBasketPriceInfo_is_not_empty() {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getMinBasketPriceInfo().isEmpty());
     }
 
     @Then("Check Banabi vendor DeliveryFeeInfo is not empty")
     public void check_banabi_vendor_DeliveryFeeInfo_is_not_empty() {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getDeliveryFeeInfo().isEmpty());
     }
 
     @Then("Check Banabi vendor name is not empty")
     public void check_banabi_vendor_name_is_not_empty() {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         Assert.assertFalse(vendor.getName().isEmpty());
     }
 
     @Then("Check Banabi vendor IsOpen should be {string}")
     public void check_banabi_vendor_IsOpen_should_be(String isOpen) {
-        CarsiVendor vendor = (CarsiVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
+        MahalleVendor vendor = (MahalleVendor) getScenarioContext().getContext(Context.BANABI_VENDOR_INFO);
         boolean status = isOpen.equalsIgnoreCase("true");
         if (status) {
             assertTrue(vendor.getIsOpen(), "Banabi vendor should be open");
@@ -215,9 +230,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I check all carsı vendor names is not empty")
     public void check_carsiVendor_names_is_valid() {
-        List<CarsiVendor> vendorList = getHomeVendorList();
+        List<MahalleVendor> vendorList = getHomeVendorList();
 
-        for (CarsiVendor vendor : vendorList) {
+        for (MahalleVendor vendor : vendorList) {
             assertTrue(!vendor.getName().isEmpty(), "Vendor name should not empty");
         }
 
@@ -225,9 +240,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I check all vendor id is not empty")
     public void check_carsiVendor_id_is_valid() {
-        List<CarsiVendor> vendorList = getHomeVendorList();
+        List<MahalleVendor> vendorList = getHomeVendorList();
 
-        for (CarsiVendor vendor : vendorList) {
+        for (MahalleVendor vendor : vendorList) {
             assertTrue(!vendor.getId().isEmpty(), "Vendor id should not empty");
         }
 
@@ -236,9 +251,9 @@ public class HomePageSteps extends BaseSteps {
 
     @Then("I check all carsı vendor image url status is 200")
     public void check_carsiVendor_imageUrl_is_valid() {
-        List<CarsiVendor> vendorList = getHomeVendorList();
+        List<MahalleVendor> vendorList = getHomeVendorList();
 
-        for (CarsiVendor vendor : vendorList) {
+        for (MahalleVendor vendor : vendorList) {
             String imageUrl = vendor.getImageUrl();
             int statusCode = getCarsiHomePageClient().getImageUrlResponse(imageUrl).getStatusCode();
             assertTrue(statusCode == 200,

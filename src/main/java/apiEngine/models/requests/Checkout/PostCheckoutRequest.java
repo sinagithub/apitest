@@ -1,6 +1,6 @@
 package apiEngine.models.requests.Checkout;
 
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "CreditCardModel",
         "TipAndDonationInfo"
 })
-@Generated("jsonschema2pojo")
+
 public class PostCheckoutRequest {
 
     @JsonProperty("CheckoutType")

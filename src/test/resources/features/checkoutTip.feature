@@ -9,7 +9,7 @@ Feature: Checkout User Tip controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -37,7 +37,7 @@ Feature: Checkout User Tip controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -61,7 +61,7 @@ Feature: Checkout User Tip controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select vendor with payment method "111fb8a2-45a4-4e09-8a10-4d7d94d70be3"
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -86,7 +86,7 @@ Feature: Checkout User Tip controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 0
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor payment method
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
@@ -101,8 +101,11 @@ Feature: Checkout User Tip controls
     When I get checkout options
     Then I check tip info is "false" on basket checkout response
     And Staff update vendor payment method
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 3027292b-517b-495a-b14b-9ab0a18b73db |
+      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
 
 
 

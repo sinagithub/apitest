@@ -1,7 +1,6 @@
 package apiEngine.models.response.Favorite;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -16,12 +15,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "MinBasketPriceInfo",
         "DeliveryFeeInfo",
         "IsOpen",
+        "IsClickable",
+        "VendorStatusText",
         "CategoryName",
         "Products",
         "City",
         "HasMoreProducts"
 })
-@Generated("jsonschema2pojo")
+
 public class Vendor {
 
     @JsonProperty("PlatformType")
@@ -38,8 +39,12 @@ public class Vendor {
     private String minBasketPriceInfo;
     @JsonProperty("DeliveryFeeInfo")
     private String deliveryFeeInfo;
-    @JsonProperty("IsVendorAvailable")
-    private Boolean IsVendorAvailable;
+    @JsonProperty("IsOpen")
+    private Boolean isOpen;
+    @JsonProperty("IsClickable")
+    private Boolean isClickable;
+    @JsonProperty("VendorStatusText")
+    private String vendorStatusText;
     @JsonProperty("CategoryName")
     private String categoryName;
     @JsonProperty("Products")
@@ -119,14 +124,34 @@ public class Vendor {
         this.deliveryFeeInfo = deliveryFeeInfo;
     }
 
-    @JsonProperty("IsVendorAvailable")
-    public Boolean getIsVendorAvailable() {
-        return IsVendorAvailable;
+    @JsonProperty("IsOpen")
+    public Boolean getIsOpen() {
+        return isOpen;
     }
 
     @JsonProperty("IsOpen")
-    public void setIsVendorAvailable (Boolean IsVendorAvailable) {
-        this.IsVendorAvailable = IsVendorAvailable;
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    @JsonProperty("IsClickable")
+    public Boolean getIsClickable() {
+        return isClickable;
+    }
+
+    @JsonProperty("IsClickable")
+    public void setIsClickable(Boolean isClickable) {
+        this.isClickable = isClickable;
+    }
+
+    @JsonProperty("VendorStatusText")
+    public String getVendorStatusText() {
+        return vendorStatusText;
+    }
+
+    @JsonProperty("VendorStatusText")
+    public void setVendorStatusText(String vendorStatusText) {
+        this.vendorStatusText = vendorStatusText;
     }
 
     @JsonProperty("CategoryName")

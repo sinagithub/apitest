@@ -3,7 +3,7 @@ package stepDefinitions;
 import apiEngine.Utilies.DateUtil;
 import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.InternalVendor.Tagging.UserTagRequest;
-import apiEngine.models.response.CarsiVendor;
+import apiEngine.models.response.MahalleVendor;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
@@ -27,7 +27,7 @@ public class InternalTaggingSteps extends BaseSteps {
 
     @When("Staff define vendor id list with home index for tag creation {int}")
     public void staff_define_vendor_for_tag_creating(int index) {
-        List<CarsiVendor> vendorList = (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<MahalleVendor> vendorList = (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         List<String> vendorIdList = new ArrayList<>();
         vendorIdList.add(vendorList.get(index).getId());
         getScenarioContext().setContext(Context.TAG_VENDOR, vendorIdList);

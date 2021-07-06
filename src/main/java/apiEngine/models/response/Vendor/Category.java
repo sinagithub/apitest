@@ -1,46 +1,34 @@
 package apiEngine.models.response.Vendor;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "Name",
         "Id",
+        "Name",
         "ThumbImageUrl",
         "Order",
         "ProductCount",
-        "SubCategories",
-
+        "SubCategories"
 })
-@Generated("jsonschema2pojo")
+
 public class Category {
 
-    @JsonProperty("Name")
-    private String name;
     @JsonProperty("Id")
     private String id;
+    @JsonProperty("Name")
+    private String name;
     @JsonProperty("ThumbImageUrl")
     private String thumbImageUrl;
     @JsonProperty("Order")
     private Integer order;
-    @JsonProperty("SubCategories")
-    private List<SubCategory> subCategories = null;
     @JsonProperty("ProductCount")
     private Integer productCount;
-
-    @JsonProperty("Name")
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty("Name")
-    public void setName(String name) {
-        this.name = name;
-    }
+    @JsonProperty("SubCategories")
+    private List<SubCategory> subCategories = null;
 
     @JsonProperty("Id")
     public String getId() {
@@ -50,6 +38,16 @@ public class Category {
     @JsonProperty("Id")
     public void setId(String id) {
         this.id = id;
+    }
+
+    @JsonProperty("Name")
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty("Name")
+    public void setName(String name) {
+        this.name = name;
     }
 
     @JsonProperty("ThumbImageUrl")
@@ -72,6 +70,16 @@ public class Category {
         this.order = order;
     }
 
+    @JsonProperty("ProductCount")
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    @JsonProperty("ProductCount")
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
+
     @JsonProperty("SubCategories")
     public List<SubCategory> getSubCategories() {
         return subCategories;
@@ -82,12 +90,4 @@ public class Category {
         this.subCategories = subCategories;
     }
 
-    @JsonProperty("ProductCount")
-    public Integer getProductCount() {
-        return productCount;
-    }
-
-    public void setProductCount(Integer productCount) {
-        this.productCount = productCount;
-    }
 }

@@ -7,7 +7,7 @@ import apiEngine.models.requests.InternalVendor.SetVendorWorkingDaysRequest;
 import apiEngine.models.requests.InternalVendor.UpdateVendorRequest;
 import apiEngine.models.requests.InternalVendor.WorkingDay;
 import apiEngine.models.response.Address.AvailableAddressData;
-import apiEngine.models.response.CarsiVendor;
+import apiEngine.models.response.MahalleVendor;
 import apiEngine.models.response.MicroServices.InternalVendor.Category;
 import apiEngine.models.response.MicroServices.InternalVendor.DeliveryType;
 import apiEngine.models.response.MicroServices.InternalVendor.InternalVendorDetailResponse;
@@ -27,12 +27,12 @@ public class InternalVendorSteps extends BaseSteps {
         super(testContext);
     }
 
-    private List<CarsiVendor> getHomeVendorList() {
-        return (List<CarsiVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+    private List<MahalleVendor> getHomeVendorList() {
+        return (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
     }
 
-    private CarsiVendor getSelectedVendor() {
-        return (CarsiVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
+    private MahalleVendor getSelectedVendor() {
+        return (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
     }
 
     private AvailableAddressData getSelectedAddress(){
@@ -71,8 +71,8 @@ public class InternalVendorSteps extends BaseSteps {
 
     @When("I select vendor with payment method {string}")
     public void i_select_vendor_with_payment_method(String paymentMethodId) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        for (MahalleVendor vendor : vendorList) {
             String vendorId = vendor.getId();
             List<String> paymentsMethods = getCarsiInternalVendorClient().getPaymentTypes(vendorId).jsonPath().get();
             if (paymentMethodIsExist(paymentsMethods, paymentMethodId)) {
@@ -84,8 +84,8 @@ public class InternalVendorSteps extends BaseSteps {
 
     @When("I select vendor with payment methods$")
     public void i_select_vendor_with_payment_methods(List<String> expectedPaymentMethodIdList) {
-        List<CarsiVendor> vendorList = getHomeVendorList();
-        for (CarsiVendor vendor : vendorList) {
+        List<MahalleVendor> vendorList = getHomeVendorList();
+        for (MahalleVendor vendor : vendorList) {
             String vendorId = vendor.getId();
             List<String> paymentsMethods = getCarsiInternalVendorClient().getPaymentTypes(vendorId).jsonPath().get();
             if (paymentMethodsIsExist(paymentsMethods, expectedPaymentMethodIdList)) {

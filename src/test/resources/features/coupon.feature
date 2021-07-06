@@ -28,7 +28,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I list Coupons in campaign coupons response
     * I validate created coupon is listed in campaign coupons response
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -71,7 +71,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I list Coupons in campaign coupons response
     * I validate created coupon is listed in campaign coupons response
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -110,7 +110,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -155,7 +155,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -264,7 +264,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -345,7 +345,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -397,7 +397,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I select pinned available address
     * I get unique basket id
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -456,7 +456,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
     * Staff get created compensation campaign coupon id in marketing
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -497,7 +497,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
     * Staff get created compensation campaign coupon id in marketing
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -533,7 +533,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
     * Staff get created compensation campaign coupon id in marketing
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -558,7 +558,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I check checkout response is 200
     * I get unique basket id
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -593,7 +593,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -634,7 +634,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff Manipulate campaign status 4
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -673,7 +673,7 @@ Feature: Coupon controls in basket and user coupons menu
      * Staff Manipulate campaign status 3
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -709,7 +709,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -748,7 +748,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select first vendor from "Super Market" category on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category

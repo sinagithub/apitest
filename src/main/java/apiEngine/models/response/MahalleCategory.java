@@ -1,5 +1,5 @@
 package apiEngine.models.response;
-import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "CategoryId",
         "CategoryName"
 })
-@Generated("jsonschema2pojo")
-public class CarsiCategory {
+
+public class MahalleCategory {
 
     @JsonProperty("CategoryId")
     private String categoryId;
