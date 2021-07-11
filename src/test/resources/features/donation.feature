@@ -16,7 +16,7 @@ Feature: Checkout User Donation controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response
@@ -46,7 +46,7 @@ Feature: Checkout User Donation controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
     When I get checkout options
     And I check donation <TypeId> <Rank> on get basket checkout
@@ -73,7 +73,7 @@ Feature: Checkout User Donation controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product with price upper than is 5.0
+    Then I select a random available product from selected category with price upper than is 5.0
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response
@@ -101,7 +101,7 @@ Feature: Checkout User Donation controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product with price upper than is 5.0
+    Then I select a random available product from selected category with price upper than is 5.0
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "false" on basket checkout response
@@ -121,7 +121,7 @@ Feature: Checkout User Donation controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product with price upper than is 5.0
+    Then I select a random available product from selected category with price upper than is 5.0
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response

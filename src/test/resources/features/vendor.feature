@@ -70,7 +70,7 @@ Feature: Vendor detail and listings Controls
     When I list sub category products with offset 21
     Then I check product list not empty
     And I can validate CurrentOffset is 21
-    Then I select a random product
+    Then I select a random available product from selected category
     Then I should see selected product's id is not empty on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
@@ -95,7 +95,7 @@ Feature: Vendor detail and listings Controls
     Then I check product list not empty
     Then I can validate PrevOffset is 0
     Then I can validate CurrentOffset is 21
-    Then I select a random product
+    Then I select a random available product from selected category
     And I check selected product's image url is 200 on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
@@ -171,7 +171,7 @@ Feature: Vendor detail and listings Controls
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
     And I validate Total count is 5
-    And I select a random product on product search results
+    And I select a random available product from selected category on product search results
     Then I should see selected product's id is not empty on vendor product search
     And I  check selected product's Price is valid on vendor product search
     And I check selected product's MaximumSaleAmount is valid on vendor product search
@@ -195,7 +195,7 @@ Feature: Vendor detail and listings Controls
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
     And I validate Total count is 2
-    And I select a random product on product search results
+    And I select a random available product from selected category on product search results
     Then I should see selected product's id is not empty on vendor product search
     And I  check selected product's Price is valid on vendor product search
     And I check selected product's MaximumSaleAmount is valid on vendor product search

@@ -33,7 +33,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -76,7 +76,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -115,7 +115,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -160,7 +160,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -204,7 +204,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -230,7 +230,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -269,7 +269,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -311,7 +311,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -350,7 +350,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -402,7 +402,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     Then I list Coupons in campaign coupons response
     When I get the basket
@@ -425,7 +425,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     Then I list Coupons in campaign coupons response
     When I get the basket
@@ -454,14 +454,13 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
-    * Staff get created compensation campaign coupon id in marketing
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -495,14 +494,13 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
-    * Staff get created compensation campaign coupon id in marketing
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -531,14 +529,13 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
-    * Staff get created compensation campaign coupon id in marketing
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -563,7 +560,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -598,7 +595,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -639,7 +636,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -660,7 +657,7 @@ Feature: Coupon controls in basket and user coupons menu
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
-    When Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
+    Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
@@ -670,15 +667,15 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "ShownOnCheckoutfalse"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
-     * Staff Manipulate campaign status 3
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
+    * Staff suspend created campaign
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -714,7 +711,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -723,12 +720,11 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "CouponNotValid"
-    #* Staff delete created campaign in marketing
+    * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can delete added Subtotal %50 discount Coupon in basket
-    # Total kalmıs
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -753,7 +749,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
@@ -769,4 +765,5 @@ Feature: Coupon controls in basket and user coupons menu
     * I list Coupons in basket response
     * I validate created coupon IsSelected value is "false"
     * I validate calculated Total value when no campaign applied
+    * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"

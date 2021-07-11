@@ -14,7 +14,7 @@ Feature: Order note controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I get order notes on checkout
@@ -38,7 +38,7 @@ Feature: Order note controls
     Then I choose "İçecek" product category from category list
     And I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I get order notes on checkout
@@ -63,7 +63,7 @@ Feature: Order note controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I get order notes on checkout
@@ -84,7 +84,7 @@ Feature: Order note controls
       Then I choose a category with more than 10 products
       Then I choose a sub category with more than 11 products
       When I list the products from selected sub category
-      Then I select a random product
+      Then I select a random available product from selected category
       And I can add the selected product to basket quantity is 1
       When I get checkout options
       Then I get order notes on checkout

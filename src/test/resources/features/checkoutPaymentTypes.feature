@@ -17,7 +17,7 @@ Feature: Checkout User Payment Method controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list PaymentTypes in basket checkout response
@@ -43,7 +43,7 @@ Feature: Checkout User Payment Method controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list PaymentTypes in basket checkout response
@@ -83,7 +83,7 @@ Feature: Checkout User Payment Method controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list PaymentTypes in basket checkout response
@@ -124,7 +124,7 @@ Feature: Checkout User Payment Method controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list PaymentTypes in basket checkout response
@@ -147,7 +147,7 @@ Feature: Checkout User Payment Method controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list PaymentTypes in basket checkout response
@@ -181,7 +181,7 @@ Feature: Checkout User Payment Method controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list PaymentTypes in basket checkout response

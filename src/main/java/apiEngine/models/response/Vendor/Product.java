@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.cucumber.java.eo.Do;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -32,7 +33,7 @@ public class Product {
     @JsonProperty("ImageUrl")
     private List<String> imageUrl = null;
     @JsonProperty("Price")
-    private Integer price;
+    private Double price;
     @JsonProperty("DiscountedPrice")
     private Integer discountedPrice;
     @JsonProperty("MaximumSaleAmount")
@@ -87,12 +88,12 @@ public class Product {
     }
 
     @JsonProperty("Price")
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @JsonProperty("Price")
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

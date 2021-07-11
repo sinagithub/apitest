@@ -1,35 +1,43 @@
 package apiEngine.models.response.Basket.Campaign;
 
-
-
-import com.fasterxml.jackson.annotation.JsonInclude;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonPropertyOrder({
+        "BasketLineSourceId",
+        "BasketLineTargetIds",
         "CampaignItem"
 })
 
 public class Campaign {
 
+    @JsonProperty("BasketLineSourceId")
+    private String basketLineSourceId;
+    @JsonProperty("BasketLineTargetIds")
+    private List<String> basketLineTargetIds = null;
     @JsonProperty("CampaignItem")
     private CampaignItem campaignItem;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Campaign() {
+    @JsonProperty("BasketLineSourceId")
+    public String getBasketLineSourceId() {
+        return basketLineSourceId;
     }
 
-    /**
-     *
-     * @param campaignItem
-     */
-    public Campaign(CampaignItem campaignItem) {
-        super();
-        this.campaignItem = campaignItem;
+    @JsonProperty("BasketLineSourceId")
+    public void setBasketLineSourceId(String basketLineSourceId) {
+        this.basketLineSourceId = basketLineSourceId;
+    }
+
+    @JsonProperty("BasketLineTargetIds")
+    public List<String> getBasketLineTargetIds() {
+        return basketLineTargetIds;
+    }
+
+    @JsonProperty("BasketLineTargetIds")
+    public void setBasketLineTargetIds(List<String> basketLineTargetIds) {
+        this.basketLineTargetIds = basketLineTargetIds;
     }
 
     @JsonProperty("CampaignItem")

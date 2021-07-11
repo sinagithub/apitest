@@ -16,7 +16,7 @@ Feature: Product Api controls
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I check product list not empty
-    Then I select a random product
+    Then I select a random available product from selected category
     And I navigate selected product
     Then I validate product name is valid on product detail
     And I validate product desc is valid on product detail
@@ -37,7 +37,7 @@ Feature: Product Api controls
     And I get all favorite vendor list
     And I delete all added favorite products
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     When I navigate selected product
     Then I can check product favorite status "false"
     And I can add the selected product to favorites

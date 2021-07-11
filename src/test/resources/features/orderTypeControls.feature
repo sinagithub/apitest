@@ -20,7 +20,7 @@ Feature: Order type controls
     Then I choose a category with more than 10 products
     * I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I add selected product until the basket amount is higher than minimum delivery price
     * I select alternate product option type is 1
     * I get the basket
@@ -57,7 +57,7 @@ Feature: Order type controls
     Then I choose a category with more than 10 products
     * I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I add selected product until the basket amount is higher than minimum delivery price
     * I select alternate product option type is 1
     * I get the basket
@@ -95,7 +95,7 @@ Feature: Order type controls
     Then I choose a category with more than 10 products
     * I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I add selected product until the basket amount is higher than minimum delivery price
     * I select alternate product option type is 1
     * I get the basket

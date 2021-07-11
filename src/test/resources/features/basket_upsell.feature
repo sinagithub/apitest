@@ -16,7 +16,7 @@ Feature: Basket upsell Api controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     Then I get the basket
     And I can check Product Quantity is 1 on basket lines

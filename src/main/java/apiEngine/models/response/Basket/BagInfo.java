@@ -16,19 +16,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class BagInfo {
 
     @JsonProperty("BagPrice")
-    private Integer bagPrice;
+    private Double bagPrice;
     @JsonProperty("BagCount")
     private Integer bagCount;
     @JsonProperty("BagTitle")
     private String bagTitle;
 
     @JsonProperty("BagPrice")
-    public Integer getBagPrice() {
+    public Double getBagPrice() {
         return bagPrice;
     }
 
     @JsonProperty("BagPrice")
-    public void setBagPrice(Integer bagPrice) {
+    public void setBagPrice(Double bagPrice) {
         this.bagPrice = bagPrice;
     }
 
