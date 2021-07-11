@@ -10,6 +10,7 @@ public class MarketingRoute {
     private static final String CAMPAIGN_COUPON = "/coupon";
     private static final String AUTOMATION = "/automation";
     private static final String COMPENSATION = "/compensation";
+    private static final String SUSPEND = "/suspend";
 
     public static String getMarketing() {
         return MARKETING;
@@ -49,5 +50,9 @@ public class MarketingRoute {
 
     public static String getConvertCompensation(){
         return MARKETING+ API + VERSION + AUTOMATION + CAMPAIGN + CAMPAIGN_ID;
+    }
+
+    public static String getSuspendCampaign() {
+        return MARKETING + API + VERSION + CAMPAIGN + CAMPAIGN_ID + SUSPEND;
     }
 }

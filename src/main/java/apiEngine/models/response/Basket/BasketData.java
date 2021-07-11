@@ -1,4 +1,5 @@
 package apiEngine.models.response.Basket;
+
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Lines",
         "Campaigns",
         "ValidationInfo",
-        "BasketVolume",
+        "BagInfo",
         "Coupons"
 })
 
@@ -31,37 +32,37 @@ public class BasketData {
     private List<Campaign> campaigns = null;
     @JsonProperty("ValidationInfo")
     private ValidationInfo validationInfo;
-    @JsonProperty("BasketVolume")
-    private Integer basketVolume;
+    @JsonProperty("BagInfo")
+    private BagInfo bagInfo;
     @JsonProperty("Coupons")
     private List<Coupon> coupons = null;
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public BasketData() {
     }
 
     /**
-     *
      * @param totalCampaignCount
      * @param campaigns
      * @param coupons
      * @param basketInfo
      * @param validationInfo
-     * @param basketVolume
+     * @param bagInfo
      * @param basketLines
      */
-    public BasketData(Integer totalCampaignCount, BasketInfo basketInfo, List<BasketLine> basketLines, List<Campaign> campaigns, ValidationInfo validationInfo, Integer basketVolume, List<Coupon> coupons) {
+    public BasketData(Integer totalCampaignCount, BasketInfo basketInfo, List<BasketLine> basketLines,
+                      List<Campaign> campaigns, ValidationInfo validationInfo, List<Coupon> coupons,
+                      BagInfo bagInfo) {
         super();
         this.totalCampaignCount = totalCampaignCount;
         this.basketInfo = basketInfo;
         this.basketLines = basketLines;
         this.campaigns = campaigns;
         this.validationInfo = validationInfo;
-        this.basketVolume = basketVolume;
         this.coupons = coupons;
+        this.bagInfo = bagInfo;
     }
 
     @JsonProperty("TotalCampaignCount")
@@ -114,16 +115,6 @@ public class BasketData {
         this.validationInfo = validationInfo;
     }
 
-    @JsonProperty("BasketVolume")
-    public Integer getBasketVolume() {
-        return basketVolume;
-    }
-
-    @JsonProperty("BasketVolume")
-    public void setBasketVolume(Integer basketVolume) {
-        this.basketVolume = basketVolume;
-    }
-
     @JsonProperty("Coupons")
     public List<Coupon> getCoupons() {
         return coupons;
@@ -132,6 +123,16 @@ public class BasketData {
     @JsonProperty("Coupons")
     public void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
+    }
+
+    @JsonProperty("BagInfo")
+    public BagInfo getBagInfo() {
+        return bagInfo;
+    }
+
+    @JsonProperty("BagInfo")
+    public void setBagInfo(BagInfo bagInfo) {
+        this.bagInfo = bagInfo;
     }
 
 }

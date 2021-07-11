@@ -179,7 +179,7 @@ public class VendorSteps extends BaseSteps {
                 actualCategoryName);
     }
 
-    @Then("I select a random product with order {int}")
+    @Then("I select product with order {int}")
     public void i_select_a_random_product(Integer index) {
         IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
                 (IRestResponse<VendorProductsResponse>) getScenarioContext()
@@ -189,11 +189,14 @@ public class VendorSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, selectedProduct);
     }
 
-    @Then("I select a random product")
+    @Then("I select a random available product from selected category")
     public void i_select_a_random_product() {
         IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
                 (IRestResponse<VendorProductsResponse>) getScenarioContext()
                         .getContext(Context.VENDOR_CATEGORY_PRODUCTS_RES);
+
+
+
         List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
         int index = -1;
         Product selectedProduct;
@@ -201,7 +204,7 @@ public class VendorSteps extends BaseSteps {
         for (int i= 0; i<= products.size(); i++){
             index = random.nextInt(products.size() - 1);
             selectedProduct = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
-            if (selectedProduct.getIsActive()){
+            if (selectedProduct.getIsActive() && selectedProduct.getMaximumSaleAmount() !=0){
                 break;
             }
         }
@@ -211,7 +214,7 @@ public class VendorSteps extends BaseSteps {
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
     }
 
-    @Then("I select a random product with price upper than is {double}")
+    @Then("I select a random available product from selected category with price upper than is {double}")
     public void i_select_a_random_product_upper_than(double priceValue) {
         IRestResponse<VendorProductsResponse> vendorCategoryProductResponse =
                 (IRestResponse<VendorProductsResponse>) getScenarioContext()
@@ -570,7 +573,7 @@ public class VendorSteps extends BaseSteps {
                 " not " + actualTotalCount);
     }
 
-    @Then("I select a random product on product search results")
+    @Then("I select a random available product from selected category on product search results")
     public void i_select_a_random_product_on_product_search() {
         IRestResponse<VendorProductSearchResponse> vendorProductsResponse =
                 (IRestResponse<VendorProductSearchResponse>) getScenarioContext().getContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE);

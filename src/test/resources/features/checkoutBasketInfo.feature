@@ -16,7 +16,7 @@ Feature: Checkout User Tip controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product with price upper than is 5.0
+    Then I select a random available product from selected category with price upper than is 5.0
     And I can add the selected product to basket quantity is 1
     * I get the basket
     When I get checkout options
@@ -47,7 +47,7 @@ Feature: Checkout User Tip controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random product with price upper than is 5.0
+    Then I select a random available product from selected category with price upper than is 5.0
     And I can add the selected product to basket quantity is 1
     And I get the basket
     When I get checkout options

@@ -1,18 +1,18 @@
 package apiEngine.models.response.Basket.Campaign;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonPropertyOrder({
         "Id",
         "TypeId",
         "Title",
         "DiscountType",
         "DiscountTotal",
+        "ImageUrl",
         "IsDefault",
+        "IsShown",
         "IsOtpRequired",
         "ShortTitle"
 })
@@ -29,42 +29,16 @@ public class CampaignItem {
     private String discountType;
     @JsonProperty("DiscountTotal")
     private Double discountTotal;
+    @JsonProperty("ImageUrl")
+    private String imageUrl;
     @JsonProperty("IsDefault")
     private Boolean isDefault;
+    @JsonProperty("IsShown")
+    private Boolean isShown;
     @JsonProperty("IsOtpRequired")
     private Boolean isOtpRequired;
     @JsonProperty("ShortTitle")
     private String shortTitle;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public CampaignItem() {
-    }
-
-    /**
-     *
-     * @param isOtpRequired
-     * @param isDefault
-     * @param discountTotal
-     * @param typeId
-     * @param discountType
-     * @param id
-     * @param shortTitle
-     * @param title
-     */
-    public CampaignItem(String id, Integer typeId, String title, String discountType, Double discountTotal, Boolean isDefault, Boolean isOtpRequired, String shortTitle) {
-        super();
-        this.id = id;
-        this.typeId = typeId;
-        this.title = title;
-        this.discountType = discountType;
-        this.discountTotal = discountTotal;
-        this.isDefault = isDefault;
-        this.isOtpRequired = isOtpRequired;
-        this.shortTitle = shortTitle;
-    }
 
     @JsonProperty("Id")
     public String getId() {
@@ -116,6 +90,16 @@ public class CampaignItem {
         this.discountTotal = discountTotal;
     }
 
+    @JsonProperty("ImageUrl")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @JsonProperty("ImageUrl")
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @JsonProperty("IsDefault")
     public Boolean getIsDefault() {
         return isDefault;
@@ -124,6 +108,16 @@ public class CampaignItem {
     @JsonProperty("IsDefault")
     public void setIsDefault(Boolean isDefault) {
         this.isDefault = isDefault;
+    }
+
+    @JsonProperty("IsShown")
+    public Boolean getIsShown() {
+        return isShown;
+    }
+
+    @JsonProperty("IsShown")
+    public void setIsShown(Boolean isShown) {
+        this.isShown = isShown;
     }
 
     @JsonProperty("IsOtpRequired")

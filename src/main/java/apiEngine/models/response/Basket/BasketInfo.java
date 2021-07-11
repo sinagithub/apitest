@@ -1,6 +1,6 @@
 package apiEngine.models.response.Basket;
 
-
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,9 +17,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Total",
         "SubTotal",
         "VendorCategory",
-        "VendorLogo"
+        "VendorLogo",
+        "TotalOriginal",
+        "SubTotalOriginal",
+        "DeliveryFeeOriginal",
+        "TotalWithoutDeliveryFee",
+        "Saving"
 })
-
+@Generated("jsonschema2pojo")
 public class BasketInfo {
 
     @JsonProperty("BasketId")
@@ -44,42 +49,16 @@ public class BasketInfo {
     private String vendorCategory;
     @JsonProperty("VendorLogo")
     private String vendorLogo;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public BasketInfo() {
-    }
-
-    /**
-     *
-     * @param basketId
-     * @param total
-     * @param deliveryFee
-     * @param vendorCategory
-     * @param basketStatus
-     * @param vendorId
-     * @param subTotal
-     * @param isFreeOrder
-     * @param vendorName
-     * @param vendorLogo
-     * @param minimumDeliveryTotal
-     */
-    public BasketInfo(String basketId, Integer basketStatus, Boolean isFreeOrder, String vendorId, String vendorName, Double minimumDeliveryTotal, Double deliveryFee, Double total, Double subTotal, String vendorCategory, String vendorLogo) {
-        super();
-        this.basketId = basketId;
-        this.basketStatus = basketStatus;
-        this.isFreeOrder = isFreeOrder;
-        this.vendorId = vendorId;
-        this.vendorName = vendorName;
-        this.minimumDeliveryTotal = minimumDeliveryTotal;
-        this.deliveryFee = deliveryFee;
-        this.total = total;
-        this.subTotal = subTotal;
-        this.vendorCategory = vendorCategory;
-        this.vendorLogo = vendorLogo;
-    }
+    @JsonProperty("TotalOriginal")
+    private Double totalOriginal;
+    @JsonProperty("SubTotalOriginal")
+    private Double subTotalOriginal;
+    @JsonProperty("DeliveryFeeOriginal")
+    private Double deliveryFeeOriginal;
+    @JsonProperty("TotalWithoutDeliveryFee")
+    private Double totalWithoutDeliveryFee;
+    @JsonProperty("Saving")
+    private Double saving;
 
     @JsonProperty("BasketId")
     public String getBasketId() {
@@ -189,6 +168,56 @@ public class BasketInfo {
     @JsonProperty("VendorLogo")
     public void setVendorLogo(String vendorLogo) {
         this.vendorLogo = vendorLogo;
+    }
+
+    @JsonProperty("TotalOriginal")
+    public Double getTotalOriginal() {
+        return totalOriginal;
+    }
+
+    @JsonProperty("TotalOriginal")
+    public void setTotalOriginal(Double totalOriginal) {
+        this.totalOriginal = totalOriginal;
+    }
+
+    @JsonProperty("SubTotalOriginal")
+    public Double getSubTotalOriginal() {
+        return subTotalOriginal;
+    }
+
+    @JsonProperty("SubTotalOriginal")
+    public void setSubTotalOriginal(Double subTotalOriginal) {
+        this.subTotalOriginal = subTotalOriginal;
+    }
+
+    @JsonProperty("DeliveryFeeOriginal")
+    public Double getDeliveryFeeOriginal() {
+        return deliveryFeeOriginal;
+    }
+
+    @JsonProperty("DeliveryFeeOriginal")
+    public void setDeliveryFeeOriginal(Double deliveryFeeOriginal) {
+        this.deliveryFeeOriginal = deliveryFeeOriginal;
+    }
+
+    @JsonProperty("TotalWithoutDeliveryFee")
+    public Double getTotalWithoutDeliveryFee() {
+        return totalWithoutDeliveryFee;
+    }
+
+    @JsonProperty("TotalWithoutDeliveryFee")
+    public void setTotalWithoutDeliveryFee(Double totalWithoutDeliveryFee) {
+        this.totalWithoutDeliveryFee = totalWithoutDeliveryFee;
+    }
+
+    @JsonProperty("Saving")
+    public Double getSaving() {
+        return saving;
+    }
+
+    @JsonProperty("Saving")
+    public void setSaving(Double saving) {
+        this.saving = saving;
     }
 
 }

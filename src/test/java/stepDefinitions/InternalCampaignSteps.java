@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import apiEngine.IRestResponse;
+import apiEngine.Routes.MarketingRoute;
 import apiEngine.Utilies.DateUtil;
 import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.Campaign.CreateCompensationRequest;
@@ -253,13 +254,10 @@ public class InternalCampaignSteps extends BaseSteps {
         assertTrue(response.statusCode() == 200, "Create compensation status should be 200");
     }
 
-    @When("Staff get created compensation campaign coupon id in marketing")
-    public void staff_get_created_compensation_campaign_coupon_id_in_marketing() {
+    @Then("Staff suspend created campaign")
+    public void staff_suspend_created_campaign() {
         String campaignId = getCreatedCampaignId();
-
+        getInternalMarketingClient().suspendCampaign(campaignId,"automation@gmail.com");
     }
 
 }
-
-
-

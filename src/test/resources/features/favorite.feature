@@ -31,7 +31,7 @@ Feature: Favorite Api controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to favorites
     When I get Favorite list
     Then I can see the product on the favorite list
@@ -71,7 +71,7 @@ Feature: Favorite Api controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random product
+    Then I select a random available product from selected category
     And I can add the selected product to favorites
     When I get Favorite list
     Then I check added favorite vendor id is valid on favorite list

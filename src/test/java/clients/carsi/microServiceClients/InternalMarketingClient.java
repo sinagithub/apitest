@@ -68,4 +68,13 @@ public class InternalMarketingClient extends ApiClient {
         return response;
     }
 
+    public Response suspendCampaign(String campaignId, String operatingUserEmail){
+        Response response = createRequest()
+                .pathParam("campaignId",campaignId)
+                .queryParam("operatingUserEmail", operatingUserEmail)
+                .put(MarketingRoute.getSuspendCampaign());
+        writeStepLog();
+        return response;
+    }
+
 }

@@ -3,6 +3,7 @@ package stepDefinitions;
 import apiEngine.IRestResponse;
 import apiEngine.RestResponse;
 import apiEngine.Utilies.GenerateFakeData;
+import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
 import apiEngine.models.requests.Basket.Checkout.BasketCheckOutRequest;
 import apiEngine.models.requests.Basket.Checkout.Donation;
@@ -45,8 +46,9 @@ public class BasketSteps extends BaseSteps {
         return (String) getScenarioContext().getContext(Context.BASKET_ID);
     }
 
-    private String getSelectedAddressId(){
-        AvailableAddressData availableAddressData = (AvailableAddressData) getScenarioContext().getContext(Context.ADDRESS);
+    private String getSelectedAddressId() {
+        AvailableAddressData availableAddressData =
+                (AvailableAddressData) getScenarioContext().getContext(Context.ADDRESS);
         return availableAddressData.getAddressId();
     }
 
@@ -204,10 +206,15 @@ public class BasketSteps extends BaseSteps {
         MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String vendorId = selectedVendor.getId();
         String productId = product.getId();
+        String lineId = null;
         List<Option> options = getOptionIfHasOptionFromProductDetail();
+        if (PlatformTypeHelper.getInstance().getPlatformType().equals("Mahalle")){
+            lineId = productId;
+        }
+
         AddProductWithoutCampaignToBasketReq addProductWithoutCampaignToBasketReq =
                 new AddProductWithoutCampaignToBasketReq(productId,
-                        productId,
+                        lineId,
                         quantity,
                         null,
                         null,
@@ -233,6 +240,10 @@ public class BasketSteps extends BaseSteps {
         return Double.parseDouble(deliveryFeeInfo);
     }
 
+    private double getBagTotalPrice() {
+        return getBasketResponse().getBody().getData().getBagInfo().getBagPrice();
+    }
+
 
     private double getAddedProductsTotalPrice() {
         List<Product> addedProductList = (List<Product>) getScenarioContext().getContext(Context.ADDED_PRODUCT_LIST);
@@ -244,16 +255,27 @@ public class BasketSteps extends BaseSteps {
     }
 
     private double getExpectedBasketTotalPrice() {
-        BigDecimal bd = BigDecimal.valueOf(getAddedProductsTotalPrice() + getSelectedVendorDeliveryFee()).setScale(2,
-                RoundingMode.UP);
-        return bd.doubleValue();
+        double bagTotalPrice = getBagTotalPrice();
+        double saving = getBasketInfo().getSaving();
+
+        BigDecimal total = BigDecimal.valueOf(
+                getAddedProductsTotalPrice()
+                + getSelectedVendorDeliveryFee()
+                + bagTotalPrice
+                - saving).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
+        System.out.println(total);
+        return total.doubleValue();
     }
 
     @Then("I can check basket subTotal is valid on basket")
     public void i_can_check_basket_sub_total_is_valid_on_basket() {
-        double actualSubTotal = getBasketResponse().getBody().getData().getBasketInfo().getSubTotal();
-        BigDecimal bd = BigDecimal.valueOf(getAddedProductsTotalPrice()).setScale(2,
-                RoundingMode.HALF_UP);
+        double actualSubTotal = getBasketInfo().getSubTotal();
+        double saving = getBasketInfo().getSaving();
+
+        BigDecimal bd = BigDecimal.valueOf(
+                getAddedProductsTotalPrice()
+                - saving).setScale(2,
+                RoundingMode.HALF_UP).stripTrailingZeros();
 
         double expectedSubTotal = bd.doubleValue();
         assertTrue(actualSubTotal == expectedSubTotal,
@@ -262,8 +284,10 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I can check basket total is valid")
     public void i_can_check_basket_total_is_valid() {
+        apiEngine.models.response.Basket.BasketInfo basketInfo = getBasketResponse().getBody().getData().getBasketInfo();
         double expectedPrice = getExpectedBasketTotalPrice();
-        double actualTotalPrice = getBasketResponse().getBody().getData().getBasketInfo().getTotal();
+        double actualTotalPrice = basketInfo.getTotal();
+
         assertTrue(actualTotalPrice == expectedPrice,
                 "Basket total price should be " + expectedPrice + " not " + actualTotalPrice);
 
@@ -310,7 +334,7 @@ public class BasketSteps extends BaseSteps {
         String basketId = getBasketId();
         IRestResponse<BasketResponse> getBasketResponse = getCarsiBasketClient().getBasket(basketId);
         getScenarioContext().setContext(Context.BASKET_RESPONSE, getBasketResponse);
-        assertTrue(getBasketResponse.isSuccessful(),"Basket response status should be 200");
+        assertTrue(getBasketResponse.isSuccessful(), "Basket response status should be 200");
     }
 
     private BasketLine getBasketLineInfo(Product product) {
@@ -375,7 +399,7 @@ public class BasketSteps extends BaseSteps {
             double actualPrice = productLine.getListPrice();
             double expectedListPrice = product.getPrice();
             assertTrue(expectedListPrice == actualPrice, "Product detail List price and basket line discount price " +
-                    "should be equal");
+                    "should be equal " + expectedListPrice + " Actual->" + actualPrice);
         }
 
     }
@@ -485,7 +509,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I select alternate product option type is {int}")
     public void i_select_alternate_product_option_type_is(Integer optionTypeId) {
-       getScenarioContext().setContext(Context.SELECTED_ALTERNATE_PRODUCT_OPTION, optionTypeId);
+        getScenarioContext().setContext(Context.SELECTED_ALTERNATE_PRODUCT_OPTION, optionTypeId);
     }
 
     @Then("I can validate alternate product text {string} is exist and rank is {int} type is {int}")
@@ -593,7 +617,7 @@ public class BasketSteps extends BaseSteps {
     public void i_can_validate_alternate_product_option_list_is_empty() {
         List<AlternateOption> alternateProductOptionList =
                 getAlternateProductResponse().getBody().getData().getAlternateOptions();
-        assertTrue(alternateProductOptionList == null, "Alternate product options should be empty on the banabi");
+        assertTrue(alternateProductOptionList.size() == 0, "Alternate product options should be empty on the banabi");
     }
 
     @When("I get checkout options")
