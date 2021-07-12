@@ -309,19 +309,6 @@ public class CampaignSteps extends BaseSteps {
         }
     }
 
-    @Then("I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Basket Total in basket")
-    public void i_validate_calculated_total_value_for_discount_type_is_constant_price_and_award_type_is_basket_total_in_basket() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("I validate calculated delivery fee value for DiscountType is ConstantPrice and AwardType is Delivery Fee " +
-            "in basket")
-    public void i_validate_calculated_delivery_fee_value_for_discount_type_is_constant_price_and_award_type_is_delivery_fee_in_basket() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
     @Then("I validate coupon CampaignTitle is {string}, Description is {string}, ImageUrl is {string} is listed in " +
             "campaign coupons response")
     public void i_validate_coupon_is_listed_in_campaign_coupons_response(String campaignTitle,
@@ -373,13 +360,6 @@ public class CampaignSteps extends BaseSteps {
         IRestResponse<DeleteCouponResponse> deleteCouponResponse = getCarsiBasketClient().deleteCoupon(basketId,
                 couponCode);
         assertTrue(deleteCouponResponse.isSuccessful(), "Delete coupon response sstatus should be 200");
-    }
-
-
-    @Then("I validate calculated Total value when no campaign applied")
-    public void i_validate_calculated_total_value_when_no_campaign_applied() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
 
 }

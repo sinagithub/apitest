@@ -10,6 +10,7 @@ import apiEngine.models.requests.Basket.Checkout.Donation;
 import apiEngine.models.requests.Basket.Checkout.Payment;
 import apiEngine.models.requests.Basket.Checkout.Tip;
 import apiEngine.models.requests.Basket.DeleteProductRequest;
+import apiEngine.models.requests.Basket.PutProductRequest;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.Basket.*;
@@ -148,13 +149,8 @@ public class BasketSteps extends BaseSteps {
     @Then("I can get new basket id")
     public void i_can_get_new_basket_id() {
         String addressId = getSelectedAddressId();
-        String oldBasketId = getBasketId();
-
-
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String basketId = basketIdResponse.getBody().getData().getBasketId();
-        assertFalse(oldBasketId.equals(basketId));
-
         getScenarioContext().setContext(Context.BASKET_ID, basketId);
 
     }
@@ -208,7 +204,7 @@ public class BasketSteps extends BaseSteps {
         String productId = product.getId();
         String lineId = null;
         List<Option> options = getOptionIfHasOptionFromProductDetail();
-        if (PlatformTypeHelper.getInstance().getPlatformType().equals("Mahalle")){
+        if (PlatformTypeHelper.getInstance().getPlatformType().equals("Mahalle")) {
             lineId = productId;
         }
 
@@ -260,31 +256,42 @@ public class BasketSteps extends BaseSteps {
 
         BigDecimal total = BigDecimal.valueOf(
                 getAddedProductsTotalPrice()
-                + getSelectedVendorDeliveryFee()
-                + bagTotalPrice
-                - saving).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
-        System.out.println(total);
+                        + getSelectedVendorDeliveryFee()
+                        + bagTotalPrice
+                        - saving).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
         return total.doubleValue();
     }
 
     @Then("I can check basket subTotal is valid on basket")
     public void i_can_check_basket_sub_total_is_valid_on_basket() {
-        double actualSubTotal = getBasketInfo().getSubTotal();
+        double actualSubTotal = getBasketInfo().getTotalWithoutDeliveryFee();
         double saving = getBasketInfo().getSaving();
+        double deliveryFeeOriginal = getBasketInfo().getDeliveryFeeOriginal();
+        double deliveryFee = getBasketInfo().getDeliveryFee();
+        BigDecimal subTotal;
 
-        BigDecimal bd = BigDecimal.valueOf(
-                getAddedProductsTotalPrice()
-                - saving).setScale(2,
-                RoundingMode.HALF_UP).stripTrailingZeros();
+        if (deliveryFee != deliveryFeeOriginal) {
+            subTotal = BigDecimal.valueOf(
+                    getAddedProductsTotalPrice()
+                            + deliveryFeeOriginal
+                            - saving).setScale(2,
+                    RoundingMode.HALF_UP).stripTrailingZeros();
+        } else {
+            subTotal = BigDecimal.valueOf(
+                    getAddedProductsTotalPrice()
+                            - saving).setScale(2,
+                    RoundingMode.HALF_UP).stripTrailingZeros();
+        }
 
-        double expectedSubTotal = bd.doubleValue();
+        double expectedSubTotal = subTotal.doubleValue();
         assertTrue(actualSubTotal == expectedSubTotal,
                 "Product sub total should be " + expectedSubTotal + " not " + actualSubTotal);
     }
 
     @Then("I can check basket total is valid")
     public void i_can_check_basket_total_is_valid() {
-        apiEngine.models.response.Basket.BasketInfo basketInfo = getBasketResponse().getBody().getData().getBasketInfo();
+        apiEngine.models.response.Basket.BasketInfo basketInfo =
+                getBasketResponse().getBody().getData().getBasketInfo();
         double expectedPrice = getExpectedBasketTotalPrice();
         double actualTotalPrice = basketInfo.getTotal();
 
@@ -852,6 +859,13 @@ public class BasketSteps extends BaseSteps {
                 "Basket upsell type should be 0");
     }
 
+    @Then("I validate upsell product count {int}")
+    public void i_validate_upsell_products_count(int productCount) {
+        List<apiEngine.models.response.Basket.Upsell.Product> upsellProductList = getBasketUpsellResponse().getBody().getData().getProducts();
+        assertTrue(upsellProductList.size() == productCount,
+                "Basket upsell type should be " + productCount);
+    }
+
     @Then("I check total is valid for tip amount {int} on put basket checkout response")
     public void i_check_total_is_valid_for_tip_amount_on_put_basket_checkout_response(Integer tipAmount) {
         apiEngine.models.response.Basket.Checkout.PutCheckout.BasketInfo basketInfo =
@@ -859,11 +873,13 @@ public class BasketSteps extends BaseSteps {
                         getBasketCheckout().getBasketInfo();
 
         double actualTotal = basketInfo.getTotal();
-        double deliveryFee = basketInfo.getDeliveryFree();
+        double deliveryFee = basketInfo.getDeliveryFee();
         double lineItemsTotal = basketInfo.getLineItemsTotal();
+        double bagTotal = basketInfo.getBagTotal();
 
-        double expectedTotal = tipAmount + deliveryFee + lineItemsTotal;
-        assertTrue(actualTotal == expectedTotal,
+        double expectedTotal = tipAmount + deliveryFee + lineItemsTotal + bagTotal;
+        BigDecimal convertedExpectedTotal = BigDecimal.valueOf(expectedTotal).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
+        assertTrue(actualTotal == convertedExpectedTotal.doubleValue(),
                 "Total amount should be " + expectedTotal + " not " + actualTotal);
     }
 
@@ -1267,7 +1283,7 @@ public class BasketSteps extends BaseSteps {
     @Then("I check DeliveryFree is valid on get checkout response")
     public void i_check_delivery_free_is_valid_on_get_checkout_response() {
         double actualDeliveryFree = getCheckOutBasketInfo().getDeliveryFee();
-        double expectedDeliveryFree = getBasketInfo().getDeliveryFee();
+        double expectedDeliveryFree = getBasketInfo().getDeliveryFeeOriginal();
         assertTrue(actualDeliveryFree == expectedDeliveryFree, "DeliveryFree should be " + expectedDeliveryFree + " " +
                 "not " + actualDeliveryFree);
     }
@@ -1306,7 +1322,8 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check DiscountTotal is valid on get checkout response")
     public void i_check_discount_total_is_valid_on_get_checkout_response() {
-        double expectedDiscountTotal = getExpectedTotalDiscountedPrices();
+        double deliveryFeeDiscount = getBasketInfo().getDeliveryFeeOriginal() - getBasketInfo().getDeliveryFee();
+        double expectedDiscountTotal = getExpectedTotalDiscountedPrices() + deliveryFeeDiscount;
         double actualDiscountTotal = getCheckOutBasketInfo().getDiscountTotal();
 
         assertTrue(expectedDiscountTotal == actualDiscountTotal,
@@ -1439,11 +1456,10 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I add selected product until the basket amount is higher than minimum delivery price")
     public void i_add_selected_product_until_the_basket_amount_is_higher_than_minimum_delivery_price() {
-        i_get_the_basket();
-        double minDeliveryTotal = getBasketResponse().getBody().getData().getBasketInfo().getMinimumDeliveryTotal();
-
         int maxQuantity = 30;
         i_can_add_the_selected_product_to_basket(1);
+        i_get_the_basket();
+        double minDeliveryTotal = getBasketResponse().getBody().getData().getBasketInfo().getMinimumDeliveryTotal();
         for (int i = 0; i < maxQuantity; i++) {
             maxQuantity--;
             i_get_the_basket();
@@ -1454,6 +1470,52 @@ public class BasketSteps extends BaseSteps {
                 break;
             }
         }
+    }
+
+    @Then("I wait until new basket id is generated")
+    public void i_wait_until_new_basket_id_is_generated() throws InterruptedException {
+        String oldBasketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
+
+        for (int i = 0; i < 15; i++) {
+            i_can_get_new_basket_id();
+            String newBasketId = (String) getScenarioContext().getContext(Context.BASKET_ID);
+            if (oldBasketId.equals(newBasketId)) {
+                Thread.sleep(500);
+            } else {
+                break;
+            }
+        }
+
+    }
+
+    @Then("I validate basket total original is valid for Percentage discount value is {int} in basket")
+    public void i_validate_basket_total_is_valid_for_percentage_discount_value_is_in_basket(Integer discountValue) {
+        double bagPrice = getBagTotalPrice();
+        double lineItemsTotalPrice = getAddedProductsTotalPrice();
+        double deliveryFee = getBasketInfo().getDeliveryFee();
+        double expectedTotalOriginal = lineItemsTotalPrice + deliveryFee;
+        double expectedTotal = ((1 - (discountValue / 100f)) * expectedTotalOriginal) + bagPrice;
+
+        BigDecimal convertedTotal = BigDecimal.valueOf(
+                expectedTotal).setScale(3, RoundingMode.HALF_UP).stripTrailingZeros();
+
+        double actualTotal = getBasketInfo().getTotal();
+
+        assertTrue(actualTotal == convertedTotal.doubleValue(),
+                "Total should be " + expectedTotal + " Not : " + actualTotal);
+    }
+
+    @Then("I update quantity to {int} from selected product with update product service")
+    public void i_update_quantity_to_from_selected_product_with_update_product_service(Integer quantity) {
+        String productId = getSelectedProduct().getId();
+        String vendorId = getSelectedVendor().getId();
+        String basketId = getBasketId();
+        PutProductRequest putProductRequest = new PutProductRequest(
+                productId, quantity,
+                null, null,
+                null, vendorId,
+                null, null);
+        getCarsiBasketClient().updateProduct(basketId, putProductRequest);
     }
 
 }

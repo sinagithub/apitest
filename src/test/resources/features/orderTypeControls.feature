@@ -9,7 +9,7 @@ Feature: Order type controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 7
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor payment method
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
@@ -37,8 +37,7 @@ Feature: Order type controls
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
       | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
       | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 3027292b-517b-495a-b14b-9ab0a18b73db |
-      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
 
   Scenario: User can order with Offline payment - Kapıda Nakit
@@ -46,7 +45,7 @@ Feature: Order type controls
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 7
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff update vendor payment method
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
@@ -74,8 +73,7 @@ Feature: Order type controls
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
       | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
       | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 3027292b-517b-495a-b14b-9ab0a18b73db |
-      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
 
   Scenario: User can order with Online payment - Saved Credit Card

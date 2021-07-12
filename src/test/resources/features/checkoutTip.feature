@@ -10,13 +10,19 @@ Feature: Checkout User Tip controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "true" on basket checkout response
@@ -26,10 +32,10 @@ Feature: Checkout User Tip controls
     And I check tip value is valid <TypeId>
 
     Examples: Expected Tip details
-      | Rank | TypeId | ValueText                | IsSelected |
-      | 0    | 2      | 3 TL                     | false      |
-      | 1    | 1      | %10                      | false      |
-      | 2    | 3      | TipInfoCustomPaymentText | false      |
+      | Rank | TypeId | ValueText     | IsSelected |
+      | 0    | 3      | 3 TL          | false      |
+      | 1    | 1      | %10           | false      |
+      | 2    | 4      | Tutar Giriniz | false      |
 
 
   Scenario: User can select custom tip on checkout with Mahalle vendor
@@ -38,13 +44,19 @@ Feature: Checkout User Tip controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "true" on basket checkout response
@@ -62,22 +74,27 @@ Feature: Checkout User Tip controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "true" on basket checkout response
     When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
-    Then I set tip to 3 tl option type is 2
+    Then I set tip to 3 tl option type is 3
     And I set ContactlessDelivery is "true"
     And I put basket to checkout LastChangedProperty is 3
     And I check Tip is selected with 3 on put basket checkout response
-    And I check tip isEnabled is "true" tip type is 2 on put basket checkout response
+    And I check tip isEnabled is "true" tip type is 3 on put basket checkout response
     And I check total is valid for tip amount 3 on put basket checkout response
 
 
@@ -96,7 +113,7 @@ Feature: Checkout User Tip controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "false" on basket checkout response
@@ -104,8 +121,7 @@ Feature: Checkout User Tip controls
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
       | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
       | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 3027292b-517b-495a-b14b-9ab0a18b73db |
-      | 88abcbdf-9292-492f-a6ec-adce18db8ebf |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
 
 

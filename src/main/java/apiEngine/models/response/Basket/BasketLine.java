@@ -44,7 +44,7 @@ public class BasketLine {
     @JsonProperty("ListPrice")
     private Double listPrice;
     @JsonProperty("DiscountedPrice")
-    private Integer discountedPrice;
+    private Double discountedPrice;
     @JsonProperty("Quantity")
     private Integer quantity;
     @JsonProperty("Volume")
@@ -71,7 +71,7 @@ public class BasketLine {
      * @param productDescription
      * @param listPrice
      */
-    public BasketLine(String id, String imageUrl, String productId, String productName, String productDescription, String productOptions, String productUnitMass, Double listPrice, Integer discountedPrice, Integer quantity, Integer volume) {
+    public BasketLine(String id, String imageUrl, String productId, String productName, String productDescription, String productOptions, String productUnitMass, Double listPrice, Double discountedPrice, Integer quantity, Integer volume) {
         super();
         this.id = id;
         this.imageUrl = imageUrl;
@@ -167,12 +167,12 @@ public class BasketLine {
     }
 
     @JsonProperty("DiscountedPrice")
-    public Integer getDiscountedPrice() {
+    public Double getDiscountedPrice() {
         return discountedPrice;
     }
 
     @JsonProperty("DiscountedPrice")
-    public void setDiscountedPrice(Integer discountedPrice) {
+    public void setDiscountedPrice(Double discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
 

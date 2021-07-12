@@ -6,7 +6,6 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon
   Scenario: User can list created Fixed Discount Coupon with creating coupon name
-     ## Pass ama kampanya silme eklenecek
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -89,7 +88,6 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon
   Scenario: User can add created Constant Price Coupon in basket
-    ## Eksik Validasyon
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -134,7 +132,6 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon
   Scenario: User can add created Constant Price Delivery Fee Coupon in basket
-    # Eksik delivery fee geliştirmesi bekliyor
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -176,10 +173,10 @@ Feature: Coupon controls in basket and user coupons menu
     #* I validate calculated delivery fee value for DiscountType is ConstantPrice and AwardType is Delivery Fee in basket
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * I wait until new basket id is generated
 
   @Basket @Checkout @Coupon
   Scenario: User can not list and can not use used Fixed Discount Coupon in basket
-    ## Basket not found ve validasyon hatası bekliyor
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -199,7 +196,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select Carsı vendor with order - 1
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -225,7 +222,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I set use point "false"
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
-    * I get unique basket id
+    * I wait until new basket id is generated
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -413,7 +410,6 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon
   Scenario: User can apply banabi coupon
-    #Banabı kupon uygulama sorunu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -431,12 +427,11 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Campaigns in basket response
     * I validate campaign is not listed campaign title is "20 TL Size Özel İndirim" in basket response
-    * I apply campaign to basket campaign id is "109520" hasOtp is "true"
+    * I apply campaign to basket campaign id is "109447" hasOtp is "true"
     * I validate apply campaign status is 200 and message is ""
 
   @Basket @Coupon
   Scenario: User can add created Fixed Discount Compensation Coupon in basket
-    #Validate adımı eksik
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -511,7 +506,6 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon
   Scenario: User can not add used Compensation Coupon in basket
-     #basket_validation_error ve basket not found bekliyor
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -553,7 +547,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I set use point "false"
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
-    * I get unique basket id
+    * I wait until new basket id is generated
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
@@ -570,7 +564,6 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon
   Scenario: User can not list but can use IsShownOnCheckout:false Fixed Discount Coupon in basket
-    #Sub total bekliyor
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -686,8 +679,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
-  Scenario: User can not list and can not use draft Campaign Coupon in basket
-    #Pass
+  Scenario: User can not list and can not use draft Campaign Coupon in baske
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
@@ -729,6 +721,7 @@ Feature: Coupon controls in basket and user coupons menu
     * My addresses list should be available
     * I select pinned available address
     * I get unique basket id
+    * I delete basket
     When Staff create target poll
     * Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
@@ -759,11 +752,12 @@ Feature: Coupon controls in basket and user coupons menu
     * I get the basket
     * I list Coupons in basket response
     * I validate created coupon IsSelected value is "true"
-    #* I validate calculated Total value for DiscountType is Percentage and AwardType is Basket Total in basket
+    * I validate basket total original is valid for Percentage discount value is 50 in basket
     * I delete created coupon from basket
     * I get the basket
     * I list Coupons in basket response
     * I validate created coupon IsSelected value is "false"
-    * I validate calculated Total value when no campaign applied
+    * I can check basket subTotal is valid on basket
+    * I can check basket total is valid
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"

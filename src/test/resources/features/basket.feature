@@ -146,8 +146,8 @@ Feature: Basket Controls
     When  I select pinned available address
     Then Banabi Vendor is available
     And I get unique basket id
-    * I delete basket
     Then I select banabi vendor
+    And I delete basket
     When I navigate selected vendor
     When I get alternate product options
     Then I can validate alternate product option list is null
@@ -178,6 +178,27 @@ Feature: Basket Controls
     When I can add the selected product to basket quantity is 1
     Then I can see "MaximumSaleAmountExceeded" warning on add basket response
     And I delete basket
+
+  Scenario: User can update line items quantity
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    And I delete basket
+    When  A list of Carşı Vendor are available on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    When I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    Then I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random available product from selected category
+    And I can add the selected product to basket quantity is 2
+    * I navigate selected product
+    * I update quantity to 3 from selected product with update product service
+    Then I get the basket
+    When I can check Product Quantity is 3 on basket lines
+
 
   Scenario: User can delete line item from basket
     Given I select city "TR_ISTANBUL"
@@ -235,6 +256,27 @@ Feature: Basket Controls
     * I can check basket subTotal is valid on basket
     * I can check basket total is valid
 
+  Scenario: User can update line items quantity -- Banabi
+    Given I select city "TR_ISTANBUL"
+    And I am an authorized  user "Login"
+    And  My addresses list should be available
+    When  I select pinned available address
+    Then I get unique basket id
+    When  Banabi Vendor is available
+    Then I select banabi vendor
+    And I delete basket
+    Then I navigate selected vendor
+    Then I choose "İçecek" product category from category list
+    And I choose "Gazlı İçecek" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random available product from selected category
+    And I can add the selected product to basket quantity is 2
+    * I navigate selected product
+    * I update quantity to 3 from selected product with update product service
+    Then I get the basket
+    When I can check Product Quantity is 3 on basket lines
+
+
 
   Scenario: User can see basket items count on the vendor detail with lite basket service for banabi vendors
     Given I select city "TR_ISTANBUL"
@@ -242,9 +284,9 @@ Feature: Basket Controls
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
-    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
+    And I delete basket
     Then I navigate selected vendor
     Then I choose "İçecek" product category from category list
     And I choose "Gazlı İçecek" sub category from sub category
@@ -265,9 +307,9 @@ Feature: Basket Controls
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
-    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
+    And I delete basket
     * I navigate selected vendor
     * I choose "İçecek" product category from category list
     And I choose "Gazlı İçecek" sub category from sub category
@@ -299,14 +341,14 @@ Feature: Basket Controls
     And I navigate selected product
     When I want add product more than stock
     Then I can see "Sepetinize bu üründen" warning on add basket response
-    * I can valid add basket response is 200
+    * I can valid add basket response is 400
     * I get the basket
     And I can validate basket is empty
     When I add products as many as the max stock quantity
     Then I get the basket
     And I can check Quantity is valid on basket lines
     When I can add the selected product to basket quantity is 2
-    Then I can see "Sepetinize eklemek istediğiniz üründen şu anda stoklarımızda" warning on add basket response
+    Then I can see "Sepetinize bu üründen" warning on add basket response
     And I delete basket
 
   Scenario: User can delete line item from basket for banabi vendors
@@ -315,9 +357,9 @@ Feature: Basket Controls
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
-    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
+    And I delete basket
     Then I navigate selected vendor
     And I delete basket
     Then I choose "İçecek" product category from category list
@@ -366,9 +408,9 @@ Feature: Basket Controls
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
-    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
+    And I delete basket
     Then I navigate selected vendor
     And I delete basket
     Then I choose "İçecek" product category from category list
@@ -378,7 +420,6 @@ Feature: Basket Controls
     And I can add the selected product to basket quantity is 2
     When I get the basket
     Then I validate VendorName is valid in basket info
-    And I validate VendorId is valid in basket info
     And I validate IsFreeOrder is "false" in basket info
     And I validate MinimumDeliveryTotal is valid in basket info
     And I can check basket total is valid
@@ -387,4 +428,3 @@ Feature: Basket Controls
     * I validate VendorCategory is valid in basket info
     * I validate BasketStatus is 1 in basket info
     * I validate BasketId is valid in basket info
-

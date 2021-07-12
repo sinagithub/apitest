@@ -35,7 +35,7 @@ Feature: Vendor detail and listings Controls
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I check product list not empty
-    When I select product with name "Nestlé Classic Sütlü Kare Çikolata - 60 g"
+    When I select a random available product from selected category
     Then I should see selected product's id is not empty on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
@@ -142,7 +142,6 @@ Feature: Vendor detail and listings Controls
 
   Scenario: User should list products on Banabi vendor detail
     When  Banabi Vendor is available
-    And Set platform type to "Banabi"
     Then I select banabi vendor
     Then I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
