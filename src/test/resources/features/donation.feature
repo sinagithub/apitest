@@ -10,6 +10,12 @@ Feature: Checkout User Donation controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -40,6 +46,12 @@ Feature: Checkout User Donation controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -55,10 +67,10 @@ Feature: Checkout User Donation controls
     And I check donation value is valid <TypeId>
 
     Examples: Expected Donation details
-      | Rank | TypeId | ValueText                      | IsSelected |
-      | 0    | 1      | DonationInfoRoundedPaymentText | false      |
-      | 1    | 2      | 5 TL                           | false      |
-      | 2    | 3      | DonationInfoCustomPaymentText  | false      |
+      | Rank | TypeId | ValueText       | IsSelected |
+      | 0    | 2      | Yuvarla 0,76 TL | false      |
+      | 1    | 3      | 5 TL            | false      |
+      | 2    | 4     | Tutar Giriniz   | false      |
 
 
   Scenario: User can select default and custom donation on checkout with Mahalle vendor
@@ -67,13 +79,19 @@ Feature: Checkout User Donation controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response
@@ -81,10 +99,10 @@ Feature: Checkout User Donation controls
     Then I set ContactlessDelivery is "true"
     Then I set donation to 5 tl option type is 2 foundation id is "3"
     And I put basket to checkout LastChangedProperty is 3
-    And I check Donation is selected with 5 tl typeId 2 on put basket checkout response
-    Then I set donation to 1 tl option type is 3 foundation id is "3"
+    And I check Donation is selected with 5 tl typeId 3 on put basket checkout response
+    Then I set donation to 5 tl option type is 3 foundation id is "3"
     And I put basket to checkout LastChangedProperty is 3
-    And I check Donation is selected with 1 tl typeId 3 on put basket checkout response
+    And I check Donation is selected with 5 tl typeId 3 on put basket checkout response
 
   Scenario: User can not select donation with Mahalle vendor supporting offline payment
     Given I am an authorized  user "Login"
@@ -101,13 +119,14 @@ Feature: Checkout User Donation controls
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "false" on basket checkout response
     And Staff update vendor payment method
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
   Scenario: User can't donate with donation value 0 for Mahalle vendor
     Given I am an authorized  user "Login"
@@ -115,13 +134,19 @@ Feature: Checkout User Donation controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    And Staff get selected vendor details from internal vendor service
+    And Staff update vendor payment method
+      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+      | 163c9493-8178-4765-a146-c35da4e98b3a |
+      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
     When I list the products from selected sub category
-    Then I select a random available product from selected category with price upper than is 5.0
+    Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response

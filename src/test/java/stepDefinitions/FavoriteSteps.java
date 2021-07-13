@@ -434,13 +434,7 @@ public class FavoriteSteps extends BaseSteps {
         Vendor favoriteVendor = getSelectedVendorDetailsFromFavoriteList(selectedVendor.getId());
         boolean actualIsOpen = favoriteVendor.getIsOpen();
         boolean expectedIsOpen = selectedVendor.getIsOpen();
-
-        if (expectedIsOpen) {
-            assertTrue(actualIsOpen,
-                    "Vendor IsVendorAvailable status should be " + expectedIsOpen + " not " + actualIsOpen);
-        } else {
-            assertFalse(actualIsOpen);
-        }
+        assertTrue(actualIsOpen == expectedIsOpen,"Vendor IsOpen status should be " + expectedIsOpen + " not " + actualIsOpen);
     }
 
     @Then("I check added favorite vendor  Products is valid on favorite list")

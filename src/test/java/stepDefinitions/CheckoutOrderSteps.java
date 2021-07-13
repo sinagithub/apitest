@@ -269,7 +269,7 @@ public class CheckoutOrderSteps extends BaseSteps {
     }
 
     @Then("I check checkout response is {int}")
-    public void i_check_checkout_response_is(Integer expectedStatus) {
+    public void i_check_checkout_response_is(Integer expectedStatus) throws InterruptedException {
         int actualResponseStatus = getPostCheckoutResponse().getStatusCode();
         assertTrue(expectedStatus == actualResponseStatus, "Post checkout response status should be " + expectedStatus);
     }

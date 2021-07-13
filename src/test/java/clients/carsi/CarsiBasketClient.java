@@ -6,6 +6,7 @@ import apiEngine.Routes.BasketRoute;
 import apiEngine.models.requests.Basket.AddProductWithoutCampaignToBasketReq;
 import apiEngine.models.requests.Basket.Checkout.BasketCheckOutRequest;
 import apiEngine.models.requests.Basket.DeleteProductRequest;
+import apiEngine.models.requests.Basket.PutProductRequest;
 import apiEngine.models.requests.Campaign.ApplyCampaignRequest;
 import apiEngine.models.requests.Campaign.ApplyCouponRequest;
 import apiEngine.models.response.Basket.*;
@@ -40,7 +41,7 @@ public class CarsiBasketClient extends CarsiClient {
         Response response = createRequest()
                 .pathParam("id", basketId)
                 .body(addProductWithoutCampaignToBasketReq)
-                .post(BasketRoute.getAddProduct());
+                .post(BasketRoute.getProduct());
         writeStepLog();
         return new RestResponse<>(AddProductToBasketResponse.class, response);
     }
@@ -138,6 +139,15 @@ public class CarsiBasketClient extends CarsiClient {
                 .delete(BasketRoute.getCouponCode());
         writeStepLog();
         return new RestResponse<>(DeleteCouponResponse.class, response);
+    }
+
+    public IRestResponse<PutProductResponse> updateProduct(String basketId,PutProductRequest putProductRequest){
+        Response response = createRequest()
+                .pathParam("id", basketId)
+                .body(putProductRequest)
+                .put(BasketRoute.getProduct());
+        writeStepLog();
+        return new RestResponse<>(PutProductResponse.class, response);
     }
 
 }

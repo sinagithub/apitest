@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "IsCouponRequired",
         "IsShownOnCheckout",
         "StartDate",
-        "EndDate"
+        "EndDate",
+        "IsShownOnHomepage"
 })
 
 public class Campaign {
@@ -35,16 +36,16 @@ public class Campaign {
     private String startDate;
     @JsonProperty("EndDate")
     private String endDate;
+    @JsonProperty("IsShownOnHomepage")
+    private Boolean isShownOnHomepage;
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Campaign() {
     }
 
     /**
-     *
      * @param isOtpRequired
      * @param isShownOnCheckout
      * @param isCouponRequired
@@ -53,8 +54,10 @@ public class Campaign {
      * @param name
      * @param isOneTimePerUser
      * @param startDate
+     * @param isShownOnHomepage
      */
-    public Campaign(String name, Integer usageLimit, Boolean isOtpRequired, Boolean isOneTimePerUser, Boolean isCouponRequired, Boolean isShownOnCheckout, String startDate, String endDate) {
+    public Campaign(String name, Integer usageLimit, Boolean isOtpRequired, Boolean isOneTimePerUser,
+                    Boolean isCouponRequired, Boolean isShownOnCheckout, String startDate, String endDate,Boolean isShownOnHomepage) {
         super();
         this.name = name;
         this.usageLimit = usageLimit;
@@ -64,6 +67,8 @@ public class Campaign {
         this.isShownOnCheckout = isShownOnCheckout;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.isShownOnHomepage = isShownOnHomepage;
+
     }
 
     @JsonProperty("Name")
@@ -146,4 +151,13 @@ public class Campaign {
         this.endDate = endDate;
     }
 
+    @JsonProperty("IsShownOnHomepage")
+    public Boolean getShownOnHomepage() {
+        return isShownOnHomepage;
+    }
+
+    @JsonProperty("IsShownOnHomepage")
+    public void setShownOnHomepage(Boolean shownOnHomepage) {
+        isShownOnHomepage = shownOnHomepage;
+    }
 }

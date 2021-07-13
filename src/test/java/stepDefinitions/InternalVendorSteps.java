@@ -15,6 +15,7 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.response.Response;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -148,7 +149,8 @@ public class InternalVendorSteps extends BaseSteps {
                 logoUrl, brandImageUrl,
                 acceptFutureOrder, isTipAvailable,
                 deliveryTypes, categoryList, paymentMethodList, operatingUserId);
-        getCarsiInternalVendorClient().setVendorInformation(updateVendorRequest, selectedVendorId);
+      Response response = getCarsiInternalVendorClient().setVendorInformation(updateVendorRequest, selectedVendorId);
+      assertTrue(response.getStatusCode() == 204,"Set vendor payment type response should be valid");
     }
 
 

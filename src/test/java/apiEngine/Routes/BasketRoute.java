@@ -31,7 +31,7 @@ public class BasketRoute {
         return getBasket() + LITE;
     }
 
-    public static String getAddProduct() {
+    public static String getProduct() {
         return getBasket() + PRODUCT;
     }
 

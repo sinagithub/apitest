@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "MinimumDeliveryTotal",
         "TipTotal",
         "DonationTotal",
-        "DeliveryFree",
+        "DeliveryFee",
         "Total",
         "SubTotal",
         "DiscountTotal",
@@ -44,7 +44,7 @@ public class BasketInfo {
     @JsonProperty("DonationTotal")
     private Integer donationTotal;
     @JsonProperty("DeliveryFree")
-    private Double deliveryFree;
+    private Double deliveryFee;
     @JsonProperty("Total")
     private Double total;
     @JsonProperty("SubTotal")
@@ -56,7 +56,7 @@ public class BasketInfo {
     @JsonProperty("BagQuantity")
     private Integer bagQuantity;
     @JsonProperty("BagTotal")
-    private Integer bagTotal;
+    private Double bagTotal;
     @JsonProperty("DiscountedDeliveryFee")
     private Double discountedDeliveryFee;
 
@@ -141,13 +141,13 @@ public class BasketInfo {
     }
 
     @JsonProperty("DeliveryFree")
-    public Double getDeliveryFree() {
-        return deliveryFree;
+    public Double getDeliveryFee() {
+        return deliveryFee;
     }
 
-    @JsonProperty("DeliveryFree")
-    public void setDeliveryFree(Double deliveryFree) {
-        this.deliveryFree = deliveryFree;
+    @JsonProperty("DeliveryFee")
+    public void setDeliveryFee(Double deliveryFee) {
+        this.deliveryFee = deliveryFee;
     }
 
     @JsonProperty("Total")
@@ -201,12 +201,12 @@ public class BasketInfo {
     }
 
     @JsonProperty("BagTotal")
-    public Integer getBagTotal() {
+    public Double getBagTotal() {
         return bagTotal;
     }
 
     @JsonProperty("BagTotal")
-    public void setBagTotal(Integer bagTotal) {
+    public void setBagTotal(Double bagTotal) {
         this.bagTotal = bagTotal;
     }
 

@@ -3,6 +3,7 @@ package stepDefinitions;
 import apiEngine.IRestResponse;
 import apiEngine.Utilies.PlatformTypeHelper;
 import apiEngine.Utilies.Utils;
+import apiEngine.models.requests.InternalVendor.Marketing.DescriptionTr;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.HomePage.*;
@@ -15,6 +16,7 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -24,11 +26,11 @@ public class HomePageSteps extends BaseSteps {
         super(testContext);
     }
 
-    private List<MahalleVendor> getHomeVendorList(){
-        return  (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+    private List<MahalleVendor> getHomeVendorList() {
+        return (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
     }
 
-    private AvailableAddressData getSelectedAddress(){
+    private AvailableAddressData getSelectedAddress() {
         return (AvailableAddressData) getScenarioContext().getContext(Context.ADDRESS);
     }
 
@@ -101,7 +103,8 @@ public class HomePageSteps extends BaseSteps {
     @Then("I select Carsı vendor with order - {int}")
     public void select_carsi_vendor_with_order(int vendorOrder) {
         PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
-        List<MahalleVendor> vendorList = (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        List<MahalleVendor> vendorList =
+                (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
         MahalleVendor selectedVendor = vendorList.get(vendorOrder);
         getScenarioContext().setContext(Context.SELECTED_VENDOR, selectedVendor);
     }
@@ -125,8 +128,8 @@ public class HomePageSteps extends BaseSteps {
         PlatformTypeHelper.getInstance().setPlatformType("Mahalle");
         List<MahalleVendor> vendorList = getHomeVendorList();
         MahalleVendor selectedVendor = null;
-        for (MahalleVendor vendor : vendorList){
-            if (!vendor.getIsOpen()){
+        for (MahalleVendor vendor : vendorList) {
+            if (!vendor.getIsOpen()) {
                 selectedVendor = vendor;
                 break;
             }
@@ -138,19 +141,17 @@ public class HomePageSteps extends BaseSteps {
     public void check_closed_vendor() {
         List<MahalleVendor> vendorList = getHomeVendorList();
         MahalleVendor selectedVendor = null;
-        for (MahalleVendor vendor : vendorList){
-            if (!vendor.getIsOpen()){
+        for (MahalleVendor vendor : vendorList) {
+            if (!vendor.getIsOpen()) {
                 selectedVendor = vendor;
                 break;
             }
         }
 
-        if (selectedVendor == null){
+        if (selectedVendor == null) {
             Assert.fail("There are no closed vendor on the vendor list");
-        }
-
-        else {
-            assertTrue(!selectedVendor.getIsOpen(),"Vendor status should be false");
+        } else {
+            assertTrue(!selectedVendor.getIsOpen(), "Vendor status should be false");
         }
     }
 
@@ -259,7 +260,7 @@ public class HomePageSteps extends BaseSteps {
             assertTrue(statusCode == 200,
                     "\n"
                             + "Status : " + statusCode
-                            +"\n"
+                            + "\n"
                             + "Image url :" + imageUrl);
         }
 
@@ -294,5 +295,26 @@ public class HomePageSteps extends BaseSteps {
     public void set_platform_type_to(String platformType) {
         setCurrentPlatformType(platformType);
     }
+
+    @Then("I check created campaign banner listed and url is valid on home page banners")
+    public void i_check_created_campaign_banner_listed_on_home_page_banners() {
+        String createdCampaignId = (String) getScenarioContext().getContext(Context.CREATED_CAMPAIGN_ID);
+        List<Banner> bannerList = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
+        HashMap campaignInfo = (HashMap) getScenarioContext().getContext(Context.DEFINATED_CAMPAIGN);
+        DescriptionTr campaignDesc = (DescriptionTr) campaignInfo.get("DescriptionTr");
+        String campaignImageUrl = campaignDesc.getImageUrl();
+
+        for (Banner banner : bannerList) {
+            String id = banner.getId();
+            String actualImageUrl = banner.getImageUrl();
+            if (id.equalsIgnoreCase(createdCampaignId)) {
+                assertEqual("Campaign Banner image url should be equal", actualImageUrl, campaignImageUrl);
+                return;
+            }
+        }
+        Assert.fail("Campaign id should be on the banner list");
+    }
+
+
 }
 
