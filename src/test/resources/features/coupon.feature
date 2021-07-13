@@ -14,9 +14,9 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=1"
+    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.banabi.com/images/campaign/55156f49-9f29-4782-80d6-ab5dde447a70.png"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
@@ -57,7 +57,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "0"
@@ -97,7 +97,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
@@ -141,7 +141,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
@@ -185,7 +185,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=9"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
@@ -250,7 +250,7 @@ Feature: Coupon controls in basket and user coupons menu
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     # postman: Internal-APIS > Tagging > Post/api/v1/usertag
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=11"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
@@ -291,7 +291,7 @@ Feature: Coupon controls in basket and user coupons menu
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff define vendor id list with home index for tag creation 0
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
@@ -331,7 +331,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 79C4AC62-0DE9-43EF-80DF-DEE2941B8951 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=12"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
@@ -371,7 +371,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     And Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 2, MaxDiscountValue 2
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=13"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
@@ -437,7 +437,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I select pinned available address
     * I get unique basket id
     When Staff create target poll
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=14"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
@@ -477,7 +477,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I select pinned available address
     * I get unique basket id
     When Staff create target poll
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=14"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
@@ -511,7 +511,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I select pinned available address
     * I get unique basket id
     When Staff create target poll
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=14"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
@@ -572,7 +572,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     * Staff create user tag name "IsShownOnCheckout:false coupon", description "IsShownOnCheckout:false coupon", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 4, Value "1"
@@ -612,7 +612,7 @@ Feature: Coupon controls in basket and user coupons menu
     When Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 4, Value "10"
@@ -651,7 +651,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 4, Value "10"
@@ -688,7 +688,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 4, Value "10"
@@ -726,7 +726,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate
+    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 1, DiscountValue 50, MaxDiscountValue 200
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=18"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "3"

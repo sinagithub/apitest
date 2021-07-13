@@ -35,7 +35,7 @@ public class Product {
     @JsonProperty("Price")
     private Double price;
     @JsonProperty("DiscountedPrice")
-    private Integer discountedPrice;
+    private Double discountedPrice;
     @JsonProperty("MaximumSaleAmount")
     private Integer maximumSaleAmount;
     @JsonProperty("IsActive")
@@ -98,12 +98,12 @@ public class Product {
     }
 
     @JsonProperty("DiscountedPrice")
-    public Integer getDiscountedPrice() {
+    public Double getDiscountedPrice() {
         return discountedPrice;
     }
 
     @JsonProperty("DiscountedPrice")
-    public void setDiscountedPrice(Integer discountedPrice) {
+    public void setDiscountedPrice(Double discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
 

@@ -39,8 +39,8 @@ public class InternalCampaignSteps extends BaseSteps {
     }
 
     @Then("Staff select Campaign with Name {string}, UsageLimit {int}, IsOtpRequired {string}, IsOneTimePerUser " +
-            "{string}, IsCouponRequired {string}, IsShownOnCheckout {string}, StartDate, EndDate")
-    public void staff_select_campaign_with_name_usage_limit_is_otp_required_is_one_time_per_user_is_coupon_required_is_shown_on_checkout_start_date_end_date(String name, Integer usageLimit, String isOtpRequired, String isOneTimePerUser, String isCouponRequired, String isShownOnCheckout) throws IOException {
+            "{string}, IsCouponRequired {string}, IsShownOnCheckout {string}, StartDate, EndDate, IsShownOnHomePage {string}")
+    public void staff_select_campaign_with_name_usage_limit_is_otp_required_is_one_time_per_user_is_coupon_required_is_shown_on_checkout_start_date_end_date(String name, Integer usageLimit, String isOtpRequired, String isOneTimePerUser, String isCouponRequired, String isShownOnCheckout, String isShownOnHomePage) throws IOException {
         String randomName = name + "--" + GenerateFakeData.getRandomNameWithNumbers();
         HashMap definedCampaignInfo = new HashMap();
         definedCampaignInfo.put("CampaignName", randomName);
@@ -50,21 +50,26 @@ public class InternalCampaignSteps extends BaseSteps {
             otpSelection = true;
         }
         boolean isOneTimePerUserSelection = false;
-        if (isOneTimePerUser.contains("true")) {
+        if (isOneTimePerUser.equalsIgnoreCase("true")) {
             isOneTimePerUserSelection = true;
         }
         boolean isCouponRequiredSelection = false;
-        if (isCouponRequired.contains("true")) {
+        if (isCouponRequired.equalsIgnoreCase("true")) {
             isCouponRequiredSelection = true;
         }
         boolean isShownOnCheckoutSelection = false;
-        if (isShownOnCheckout.contains("true")) {
+        if (isShownOnCheckout.equalsIgnoreCase("true")) {
             isShownOnCheckoutSelection = true;
+        }
+
+        boolean isShownOnHomePageSelection = false;
+        if (isShownOnHomePage.equalsIgnoreCase("true")) {
+            isShownOnHomePageSelection = true;
         }
         String dateNow = DateUtil.generateDateNow();
         String dateEnd = DateUtil.getNextDay(1);
         Campaign campaign = new Campaign(randomName, usageLimit, otpSelection, isOneTimePerUserSelection,
-                isCouponRequiredSelection, isShownOnCheckoutSelection, dateNow, dateEnd);
+                isCouponRequiredSelection, isShownOnCheckoutSelection, dateNow, dateEnd, isShownOnHomePageSelection);
         definedCampaignInfo.put("Campaign", campaign);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
@@ -103,6 +108,16 @@ public class InternalCampaignSteps extends BaseSteps {
         conditions.add(condition);
         definedCampaignInfo.put("Conditions", conditions);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
+    }
+
+    @Then("Staff select campaign isShownOnHomePage is {string}")
+    public void staff_select_campaign_is_shown_on_home_page(String isShownOnHomePage) {
+        HashMap definedCampaignInfo = getDefinedCampaignInfo();
+        if (isShownOnHomePage.equalsIgnoreCase("true")){
+            definedCampaignInfo.put("IsShownOnHomePage", true);
+        }else {
+            definedCampaignInfo.put("IsShownOnHomePage", false);
+        }
     }
 
     @Then("Staff select campaign target TypeId for created user tag")
@@ -194,7 +209,6 @@ public class InternalCampaignSteps extends BaseSteps {
     @Then("Staff create campaign in marketing with selected campaign info operation User email {string}")
     public void staff_create_campaign_in_marketing(String operationUserMail) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
-
         Campaign campaign = (Campaign) definedCampaignInfo.get("Campaign");
         DescriptionTr descriptionTr = getSelectedCampaignDescriptionTr();
         DescriptionEn descriptionEn = getSelectedCampaignDescriptionEn();
@@ -203,7 +217,6 @@ public class InternalCampaignSteps extends BaseSteps {
         List<Target> targetList = (List<Target>) definedCampaignInfo.get("TargetList");
         Coupon coupon = (Coupon) definedCampaignInfo.get("Coupon");
         String stateInfo = (String) definedCampaignInfo.get("StateInfo");
-
         PostCampaignRequest postCampaignRequest = new PostCampaignRequest(campaign, descriptionTr, descriptionEn,
                 award, conditionList, targetList, coupon, stateInfo);
         IRestResponse<CreateCampaignResponse> campaignResponse =
@@ -257,7 +270,7 @@ public class InternalCampaignSteps extends BaseSteps {
     @Then("Staff suspend created campaign")
     public void staff_suspend_created_campaign() {
         String campaignId = getCreatedCampaignId();
-        getInternalMarketingClient().suspendCampaign(campaignId,"automation@gmail.com");
+        getInternalMarketingClient().suspendCampaign(campaignId, "automation@gmail.com");
     }
 
 }

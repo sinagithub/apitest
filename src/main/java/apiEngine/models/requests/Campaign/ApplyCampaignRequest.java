@@ -23,13 +23,11 @@ public class ApplyCampaignRequest {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public ApplyCampaignRequest() {
     }
 
     /**
-     *
      * @param userHasOtpValidation
      * @param campaignId
      * @param couponCode
@@ -70,5 +68,4 @@ public class ApplyCampaignRequest {
     public void setUserHasOtpValidation(Boolean userHasOtpValidation) {
         this.userHasOtpValidation = userHasOtpValidation;
     }
-
 }

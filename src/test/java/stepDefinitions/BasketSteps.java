@@ -264,7 +264,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I can check basket subTotal is valid on basket")
     public void i_can_check_basket_sub_total_is_valid_on_basket() {
-        double actualSubTotal = getBasketInfo().getTotalWithoutDeliveryFee();
+        double actualSubTotal = getBasketInfo().getSubTotalOriginal();
         double saving = getBasketInfo().getSaving();
         double deliveryFeeOriginal = getBasketInfo().getDeliveryFeeOriginal();
         double deliveryFee = getBasketInfo().getDeliveryFee();

@@ -1,7 +1,7 @@
 package apiEngine.models.requests.Basket;
 
 import java.util.List;
-import javax.annotation.Generated;
+
 
 import apiEngine.models.response.ProductDetail.Option;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "Options",
         "LineItemId"
 })
-@Generated("jsonschema2pojo")
+
 public class PutProductRequest {
 
     @JsonProperty("ProductId")

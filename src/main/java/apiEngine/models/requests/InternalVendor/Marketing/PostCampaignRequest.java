@@ -37,6 +37,7 @@ public class PostCampaignRequest {
     @JsonProperty("StateInfo")
     private String stateInfo;
 
+
     /**
      * No args constructor for use in serialization
      *

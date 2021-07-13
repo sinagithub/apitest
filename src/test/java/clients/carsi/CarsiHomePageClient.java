@@ -22,7 +22,7 @@ public class CarsiHomePageClient extends CarsiClient {
                                                               Double latitude,
                                                               Double longitude) {
 
-        Response response = createRequest().log().all()
+        Response response = createRequest()
                 .queryParam("AddressId", addressId)
                 .queryParam("AreaId", areaId)
                 .queryParam("Latitude", latitude)

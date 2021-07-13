@@ -309,6 +309,7 @@ public class CampaignSteps extends BaseSteps {
         }
     }
 
+
     @Then("I validate coupon CampaignTitle is {string}, Description is {string}, ImageUrl is {string} is listed in " +
             "campaign coupons response")
     public void i_validate_coupon_is_listed_in_campaign_coupons_response(String campaignTitle,
