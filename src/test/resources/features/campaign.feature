@@ -24,6 +24,6 @@ Feature: Campaign Controls
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When HomePage banners are available
-    Then I check created campaign banner listed on home page banners
+    Then I check created campaign banner listed and url is valid on home page banners
 
 
