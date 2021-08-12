@@ -241,7 +241,4 @@ public class InternalVendorSteps extends BaseSteps {
         staff_select_working_day_of_week_start_hour_start_minute_end_hour_end_minute(nextDayOfWeek,startHour,startMinute,endHour,endMinute);
 
     }
-
-
-
 }
