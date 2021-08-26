@@ -15,19 +15,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class AddBasketData {
 
     @JsonProperty("LightBasket")
-    private LightBasket lightBasket;
+    private LiteBasketData lightBasket;
     @JsonProperty("CampaignErrors")
     private CampaignErrors campaignErrors;
     @JsonProperty("ProductErrors")
     private ProductErrors productErrors;
 
     @JsonProperty("LightBasket")
-    public LightBasket getLightBasket() {
+    public LiteBasketData getLightBasket() {
         return lightBasket;
     }
 
     @JsonProperty("LightBasket")
-    public void setLightBasket(LightBasket lightBasket) {
+    public void setLightBasket(LiteBasketData lightBasket) {
         this.lightBasket = lightBasket;
     }
 

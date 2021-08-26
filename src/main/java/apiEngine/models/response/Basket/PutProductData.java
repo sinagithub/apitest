@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class PutProductData {
 
     @JsonProperty("LightBasket")
-    private LightBasket lightBasket;
+    private LiteBasketData lightBasket;
     @JsonProperty("CampaignErrors")
     private CampaignErrors campaignErrors;
     @JsonProperty("ProductErrors")
@@ -33,7 +33,7 @@ public class PutProductData {
      * @param campaignErrors
      * @param productErrors
      */
-    public PutProductData(LightBasket lightBasket, CampaignErrors campaignErrors, ProductErrors productErrors) {
+    public PutProductData(LiteBasketData lightBasket, CampaignErrors campaignErrors, ProductErrors productErrors) {
         super();
         this.lightBasket = lightBasket;
         this.campaignErrors = campaignErrors;
@@ -41,12 +41,12 @@ public class PutProductData {
     }
 
     @JsonProperty("LightBasket")
-    public LightBasket getLightBasket() {
+    public LiteBasketData getLightBasket() {
         return lightBasket;
     }
 
     @JsonProperty("LightBasket")
-    public void setLightBasket(LightBasket lightBasket) {
+    public void setLightBasket(LiteBasketData lightBasket) {
         this.lightBasket = lightBasket;
     }
 

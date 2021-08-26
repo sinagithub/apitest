@@ -13,17 +13,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class LiteBasketResponse {
 
     @JsonProperty("Data")
-    private LightBasket liteBasketData;
+    private LiteBasketData liteBasketData;
     @JsonProperty("InfoList")
     private List<Info> infoList = null;
 
     @JsonProperty("Data")
-    public LightBasket getData() {
+    public LiteBasketData getData() {
         return liteBasketData;
     }
 
     @JsonProperty("Data")
-    public void setData(LightBasket liteBasketData) {
+    public void setData(LiteBasketData liteBasketData) {
         this.liteBasketData = liteBasketData;
     }
 

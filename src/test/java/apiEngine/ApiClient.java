@@ -11,7 +11,7 @@ import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import stepDefinitions.Hooks;
-
+import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 
 public class ApiClient extends Hooks {
 
@@ -27,7 +27,7 @@ public class ApiClient extends Hooks {
     private final String sessionId;
 
     public RequestSpecification createRequest() {
-        RequestSpecification request = RestAssured.given().log().method().request().config(config).with().filter(logFilter);
+        RequestSpecification request = RestAssured.given().log().all().request().config(config).with().filter(logFilter);
         request.baseUri(baseUrl);
         request.header("Content-Type", "application/json");
         request.header("YS-Culture", "tr-TR");

@@ -201,6 +201,7 @@ public class VendorSteps extends BaseSteps {
         int index = -1;
         Product selectedProduct;
         Random random = new Random();
+
         for (int i= 0; i<= products.size(); i++){
             index = random.nextInt(products.size() - 1);
             selectedProduct = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
@@ -211,6 +212,7 @@ public class VendorSteps extends BaseSteps {
 
 
         Product product = vendorCategoryProductResponse.getBody().getData().getProducts().get(index);
+        System.out.println(product.getName());
         getScenarioContext().setContext(Context.SELECTED_PRODUCT, product);
     }
 
@@ -257,7 +259,7 @@ public class VendorSteps extends BaseSteps {
         Product selectedProduct = null;
 
         for (Product product : products) {
-            if (product.getName().equalsIgnoreCase(productName)) {
+            if (product.getName().contains(productName)) {
                 selectedProduct = product;
                 break;
             }

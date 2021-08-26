@@ -68,7 +68,7 @@ Feature: Basket Controls
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
-    Then I check added product "VendorsNotMatchedInBasket" error message and status is 400
+    Then I check added product "Sepetinizde başka bir mağazadan ürün(ler) bulunmaktadır. Sepetinize bu mağazanın ürününü eklemek için sepetinizi boşaltmak ister misiniz?" error message and status is 400
 
   Scenario: User can see basket items count on the vendor detail with lite basket service
     Given I select city "TR_ISTANBUL"
@@ -168,7 +168,7 @@ Feature: Basket Controls
     Then I select a random available product from selected category
     And I navigate selected product
     When I want add product more than stock
-    Then I can see "MaximumSaleAmountExceeded" warning on add basket response
+    Then I can see "Burada Task Beklıyoruz" warning on add basket response
     Then I can valid add basket response is 400
     Then I get the basket
     And I can validate basket is empty
@@ -176,7 +176,7 @@ Feature: Basket Controls
     Then I get the basket
     And I can check Quantity is valid on basket lines
     When I can add the selected product to basket quantity is 1
-    Then I can see "MaximumSaleAmountExceeded" warning on add basket response
+    Then I can see "adet ekleyebilirsiniz, dilerseniz diğer ürünlere göz atabilirsiniz." warning on add basket response
     And I delete basket
 
   Scenario: User can update line items quantity
@@ -334,10 +334,10 @@ Feature: Basket Controls
     Then I select banabi vendor
     And I delete basket
     Then I navigate selected vendor
-    * I choose "Su" product category from category list
-    * I choose "Damacana" sub category from sub category
+    * I choose "İçecek" product category from category list
+    * I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
-    Then I select product with name "İadeli Damla Damacana Su"
+    Then I select a random available product from selected category
     And I navigate selected product
     When I want add product more than stock
     Then I can see "Sepetinize bu üründen" warning on add basket response
