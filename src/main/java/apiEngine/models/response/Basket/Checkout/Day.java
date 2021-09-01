@@ -6,14 +6,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.List;
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Day",
         "DateText",
         "IsEnabled",
+        "IsOutOfService",
+        "IsSelected",
         "Hours"
 })
-
+@Generated("jsonschema2pojo")
 public class Day {
 
     @JsonProperty("Day")
@@ -22,6 +30,10 @@ public class Day {
     private String dateText;
     @JsonProperty("IsEnabled")
     private Boolean isEnabled;
+    @JsonProperty("IsOutOfService")
+    private Boolean isOutOfService;
+    @JsonProperty("IsSelected")
+    private Boolean isSelected;
     @JsonProperty("Hours")
     private List<Hour> hours = null;
 
@@ -53,6 +65,26 @@ public class Day {
     @JsonProperty("IsEnabled")
     public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
+    }
+
+    @JsonProperty("IsOutOfService")
+    public Boolean getIsOutOfService() {
+        return isOutOfService;
+    }
+
+    @JsonProperty("IsOutOfService")
+    public void setIsOutOfService(Boolean isOutOfService) {
+        this.isOutOfService = isOutOfService;
+    }
+
+    @JsonProperty("IsSelected")
+    public Boolean getIsSelected() {
+        return isSelected;
+    }
+
+    @JsonProperty("IsSelected")
+    public void setIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
     @JsonProperty("Hours")

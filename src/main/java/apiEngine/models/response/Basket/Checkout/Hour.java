@@ -1,6 +1,6 @@
 package apiEngine.models.response.Basket.Checkout;
 
-
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,18 +9,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "Time",
         "Text",
-        "IsEnabled"
+        "IsEnabled",
+        "IsSelected"
 })
-
+@Generated("jsonschema2pojo")
 public class Hour {
 
     @JsonProperty("Time")
     private String time;
     @JsonProperty("Text")
     private String text;
-
     @JsonProperty("IsEnabled")
     private Boolean isEnabled;
+    @JsonProperty("IsSelected")
+    private Boolean isSelected;
 
     @JsonProperty("Time")
     public String getTime() {
@@ -42,11 +44,24 @@ public class Hour {
         this.text = text;
     }
 
-    public Boolean getEnabled() {
+    @JsonProperty("IsEnabled")
+    public Boolean getIsEnabled() {
         return isEnabled;
     }
 
-    public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
+    @JsonProperty("IsEnabled")
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
+
+    @JsonProperty("IsSelected")
+    public Boolean getIsSelected() {
+        return isSelected;
+    }
+
+    @JsonProperty("IsSelected")
+    public void setIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
 }

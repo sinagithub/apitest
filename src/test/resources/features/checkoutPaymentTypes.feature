@@ -60,9 +60,9 @@ Feature: Checkout User Payment Method controls
     And I check sub PaymentType is <PaymentType> is exist in selected payment sub method
 
     Examples: Expected Payment sub methods
-      | PaymentTypeId                        | PaymentMethodId                      | subId | Name           | IconUrl                                                                  | Description      | BinNumber | PointAmount | IsSelected | CheckoutTypeId | PaymentType |
-      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 062   | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |
-      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 046   | Akbank Hilal   | https://images.yemeksepetim.com/App_Themes/BankLogos/akbank.png          | 520932******6435 | 520932    | 0           | false      | 4              | 1           |
+      | PaymentTypeId                        | PaymentMethodId                      | subId                            | Name           | IconUrl                                                                  | Description      | BinNumber | PointAmount | IsSelected | CheckoutTypeId | PaymentType |
+      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 6dd07657e24177d582cca099c1f18122 | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |
+      | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 22a110a9625a58f658e8e8886395a1c4 | Akbank Hilal   | https://images.yemeksepetim.com/App_Themes/BankLogos/akbank.png          | 520932******6435 | 520932    | 0           | false      | 4              | 1           |
 
 
   Scenario Outline: User can list offline payment options on checkout

@@ -495,7 +495,7 @@ public class FavoriteSteps extends BaseSteps {
         String actualProductUnitMass = addedProduct.getUnitMass();
         String expectedUnitMass = selectedProduct.getUnitMass();
         assertNotNull(actualProductUnitMass, "Added product unit mass should not null");
-        assertTrue(actualProductUnitMass == expectedUnitMass, "Selected unit mass " +
+        assertTrue(actualProductUnitMass.equals(expectedUnitMass) , "Selected unit mass " +
                 "and added unit mass should be equal ");
     }
 

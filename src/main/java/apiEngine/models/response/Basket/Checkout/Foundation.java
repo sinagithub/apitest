@@ -1,6 +1,5 @@
 package apiEngine.models.response.Basket.Checkout;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "FoundationName",
         "FoundationDescription",
         "FoundationIconUrl",
-        "IsActive",
-        "IsSelected",
-        "Rank"
+        "IsActive"
 })
 
 public class Foundation {
@@ -28,10 +25,6 @@ public class Foundation {
     private String foundationIconUrl;
     @JsonProperty("IsActive")
     private Boolean isActive;
-    @JsonProperty("IsSelected")
-    private Boolean isSelected;
-    @JsonProperty("Rank")
-    private Integer rank;
 
     @JsonProperty("FoundationId")
     public String getFoundationId() {
@@ -81,26 +74,6 @@ public class Foundation {
     @JsonProperty("IsActive")
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-    }
-
-    @JsonProperty("IsSelected")
-    public Boolean getIsSelected() {
-        return isSelected;
-    }
-
-    @JsonProperty("IsSelected")
-    public void setIsSelected(Boolean isSelected) {
-        this.isSelected = isSelected;
-    }
-
-    @JsonProperty("Rank")
-    public Integer getRank() {
-        return rank;
-    }
-
-    @JsonProperty("Rank")
-    public void setRank(Integer rank) {
-        this.rank = rank;
     }
 
 }

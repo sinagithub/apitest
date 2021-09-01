@@ -166,9 +166,9 @@ public class DonationSteps extends BaseSteps {
         String actualDonationValueText = getDonationOptionsFromGetBasket().get(rank).getValueText();
         if (typeId == 1) {
             String expectedRoundedDonationText = getDonationInfoRoundedPaymentText(expectedValueText);
-            assertEqual("Value text should be equal", actualDonationValueText, expectedRoundedDonationText);
+            assertTrue(actualDonationValueText.contains(expectedRoundedDonationText),"Value text should contain" + expectedRoundedDonationText );
         } else {
-            assertEqual("Value text should be equal", actualDonationValueText, expectedValueText);
+            assertTrue(actualDonationValueText.contains(expectedValueText),"Value text should contain" + expectedValueText );
         }
     }
 

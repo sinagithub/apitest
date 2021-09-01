@@ -60,12 +60,12 @@ Feature: Checkout User Tip controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "true" on basket checkout response
-    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
-    Then I set tip to 500 tl option type is 3
+    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1
+    Then I set tip to 500 tl option type is 4
     And I set ContactlessDelivery is "true"
     And I put basket to checkout LastChangedProperty is 3
     And I check Tip is selected with 500 on put basket checkout response
-    And I check tip isEnabled is "true" tip type is 3 on put basket checkout response
+    And I check tip isEnabled is "true" tip type is 4 on put basket checkout response
     And I check total is valid for tip amount 500 on put basket checkout response
 
   Scenario: User can select predefined tip on checkout with Mahalle vendor
@@ -89,7 +89,7 @@ Feature: Checkout User Tip controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "true" on basket checkout response
-    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
+    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1
     Then I set tip to 3 tl option type is 3
     And I set ContactlessDelivery is "true"
     And I put basket to checkout LastChangedProperty is 3

@@ -67,10 +67,10 @@ Feature: Checkout User Donation controls
     And I check donation value is valid <TypeId>
 
     Examples: Expected Donation details
-      | Rank | TypeId | ValueText       | IsSelected |
-      | 0    | 2      | Yuvarla 0,76 TL | false      |
-      | 1    | 3      | 5 TL            | false      |
-      | 2    | 4     | Tutar Giriniz   | false      |
+      | Rank | TypeId | ValueText     | IsSelected |
+      | 0    | 2      | Yuvarla       | false      |
+      | 1    | 3      | 5 TL          | false      |
+      | 2    | 4      | Tutar Giriniz | false      |
 
 
   Scenario: User can select default and custom donation on checkout with Mahalle vendor

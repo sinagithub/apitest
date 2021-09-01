@@ -33,18 +33,13 @@ public class Payment {
     }
 
     /**
-     *
      * @param paymentType
      * @param paymentMethodId
-     * @param binNumber
-     * @param isApproved
      */
-    public Payment(String paymentMethodId, Integer paymentType, Integer binNumber, Boolean isApproved) {
+    public Payment(String paymentMethodId, Integer paymentType) {
         super();
         this.paymentMethodId = paymentMethodId;
         this.paymentType = paymentType;
-        this.binNumber = binNumber;
-        this.isApproved = isApproved;
     }
 
     @JsonProperty("PaymentMethodId")

@@ -168,7 +168,7 @@ Feature: Basket Controls
     Then I select a random available product from selected category
     And I navigate selected product
     When I want add product more than stock
-    Then I can see "Burada Task Beklıyoruz" warning on add basket response
+    Then I can see "dilerseniz diğer ürünlere göz atabilirsiniz." warning on add basket response
     Then I can valid add basket response is 400
     Then I get the basket
     And I can validate basket is empty

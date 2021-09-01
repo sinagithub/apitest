@@ -1,6 +1,8 @@
 package apiEngine.models.response.Basket.Checkout;
 
 
+import java.util.List;
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,9 +12,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "IsValid",
         "CanBeFixed",
         "IsCouponUsed",
-        "BasketCheckout"
+        "BasketCheckout",
+        "WarningMessages"
 })
-
+@Generated("jsonschema2pojo")
 public class Data {
 
     @JsonProperty("IsValid")
@@ -23,6 +26,8 @@ public class Data {
     private Boolean isCouponUsed;
     @JsonProperty("BasketCheckout")
     private BasketCheckout basketCheckout;
+    @JsonProperty("WarningMessages")
+    private List<String> warningMessages = null;
 
     @JsonProperty("IsValid")
     public Boolean getIsValid() {
@@ -62,6 +67,16 @@ public class Data {
     @JsonProperty("BasketCheckout")
     public void setBasketCheckout(BasketCheckout basketCheckout) {
         this.basketCheckout = basketCheckout;
+    }
+
+    @JsonProperty("WarningMessages")
+    public List<String> getWarningMessages() {
+        return warningMessages;
+    }
+
+    @JsonProperty("WarningMessages")
+    public void setWarningMessages(List<String> warningMessages) {
+        this.warningMessages = warningMessages;
     }
 
 }

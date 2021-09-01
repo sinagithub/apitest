@@ -279,14 +279,7 @@ public class HomePageSteps extends BaseSteps {
         List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
         for (Banner banner : banners) {
             String bannerImageUrl = banner.getImageUrl();
-            Response response = getCarsiHomePageClient().getImageUrlResponse(bannerImageUrl);
-            assertTrue(response.getStatusCode() == 200,
-                    "\n"
-                            + "Expected : " + 200 + " Actual " + response.getStatusCode()
-                            + "\n"
-                            + " Url : "
-                            + bannerImageUrl);
-            Assert.assertEquals(200, response.getStatusCode());
+            assertTrue(!bannerImageUrl.isEmpty(), " Banner image urls must not be empty");
         }
     }
 
@@ -313,6 +306,24 @@ public class HomePageSteps extends BaseSteps {
             }
         }
         Assert.fail("Campaign id should be on the banner list");
+    }
+
+    @Then("HomePage banners OmnitureKeyword should not empty")
+    public void home_page_banners_omniture_keyword_should_not_empty() {
+        List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
+        for (Banner banner : banners) {
+            String omnitureKeyword = banner.getOmnitureKeyword();
+            assertTrue(!omnitureKeyword.isEmpty(), " Banner omnitureKeyword must not be empty");
+        }
+    }
+
+    @Then("HomePage banners deeplink url should not empty")
+    public void home_page_banners_clickable_status_should_not_empty() {
+        List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
+        for (Banner banner : banners) {
+            String deeplinkUrl = banner.getDeeplinkUrl();
+            assertTrue(deeplinkUrl.isEmpty(), " Banner deeplinkUrl must not be empty");
+        }
     }
 
 

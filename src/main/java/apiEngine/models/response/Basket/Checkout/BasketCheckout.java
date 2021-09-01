@@ -6,17 +6,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
-        "BasketInfo",
+        "ShowAgreements",
+        "IsAgreementSelectedByDefault",
         "ShowContactlessDeliveryOption",
+        "BasketInfo",
         "TipInfo",
         "DonationInfo",
         "PaymentTypes",
         "SavedNotes",
-        "Addresses",
         "DeliveryTimeOptions"
 })
 
 public class BasketCheckout {
+
+    @JsonProperty("ShowAgreements")
+    private Boolean showAgreements;
+    @JsonProperty("IsAgreementSelectedByDefault")
+    private Boolean isAgreementSelectedByDefault;
 
     @JsonProperty("BasketInfo")
     private BasketInfo basketInfo;
@@ -113,6 +119,26 @@ public class BasketCheckout {
     @JsonProperty("DeliveryTimeOptions")
     public void setDeliveryTimeOptions(DeliveryTimeOptions deliveryTimeOptions) {
         this.deliveryTimeOptions = deliveryTimeOptions;
+    }
+
+    @JsonProperty("IsAgreementSelectedByDefault")
+    public Boolean getIsAgreementSelectedByDefault() {
+        return isAgreementSelectedByDefault;
+    }
+
+    @JsonProperty("IsAgreementSelectedByDefault")
+    public void setIsAgreementSelectedByDefault(Boolean isAgreementSelectedByDefault) {
+        this.isAgreementSelectedByDefault = isAgreementSelectedByDefault;
+    }
+
+    @JsonProperty("ShowAgreements")
+    public Boolean getShowAgreements() {
+        return showAgreements;
+    }
+
+    @JsonProperty("ShowAgreements")
+    public void setShowAgreements(Boolean showAgreements) {
+        this.showAgreements = showAgreements;
     }
 
 }

@@ -216,7 +216,7 @@ Feature: Coupon controls in basket and user coupons menu
   #  * I validate calculated SubTotal value for DiscountType is FixedDiscount and AwardType is SubTotal in basket
     * I get checkout options
     When I set ContactlessDelivery is "false"
-    Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2 , BinNumber: 0 , IsApproved : "true"
+    Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2
     * I put basket to checkout LastChangedProperty is 2
     * I write user note "test-siparişi"
     * I set use point "false"

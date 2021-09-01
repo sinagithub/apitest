@@ -28,7 +28,7 @@ Feature: Delivery time controls in checkout
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I list DeliveryTimeOptions in basket checkout response
-    And I check Title "İleri Tarihli" in future DeliveryTime option
+    And I check Title "Randevulu Teslimat" in future DeliveryTime option
     And I check Description "Sipariş, seçtiğiniz tarih ve saat aralığında size ulaşacaktır." in future DeliveryTime option
     And I check working day size is 8
     And I check available working day size is 6 or 5
@@ -52,6 +52,8 @@ Feature: Delivery time controls in checkout
     And Staff create working pool for selected vendor
     And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    And Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    And Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0

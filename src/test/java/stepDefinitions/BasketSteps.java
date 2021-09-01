@@ -14,6 +14,7 @@ import apiEngine.models.requests.Basket.PutProductRequest;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.Basket.*;
+import apiEngine.models.response.Basket.Campaign.Campaign;
 import apiEngine.models.response.Basket.Checkout.*;
 import apiEngine.models.response.Basket.Checkout.BasketInfo;
 import apiEngine.models.response.Basket.Checkout.PutCheckout.BasketPutResponse;
@@ -220,7 +221,7 @@ public class BasketSteps extends BaseSteps {
         IRestResponse<AddProductToBasketResponse> addBasketResponse = getCarsiBasketClient().addProduct(basketId,
                 addProductWithoutCampaignToBasketReq);
 
-        if (addBasketResponse.isSuccessful()) {
+        if (addBasketResponse.getStatusCode() == 200) {
             saveAddedProductToList(product, quantity);
         }
         getScenarioContext().setContext(Context.ADDED_PRODUCT_REQ, addProductWithoutCampaignToBasketReq);
@@ -259,35 +260,30 @@ public class BasketSteps extends BaseSteps {
         double subTotal = getBasketInfo().getSubTotal();
 
         BigDecimal total = BigDecimal.valueOf(
-                         getSelectedVendorDeliveryFee()
+                getSelectedVendorDeliveryFee()
                         + bagTotalPrice
                         + subTotal).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
         return total.doubleValue();
     }
 
+    private double getSubTotalDiscount() {
+        List<Campaign> campaignList = getBasketResponse().getBody().getData().getCampaigns();
+        double discountValue = 0.0;
+
+        for (Campaign campaign : campaignList){
+           int typeId = campaign.getCampaignItem().getTypeId();
+           if (typeId == 3){
+               discountValue = campaign.getCampaignItem().getDiscountTotal();
+               break;
+           }
+        }
+        return  discountValue;
+    }
+
     @Then("I can check basket subTotal is valid on basket")
     public void i_can_check_basket_sub_total_is_valid_on_basket() {
         double actualSubTotal = getBasketInfo().getSubTotal();
-        double saving = getBasketInfo().getSaving();
-        double deliveryFeeOriginal = getBasketInfo().getDeliveryFeeOriginal();
-        double deliveryFee = getBasketInfo().getDeliveryFee();
-        BigDecimal subTotal;
-
-        if (deliveryFee != deliveryFeeOriginal) {
-            subTotal = BigDecimal.valueOf(
-                    getAddedProductsTotalPrice()
-                            + deliveryFeeOriginal
-                            - saving).setScale(2,
-                    RoundingMode.HALF_UP).stripTrailingZeros();
-        } else {
-            subTotal = BigDecimal.valueOf(
-                    getAddedProductsTotalPrice()
-                            - saving).setScale(2,
-                    RoundingMode.HALF_UP).stripTrailingZeros();
-        }
-
-        double expectedSubTotal = subTotal.doubleValue();
-
+        double expectedSubTotal = getAddedProductsTotalPrice() - getSubTotalDiscount();
         assertTrue(actualSubTotal == expectedSubTotal,
                 "Product sub total should be " + expectedSubTotal + " not " + actualSubTotal);
     }
@@ -409,7 +405,6 @@ public class BasketSteps extends BaseSteps {
         for (Product product : addedProductList) {
             BasketLine productLine = getBasketLineInfo(product);
             double actualPrice = productLine.getListPrice();
-
             int quantity = productLine.getQuantity();
             double expectedListPrice = product.getPrice() * quantity;
             assertTrue(expectedListPrice == actualPrice, "Product detail List price and basket line discount price " +
@@ -674,34 +669,10 @@ public class BasketSteps extends BaseSteps {
         }
     }
 
-    @When("I set paymentMethodId is {string}, PaymentType : {int} , BinNumber: {int} , IsApproved : {string}")
-    public void i_set_payment_type_is(String paymentMethodId, Integer paymentType, int binNumber, String isApproved) {
-        boolean approvedSelection = false;
-        if (isApproved.equalsIgnoreCase("true")) {
-            approvedSelection = true;
-        }
-        Payment selectedPayment = new Payment(paymentMethodId, paymentType, binNumber, approvedSelection);
-        getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
-    }
+    @When("I set paymentMethodId is {string}, PaymentType : {int}")
+    public void i_set_payment_type_is_without_bin(String paymentMethodId, Integer paymentType) {
 
-    @When("I set paymentMethodId is {string}, PaymentType : {int}, IsApproved : {string} without binNumber")
-    public void i_set_payment_type_is_without_bin(String paymentMethodId, Integer paymentType, String isApproved) {
-        boolean approvedSelection = false;
-        if (isApproved.equalsIgnoreCase("true")) {
-            approvedSelection = true;
-        }
-        Payment selectedPayment = new Payment(paymentMethodId, paymentType, null, approvedSelection);
-        getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
-    }
-
-    @When("I set paymentMethodId is {string}, PaymentType : {int} , BinNumber: {int} , IsApproved : {string} for " +
-            "Banabi")
-    public void i_set_payment_type_is_for_banabi(String paymentMethodId, Integer paymentType, String isApproved) {
-        boolean approvedSelection = false;
-        if (isApproved.equalsIgnoreCase("true")) {
-            approvedSelection = true;
-        }
-        Payment selectedPayment = new Payment(paymentMethodId, paymentType, null, approvedSelection);
+        Payment selectedPayment = new Payment(paymentMethodId, paymentType);
         getScenarioContext().setContext(Context.PAYMENT_TYPE_SELECTION, selectedPayment);
     }
 
@@ -885,8 +856,9 @@ public class BasketSteps extends BaseSteps {
         double deliveryFee = basketInfo.getDeliveryFee();
         double lineItemsTotal = basketInfo.getLineItemsTotal();
         double bagTotal = basketInfo.getBagTotal();
+        double discountTotal = basketInfo.getDiscountTotal();
 
-        double expectedTotal = tipAmount + deliveryFee + lineItemsTotal + bagTotal;
+        double expectedTotal = (tipAmount + deliveryFee + lineItemsTotal + bagTotal) - discountTotal;
         BigDecimal convertedExpectedTotal = BigDecimal.valueOf(expectedTotal).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
         assertTrue(actualTotal == convertedExpectedTotal.doubleValue(),
                 "Total amount should be " + expectedTotal + " not " + actualTotal);
@@ -1331,8 +1303,7 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check DiscountTotal is valid on get checkout response")
     public void i_check_discount_total_is_valid_on_get_checkout_response() {
-        double deliveryFeeDiscount = getBasketInfo().getDeliveryFeeOriginal() - getBasketInfo().getDeliveryFee();
-        double expectedDiscountTotal = getExpectedTotalDiscountedPrices() + deliveryFeeDiscount;
+        double expectedDiscountTotal = getBasketInfo().getSaving();
         double actualDiscountTotal = getCheckOutBasketInfo().getDiscountTotal();
 
         assertTrue(expectedDiscountTotal == actualDiscountTotal,
@@ -1458,7 +1429,7 @@ public class BasketSteps extends BaseSteps {
         Day tomorrow = getFutureDeliveryTimeOption().getDays().get(1);
         List<Hour> hourList = tomorrow.getHours();
         for (Hour hour : hourList) {
-            boolean isEnabled = hour.getEnabled();
+            boolean isEnabled = hour.getIsEnabled();
             assertTrue(isEnabled, "Future Hours IsEnabled should be True");
         }
     }
