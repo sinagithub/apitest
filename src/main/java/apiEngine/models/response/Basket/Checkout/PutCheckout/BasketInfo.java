@@ -50,7 +50,7 @@ public class BasketInfo {
     @JsonProperty("SubTotal")
     private Double subTotal;
     @JsonProperty("DiscountTotal")
-    private Integer discountTotal;
+    private Double discountTotal;
     @JsonProperty("LineItemsTotal")
     private Double lineItemsTotal;
     @JsonProperty("BagQuantity")
@@ -171,12 +171,12 @@ public class BasketInfo {
     }
 
     @JsonProperty("DiscountTotal")
-    public Integer getDiscountTotal() {
+    public Double getDiscountTotal() {
         return discountTotal;
     }
 
     @JsonProperty("DiscountTotal")
-    public void setDiscountTotal(Integer discountTotal) {
+    public void setDiscountTotal(Double discountTotal) {
         this.discountTotal = discountTotal;
     }
 

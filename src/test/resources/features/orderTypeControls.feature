@@ -26,7 +26,7 @@ Feature: Order type controls
     * I get the basket
     And I get checkout options
     When I set ContactlessDelivery is "true"
-    Then I set paymentMethodId is "43be6d4b-fc9e-4ab3-ad99-365ee3229664", PaymentType : 2 , BinNumber: 0 , IsApproved : "true"
+    Then I set paymentMethodId is "43be6d4b-fc9e-4ab3-ad99-365ee3229664", PaymentType : 2
     And I put basket to checkout LastChangedProperty is 2
     * I write user note "test-siparişi"
     * I set use point "false"
@@ -62,7 +62,7 @@ Feature: Order type controls
     * I get the basket
     And I get checkout options
     When I set ContactlessDelivery is "true"
-    Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2 , BinNumber: 0 , IsApproved : "true"
+    Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2
     And I put basket to checkout LastChangedProperty is 2
     * I write user note "test-siparişi"
     * I set use point "false"
@@ -99,7 +99,7 @@ Feature: Order type controls
     * I get the basket
     And I get checkout options
     When I set ContactlessDelivery is "true"
-    Then I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 544078 , IsApproved : "true"
+    Then I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1
     * I set saved card model cardName "Garanti Kartım2", cvv "846"
     And I put basket to checkout LastChangedProperty is 2
     * I write user note "test-siparişi"

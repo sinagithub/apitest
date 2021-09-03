@@ -1447,11 +1447,20 @@ public class BasketSteps extends BaseSteps {
         i_can_add_the_selected_product_to_basket(1);
         i_get_the_basket();
         double minDeliveryTotal = getBasketResponse().getBody().getData().getBasketInfo().getMinimumDeliveryTotal();
+
         for (int i = 0; i < maxQuantity; i++) {
             maxQuantity--;
             i_get_the_basket();
-            double basketTotal = getBasketInfo().getTotal();
-            if (basketTotal < minDeliveryTotal && maxQuantity != 0) {
+            List<String> infoList = getBasketResponse().getBody().getData().getValidationInfo().getUserFriendlyMessages();
+            boolean isTotalValid = true;
+            for(String message : infoList){
+                if (message.contains("Minimum sepet tutarının altındasınız")){
+                    isTotalValid = false;
+                    break;
+                }
+            }
+
+            if (!isTotalValid) {
                 i_can_add_the_selected_product_to_basket(1);
             } else {
                 break;
