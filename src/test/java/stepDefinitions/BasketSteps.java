@@ -258,9 +258,10 @@ public class BasketSteps extends BaseSteps {
     private double getExpectedBasketTotalPrice() {
         double bagTotalPrice = getBagTotalPrice();
         double subTotal = getBasketInfo().getSubTotal();
+        double deliveryFee = getBasketInfo().getDeliveryFee();
 
         BigDecimal total = BigDecimal.valueOf(
-                getSelectedVendorDeliveryFee()
+                deliveryFee
                         + bagTotalPrice
                         + subTotal).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
         return total.doubleValue();
@@ -270,14 +271,14 @@ public class BasketSteps extends BaseSteps {
         List<Campaign> campaignList = getBasketResponse().getBody().getData().getCampaigns();
         double discountValue = 0.0;
 
-        for (Campaign campaign : campaignList){
-           int typeId = campaign.getCampaignItem().getTypeId();
-           if (typeId == 3){
-               discountValue = campaign.getCampaignItem().getDiscountTotal();
-               break;
-           }
+        for (Campaign campaign : campaignList) {
+            int typeId = campaign.getCampaignItem().getTypeId();
+            if (typeId == 3) {
+                discountValue = campaign.getCampaignItem().getDiscountTotal();
+                break;
+            }
         }
-        return  discountValue;
+        return discountValue;
     }
 
     @Then("I can check basket subTotal is valid on basket")
@@ -1112,7 +1113,13 @@ public class BasketSteps extends BaseSteps {
 
     @Then("I check sub ImageUrl is {string} is exist in selected payment sub method")
     public void i_check_sub_image_url_is_is_exist(String expectedIconUrl) {
-        String actualSubImageUrl = getSelectedSubMethod().getIconUrl();
+        String actualSubImageUrl;
+        boolean isOnline = getSelectedSubMethod().getPaymentType() == 1;
+        if (isOnline) {
+            actualSubImageUrl = getSelectedSubMethod().getBankLogoUrl();
+        } else {
+            actualSubImageUrl = getSelectedSubMethod().getIconUrl();
+        }
         assertEqual("Payment sub ImageUrl should be valid", actualSubImageUrl, expectedIconUrl);
     }
 

@@ -9,6 +9,7 @@ Feature: Checkout User Payment Method controls
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
+    * I delete basket
     When I list my credit cards
     Then I validate CreditCards list is empty in user cards response
     When  A list of Carşı Vendor are available on home page
@@ -35,6 +36,7 @@ Feature: Checkout User Payment Method controls
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
+    * I delete basket
     When I list my credit cards
     Then I validate user cards response HasSavedCreditCard is "true"
     When  A list of Carşı Vendor are available on home page
@@ -70,6 +72,7 @@ Feature: Checkout User Payment Method controls
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
+    * I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
@@ -114,6 +117,8 @@ Feature: Checkout User Payment Method controls
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
+    * I get basket line counts with lite basket
+    * I delete basket
     When I list my credit cards
     Then I validate CreditCards list is empty in user cards response
     When  Banabi Vendor is available
@@ -139,6 +144,8 @@ Feature: Checkout User Payment Method controls
     And  My addresses list should be available
     And  I select pinned available address
     And I get unique basket id
+    * I get basket line counts with lite basket
+    * I delete basket
     When Banabi Vendor is available
     Then I select banabi vendor
     When I navigate selected vendor
@@ -174,6 +181,8 @@ Feature: Checkout User Payment Method controls
     When I list my credit cards
     Then I validate user cards response HasSavedCreditCard is "true"
     When  Banabi Vendor is available
+    Then I get basket line counts with lite basket
+    And I delete basket
     Then I select banabi vendor
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -196,5 +205,5 @@ Feature: Checkout User Payment Method controls
     And I check sub PaymentType is <PaymentType> is exist in selected payment sub method
 
     Examples: Expected Payment sub methods
-      | PaymentTypeId | PaymentMethodId | subId | Name           | IconUrl                                                                  | Desc             | BinNumber | PointAmount | IsSelected | CheckoutTypeId | PaymentType |
-      | 1             | 2               | 103   | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |
+      | PaymentTypeId | PaymentMethodId | subId                            | Name           | IconUrl                                                                  | Desc             | BinNumber | PointAmount | IsSelected | CheckoutTypeId | PaymentType |
+      | 1             | 2               | 6dd07657e24177d582cca099c1f18122 | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |

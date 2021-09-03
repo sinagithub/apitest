@@ -15,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "PointAmount",
         "IsSelected",
         "CheckoutTypeId",
-        "PaymentType"
+        "PaymentType",
+        "BankLogoUrl",
+        "ParentId"
 })
 
 public class SubMethod {
@@ -36,8 +38,14 @@ public class SubMethod {
     private Boolean isSelected;
     @JsonProperty("CheckoutTypeId")
     private Integer checkoutTypeId;
+
     @JsonProperty("PaymentType")
     private Integer paymentType;
+    @JsonProperty("ParentId")
+    private String parentId;
+    @JsonProperty("BankLogoUrl")
+    private String bankLogoUrl;
+
 
 
     @JsonProperty("Id")
@@ -134,5 +142,25 @@ public class SubMethod {
 
     public void setPaymentType(Integer paymentType) {
         this.paymentType = paymentType;
+    }
+
+    @JsonProperty("BankLogoUrl")
+    public String getBankLogoUrl() {
+        return bankLogoUrl;
+    }
+
+    @JsonProperty("BankLogoUrl")
+    public void setBankUrl(String bankLogoUrl) {
+        this.bankLogoUrl = bankLogoUrl;
+    }
+
+    @JsonProperty("ParentId")
+    public String parentId() {
+        return parentId;
+    }
+
+    @JsonProperty("ParentId")
+    public void parentId(String parentId) {
+        this.parentId = bankLogoUrl;
     }
 }

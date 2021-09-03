@@ -38,6 +38,7 @@ Feature: Checkout User Tip controls
     When  Banabi Vendor is available
     Then I select banabi vendor
     And I get unique basket id
+    * I get basket line counts with lite basket
     And I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products

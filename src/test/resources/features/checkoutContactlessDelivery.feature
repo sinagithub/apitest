@@ -88,7 +88,8 @@ Feature: Checkout ContactlessDelivery delivery control
     Then  My addresses list should be available
     When  I select pinned available address
     When I get unique basket id
-    Then I delete basket
+    Then I get basket line counts with lite basket
+    And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     And I navigate selected vendor
@@ -127,7 +128,8 @@ Feature: Checkout ContactlessDelivery delivery control
     Then I select banabi vendor
     Then I navigate selected vendor
     And I get unique basket id
-    And I delete basket
+    * I get basket line counts with lite basket
+    * I delete basket
     When I navigate selected vendor
     Then I choose a category with more than 10 products
     Then I choose a sub category with more than 11 products
@@ -155,7 +157,8 @@ Feature: Checkout ContactlessDelivery delivery control
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service

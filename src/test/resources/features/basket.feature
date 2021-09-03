@@ -227,7 +227,8 @@ Feature: Basket Controls
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
     * I delete basket
@@ -264,7 +265,8 @@ Feature: Basket Controls
     Then I get unique basket id
     When  Banabi Vendor is available
     Then I select banabi vendor
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     Then I navigate selected vendor
     Then I choose "İçecek" product category from category list
     And I choose "Gazlı İçecek" sub category from sub category
@@ -286,7 +288,8 @@ Feature: Basket Controls
     Then I get unique basket id
     When  Banabi Vendor is available
     Then I select banabi vendor
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     Then I navigate selected vendor
     Then I choose "İçecek" product category from category list
     And I choose "Gazlı İçecek" sub category from sub category
@@ -309,7 +312,8 @@ Feature: Basket Controls
     Then I get unique basket id
     When  Banabi Vendor is available
     Then I select banabi vendor
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     * I navigate selected vendor
     * I choose "İçecek" product category from category list
     And I choose "Gazlı İçecek" sub category from sub category
@@ -332,7 +336,8 @@ Feature: Basket Controls
     And I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     Then I navigate selected vendor
     * I choose "İçecek" product category from category list
     * I choose "Gazlı İçecek" sub category from sub category
@@ -359,7 +364,8 @@ Feature: Basket Controls
     Then I get unique basket id
     When  Banabi Vendor is available
     Then I select banabi vendor
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     Then I navigate selected vendor
     And I delete basket
     Then I choose "İçecek" product category from category list
@@ -410,7 +416,8 @@ Feature: Basket Controls
     Then I get unique basket id
     When  Banabi Vendor is available
     Then I select banabi vendor
-    And I delete basket
+    And I get basket line counts with lite basket
+    * I delete basket
     Then I navigate selected vendor
     And I delete basket
     Then I choose "İçecek" product category from category list

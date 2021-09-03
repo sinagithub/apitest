@@ -95,7 +95,7 @@ Feature: Checkout User Donation controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response
-    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
+    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1
     Then I set ContactlessDelivery is "true"
     Then I set donation to 5 tl option type is 2 foundation id is "3"
     And I put basket to checkout LastChangedProperty is 3
@@ -150,7 +150,7 @@ Feature: Checkout User Donation controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "true" on basket checkout response
-    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1 , BinNumber: 0 , IsApproved : "true"
+    When I set paymentMethodId is "111fb8a2-45a4-4e09-8a10-4d7d94d70be3", PaymentType : 1
     Then I set ContactlessDelivery is "true"
     Then I set donation to 0 tl option type is 3 foundation id is "3"
     And I put basket to checkout LastChangedProperty is 3
