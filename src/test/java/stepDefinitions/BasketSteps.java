@@ -191,9 +191,21 @@ public class BasketSteps extends BaseSteps {
         List<Product> productList = (List<Product>) getScenarioContext().getContext(Context.ADDED_PRODUCT_LIST);
         for (int i = 0; i < quantity; i++) {
             productList.add(product);
+
         }
 
         getScenarioContext().setContext(Context.ADDED_PRODUCT_LIST, productList);
+    }
+
+    private boolean isProductExistOnSavedList(Product product) {
+        List<Product> productList = (List<Product>) getScenarioContext().getContext(Context.ADDED_PRODUCT_LIST);
+        int index = productList.indexOf(product);
+        if (index == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     @Then("I can add the selected product to basket quantity is {int}")
@@ -375,8 +387,8 @@ public class BasketSteps extends BaseSteps {
     public void i_can_check_product_exists_in_basket() {
         Product product = getSelectedProduct();
         BasketLine productLine = getBasketLineInfo(product);
-        String productName = product.getName();
-        assertTrue(productLine.getProductName().contains(productName), "Product should be exist on " +
+        String productId = product.getId();
+        assertTrue(productLine.getProductId().equals(productId), "Product should be exist on " +
                 "basket");
     }
 
@@ -390,13 +402,16 @@ public class BasketSteps extends BaseSteps {
                 actualProductDesc);
     }
 
+    private apiEngine.models.response.ProductDetail.Data getProductData() {
+        return (apiEngine.models.response.ProductDetail.Data) getScenarioContext().getContext(Context.PRODUCT_DETAIL_DATA);
+    }
+
     @Then("I can check ProductName is valid on basket lines")
     public void i_can_check_product_name_is_valid_on_basket_lines() {
         Product product = getSelectedProduct();
+        String productLongName = product.getName();
         BasketLine productLine = getBasketLineInfo(product);
-        assertEqual("Added product name and basket line product name  should be equal",
-                productLine.getProductName(), product.getName());
-
+        assertTrue(productLine.getProductName().contains(productLongName), "Added product name and basket line product name  should be contain");
     }
 
     @Then("I can check ListPrice is valid on basket lines")
@@ -408,7 +423,7 @@ public class BasketSteps extends BaseSteps {
             double actualPrice = productLine.getListPrice();
             int quantity = productLine.getQuantity();
             double expectedListPrice = product.getPrice() * quantity;
-            assertTrue(expectedListPrice == actualPrice, "Product detail List price and basket line discount price " +
+            assertTrue(expectedListPrice == actualPrice, "Product detail List price and basket line  price " +
                     "should be equal " + expectedListPrice + " Actual->" + actualPrice);
         }
 
@@ -1453,8 +1468,8 @@ public class BasketSteps extends BaseSteps {
             i_get_the_basket();
             List<String> infoList = getBasketResponse().getBody().getData().getValidationInfo().getUserFriendlyMessages();
             boolean isTotalValid = true;
-            for(String message : infoList){
-                if (message.contains("Minimum sepet tutarının altındasınız")){
+            for (String message : infoList) {
+                if (message.contains("Minimum sepet tutarının altındasınız")) {
                     isTotalValid = false;
                     break;
                 }

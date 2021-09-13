@@ -322,7 +322,7 @@ public class HomePageSteps extends BaseSteps {
         List<Banner> banners = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
         for (Banner banner : banners) {
             String deeplinkUrl = banner.getDeeplinkUrl();
-            assertTrue(deeplinkUrl.isEmpty(), " Banner deeplinkUrl must not be empty");
+            assertTrue(!deeplinkUrl.isEmpty(), " Banner deeplinkUrl must not be empty");
         }
     }
 

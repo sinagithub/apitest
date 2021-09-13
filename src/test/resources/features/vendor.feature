@@ -8,7 +8,6 @@ Feature: Vendor detail and listings Controls
     When  I select pinned available address
 
   Scenario: User should see vendor correctly
-    # dummy data nedeniyle sorunlu
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When  I navigate selected vendor
@@ -45,7 +44,7 @@ Feature: Vendor detail and listings Controls
 
   Scenario: User can list category product pages on Çarşı
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When  I navigate selected vendor
     Then I choose a category with more than 50 products
     Then I choose a sub category with more than 50 products
@@ -100,14 +99,6 @@ Feature: Vendor detail and listings Controls
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
 
-  Scenario: User can't list vendor detail with wrong platformType
-    # Vendor id mahalle platform banabı 200 dönuyor ?
-    When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
-    And Set platform type to "Banabi"
-    When  I navigate selected vendor
-    Then I should get 404 error on vendor detail
-
   Scenario: User can't list deleted vendor detail
     When  I navigate vendor with "38909e64-96d8-11eb-b45d-69fdcw0b8ba1"
     Then I should get 400 error on vendor detail
@@ -121,7 +112,6 @@ Feature: Vendor detail and listings Controls
     When  I navigate selected vendor
     And Vendor staff open the selected shop
 
-
   Scenario: User should see banabi vendor correctly
     When  Banabi Vendor is available
     Then I select banabi vendor
@@ -134,10 +124,9 @@ Feature: Vendor detail and listings Controls
     And I check vendor DeliveryFeeInfo is valid
     And I check vendor category list is valid
     And I check category names  are valid
-    And I check banner url is valid
     And I check banner seo urls are valid
     And I check vendor name is valid
-    And I check vendor category name should be "OnlineMarket"
+    And I check vendor category name should be "Online Market"
     And I check vendor logo url is 200
 
   Scenario: User should list products on Banabi vendor detail
@@ -148,7 +137,7 @@ Feature: Vendor detail and listings Controls
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
     Then I check product list not empty
-    When I select product with name "Ülker Napoliten"
+    When I select product with name "Ülker"
     Then I should see selected product's id is not empty on vendor detail
     And I  check selected product's Price is valid on vendor detail
     And I check selected product's MaximumSaleAmount is valid on vendor detail
@@ -164,20 +153,19 @@ Feature: Vendor detail and listings Controls
     And I validate product search result is empty
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
-    And I validate Total count is 0
     When I search "<SearchText>" on vendor product search pageIndex 1
     Then I validate related search result is valid  on the product list  searchText is "<SearchText>"
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
-    And I validate Total count is 5
+    And I validate search result  Total count is not empty
     And I select a random available product from selected category on product search results
     Then I should see selected product's id is not empty on vendor product search
     And I  check selected product's Price is valid on vendor product search
     And I check selected product's MaximumSaleAmount is valid on vendor product search
     And I check selected product's HasOptions should be "false" on vendor product search
     Examples:
-      | VendorCategory      | SearchText |
-      | defaultSecondVendor | Calve      |
+      | VendorCategory     | SearchText |
+      | defaultFirstVendor | Ülker      |
 
   Scenario: User can search product on Banabi vendor detail
     When  Banabi Vendor is available
@@ -189,11 +177,11 @@ Feature: Vendor detail and listings Controls
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
     And I validate Total count is 0
-    When I search "Calve" on vendor product search pageIndex 1
-    Then I validate related search result is valid  on the product list  searchText is "Calve"
+    When I search "Damla Su" on vendor product search pageIndex 1
+    Then I validate related search result is valid  on the product list  searchText is "Damla"
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
-    And I validate Total count is 2
+    And I validate search result  Total count is not empty
     And I select a random available product from selected category on product search results
     Then I should see selected product's id is not empty on vendor product search
     And I  check selected product's Price is valid on vendor product search

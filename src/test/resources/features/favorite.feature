@@ -44,6 +44,10 @@ Feature: Favorite Api controls
 
   Scenario: I validate vendor favorite products and favorite list product size
     When A list of Carşı Vendor are available on home page
+    And I get Favorite list
+    And I delete all vendor
+    And I get all favorite vendor list
+    And I delete all added favorite products
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -55,7 +59,7 @@ Feature: Favorite Api controls
     And I validate vendor favorite product size is 5 on vendor favorites list
     When I get Favorite list
     Then I can validate favorite vendor  size is 1 on favorite list
-    And I can validate favorite vendor product size is 3 on favorite list
+    And I can validate favorite vendor product size is 5 on favorite list
     When I get all favorite vendor list
     Then I delete all added favorite products
     And I validate vendor favorite product size is 0 on vendor favorites list
@@ -66,7 +70,7 @@ Feature: Favorite Api controls
 
   Scenario: Favorite parameter validations
     When A list of Carşı Vendor are available on home page
-  Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -122,7 +126,7 @@ Feature: Favorite Api controls
 
   Scenario: Vendor sorting validation when both banabi & carsi vendors exist in favorite list
     When A list of Carşı Vendor are available on home page
-  Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     Then I add selected vendor to favorite list
     When I get Favorite list
     And I can see the added vendor on the favorite list

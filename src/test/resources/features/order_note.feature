@@ -30,8 +30,9 @@ Feature: Order note controls
     And I am an authorized user with "mahalletestuser" "123456"
     When  My addresses list should be available
     Then  I select pinned available address
-    And I get unique basket id
     When  Banabi Vendor is available
+    And I get unique basket id
+    * I get basket line counts with lite basket
     Then I select banabi vendor
     Then I navigate selected vendor
     And I delete basket
@@ -42,7 +43,7 @@ Feature: Order note controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I get order notes on checkout
-    When I can write order note with character count 300 on checkout
+    When I can write order note with character count 400 on checkout
     Then I get checkout options
     And I get order notes on checkout
     And I validate order note title is saved with first 20 character on checkout
@@ -55,9 +56,10 @@ Feature: Order note controls
     And I am an authorized user with "mahalletestuser" "123456"
     When  My addresses list should be available
     Then  I select pinned available address
-    And I get unique basket id
-    And I delete basket
     When  A list of Carşı Vendor are available on home page
+    And I get unique basket id
+    * I get basket line counts with lite basket
+    * I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose a category with more than 10 products
@@ -76,9 +78,10 @@ Feature: Order note controls
       And I am an authorized user with "mahalletestuser" "123456"
       When  My addresses list should be available
       Then  I select pinned available address
-      And I get unique basket id
-      And I delete basket
       When  A list of Carşı Vendor are available on home page
+      And I get unique basket id
+      * I get basket line counts with lite basket
+      * I delete basket
       Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
       When I navigate selected vendor
       Then I choose a category with more than 10 products

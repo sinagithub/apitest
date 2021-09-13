@@ -524,10 +524,9 @@ public class VendorSteps extends BaseSteps {
 
         List<Product> searchResultProducts = vendorProductsResponse.getBody().getData();
 
-        for (Product product : searchResultProducts) {
-            assertTrue(product.getName().contains(searchText), "Search result product's name not contain "
-                    + searchText);
-        }
+        assertTrue(searchResultProducts.get(0).getName().contains(searchText), "Search result product's name not contain "
+                + searchText);
+
     }
 
     @Then("I validate product search result is empty")
@@ -575,6 +574,15 @@ public class VendorSteps extends BaseSteps {
                 " not " + actualTotalCount);
     }
 
+    @Then("I validate search result  Total count is not empty")
+    public void i_validate_total_count_is_not_empty() {
+        IRestResponse<VendorProductSearchResponse> vendorProductsResponse =
+                (IRestResponse<VendorProductSearchResponse>) getScenarioContext().getContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE);
+        int actualTotalCount = vendorProductsResponse.getBody().getTotalCount();
+        assertTrue(actualTotalCount != 0, "Total product count greater than 0" +
+                " not " + actualTotalCount);
+    }
+
     @Then("I select a random available product from selected category on product search results")
     public void i_select_a_random_product_on_product_search() {
         IRestResponse<VendorProductSearchResponse> vendorProductsResponse =
@@ -582,7 +590,7 @@ public class VendorSteps extends BaseSteps {
         List<Product> products = vendorProductsResponse.getBody().getData();
 
         Random random = new Random();
-        int index = random.nextInt(products.size() - 1);
+        int index = random.nextInt(products.size());
         Product product = products.get(index);
         getScenarioContext().setContext(Context.SELECTED_SEARCHED_PRODUCT, product);
     }

@@ -34,7 +34,7 @@ Feature: Basket Controls
     And I choose "Süt" sub category from sub category
     * I list the products from selected sub category
     When I select a random available product from selected category
-    Then I can add the selected product to basket quantity is 2
+    Then I can add the selected product to basket quantity is 1
     And  I check TotalLinesItemCount is 2 on add basket response
     When I get the basket
     Then I can check product exists in basket
@@ -42,7 +42,7 @@ Feature: Basket Controls
     And I can check ProductName is valid on basket lines
     And I can check ListPrice is valid on basket lines
     And I can check DiscountedPrice is valid on basket lines
-    And I can check Product Quantity is 2 on basket lines
+    And I can check Product Quantity is 1 on basket lines
     And I can check basket subTotal is valid on basket
     And I can check basket total is valid
 
@@ -146,6 +146,7 @@ Feature: Basket Controls
     When  I select pinned available address
     Then Banabi Vendor is available
     And I get unique basket id
+    * I get basket line counts with lite basket
     Then I select banabi vendor
     And I delete basket
     When I navigate selected vendor
@@ -199,7 +200,6 @@ Feature: Basket Controls
     Then I get the basket
     When I can check Product Quantity is 3 on basket lines
 
-
   Scenario: User can delete line item from basket
     Given I select city "TR_ISTANBUL"
     And I am an authorized  user "Login"
@@ -231,7 +231,6 @@ Feature: Basket Controls
     * I delete basket
     When  Banabi Vendor is available
     Then I select banabi vendor
-    * I delete basket
     * I navigate selected vendor
     * I choose "İçecek" product category from category list
     * I choose "Gazlı İçecek" sub category from sub category
@@ -250,7 +249,6 @@ Feature: Basket Controls
     And  I check TotalLinesItemCount is 2 on add basket response
     When I get the basket
     Then I can check product exists in basket
-    And I can check ProductName is valid on basket lines
     * I can check ListPrice is valid on basket lines
     * I can check DiscountedPrice is valid on basket lines
     * I can check Product Quantity is 1 on basket lines
@@ -272,13 +270,11 @@ Feature: Basket Controls
     And I choose "Gazlı İçecek" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 2
+    And I can add the selected product to basket quantity is 1
     * I navigate selected product
-    * I update quantity to 3 from selected product with update product service
+    * I update quantity to 2 from selected product with update product service
     Then I get the basket
-    When I can check Product Quantity is 3 on basket lines
-
-
+    When I can check Product Quantity is 2 on basket lines
 
   Scenario: User can see basket items count on the vendor detail with lite basket service for banabi vendors
     Given I select city "TR_ISTANBUL"
@@ -375,10 +371,9 @@ Feature: Basket Controls
     And I can add the selected product to basket quantity is 2
     Then I get the basket
     And I can check Product Quantity is 2 on basket lines
-    When I delete the selected product from basket quantity is 2
+    When I delete the selected product from basket quantity is 0
     Then I get the basket
     And I can validate basket is empty
-
 
   Scenario: User can get basket info smoothly
     Given I select city "TR_ISTANBUL"

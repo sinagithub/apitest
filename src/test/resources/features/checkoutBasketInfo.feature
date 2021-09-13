@@ -1,5 +1,5 @@
 @SmokeTest @Checkout @BasketInfo
-Feature: Checkout User Tip controls
+Feature: Checkout Basket Info Controls
 
   Background: Login user
     Given I select city "TR_ISTANBUL"

@@ -24,5 +24,5 @@ Feature: Homepage Api controls
   Scenario: HomePage Banner listing
     And  HomePage banners are available
     Then HomePage banners urls are valid
-   # And HomePage banners OmnitureKeyword should not empty
-   # * HomePage banners deeplink url should not empty
+    And HomePage banners OmnitureKeyword should not empty
+    * HomePage banners deeplink url should not empty
