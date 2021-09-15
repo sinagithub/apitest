@@ -16,7 +16,7 @@ Feature: Campaign Controls
     * Staff select Campaign with Name "AutomationTestCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "true"
     * Staff select campaign isShownOnHomePage is "true"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
-    * Staff select campaign DescriptionTr with Title "AutomationTestCampaign", Description "AutomationTestCampaign", ImageUrl "https://cdn.banabi.com/images/campaign/55156f49-9f29-4782-80d6-ab5dde447a70.png"
+    * Staff select campaign DescriptionTr with Title "AutomationTestCampaign", Description "AutomationTestCampaign", ImageUrl "https://mahalle-cdn.yemeksepeti.com/campaign/static/discount.png"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets

@@ -16,9 +16,10 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class InternalCampaignSteps extends BaseSteps {
@@ -66,10 +67,14 @@ public class InternalCampaignSteps extends BaseSteps {
         if (isShownOnHomePage.equalsIgnoreCase("true")) {
             isShownOnHomePageSelection = true;
         }
-        String dateNow = DateUtil.generateDateNow();
+
+        Instant instant = Instant.now() ;
+        ZoneId z = ZoneId.of( "America/Montreal" );
+        ZonedDateTime zdt = instant.atZone( z );
+        String date = zdt.toLocalDateTime() + "Z";
         String dateEnd = DateUtil.getNextDay(1);
         Campaign campaign = new Campaign(randomName, usageLimit, otpSelection, isOneTimePerUserSelection,
-                isCouponRequiredSelection, isShownOnCheckoutSelection, dateNow, dateEnd, isShownOnHomePageSelection);
+                isCouponRequiredSelection, isShownOnCheckoutSelection, date, dateEnd, isShownOnHomePageSelection);
         definedCampaignInfo.put("Campaign", campaign);
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }

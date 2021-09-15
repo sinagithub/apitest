@@ -9,24 +9,25 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.banabi.com/images/campaign/55156f49-9f29-4782-80d6-ab5dde447a70.png"
+    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://mahalle-cdn.yemeksepeti.com/campaign/static/discount.png"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for selected tag, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When I list Coupons in campaign coupons response
     * I validate created coupon is listed in campaign coupons response
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -52,14 +53,13 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
+    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://mahalle-cdn.yemeksepeti.com/campaign/static/discount.png"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "0"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
@@ -70,6 +70,8 @@ Feature: Coupon controls in basket and user coupons menu
     When I list Coupons in campaign coupons response
     * I validate created coupon is listed in campaign coupons response
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -91,24 +93,24 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
-    * I delete basket
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
-    * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
+    * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 10, MaxDiscountValue 0
+    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://mahalle-cdn.yemeksepeti.com/campaign/static/discount.png"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is basket total, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    Then I get unique basket id
+    And I delete basket
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -126,61 +128,15 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon IsSelected value is "true"
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
-  #  * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Basket Total in basket
+    * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
-
-  @Basket @Coupon
-  Scenario: User can add created Constant Price Delivery Fee Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
-    * My addresses list should be available
-    * I select pinned available address
-    * I get unique basket id
-    * I delete basket
-    When Staff create target poll
-    Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
-    Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
-    * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
-    * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
-    * Staff select campaign target TypeId for created user tag
-    * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
-    * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is delifery fee, discount type is constant price"
-    * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
-    * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
-    When A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    * I add selected product until the basket amount is higher than minimum delivery price
-    When I get the basket
-    Then I list Coupons in basket response
-    * I validate created coupon is listed in basket response
-    * I get coupon code with created campaign id
-    * I add created coupon to basket PaymentMethodId is "1", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 200 and message is ""
-    * I get the basket
-    * I list Coupons in basket response
-    * I validate created coupon IsSelected value is "true"
-    Then I list Campaigns in basket response
-    * I validate campaign of created coupon is not listed in basket campaigns
-    #* I validate calculated delivery fee value for DiscountType is ConstantPrice and AwardType is Delivery Fee in basket
-    * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
-    * I wait until new basket id is generated
 
   @Basket @Checkout @Coupon
   Scenario: User can not list and can not use used Fixed Discount Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
@@ -191,11 +147,13 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -208,12 +166,12 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is listed in basket response
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
+    * I add selected product until the basket amount is higher than minimum delivery price
     * I get the basket
     * I list Coupons in basket response
     * I validate created coupon IsSelected value is "true"
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
-  #  * I validate calculated SubTotal value for DiscountType is FixedDiscount and AwardType is SubTotal in basket
     * I get checkout options
     When I set ContactlessDelivery is "false"
     Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2
@@ -235,7 +193,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "CouponUsed"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
@@ -244,23 +202,23 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser2" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     * Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    # postman: Internal-APIS > Tagging > Post/api/v1/usertag
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=11"
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -274,7 +232,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "UserTagNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
@@ -283,8 +241,6 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
-    * I delete basket
     When A list of Carşı Vendor are available on home page
     When Staff create target poll
     Then Staff define users for tag creation
@@ -298,11 +254,13 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign target TypeId for created user tag
     * Staff select campaign target TypeId of defined Vendor index
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 vendor, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -317,7 +275,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "VendorNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu bu mağaza için geçerli değildir."
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
@@ -326,7 +284,6 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "testuser_noOTPValidation" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     Then Staff define users for tag creation
       | 79C4AC62-0DE9-43EF-80DF-DEE2941B8951 |
@@ -337,11 +294,13 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -354,7 +313,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "false"
-    * I validate apply coupon status is 400 and message is "Kampanya kullanımı için OTP gerekli."
+    * I validate apply coupon status is 400 and message is "Kuponu kullanabilmeniz için numaranızı doğrulamanız gerekmektedir."
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
     * Staff delete created campaign in marketing
@@ -365,8 +324,10 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     * I select Banabi platform
+    Then I get unique basket id
+    * I get basket line counts with lite basket
+    And I delete basket
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
@@ -377,7 +338,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
@@ -392,8 +353,9 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -406,16 +368,17 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Campaigns in basket response
     * I validate campaign is not listed campaign title is "20 TL Size Özel İndirim" in basket response
     * I apply campaign to basket campaign id is "109520" hasOtp is "true"
-    * I validate apply campaign status is 404 and message is "NotFound"
+    * I validate apply campaign status is 404 and message is "Bu kupon kodu geçersizdir."
 
   @Basket @Coupon
   Scenario: User can apply banabi coupon
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Banabi Vendor is available
     Then I select banabi vendor
+    And I get unique basket id
+    * I get basket line counts with lite basket
     * I delete basket
     * I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -427,7 +390,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Campaigns in basket response
     * I validate campaign is not listed campaign title is "20 TL Size Özel İndirim" in basket response
-    * I apply campaign to basket campaign id is "109447" hasOtp is "true"
+    * I apply campaign to basket campaign id is "109520" hasOtp is "true"
     * I validate apply campaign status is 200 and message is ""
 
   @Basket @Coupon
@@ -435,7 +398,6 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 0
@@ -443,7 +405,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for all users
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for all user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
@@ -451,6 +413,8 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    * I get unique basket id
+    * I delete basket
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -466,16 +430,14 @@ Feature: Coupon controls in basket and user coupons menu
     * I get the basket
     * I list Coupons in basket response
     * I validate created coupon IsSelected value is "true"
-    #* I validate calculated SubTotal value for DiscountType is FixedDiscount and AwardType is SubTotal in basket
+    * I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket
     * Staff delete created campaign in marketing
 
   @Basket @Coupon
   Scenario: User can not add other users' Compensation Coupon in basket
-     #Pass
     Given I am an authorized user with "mahalletestuser2" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 0
@@ -483,13 +445,15 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for all users
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for all user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -501,7 +465,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Coupons in basket response
     * I validate created coupon is not listed in basket response
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "CouponNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
 
   @Basket @Coupon
@@ -509,7 +473,6 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "false", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 0
@@ -517,13 +480,15 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for all users
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for all user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
     * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -538,10 +503,10 @@ Feature: Coupon controls in basket and user coupons menu
     * I get the basket
     * I list Coupons in basket response
     * I validate created coupon IsSelected value is "true"
-    #* I validate calculated SubTotal value for DiscountType is FixedDiscount and AwardType is SubTotal in basket
+    * I add selected product until the basket amount is higher than minimum delivery price
     * I get checkout options
     When I set ContactlessDelivery is "false"
-    Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2 , BinNumber: 0 , IsApproved : "true"
+    Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2
     * I put basket to checkout LastChangedProperty is 2
     * I write user note "test-siparişi"
     * I set use point "false"
@@ -559,7 +524,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Coupons in basket response
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "CouponNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
 
   @Basket @Coupon
@@ -567,11 +532,10 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     * Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
-    * Staff create user tag name "IsShownOnCheckout:false coupon", description "IsShownOnCheckout:false coupon", createdUserId "1",createdUserName "automation", endDate
+    * Staff create user tag name "OnCheckout:FCoupon", description "IsShownOnCheckout:false coupon", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
@@ -583,6 +547,8 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -597,12 +563,10 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is not listed in basket response
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
-    #* I validate calculated SubTotal value for DiscountType is FixedDiscount and AwardType is SubTotal in basket
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
-    #Pass
   Scenario: User can not list and can not use out of date Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -624,6 +588,8 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff Manipulate campaign status 4
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -637,7 +603,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Coupons in campaign coupons response
     * I validate created coupon is not listed in basket response
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "CouponNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
@@ -663,6 +629,8 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff suspend created campaign
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -674,16 +642,15 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Coupons in basket response
     * I validate created coupon is not listed in basket response
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "CouponNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
-  Scenario: User can not list and can not use draft Campaign Coupon in baske
+  Scenario: User can not list and can not use draft Campaign Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
     When Staff create target poll
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
@@ -698,6 +665,8 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is sub total, discount type is fixed discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
@@ -711,7 +680,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "CouponNotValid"
+    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
@@ -720,8 +689,6 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
-    * I get unique basket id
-    * I delete basket
     When Staff create target poll
     * Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
@@ -732,12 +699,15 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "3"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "userCouponForAutomation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is basket total, discount type is percentage discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category

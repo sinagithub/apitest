@@ -5,9 +5,12 @@ import apiEngine.IRestResponse;
 import apiEngine.JsonUtil;
 import apiEngine.models.requests.Campaign.ApplyCampaignRequest;
 import apiEngine.models.requests.Campaign.ApplyCouponRequest;
+import apiEngine.models.requests.InternalVendor.Marketing.Award;
 import apiEngine.models.requests.InternalVendor.Marketing.Campaign;
 import apiEngine.models.requests.InternalVendor.Marketing.DescriptionEn;
 import apiEngine.models.requests.InternalVendor.Marketing.DescriptionTr;
+import apiEngine.models.response.Basket.BasketData;
+import apiEngine.models.response.Basket.BasketInfo;
 import apiEngine.models.response.Basket.BasketResponse;
 import apiEngine.models.response.Basket.Campaign.ApplyCampaignResponse;
 import apiEngine.models.response.Basket.Campaign.ApplyCouponResponse;
@@ -194,7 +197,7 @@ public class CampaignSteps extends BaseSteps {
     @Then("I validate coupon code is valid in basket response")
     public void i_validate_coupon_code_is_valid_in_basket_response() {
         List<Coupon> couponList = getBasketCouponList();
-        String actualCode = couponList.get(getCreatedCouponIndexFromBasketCoupons()).getCode();
+        String actualCode = couponList.get(getCreatedCouponIndexFromBasketCoupons()).getCode().toUpperCase();
         String expectedCode = getSelectedCouponInfo().getCouponCode();
         assertEqual("Coupon Code should be match on basket coupons", actualCode, expectedCode);
     }
@@ -356,11 +359,65 @@ public class CampaignSteps extends BaseSteps {
     @Then("I delete created coupon from basket")
     public void i_delete_created_coupon_from_basket() {
         String basketId = getBasketId();
-        i_get_coupon_code_with_created_campaign_id();
-        String couponCode = (String) getScenarioContext().getContext(Context.CREATED_COUPON_CODE);
-        IRestResponse<DeleteCouponResponse> deleteCouponResponse = getCarsiBasketClient().deleteCoupon(basketId,
-                couponCode);
+        IRestResponse<DeleteCouponResponse> deleteCouponResponse = getCarsiBasketClient().deleteCoupon(basketId);
         assertTrue(deleteCouponResponse.isSuccessful(), "Delete coupon response sstatus should be 200");
+    }
+
+    private double getCampaignDiscountValue(){
+        List<apiEngine.models.response.Basket.Campaign.Campaign> campaignList = getBasketResponse().getBody().getData().getCampaigns();
+        double discountValue = 0.0;
+
+        for (apiEngine.models.response.Basket.Campaign.Campaign campaign : campaignList) {
+            discountValue += campaign.getCampaignItem().getDiscountTotal();
+        }
+        return discountValue;
+    }
+
+    @Then("I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket")
+    public void i_validate_calculated_total_value_for_discount_type_is_constant_price_and_award_type_is_total_in_basket() {
+        BasketData basketData = getBasketResponse().getBody().getData();
+        BasketInfo basketInfo = basketData.getBasketInfo();
+        double bagPrice = basketData.getBagInfo().getBagPrice();
+
+        Award award = (Award) getDefinedCampaignInfo().get("Award");
+        double awardDiscount = award.getDiscountValue();
+        double actualTotal = basketInfo.getTotal();
+
+
+        double campaignDiscount = getCampaignDiscountValue();
+        double expectedTotal = 0;
+
+        if (actualTotal - campaignDiscount > 0){
+            expectedTotal = awardDiscount - campaignDiscount + bagPrice;
+        }else {
+            expectedTotal = bagPrice;
+        }
+        assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
+                + " actual total : "  + actualTotal +  " expected :"  + expectedTotal);
+
+    }
+
+    @Then("I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket")
+    public void i_validate_calculated_total_value_for_discount_type_is_fixed_discount_and_award_type_is_total_in_basket() {
+        BasketData basketData = getBasketResponse().getBody().getData();
+        BasketInfo basketInfo = basketData.getBasketInfo();
+
+        Award award = (Award) getDefinedCampaignInfo().get("Award");
+        double awardDiscount = award.getDiscountValue();
+        double actualTotal = basketInfo.getTotal();
+        double totalOriginal = basketInfo.getTotalOriginal();
+
+        double campaignDiscount = getCampaignDiscountValue();
+
+        double expectedTotal = 0;
+        if (actualTotal - campaignDiscount > 0){
+            expectedTotal = totalOriginal - awardDiscount - campaignDiscount;
+        }
+        assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
+                + " actual total : "  + actualTotal +  " expected :"  + expectedTotal);
+
+
+
     }
 
 }

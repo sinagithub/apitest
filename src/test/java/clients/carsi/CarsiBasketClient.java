@@ -132,11 +132,10 @@ public class CarsiBasketClient extends CarsiClient {
         return new RestResponse<>(ApplyCampaignResponse.class, response);
     }
 
-    public IRestResponse<DeleteCouponResponse> deleteCoupon(String basketId, String couponCode) {
+    public IRestResponse<DeleteCouponResponse> deleteCoupon(String basketId) {
         Response response = createRequest()
                 .pathParam("id", basketId)
-                .pathParam("couponCode", couponCode)
-                .delete(BasketRoute.getCouponCode());
+                .delete(BasketRoute.getCoupon());
         writeStepLog();
         return new RestResponse<>(DeleteCouponResponse.class, response);
     }

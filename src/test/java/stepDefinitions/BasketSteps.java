@@ -271,12 +271,13 @@ public class BasketSteps extends BaseSteps {
         double bagTotalPrice = getBagTotalPrice();
         double subTotal = getBasketInfo().getSubTotal();
         double deliveryFee = getBasketInfo().getDeliveryFee();
+        double campaignDiscount = getCampaignDiscount();
 
         BigDecimal total = BigDecimal.valueOf(
                 deliveryFee
                         + bagTotalPrice
                         + subTotal).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
-        return total.doubleValue();
+        return total.doubleValue() - campaignDiscount;
     }
 
     private double getSubTotalDiscount() {
@@ -289,6 +290,16 @@ public class BasketSteps extends BaseSteps {
                 discountValue = campaign.getCampaignItem().getDiscountTotal();
                 break;
             }
+        }
+        return discountValue;
+    }
+
+    private double getCampaignDiscount() {
+        List<Campaign> campaignList = getBasketResponse().getBody().getData().getCampaigns();
+        double discountValue = 0.0;
+
+        for (Campaign campaign : campaignList) {
+            discountValue += campaign.getCampaignItem().getDiscountTotal();
         }
         return discountValue;
     }
@@ -1512,7 +1523,7 @@ public class BasketSteps extends BaseSteps {
 
         double actualTotal = getBasketInfo().getTotal();
 
-        assertTrue(actualTotal == convertedTotal.doubleValue(),
+        assertTrue(actualTotal == convertedTotal.doubleValue() - getCampaignDiscount(),
                 "Total should be " + expectedTotal + " Not : " + actualTotal);
     }
 

@@ -13,7 +13,6 @@ public class BasketRoute {
     private static final String CHECKOUT = "/checkout";
     private static final String UPSELL = "/upsell-products";
     private static final String COUPON= "/coupon";
-    private static final String COUPON_CODE = "/{couponCode}";
 
     public static String getBasketId() {
         return API + VERSION + BASKET + BASKET_ID;
@@ -55,7 +54,4 @@ public class BasketRoute {
         return getBasket() + COUPON;
     }
 
-    public static String getCouponCode(){
-        return getCoupon() + COUPON_CODE;
-    }
 }

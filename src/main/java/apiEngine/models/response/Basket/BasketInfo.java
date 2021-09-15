@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "TotalOriginal",
         "SubTotalOriginal",
         "DeliveryFeeOriginal",
-        "TotalWithoutDeliveryFee",
+        "TotalWithoutDeliveryFeeAndBag",
         "Saving"
 })
 
@@ -55,8 +55,8 @@ public class BasketInfo {
     private Double subTotalOriginal;
     @JsonProperty("DeliveryFeeOriginal")
     private Double deliveryFeeOriginal;
-    @JsonProperty("TotalWithoutDeliveryFee")
-    private Double totalWithoutDeliveryFee;
+    @JsonProperty("TotalWithoutDeliveryFeeAndBag")
+    private Double totalWithoutDeliveryFeeAndBag;
     @JsonProperty("Saving")
     private Double saving;
 
@@ -201,13 +201,13 @@ public class BasketInfo {
     }
 
     @JsonProperty("TotalWithoutDeliveryFee")
-    public Double getTotalWithoutDeliveryFee() {
-        return totalWithoutDeliveryFee;
+    public Double getTotalWithoutDeliveryFeeAndBag() {
+        return totalWithoutDeliveryFeeAndBag;
     }
 
     @JsonProperty("TotalWithoutDeliveryFee")
-    public void setTotalWithoutDeliveryFee(Double totalWithoutDeliveryFee) {
-        this.totalWithoutDeliveryFee = totalWithoutDeliveryFee;
+    public void setTotalWithoutDeliveryFeeAndBag(Double totalWithoutDeliveryFeeAndBag) {
+        this.totalWithoutDeliveryFeeAndBag = totalWithoutDeliveryFeeAndBag;
     }
 
     @JsonProperty("Saving")
