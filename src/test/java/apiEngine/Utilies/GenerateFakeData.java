@@ -3,6 +3,7 @@ package apiEngine.Utilies;
 import com.github.javafaker.Faker;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class GenerateFakeData {
 
@@ -24,7 +25,8 @@ public class GenerateFakeData {
 
         Faker faker1 = new Faker();
         String name = faker1.lordOfTheRings().character().replace(" ", "");
-        String name2 = faker1.lorem().characters(4).toUpperCase();
+        Locale locale = Locale.ENGLISH;
+        String name2 = faker1.lorem().characters(4).toUpperCase(locale);
         int number = faker1.number().numberBetween(0, 1000);
         return number + name2 + "-" + name;
     }

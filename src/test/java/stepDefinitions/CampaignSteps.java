@@ -144,7 +144,7 @@ public class CampaignSteps extends BaseSteps {
         String[] codes = code.split(",");
         int index = -1;
         for (String c : codes) {
-            if (!c.contains(couponCode)) {
+            if (!c.equalsIgnoreCase(couponCode)) {
                 index = Arrays.asList(codes).lastIndexOf(c);
                 break;
             }

@@ -133,6 +133,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Checkout @Coupon
+    #test1
   Scenario: User can not list and can not use used Fixed Discount Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -324,6 +325,8 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
+    * I get unique basket id
+    * I delete basket
     * I select Banabi platform
     Then I get unique basket id
     * I get basket line counts with lite basket
@@ -375,6 +378,8 @@ Feature: Coupon controls in basket and user coupons menu
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
     * I select pinned available address
+    * I get unique basket id
+    * I delete basket
     When Banabi Vendor is available
     Then I select banabi vendor
     And I get unique basket id
@@ -405,7 +410,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for all users
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "auto"
     * Staff select  StateInfo "this campaign is created for all user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
@@ -445,7 +450,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for all users
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "auto"
     * Staff select  StateInfo "this campaign is created for all user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
@@ -480,7 +485,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "1"
     * Staff select campaign target TypeId for all users
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "auto"
     * Staff select  StateInfo "this campaign is created for all user, type is coupon, award type is delivery fee, discount type is constant price"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
@@ -699,7 +704,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "3"
     * Staff select campaign target TypeId for created user tag
     * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
+    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "auto"
     * Staff select  StateInfo "this campaign is created for 1 user, type is coupon, award type is basket total, discount type is percentage discount"
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
