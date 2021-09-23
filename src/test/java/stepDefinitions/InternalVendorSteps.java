@@ -117,6 +117,7 @@ public class InternalVendorSteps extends BaseSteps {
         String operatingUserId = "12345";
         IRestResponse<InternalVendorDetailResponse> internalVendorDetails = getSelectedVendorDetail();
         String name = internalVendorDetails.getBody().getName();
+        String shortName = internalVendorDetails.getBody().getShorName();
         String cityId = internalVendorDetails.getBody().getCity();
         String area = internalVendorDetails.getBody().getArea();
         String email = internalVendorDetails.getBody().getEmail();
@@ -148,7 +149,7 @@ public class InternalVendorSteps extends BaseSteps {
                 maxBasketCapacity, deliveryFee,
                 logoUrl, brandImageUrl,
                 acceptFutureOrder, isTipAvailable,
-                deliveryTypes, categoryList, paymentMethodList, operatingUserId);
+                deliveryTypes, categoryList, paymentMethodList, operatingUserId, shortName);
       Response response = getCarsiInternalVendorClient().setVendorInformation(updateVendorRequest, selectedVendorId);
       assertTrue(response.getStatusCode() == 204,"Set vendor payment type response should be valid");
     }
@@ -161,6 +162,7 @@ public class InternalVendorSteps extends BaseSteps {
         String operatingUserId = "12345";
         IRestResponse<InternalVendorDetailResponse> internalVendorDetails = getSelectedVendorDetail();
         String name = internalVendorDetails.getBody().getName();
+        String shortName = internalVendorDetails.getBody().getShorName();
         String cityId = internalVendorDetails.getBody().getCity();
         String area = internalVendorDetails.getBody().getArea();
         String email = internalVendorDetails.getBody().getEmail();
@@ -199,7 +201,7 @@ public class InternalVendorSteps extends BaseSteps {
                 maxBasketCapacity, deliveryFee,
                 logoUrl, brandImageUrl,
                 acceptFutureOrderReq, isTipAvailable,
-                deliveryTypes, categoryList, paymentMethodList, operatingUserId);
+                deliveryTypes, categoryList, paymentMethodList, operatingUserId, shortName);
         getCarsiInternalVendorClient().setVendorInformation(updateVendorRequest, selectedVendorId);
     }
 

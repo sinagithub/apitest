@@ -64,7 +64,7 @@ Feature: Order type controls
     When I set ContactlessDelivery is "true"
     Then I set paymentMethodId is "de2e3a82-8b55-4334-8a2e-467fe7f7db24", PaymentType : 2
     And I put basket to checkout LastChangedProperty is 2
-    * I write user note "test-siparişi"
+    * I write user note "test"
     * I set use point "false"
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "Id",
         "Name",
+        "ShortName",
         "City",
         "Area",
         "Email",
@@ -48,6 +49,8 @@ public class InternalVendorDetailResponse {
     private String id;
     @JsonProperty("Name")
     private String name;
+    @JsonProperty("ShortName")
+    private String shorName;
     @JsonProperty("City")
     private String city;
     @JsonProperty("Area")
@@ -417,4 +420,29 @@ public class InternalVendorDetailResponse {
         this.workingHours = workingHours;
     }
 
+    @JsonProperty("ShortName")
+    public String getShorName() {
+        return shorName;
+    }
+
+    @JsonProperty("ShortName")
+    public void setShorName(String shorName) {
+        this.shorName = shorName;
+    }
+
+    public Boolean getTipAvailable() {
+        return isTipAvailable;
+    }
+
+    public void setTipAvailable(Boolean tipAvailable) {
+        isTipAvailable = tipAvailable;
+    }
+
+    public Boolean getOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(Boolean open) {
+        isOpen = open;
+    }
 }

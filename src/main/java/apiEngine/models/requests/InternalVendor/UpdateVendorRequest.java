@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "Name",
         "CityId",
+        "ShortName",
         "AreaId",
         "Area",
         "Email",
@@ -39,6 +40,8 @@ public class UpdateVendorRequest {
 
     @JsonProperty("Name")
     private String name;
+    @JsonProperty("ShortName")
+    private String shortName;
     @JsonProperty("CityId")
     private String cityId;
     @JsonProperty("AreaId")
@@ -117,7 +120,7 @@ public class UpdateVendorRequest {
                                Integer maxDeliveryMinutes, Integer minBasketAmount, Integer maxBasketCapacity,
                                Double deliveryFee, String logoUrl, String brandImageUrl, Boolean acceptsFutureOrder,
                                Boolean isTipAvailable, List<DeliveryType> deliveryTypes, List<Category> categories,
-                               List<String> paymentTypes, String operatingUserId) {
+                               List<String> paymentTypes, String operatingUserId, String shortName) {
         super();
         this.name = name;
         this.cityId = cityId;
@@ -141,6 +144,7 @@ public class UpdateVendorRequest {
         this.categories = categories;
         this.paymentTypes = paymentTypes;
         this.operatingUserId = operatingUserId;
+        this.shortName = shortName;
     }
 
     @JsonProperty("Name")
@@ -363,4 +367,13 @@ public class UpdateVendorRequest {
         this.operatingUserId = operatingUserId;
     }
 
+    @JsonProperty("ShortName")
+    public String getShortName() {
+        return shortName;
+    }
+
+    @JsonProperty("ShortName")
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
 }

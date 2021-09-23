@@ -8,6 +8,7 @@ import apiEngine.models.requests.Campaign.CreateCompensationRequest;
 import apiEngine.models.requests.Campaign.UpdateCampaignRequest;
 import apiEngine.models.requests.InternalVendor.Marketing.PostCampaignRequest;
 import apiEngine.models.response.MicroServices.InternalMarketing.CreateCampaignResponse;
+import apiEngine.models.response.MicroServices.InternalMarketing.GetCampaignsResponse;
 import io.restassured.response.Response;
 
 public class InternalMarketingClient extends ApiClient {
@@ -26,33 +27,33 @@ public class InternalMarketingClient extends ApiClient {
         return new RestResponse<>(CreateCampaignResponse.class, response);
     }
 
-    public Response activateCampaign( String campaignId, String operatingUserEmail){
+    public Response activateCampaign(String campaignId, String operatingUserEmail) {
         return createRequest()
-                .pathParam("campaignId",campaignId)
+                .pathParam("campaignId", campaignId)
                 .queryParam("operatingUserEmail", operatingUserEmail)
                 .put(MarketingRoute.getActivate());
     }
 
-    public Response getCampaignDetail(String campaignId){
+    public Response getCampaignDetail(String campaignId) {
         Response response = createRequest()
-                .pathParam("campaignId",campaignId)
+                .pathParam("campaignId", campaignId)
                 .get(MarketingRoute.getCampaignCoupon());
 
         writeStepLog();
         return response;
     }
 
-    public Response deleteCampaign(String campaignId){
+    public Response deleteCampaign(String campaignId) {
         Response response = createRequest()
-                .pathParam("campaignId",campaignId)
+                .pathParam("campaignId", campaignId)
                 .delete(MarketingRoute.getDeleteCampaign());
         writeStepLog();
         return response;
     }
 
-    public Response updateCampaign(String campaignId, String operatingUserEmail, UpdateCampaignRequest updateCampaignRequest){
+    public Response updateCampaign(String campaignId, String operatingUserEmail, UpdateCampaignRequest updateCampaignRequest) {
         Response response = createRequest()
-                .pathParam("campaignId",campaignId)
+                .pathParam("campaignId", campaignId)
                 .queryParam("operatingUserEmail", operatingUserEmail)
                 .body(updateCampaignRequest)
                 .put(MarketingRoute.getConvertCompensation());
@@ -60,7 +61,7 @@ public class InternalMarketingClient extends ApiClient {
         return response;
     }
 
-    public Response createCompensation(CreateCompensationRequest createCompensationRequest){
+    public Response createCompensation(CreateCompensationRequest createCompensationRequest) {
         Response response = createRequest()
                 .body(createCompensationRequest)
                 .post(MarketingRoute.getCompensation());
@@ -68,13 +69,24 @@ public class InternalMarketingClient extends ApiClient {
         return response;
     }
 
-    public Response suspendCampaign(String campaignId, String operatingUserEmail){
+    public Response suspendCampaign(String campaignId, String operatingUserEmail) {
         Response response = createRequest()
-                .pathParam("campaignId",campaignId)
+                .pathParam("campaignId", campaignId)
                 .queryParam("operatingUserEmail", operatingUserEmail)
                 .put(MarketingRoute.getSuspendCampaign());
         writeStepLog();
         return response;
+    }
+
+    public IRestResponse<GetCampaignsResponse> getAllCampaign(int status, boolean couponRequired) {
+        Response response = createRequest()
+                .queryParam("Status", status)
+                .queryParam("IsCouponRequired", couponRequired)
+                .queryParam("PageNumber", 1)
+                .queryParam("PageSize", 200)
+                .get(MarketingRoute.getCampaign());
+        writeStepLog();
+        return new RestResponse<>(GetCampaignsResponse.class, response);
     }
 
 }

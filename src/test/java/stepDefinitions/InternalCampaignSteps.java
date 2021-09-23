@@ -8,6 +8,8 @@ import apiEngine.models.requests.Campaign.CreateCompensationRequest;
 import apiEngine.models.requests.Campaign.UpdateCampaignRequest;
 import apiEngine.models.requests.InternalVendor.Marketing.*;
 import apiEngine.models.response.MicroServices.InternalMarketing.CreateCampaignResponse;
+import apiEngine.models.response.MicroServices.InternalMarketing.GetCampaignsResponse;
+import apiEngine.models.response.MicroServices.InternalMarketing.InternalCampaign;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Given;
@@ -182,6 +184,15 @@ public class InternalCampaignSteps extends BaseSteps {
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
+    @Then("Staff select Coupon for campaigns \\(empty)")
+    public void staff_select_coupon_for_campaigns_empty() {
+        Coupon coupon = new Coupon(null, null, null, null, null,
+                null);
+        HashMap definedCampaignInfo = getDefinedCampaignInfo();
+        definedCampaignInfo.put("Coupon", coupon);
+        updateDefinedCampaignInfoFromContext(definedCampaignInfo);
+    }
+
     @Then("Staff select campaign Coupon with CreateCoupon true, CouponCount {int}, UsageLimit {int}, prefixSuffix " +
             "{int}, constantCode {string}")
     public void staff_select_campaign_coupon_with_create_coupon_coupon_count_usage_limit_prefix_suffix_constant_code(Integer couponCount, Integer usageLimit, Integer prefixSuffix, String constantCode) {
@@ -194,7 +205,7 @@ public class InternalCampaignSteps extends BaseSteps {
         updateDefinedCampaignInfoFromContext(definedCampaignInfo);
     }
 
-    @Then("Staff select  StateInfo {string}")
+    @Then("Staff select StateInfo {string}")
     public void staff_select_state_info(String stateInfo) {
         HashMap definedCampaignInfo = getDefinedCampaignInfo();
         definedCampaignInfo.put("StateInfo", stateInfo);
@@ -276,6 +287,17 @@ public class InternalCampaignSteps extends BaseSteps {
     public void staff_suspend_created_campaign() {
         String campaignId = getCreatedCampaignId();
         getInternalMarketingClient().suspendCampaign(campaignId, "automation@gmail.com");
+    }
+
+    @Given("Staff update active campaigns status to passive")
+    public void staff_update_active_campaigns_status_to_passive() {
+        IRestResponse<GetCampaignsResponse> campaignResponse =
+                getInternalMarketingClient().getAllCampaign(2, false);
+        List<InternalCampaign> campaignList = campaignResponse.getBody().getCampaigns();
+        for (InternalCampaign campaign : campaignList) {
+            String campaignId = campaign.getId();
+            getInternalMarketingClient().suspendCampaign(campaignId, "ykk@gmail.com");
+        }
     }
 
 }

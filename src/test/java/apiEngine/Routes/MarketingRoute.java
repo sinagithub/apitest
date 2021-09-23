@@ -32,6 +32,7 @@ public class MarketingRoute {
         return getCampaign() + CAMPAIGN_ID;
     }
 
+
     public static String getCompensation(){
         return getAPI() + getVERSION() + COMPENSATION;
     }

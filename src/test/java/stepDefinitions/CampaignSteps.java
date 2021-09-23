@@ -153,12 +153,12 @@ public class CampaignSteps extends BaseSteps {
         getScenarioContext().setContext(Context.CREATED_COUPON_CODE, convertedCoupon.replace(" ", ""));
     }
 
-    private int getCreatedCouponIndexFromBasketCampaigns() {
+    private int getCreatedCampaignIndexFromBasketCampaigns() {
         List<apiEngine.models.response.Basket.Campaign.Campaign> campaignList = getBasketCampaignList();
-        Campaign selectedCampaignInfo = getSelectedCampaignInfo();
+        DescriptionTr campaignDesc = getSelectedCampaignDescriptionTr();
         int selectedCampaignIndex = -1;
         for (apiEngine.models.response.Basket.Campaign.Campaign campaign : campaignList) {
-            if (campaign.getCampaignItem().getTitle().equalsIgnoreCase(selectedCampaignInfo.getName())) {
+            if (campaign.getCampaignItem().getTitle().equalsIgnoreCase(campaignDesc.getTitle())) {
                 selectedCampaignIndex = campaignList.indexOf(campaign);
                 break;
             }
@@ -214,7 +214,7 @@ public class CampaignSteps extends BaseSteps {
 
     @Then("I validate campaign of created coupon is not listed in basket campaigns")
     public void i_validate_campaign_of_created_coupon_is_not_listed_in_basket_response() {
-        int index = getCreatedCouponIndexFromBasketCampaigns();
+        int index = getCreatedCampaignIndexFromBasketCampaigns();
         assertTrue(index == -1, "Coupons should not list on the basket campaigns");
     }
 
@@ -363,7 +363,7 @@ public class CampaignSteps extends BaseSteps {
         assertTrue(deleteCouponResponse.isSuccessful(), "Delete coupon response sstatus should be 200");
     }
 
-    private double getCampaignDiscountValue(){
+    private double getCampaignDiscountValue() {
         List<apiEngine.models.response.Basket.Campaign.Campaign> campaignList = getBasketResponse().getBody().getData().getCampaigns();
         double discountValue = 0.0;
 
@@ -387,17 +387,17 @@ public class CampaignSteps extends BaseSteps {
         double campaignDiscount = getCampaignDiscountValue();
         double expectedTotal = 0;
 
-        if (actualTotal - campaignDiscount > 0){
+        if (actualTotal - campaignDiscount > 0) {
             expectedTotal = awardDiscount - campaignDiscount + bagPrice;
-        }else {
+        } else {
             expectedTotal = bagPrice;
         }
         assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
-                + " actual total : "  + actualTotal +  " expected :"  + expectedTotal);
+                + " actual total : " + actualTotal + " expected :" + expectedTotal);
 
     }
 
-    @Then("I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket")
+    @Then("I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket --For Coupon Cases")
     public void i_validate_calculated_total_value_for_discount_type_is_fixed_discount_and_award_type_is_total_in_basket() {
         BasketData basketData = getBasketResponse().getBody().getData();
         BasketInfo basketInfo = basketData.getBasketInfo();
@@ -410,14 +410,63 @@ public class CampaignSteps extends BaseSteps {
         double campaignDiscount = getCampaignDiscountValue();
 
         double expectedTotal = 0;
-        if (actualTotal - campaignDiscount > 0){
+        if (actualTotal - campaignDiscount > 0) {
             expectedTotal = totalOriginal - awardDiscount - campaignDiscount;
         }
         assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
-                + " actual total : "  + actualTotal +  " expected :"  + expectedTotal);
+                + " actual total : " + actualTotal + " expected :" + expectedTotal);
+    }
 
+    @Then("I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket -- for Campaign")
+    public void i_validate_calculated_total_value_for_discount_type_is_fixed_discount_and_award_type_is_total_in_basket_campaign() {
+        BasketData basketData = getBasketResponse().getBody().getData();
+        BasketInfo basketInfo = basketData.getBasketInfo();
 
+        double actualTotal = basketInfo.getTotal();
+        double totalOriginal = basketInfo.getTotalOriginal();
 
+        double campaignDiscount = getCampaignDiscountValue();
+
+        double expectedTotal = 0;
+        if (actualTotal - campaignDiscount > 0) {
+            expectedTotal = totalOriginal - campaignDiscount;
+        }
+        assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
+                + " actual total : " + actualTotal + " expected :" + expectedTotal);
+    }
+
+    @Then("I validate created campaign is listed in basket response")
+    public void i_validate_created_campaign_is_listed_in_basket_response() {
+        int index = getCreatedCampaignIndexFromBasketCampaigns();
+        assertTrue(index != -1, "Coupons should list on the basket campaigns");
+
+    }
+
+    private apiEngine.models.response.Basket.Campaign.Campaign getCreatedCampaignOnTheBasket() {
+        int createdCampaignIndex = getCreatedCampaignIndexFromBasketCampaigns();
+        BasketData basketData = getBasketResponse().getBody().getData();
+        return basketData.getCampaigns().get(createdCampaignIndex);
+    }
+
+    @Then("I validate created image url is valid in basket response")
+    public void i_validate_created_image_url_is_valid_in_basket_response() {
+        String expectedImageUrl = getSelectedCampaignDescriptionTr().getImageUrl();
+        String actualCampaignImageUrl = getCreatedCampaignOnTheBasket().getCampaignItem().getImageUrl();
+        assertEqual("Created campaign image url should be equal on the basket campaigns", expectedImageUrl, actualCampaignImageUrl);
+    }
+
+    @Then("I validate created name is valid in basket response")
+    public void i_validate_created_name_is_valid_in_basket_response() {
+        String expectedName = getSelectedCampaignDescriptionTr().getTitle();
+        String actualName = getCreatedCampaignOnTheBasket().getCampaignItem().getTitle();
+        assertEqual("Created campaign Name should be equal on the basket campaigns", expectedName, actualName);
+    }
+
+    @Then("I validate campaign IsOtpRequired is valid in basket response")
+    public void i_validate_campaign_is_otp_required_is_valid_basket_response() {
+        Boolean isOtpRequired = getSelectedCampaignInfo().getIsOtpRequired();
+        Boolean actualIsOtpRequired = getCreatedCampaignOnTheBasket().getCampaignItem().getIsOtpRequired();
+        assertTrue(isOtpRequired == actualIsOtpRequired, "Created campaign Name should be equal on the basket campaigns");
     }
 
 }
