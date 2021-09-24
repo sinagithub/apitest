@@ -171,6 +171,15 @@ public class InternalCampaignSteps extends BaseSteps {
         getScenarioContext().setContext(Context.TARGET_LIST, targetList);
     }
 
+    @Then("Staff select campaign target TypeId of defined {string}")
+    public void staff_select_campaign_target_type_id_of_vendor_id(String vendorId) {
+        int targetType = 2;
+        List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
+        Target target = new Target(vendorId, targetType);
+        targetList.add(target);
+        getScenarioContext().setContext(Context.TARGET_LIST, targetList);
+    }
+
     @Then("Staff select campaign Coupon with CreateCoupon false, CouponCount {int}, prefixSuffix 0, UsageLimit {int}," +
             " " +
             "couponCode {string}")

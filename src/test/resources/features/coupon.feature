@@ -128,7 +128,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon IsSelected value is "true"
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
-    * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket
+    * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for coupon
     * Staff delete created campaign in marketing
     * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
 

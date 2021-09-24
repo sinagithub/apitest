@@ -373,8 +373,8 @@ public class CampaignSteps extends BaseSteps {
         return discountValue;
     }
 
-    @Then("I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket")
-    public void i_validate_calculated_total_value_for_discount_type_is_constant_price_and_award_type_is_total_in_basket() {
+    @Then("I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for coupon")
+    public void i_validate_calculated_total_value_for_discount_type_is_constant_price_and_award_type_is_total_in_basket_for_coupon() {
         BasketData basketData = getBasketResponse().getBody().getData();
         BasketInfo basketInfo = basketData.getBasketInfo();
         double bagPrice = basketData.getBagInfo().getBagPrice();
@@ -392,6 +392,22 @@ public class CampaignSteps extends BaseSteps {
         } else {
             expectedTotal = bagPrice;
         }
+        assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
+                + " actual total : " + actualTotal + " expected :" + expectedTotal);
+
+    }
+
+    @Then("I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for campaign")
+    public void i_validate_calculated_total_value_for_discount_type_is_constant_price_and_award_type_is_total_in_basket_for_campaign() {
+        BasketData basketData = getBasketResponse().getBody().getData();
+        BasketInfo basketInfo = basketData.getBasketInfo();
+        double bagPrice = basketData.getBagInfo().getBagPrice();
+
+        Award award = (Award) getDefinedCampaignInfo().get("Award");
+        double awardDiscount = award.getDiscountValue();
+        double actualTotal = basketInfo.getTotal();
+        double expectedTotal = awardDiscount + bagPrice ;
+
         assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
                 + " actual total : " + actualTotal + " expected :" + expectedTotal);
 
@@ -427,10 +443,7 @@ public class CampaignSteps extends BaseSteps {
 
         double campaignDiscount = getCampaignDiscountValue();
 
-        double expectedTotal = 0;
-        if (actualTotal - campaignDiscount > 0) {
-            expectedTotal = totalOriginal - campaignDiscount;
-        }
+        double expectedTotal = totalOriginal - campaignDiscount;
         assertTrue(expectedTotal == actualTotal, "Discount total and actualTotal should be equal "
                 + " actual total : " + actualTotal + " expected :" + expectedTotal);
     }
@@ -439,6 +452,13 @@ public class CampaignSteps extends BaseSteps {
     public void i_validate_created_campaign_is_listed_in_basket_response() {
         int index = getCreatedCampaignIndexFromBasketCampaigns();
         assertTrue(index != -1, "Coupons should list on the basket campaigns");
+
+    }
+
+    @Then("I validate created campaign is not listed in basket response")
+    public void i_validate_created_campaign_is_not_listed_in_basket_response() {
+        int index = getCreatedCampaignIndexFromBasketCampaigns();
+        assertTrue(index == -1, "Coupons should not list on the basket campaigns");
 
     }
 
