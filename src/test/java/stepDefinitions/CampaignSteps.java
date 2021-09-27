@@ -3,6 +3,7 @@ package stepDefinitions;
 
 import apiEngine.IRestResponse;
 import apiEngine.JsonUtil;
+import apiEngine.Utilies.Utils;
 import apiEngine.models.requests.Campaign.ApplyCampaignRequest;
 import apiEngine.models.requests.Campaign.ApplyCouponRequest;
 import apiEngine.models.requests.InternalVendor.Marketing.Award;
@@ -16,14 +17,15 @@ import apiEngine.models.response.Basket.Campaign.ApplyCampaignResponse;
 import apiEngine.models.response.Basket.Campaign.ApplyCouponResponse;
 import apiEngine.models.response.Basket.Campaign.Coupon;
 import apiEngine.models.response.Basket.Campaign.DeleteCouponResponse;
-import apiEngine.models.response.Campaign.CampaignCouponsResponse;
-import apiEngine.models.response.Campaign.CampaignsData;
+import apiEngine.models.response.Campaign.*;
+import apiEngine.models.response.MahalleVendor;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +55,7 @@ public class CampaignSteps extends BaseSteps {
     }
 
     private HashMap getDefinedCampaignInfo() {
-        return (HashMap) getScenarioContext().getContext(Context.DEFINATED_CAMPAIGN);
+        return (HashMap) getScenarioContext().getContext(Context.DEFINED_CAMPAIGN);
     }
 
     private List<Coupon> getBasketCouponList() {
@@ -487,6 +489,71 @@ public class CampaignSteps extends BaseSteps {
         Boolean isOtpRequired = getSelectedCampaignInfo().getIsOtpRequired();
         Boolean actualIsOtpRequired = getCreatedCampaignOnTheBasket().getCampaignItem().getIsOtpRequired();
         assertTrue(isOtpRequired == actualIsOtpRequired, "Created campaign Name should be equal on the basket campaigns");
+    }
+
+    @Then("I list Campaigns in campaign response")
+    public void i_list_campaigns_in_campaign_response() {
+        IRestResponse<GetCampaignsResponse> getCampaigns =  getCarsiCampaignsClient().getCampaigns();
+        getScenarioContext().setContext(Context.CAMPAIGNS_RESPONSE, getCampaigns);
+    }
+
+    private String getSelectedVendorId(String vendorName){
+        List<MahalleVendor> vendorList = (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+        int index = -1;
+        for (MahalleVendor vendor : vendorList){
+            if (vendor.getName().equalsIgnoreCase(vendorName)){
+                index = vendorList.indexOf(vendor);
+            }
+        }
+        return vendorList.get(index).getId();
+    }
+
+    @Then("I navigate campaign of {string}")
+    public void i_navigate_campaign_of(String vendorType) throws IOException {
+        String vendorName = Utils.getGlobalValue(vendorType);
+        String vendorId = getSelectedVendorId(vendorName);
+        IRestResponse<GetVendorCampaignsResponse> getVendorCampaigns = getCarsiCampaignsClient().getVendorCampaigns(vendorId);
+        getScenarioContext().setContext(Context.VENDOR_CAMPAIGNS_RESPONSE, getVendorCampaigns);
+    }
+
+    @Then("I validate created campaign is listed in vendor campaigns response")
+    public void i_validate_created_campaign_is_listed_in_vendor_campaigns_response() {
+        IRestResponse<GetVendorCampaignsResponse> vendorCampaignsResponse= (IRestResponse<GetVendorCampaignsResponse>)
+                getScenarioContext().getContext(Context.VENDOR_CAMPAIGNS_RESPONSE);
+
+        String expectedCampaignTitle = getSelectedCampaignDescriptionTr().getTitle();
+
+        List<apiEngine.models.response.Campaign.Campaign> campaignList = vendorCampaignsResponse.getBody().getData().getCampaigns();
+        int selectedCampaignIndex = -1;
+
+        for (apiEngine.models.response.Campaign.Campaign vendorCampaign : campaignList){
+            String campaignTitle = vendorCampaign.getTitle();
+            if (campaignTitle.equalsIgnoreCase(expectedCampaignTitle)){
+                selectedCampaignIndex = campaignList.indexOf(vendorCampaign);
+                break;
+            }
+        }
+        assertTrue(selectedCampaignIndex > -1, "Created campaign should be in the vendor campaign list ");
+    }
+
+    @Then("I validate created campaign is listed in campaign response")
+    public void i_validate_created_campaign_is_listed_in_campaign_response() {
+        IRestResponse<GetCampaignsResponse> campaignsResponse = (IRestResponse<GetCampaignsResponse>)
+                getScenarioContext().getContext(Context.CAMPAIGNS_RESPONSE);
+        String expectedTitle = getSelectedCampaignDescriptionTr().getTitle();
+
+        List<GeneralCampaign> campaignList = campaignsResponse.getBody().getData().getGeneralCampaigns();
+        int selectedCampaignIndex = -1;
+
+        for (GeneralCampaign campaign : campaignList) {
+            String title  = campaign.getTitle();
+            if (title.equalsIgnoreCase(expectedTitle)){
+                selectedCampaignIndex = campaignList.indexOf(campaign);
+             break;
+            }
+        }
+        assertTrue(selectedCampaignIndex > -1, "Created campaign should be in the campaign list");
+
     }
 
 }

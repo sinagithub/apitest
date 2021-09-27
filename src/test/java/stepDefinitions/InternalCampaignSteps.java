@@ -1,7 +1,6 @@
 package stepDefinitions;
 
 import apiEngine.IRestResponse;
-import apiEngine.Routes.MarketingRoute;
 import apiEngine.Utilies.DateUtil;
 import apiEngine.Utilies.GenerateFakeData;
 import apiEngine.models.requests.Campaign.CreateCompensationRequest;
@@ -30,11 +29,11 @@ public class InternalCampaignSteps extends BaseSteps {
     }
 
     private HashMap getDefinedCampaignInfo() {
-        return (HashMap) getScenarioContext().getContext(Context.DEFINATED_CAMPAIGN);
+        return (HashMap) getScenarioContext().getContext(Context.DEFINED_CAMPAIGN);
     }
 
     private void updateDefinedCampaignInfoFromContext(HashMap definedCampaignInfo) {
-        getScenarioContext().setContext(Context.DEFINATED_CAMPAIGN, definedCampaignInfo);
+        getScenarioContext().setContext(Context.DEFINED_CAMPAIGN, definedCampaignInfo);
     }
 
     private String getCreatedCampaignId() {
@@ -129,8 +128,18 @@ public class InternalCampaignSteps extends BaseSteps {
 
     @Then("Staff select campaign target TypeId for created user tag")
     public void staff_select_campaign_targets_with_type_id_target_id() {
-        String createdTagId = getScenarioContext().getContext(Context.CREATED_TAG_ID).toString();
+        String createdTagId = getScenarioContext().getContext(Context.CREATED_USER_TAG_ID).toString();
         int targetType = 4;
+        Target target = new Target(createdTagId, targetType);
+        List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
+        targetList.add(target);
+        getScenarioContext().setContext(Context.TARGET_LIST, targetList);
+    }
+
+    @Then("Staff select campaign target TypeId for created vendor tag")
+    public void staff_select_campaign_targets_with_vendor_id() {
+        String createdTagId = getScenarioContext().getContext(Context.CREATED_VENDOR_TAG_ID).toString();
+        int targetType = 6;
         Target target = new Target(createdTagId, targetType);
         List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
         targetList.add(target);
@@ -163,7 +172,7 @@ public class InternalCampaignSteps extends BaseSteps {
     @Then("Staff select campaign target TypeId of defined Vendor index")
     public void staff_select_campaign_target_type_id_of_selected_vendor() {
         String targetVendorId =
-                getScenarioContext().getContext(Context.TAG_VENDOR).toString().replace("[", "").replace("]", "");
+                getScenarioContext().getContext(Context.SELECTED_VENDOR_ID_FOR_CAMPAIGN).toString();
         int targetType = 2;
         List<Target> targetList = (List<Target>) getScenarioContext().getContext(Context.TARGET_LIST);
         Target target = new Target(targetVendorId, targetType);

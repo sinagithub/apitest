@@ -12,7 +12,6 @@ import enums.Context;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.response.Response;
 import org.junit.Assert;
 
 import java.io.IOException;
@@ -293,7 +292,7 @@ public class HomePageSteps extends BaseSteps {
     public void i_check_created_campaign_banner_listed_on_home_page_banners() {
         String createdCampaignId = (String) getScenarioContext().getContext(Context.CREATED_CAMPAIGN_ID);
         List<Banner> bannerList = (List<Banner>) getScenarioContext().getContext(Context.BANNER_LIST);
-        HashMap campaignInfo = (HashMap) getScenarioContext().getContext(Context.DEFINATED_CAMPAIGN);
+        HashMap campaignInfo = (HashMap) getScenarioContext().getContext(Context.DEFINED_CAMPAIGN);
         DescriptionTr campaignDesc = (DescriptionTr) campaignInfo.get("DescriptionTr");
         String campaignImageUrl = campaignDesc.getImageUrl();
 

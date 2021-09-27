@@ -3,6 +3,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   Background: Login user
     Given I select city "TR_ISTANBUL"
+    When Staff update active campaigns status to passive
 
   @Basket @Coupon
   Scenario: User can list created Fixed Discount Coupon with creating coupon name
@@ -46,7 +47,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * I validate created coupon IsSelected value is "false"
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @IgnoreLive @Coupon
   Scenario: User can list created Fixed Discount Coupon without creating coupon name
@@ -86,7 +87,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * I validate created coupon IsSelected value is "false"
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can add created Constant Price Coupon in basket
@@ -130,7 +131,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for coupon
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Checkout @Coupon
     #test1
@@ -196,7 +197,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can not add usertag Fixed Discount Coupon when user id does not exist in tag list
@@ -235,7 +236,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can not add Constant Price Coupon when Vendor does not exist in target
@@ -247,7 +248,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then Staff define users for tag creation
       | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff define vendor id list with home index for tag creation 1
+    * Staff define vendor id list with home index for tag creation "defaultFirstVendor"
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
@@ -262,7 +263,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -278,7 +279,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu bu mağaza için geçerli değildir."
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User not having OTP validation can not add coupon campaign to basket
@@ -318,7 +319,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Coupon
   Scenario: User can list banabi and mahalle coupons in coupons page
@@ -349,7 +350,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is listed in campaign coupons response
     * I validate coupon CampaignTitle is "20 TL Size Özel İndirim", Description is "Gönderim ücreti de dahil olmak üzere tüm sepet tutarınız üzerinden geçerli olacak indirim kuponunuzu dilediğiniz zaman kullanabilirsiniz.", ImageUrl is "https://cdn.banabi.com/images/campaign/fdc4d1c4-196d-445c-bc02-d007cd38d82b.png" is listed in campaign coupons response
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can not add banabi coupon in mahalle when having banabi & mahalle coupons
@@ -569,7 +570,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can not list and can not use out of date Coupon in basket
@@ -610,7 +611,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can not list and can not use permanently closed Campaign Coupon in basket
@@ -649,7 +650,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can not list and can not use draft Campaign Coupon in basket
@@ -687,7 +688,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
   @Basket @Coupon
   Scenario: User can delete added Subtotal %50 discount Coupon in basket
@@ -735,4 +736,4 @@ Feature: Coupon controls in basket and user coupons menu
     * I can check basket subTotal is valid on basket
     * I can check basket total is valid
     * Staff delete created campaign in marketing
-    * Staff delete created tag in tagging createdUserId "1",createdUserName "automation"
+    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"

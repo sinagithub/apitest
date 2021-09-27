@@ -1,7 +1,11 @@
 package apiEngine.models.response.Campaign;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -12,34 +16,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "InfoList"
 })
 
-public class CampaignCouponsResponse {
+public class GetCampaignsResponse {
 
     @JsonProperty("Data")
-    private List<CampaignsData> data = null;
+    private GetCampaignsData data;
     @JsonProperty("InfoList")
     private List<Object> infoList = null;
-
-    public CampaignCouponsResponse() {
-    }
-
-    /**
-     *
-     * @param data
-     * @param infoList
-     */
-    public CampaignCouponsResponse(List<CampaignsData> data, List<Object> infoList) {
-        super();
-        this.data = data;
-        this.infoList = infoList;
-    }
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("Data")
-    public List<CampaignsData> getData() {
+    public GetCampaignsData getData() {
         return data;
     }
 
     @JsonProperty("Data")
-    public void setData(List<CampaignsData> data) {
+    public void setData(GetCampaignsData data) {
         this.data = data;
     }
 
@@ -51,6 +43,16 @@ public class CampaignCouponsResponse {
     @JsonProperty("InfoList")
     public void setInfoList(List<Object> infoList) {
         this.infoList = infoList;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
 }

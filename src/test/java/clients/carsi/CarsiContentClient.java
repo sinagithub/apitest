@@ -8,6 +8,8 @@ import apiEngine.models.response.Content.FaqResponse;
 import apiEngine.models.response.DeleteBasketResponse;
 import io.restassured.response.Response;
 
+@SuppressWarnings("unchecked")
+
 public class CarsiContentClient extends CarsiClient {
     public CarsiContentClient(String baseUrl) {
         super(baseUrl);

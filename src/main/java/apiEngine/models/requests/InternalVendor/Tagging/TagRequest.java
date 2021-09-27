@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "details"
 })
 
-public class UserTagRequest {
+public class TagRequest {
 
     @JsonProperty("name")
     private String name;
@@ -35,7 +35,7 @@ public class UserTagRequest {
      * No args constructor for use in serialization
      *
      */
-    public UserTagRequest() {
+    public TagRequest() {
     }
 
     /**
@@ -47,7 +47,7 @@ public class UserTagRequest {
      * @param description
      * @param details
      */
-    public UserTagRequest(String name, String description, String createdUserId, String createdUserName, String endDate, List<String> details) {
+    public TagRequest(String name, String description, String createdUserId, String createdUserName, String endDate, List<String> details) {
         super();
         this.name = name;
         this.description = description;
