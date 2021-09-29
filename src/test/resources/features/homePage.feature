@@ -9,7 +9,7 @@ Feature: Homepage Api controls
 
   Scenario: HomePage Vendor listing
     And A list of Carşı Vendor are available on home page
-    Then I check all carsı vendor image url status is 200
+    #Then I check all carsı vendor image url status is 200
     Then I check all carsı vendor names is not empty
 
   Scenario: HomePage Banabi listing

@@ -2,16 +2,11 @@ package stepDefinitions;
 
 
 import apiEngine.IRestResponse;
-import apiEngine.models.response.Splash.CampaignsItem;
 import apiEngine.models.response.Splash.SplashData;
 import apiEngine.models.response.Splash.SplashResponse;
-import clients.carsi.CarsiSplashClient;
 import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.Then;
-
-import java.io.UncheckedIOException;
-import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class SplashSteps extends BaseSteps {
@@ -25,9 +20,9 @@ public class SplashSteps extends BaseSteps {
     public void carsi_should_be_on_selected_city(String carsiStatus) {
         SplashData splashData = (SplashData) getScenarioContext().getContext(Context.SPLASH_RESPONSE_DATA);
         if (carsiStatus.equalsIgnoreCase("True")) {
-            assertTrue(splashData.getIsCarsiEnabled(), "Çarşı should be available");
+            assertTrue(splashData.getIsMahalleEnabled(), "Çarşı should be available");
         } else {
-            assertFalse(splashData.getIsCarsiEnabled());
+            assertFalse(splashData.getIsMahalleEnabled());
         }
     }
 

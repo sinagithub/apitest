@@ -5,21 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class SplashData {
-    @JsonProperty("IsCarsiEnabled")
-    private Boolean isCarsiEnabled;
+    @JsonProperty("IsMahalleEnabled")
+    private Boolean isMahalleEnabled;
     @JsonProperty("Campaigns")
     private List<CampaignsItem> campaigns = null;
     @JsonProperty("CarsiLogoUrl")
     private String carsiLogoUrl;
 
-    @JsonProperty("IsCarsiEnabled")
-    public Boolean getIsCarsiEnabled() {
-        return isCarsiEnabled;
+    @JsonProperty("IsMahalleEnabled")
+    public Boolean getIsMahalleEnabled() {
+        return isMahalleEnabled;
     }
 
     @JsonProperty("IsCarsiEnabled")
-    public void setIsCarsiEnabled(Boolean isCarsiEnabled) {
-        this.isCarsiEnabled = isCarsiEnabled;
+    public void setIsMahalleEnabled(Boolean isMahalleEnabled) {
+        this.isMahalleEnabled = isMahalleEnabled;
     }
 
     @JsonProperty("Campaigns")

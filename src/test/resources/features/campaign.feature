@@ -302,7 +302,7 @@ Feature: Campaign Controls
     * I put basket to checkout LastChangedProperty is 2
     * I write user note "test-siparişi"
     * I set use point "false"
-    * I post checkout with selected options - checkout type is 1
+    *   I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
     * I wait until new basket id is generated
     When I navigate selected vendor

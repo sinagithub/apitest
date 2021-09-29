@@ -14,6 +14,7 @@ Feature: Order type controls
     And Staff update vendor payment method
       | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
       | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
+    * Vendor staff open the selected shop
     * I get unique basket id
     * I delete basket
     When I navigate selected vendor

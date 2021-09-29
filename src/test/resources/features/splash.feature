@@ -19,5 +19,4 @@ Feature: Splash Api controls
     Then Çarsı should be "False" on selected city
     Examples:
       | cityCode   |
-      | TR_ANKARA  |
       | TR_BILECIK |
