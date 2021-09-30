@@ -153,19 +153,15 @@ Feature: Vendor detail and listings Controls
     And I validate product search result is empty
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
-    When I search "<SearchText>" on vendor product search pageIndex 1
-    Then I validate related search result is valid  on the product list  searchText is "<SearchText>"
+    When I search an existing product and validate search results
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
-    And I validate search result  Total count is not empty
+    And I validate search result Total count is valid
     And I select a random available product from selected category on product search results
     Then I should see selected product's id is not empty on vendor product search
     And I  check selected product's Price is valid on vendor product search
     And I check selected product's MaximumSaleAmount is valid on vendor product search
     And I check selected product's HasOptions should be "false" on vendor product search
-    Examples:
-      | VendorCategory     | SearchText |
-      | defaultFirstVendor | Ülker      |
 
   Scenario: User can search product on Banabi vendor detail
     When  Banabi Vendor is available
@@ -181,7 +177,7 @@ Feature: Vendor detail and listings Controls
     Then I validate related search result is valid  on the product list  searchText is "Damla"
     And I validate HasNext is "false"
     And I validate HasPrev is "false"
-    And I validate search result  Total count is not empty
+    And I validate search result Total count is valid
     And I select a random available product from selected category on product search results
     Then I should see selected product's id is not empty on vendor product search
     And I  check selected product's Price is valid on vendor product search

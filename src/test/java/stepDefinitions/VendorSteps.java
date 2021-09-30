@@ -85,7 +85,7 @@ public class VendorSteps extends BaseSteps {
     }
 
     @Then("I choose a category with more than {int} products")
-    public void i_choose_product_category_from_list(int productCount) {
+    public void i_choose_product_category_from_list_with_min_product_count(int productCount) {
         List<Category> vendorCategories = getSelectedVendorResponse().getBody().getData().getCategories();
         Category selectedCategory = null;
 
@@ -100,7 +100,7 @@ public class VendorSteps extends BaseSteps {
 
     @Then("I choose {string} sub category from sub category")
     public void i_choose_sub_category_from_main_category(String subCategoryName) {
-        Category selectedCategory = (Category) getScenarioContext().getContext(Context.SELECTED_PRODUCT_CATEGORY);
+        Category selectedCategory = getSelectedCategory();
         List<SubCategory> subCategoryList = selectedCategory.getSubCategories();
         SubCategory selectedSubCategory = null;
 
@@ -113,6 +113,20 @@ public class VendorSteps extends BaseSteps {
 
         getScenarioContext().setContext(Context.SELECTED_SUB_PRODUCT_CATEGORY, selectedSubCategory);
     }
+
+    @Then("I choose random available sub category from sub category")
+    public void i_choose_random_available_sub_category(){
+        List<SubCategory> subCategoryList = getSelectedCategory().getSubCategories();
+        SubCategory selectedSubCategory = null;
+        for (SubCategory subCategory : subCategoryList) {
+            if (subCategory.getProductCount() >= 1) {
+                selectedSubCategory = subCategory;
+            }
+            break;
+        }
+        getScenarioContext().setContext(Context.SELECTED_SUB_PRODUCT_CATEGORY, selectedSubCategory);
+    }
+
 
     @Then("I choose a sub category with more than {int} products")
     public void i_choose_sub_category_from_main_category(int productCount) {
@@ -136,9 +150,7 @@ public class VendorSteps extends BaseSteps {
                 (SubCategory) getScenarioContext().getContext(Context.SELECTED_SUB_PRODUCT_CATEGORY);
         String categoryId = selectedCategory.getId();
         Integer offSet = selectedSubCategory.getOffset();
-
-        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
-        String vendorId = selectedVendor.getId();
+        String vendorId = getSelectedVendor().getId();
         IRestResponse<VendorProductsResponse> vendorProductResponse = getCarsiVendorClient().getProducts(vendorId,
                 categoryId
                 , offSet);
@@ -505,12 +517,21 @@ public class VendorSteps extends BaseSteps {
         }
     }
 
+    @When("I search an existing product and validate search results")
+    public void i_search_an_existing_product() {
+        i_choose_product_category_from_list_with_min_product_count(1);
+        i_choose_random_available_sub_category();
+        i_list_the_products_from_selected_sub_category();
+        List<Product> productList = getSelectedVendorCategoryProductsResponse().getBody().getData().getProducts();
+        Random rand = new Random();
+        String randomProductName = productList.get(rand.nextInt(productList.size())).getName();
+        i_search_on_vendor_product_search(randomProductName,1);
+        i_validate_related_search_result_is_valid_on_the_product_list_search_text_is(randomProductName);
+    }
 
     @Then("I search {string} on vendor product search pageIndex {int}")
     public void i_search_on_vendor_product_search(String searchText, int pageIndex) {
-        MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
-        String vendorId = selectedVendor.getId();
-
+        String vendorId = getSelectedVendor().getId();
         IRestResponse<VendorProductSearchResponse> vendorProductSearchResponse =
                 getCarsiVendorClient().searchProduct(vendorId, searchText, pageIndex);
 
@@ -574,7 +595,7 @@ public class VendorSteps extends BaseSteps {
                 " not " + actualTotalCount);
     }
 
-    @Then("I validate search result  Total count is not empty")
+    @Then("I validate search result Total count is valid")
     public void i_validate_total_count_is_not_empty() {
         IRestResponse<VendorProductSearchResponse> vendorProductsResponse =
                 (IRestResponse<VendorProductSearchResponse>) getScenarioContext().getContext(Context.VENDOR_PRODUCT_SEARCH_RESPONSE);
