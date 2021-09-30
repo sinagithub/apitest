@@ -1,4 +1,4 @@
-@SmokeTest @Campaign
+@SmokeTest @Campaign @AllTest
 Feature: Campaign Controls
 
   Background: Login user

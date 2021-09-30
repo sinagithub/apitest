@@ -1,4 +1,4 @@
-@SmokeTest @Checkout @UserCards
+@SmokeTest @Checkout @UserCards @AllTest
 Feature: Checkout User cards controls
 
   Background: Login user

@@ -1,4 +1,4 @@
-@SmokeTest @Content
+@SmokeTest @Content @AllTest
 Feature: Content api controls
 
   Background: Login user

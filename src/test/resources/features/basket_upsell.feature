@@ -1,4 +1,4 @@
-@SmokeTest @Upsell
+@SmokeTest @Upsell @AllTest
 Feature: Basket upsell Api controls
 
   Background: Login user

@@ -1,4 +1,4 @@
-@SmokeTest @Checkout
+@SmokeTest @Checkout @AllTest
 Feature: Checkout ContactlessDelivery delivery control
 
   Background: Login and Address Listing

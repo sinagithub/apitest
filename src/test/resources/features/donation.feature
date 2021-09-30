@@ -1,4 +1,4 @@
-@SmokeTest @Checkout @Donation
+@SmokeTest @Checkout @Donation @AllTest
 Feature: Checkout User Donation controls
 
   Background: Login user

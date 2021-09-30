@@ -1,4 +1,4 @@
-@SmokeTest @Product
+@SmokeTest @Product @AllTest
 Feature: Product Api controls
 
   Background: Login and Address Listing

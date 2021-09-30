@@ -1,4 +1,4 @@
-@SmokeTest @Checkout @BasketInfo
+@SmokeTest @Checkout @BasketInfo @AllTest
 Feature: Checkout Basket Info Controls
 
   Background: Login user

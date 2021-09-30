@@ -1,4 +1,4 @@
-@SmokeTest @Order @IgnoreLive
+@SmokeTest @Order @IgnoreLive @AllTest
 Feature: Order type controls
   #PaymentType : Online = 1 - Offline = 2
   Background: Login user

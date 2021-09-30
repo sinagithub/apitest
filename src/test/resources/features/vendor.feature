@@ -1,4 +1,4 @@
-@Vendor @SmokeTest
+@Vendor @SmokeTest @AllTest
 Feature: Vendor detail and listings Controls
 
   Background: Login and Address Listing

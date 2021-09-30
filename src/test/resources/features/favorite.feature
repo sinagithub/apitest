@@ -1,4 +1,4 @@
-@SmokeTest @Favorite
+@SmokeTest @Favorite @AllTest
 Feature: Favorite Api controls
 
   Background: Login

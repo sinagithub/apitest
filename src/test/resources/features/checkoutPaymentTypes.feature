@@ -1,4 +1,4 @@
-@SmokeTest @Checkout @PaymentMethods
+@SmokeTest @Checkout @PaymentMethods @AllTest
 Feature: Checkout User Payment Method controls
 
   Background: Login user

@@ -1,4 +1,4 @@
-@SmokeTest @Splash
+@SmokeTest @Splash @AllTest
 Feature: Splash Api controls
 
   Background: Login user

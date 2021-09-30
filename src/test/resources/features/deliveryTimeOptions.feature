@@ -1,4 +1,4 @@
-@SmokeTest @DeliveryTime
+@SmokeTest @DeliveryTime @AllTest
 Feature: Delivery time controls in checkout
 
   Background: Login user

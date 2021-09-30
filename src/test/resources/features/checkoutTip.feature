@@ -1,4 +1,4 @@
-@SmokeTest @Checkout @Tip
+@SmokeTest @Checkout @Tip @AllTest
 Feature: Checkout User Tip controls
 
   Background: Login user

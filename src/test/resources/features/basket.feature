@@ -1,4 +1,4 @@
-@Basket
+@Basket @AllTest
 Feature: Basket Controls
 
   Scenario: User can get basket id : every time same id

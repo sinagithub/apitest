@@ -1,4 +1,4 @@
-@SmokeTest @Coupon
+@SmokeTest @Coupon @AllTest
 Feature: Coupon controls in basket and user coupons menu
 
   Background: Login user

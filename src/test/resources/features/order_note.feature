@@ -1,4 +1,4 @@
-@SmokeTest @OrderNote
+@SmokeTest @OrderNote @AllTest
 Feature: Order note controls
 
   Scenario: New User can save order note and can get with get checkout

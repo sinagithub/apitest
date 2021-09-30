@@ -1,4 +1,4 @@
-@SmokeTest @HomePage
+@SmokeTest @HomePage @AllTest
 Feature: Homepage Api controls
 
   Background: Login and Address Listing
