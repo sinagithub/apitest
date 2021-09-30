@@ -59,7 +59,6 @@ Feature: Campaign Controls
     When I get the basket
     Then I list Campaigns in basket response
     * I validate created campaign is listed in basket response
-    * I validate created image url is valid in basket response
     * I validate created name is valid in basket response
     * I validate campaign IsOtpRequired is valid in basket response
     * I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket -- for Campaign
@@ -98,7 +97,6 @@ Feature: Campaign Controls
     When I get the basket
     Then I list Campaigns in basket response
     * I validate created campaign is listed in basket response
-    * I validate created image url is valid in basket response
     * I validate created name is valid in basket response
     * I validate campaign IsOtpRequired is valid in basket response
     * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for campaign
@@ -137,7 +135,6 @@ Feature: Campaign Controls
     When I get the basket
     Then I list Campaigns in basket response
     * I validate created campaign is listed in basket response
-    * I validate created image url is valid in basket response
     * I validate created name is valid in basket response
     * I validate campaign IsOtpRequired is valid in basket response
     * I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket -- for Campaign
@@ -176,7 +173,6 @@ Feature: Campaign Controls
     When I get the basket
     Then I list Campaigns in basket response
     * I validate created campaign is listed in basket response
-    * I validate created image url is valid in basket response
     * I validate created name is valid in basket response
     * I validate campaign IsOtpRequired is valid in basket response
     * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for campaign
@@ -216,7 +212,6 @@ Feature: Campaign Controls
     When I get the basket
     Then I list Campaigns in basket response
     * I validate created campaign is listed in basket response
-    * I validate created image url is valid in basket response
     * I validate created name is valid in basket response
     * I validate campaign IsOtpRequired is valid in basket response
     * I validate calculated Total value for DiscountType is ConstantPrice and AwardType is Total in basket -- for campaign
