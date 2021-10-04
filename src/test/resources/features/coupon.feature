@@ -122,6 +122,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Coupons in basket response
     * I get coupon code with created campaign id
     * I validate created coupon is listed in basket response
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
     * I get the basket
@@ -166,6 +167,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Coupons in basket response
     * I validate created coupon is listed in basket response
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -194,6 +196,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is not listed in basket response
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kuponun kullanım limiti dolmuştur."
     * Staff delete created campaign in marketing
@@ -233,6 +236,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is not listed in basket response
     Then I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
@@ -314,6 +318,7 @@ Feature: Coupon controls in basket and user coupons menu
     Then I list Coupons in basket response
     * I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "false"
     * I validate apply coupon status is 400 and message is "Kuponu kullanabilmeniz için numaranızı doğrulamanız gerekmektedir."
     Then I list Campaigns in basket response
@@ -470,7 +475,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Coupons in basket response
     * I validate created coupon is not listed in basket response
-    * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
+    * I add created compensation coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
 
@@ -529,7 +534,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I add selected product until the basket amount is higher than minimum delivery price
     When I get the basket
     Then I list Coupons in basket response
-    * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
+    * I add created compensation coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
 
@@ -567,6 +572,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is not listed in basket response
     Then I list Coupons in campaign coupons response
     * I validate created coupon is not listed in basket response
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
     * Staff delete created campaign in marketing
@@ -608,6 +614,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is not listed in basket response
     Then I list Coupons in campaign coupons response
     * I validate created coupon is not listed in basket response
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
@@ -647,6 +654,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Coupons in basket response
     * I validate created coupon is not listed in basket response
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
@@ -685,6 +693,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate created coupon is not listed in basket response
     * I list Campaigns in basket response
     * I validate campaign of created coupon is not listed in basket campaigns
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
@@ -723,6 +732,7 @@ Feature: Coupon controls in basket and user coupons menu
     When I get the basket
     Then I list Coupons in basket response
     * I validate created coupon is listed in basket response
+    * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
     * I validate apply coupon status is 200 and message is ""
     * I get the basket
@@ -737,3 +747,22 @@ Feature: Coupon controls in basket and user coupons menu
     * I can check basket total is valid
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
+
+  @Basket @Coupon
+  Scenario: User can not add null coupon code in basket
+    Given I am an authorized user with "mahalletestuser2" "123456"
+    * My addresses list should be available
+    * I select pinned available address
+    When A list of Carşı Vendor are available on home page
+    Then I get unique basket id
+    And I delete basket
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    When I navigate selected vendor
+    Then I choose "Atıştırmalık" product category from category list
+    * I choose "Çikolata" sub category from sub category
+    When I list the products from selected sub category
+    Then I select a random available product from selected category
+    * I add selected product until the basket amount is higher than minimum delivery price
+    When I get the basket
+    * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
+    * I validate apply coupon status is 400 and message is "Kupon kodu alanı boş olamaz. Lütfen kupon kodunuzu giriniz."

@@ -23,3 +23,4 @@ Feature: Basket upsell Api controls
     Then I get upsell products
     And I validate upsell type is 0
     * I validate upsell product count 0
+

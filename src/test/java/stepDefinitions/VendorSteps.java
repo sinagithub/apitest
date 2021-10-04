@@ -161,6 +161,7 @@ public class VendorSteps extends BaseSteps {
     public void i_check_vendor_name_is_valid() {
         IRestResponse<VendorResponse> vendorDetailResponse =
                 (IRestResponse<VendorResponse>) getScenarioContext().getContext(Context.VENDOR_DETAIL_RESPONSE);
+
         MahalleVendor selectedVendor = (MahalleVendor) getScenarioContext().getContext(Context.SELECTED_VENDOR);
         String expectedVendorName = selectedVendor.getName();
         String actualVendorName = vendorDetailResponse.getBody().getData().getName();

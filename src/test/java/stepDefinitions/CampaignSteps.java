@@ -242,7 +242,6 @@ public class CampaignSteps extends BaseSteps {
     @Then("I get coupon code with created campaign id")
     public void i_get_coupon_code_with_created_campaign_id() {
         String createdCampaignId = getCreatedCampaignId();
-
         Response response = getInternalMarketingClient().getCampaignDetail(createdCampaignId);
         String code = JsonUtil.getJsonElement(response, "Code").replace("[", "").replace("]", "");
 
@@ -252,7 +251,7 @@ public class CampaignSteps extends BaseSteps {
     @Then("I add created coupon to basket PaymentMethodId is {string}, UserHasOtpValidation is {string}")
     public void i_add_created_coupon_to_basket_payment_method_id_is_user_has_otp_validation_is(String paymentMethodId
             , String userHasOtpValidation) {
-        i_get_coupon_code_with_created_campaign_id();
+       // i_get_coupon_code_with_created_campaign_id();
         String basketId = getBasketId();
         String couponCode = (String) getScenarioContext().getContext(Context.CREATED_COUPON_CODE);
         boolean hasOtp = false;
@@ -279,7 +278,6 @@ public class CampaignSteps extends BaseSteps {
         IRestResponse<ApplyCouponResponse> applyCouponResponse =
                 getCarsiBasketClient().applyCoupon(applyCouponRequest, basketId);
         getScenarioContext().setContext(Context.APPLY_COUPON_RESPONSE, applyCouponResponse);
-        assertTrue(applyCouponResponse.isSuccessful(), "Apply coupon should be 200");
     }
 
     @Then("I validate apply coupon status is {int} and message is {string}")
