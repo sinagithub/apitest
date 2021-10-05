@@ -256,7 +256,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 0, MaxDiscountValue 0
     * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=8"
-    * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
+    * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "2"
     * Staff select campaign target TypeId for created user tag
     * Staff select campaign target TypeId of defined Vendor index
     * Staff set selected targets

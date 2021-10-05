@@ -77,6 +77,7 @@ Feature: Delivery time controls in checkout
     And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff update vendor working days with selected times for deliveryInterval 120
+    And Staff update vendor delivery time method set AcceptsFutureOrder "true"
 
   Scenario: User can not list future time option when vendor doesn't allow future order
     Given I am an authorized  user "Login"
@@ -120,14 +121,16 @@ Feature: Delivery time controls in checkout
     Then I list DeliveryTimeOptions in basket checkout response
     Then I check future delivery option only enabled on tomorrow
     Then I check tomorrow delivery time all hours is enabled
+    And Staff create working pool for selected vendor
     And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     And Staff update vendor working days with selected times for deliveryInterval 120
+    And Staff update vendor delivery time method set AcceptsFutureOrder "true"
 
   Scenario: User can select delivery time as Now for banabi
     Given I am an authorized  user "Login"

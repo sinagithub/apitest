@@ -211,6 +211,11 @@ public class InternalVendorSteps extends BaseSteps {
         getScenarioContext().setContext(Context.WORK_DAY_POOL, workingDays);
     }
 
+    @Then("Staff clear working day pool")
+    public void staff_clear_working_day_pool(){
+        getScenarioContext().setContext(Context.WORK_DAY_POOL, null);
+    }
+
     @Then("Staff select working day DayOfWeek {int}, StartHour {int}, StartMinute {int}, EndHour {int}, EndMinute " +
             "{int}")
     public void staff_select_working_day_of_week_start_hour_start_minute_end_hour_end_minute(Integer dayOfWeek,
