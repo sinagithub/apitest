@@ -21,6 +21,7 @@ public class CarsiFavoriteClient extends CarsiClient {
     public RestResponse<GetFavoritesResponse> getFavoriteList() {
         Response response = createRequest()
                 .get(FavoriteRoute.getFavorite());
+        writeStepLog();
         return new RestResponse(GetFavoritesResponse.class, response);
     }
 
@@ -28,6 +29,7 @@ public class CarsiFavoriteClient extends CarsiClient {
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
                 .get(FavoriteRoute.getFavoriteVendorDetail());
+        writeStepLog();
         return new RestResponse<>(VendorFavoriteResponse.class, response);
     }
 
@@ -39,6 +41,7 @@ public class CarsiFavoriteClient extends CarsiClient {
                 .pathParam("vendorId", vendorId)
                 .body(addFavoriteProductRequest)
                 .put(FavoriteRoute.getAddFavoriteProduct());
+        writeStepLog();
         return new RestResponse<>(VendorPutFavoriteResponse.class, response);
     }
 
@@ -47,6 +50,7 @@ public class CarsiFavoriteClient extends CarsiClient {
         Response response = createRequest()
                 .body(addFavoriteVendorRequest)
                 .put(FavoriteRoute.getAddFavoriteVendor());
+        writeStepLog();
         return new RestResponse<>(VendorPutFavoriteResponse.class, response);
     }
 
@@ -56,6 +60,7 @@ public class CarsiFavoriteClient extends CarsiClient {
                 .pathParam("productId", productId)
                 .pathParam("vendorId", vendorId)
                 .delete(FavoriteRoute.getDeleteFavoriteProduct());
+        writeStepLog();
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }
 
@@ -64,6 +69,7 @@ public class CarsiFavoriteClient extends CarsiClient {
         Response response = createRequest()
                 .pathParam("vendorId", vendorId)
                 .delete(FavoriteRoute.getDeleteVendor());
+        writeStepLog();
         return new RestResponse<>(VendorDeleteFavoriteResponse.class, response);
     }
 

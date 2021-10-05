@@ -6,13 +6,13 @@ Feature: Favorite Api controls
     And I am an authorized  user "Login"
     And  My addresses list should be available
     When  I select pinned available address
-
-  Scenario: I can add/delete vendor to empty favorite list
-    Then I select Mahalle platform
     And I get Favorite list
     And I delete all vendor
     And I get all favorite vendor list
     And I delete all added favorite products
+
+  Scenario: I can add/delete vendor to empty favorite list
+    Then I select Mahalle platform
     When I get Favorite list
     Then I can see the favorite list is empty
     When A list of Carşı Vendor are available on home page
@@ -106,16 +106,20 @@ Feature: Favorite Api controls
     Then I can validate the vendor is removed on the favorite list
 
   Scenario: I validate Banabi vendor favorite products and favorite list product size
+    Given I get Favorite list
+    * I delete all vendor
+    * I get all favorite vendor list
+    * I delete all added favorite products
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select random 5 products
+    Then I select random 2 products
     And I can add all selected product to favorites
     And I get vendor favorite list
-    And I validate vendor favorite product size is 5 on vendor favorites list
+    And I validate vendor favorite product size is 2 on vendor favorites list
     And I get all favorite vendor list
     And I delete all added favorite products
     And I validate vendor favorite product size is 0 on vendor favorites list

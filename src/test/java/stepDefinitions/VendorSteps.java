@@ -256,7 +256,7 @@ public class VendorSteps extends BaseSteps {
         List<Product> products = vendorCategoryProductResponse.getBody().getData().getProducts();
         List<String> selectedProductIdList = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size ; i++) {
             selectedProductIdList.add(products.get(i).getId());
         }
 

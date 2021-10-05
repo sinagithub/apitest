@@ -147,7 +147,7 @@ Feature: Vendor detail and listings Controls
 
   Scenario Outline: User can search product on vendor detail
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "<VendorCategory>" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     And  I navigate selected vendor
     And I search "asdedasdsTEST" on vendor product search pageIndex 1
     And I validate product search result is empty
