@@ -166,7 +166,7 @@ Feature: Basket Controls
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
     When I list the products from selected sub category
-    Then I select a random available product from selected category
+    Then I select random available product for max stock
     And I navigate selected product
     When I want add product more than stock
     Then I can see "dilerseniz diğer ürünlere göz atabilirsiniz." warning on add basket response

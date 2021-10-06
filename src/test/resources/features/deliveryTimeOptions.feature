@@ -13,13 +13,13 @@ Feature: Delivery time controls in checkout
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
     And Staff create working pool for selected vendor
-    And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff update vendor working days with selected times for deliveryInterval 120
-    And Staff update vendor delivery time method set AcceptsFutureOrder "true"
+    * Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff update vendor working days with selected times for deliveryInterval 120
+    * Staff update vendor delivery time method set AcceptsFutureOrder "true"
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -32,14 +32,15 @@ Feature: Delivery time controls in checkout
     And I check Description "Sipariş, seçtiğiniz tarih ve saat aralığında size ulaşacaktır." in future DeliveryTime option
     And I check working day size is 8
     And I check available working day size is 6 or 5
-    And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff update vendor working days with selected times for deliveryInterval 120
+    * Staff create working pool for selected vendor
+    * Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff update vendor working days with selected times for deliveryInterval 120
 
   Scenario: User can select delivery time as Now
     Given I am an authorized  user "Login"
@@ -49,16 +50,16 @@ Feature: Delivery time controls in checkout
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
-    And Staff create working pool for selected vendor
-    And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff update vendor working days with selected times for deliveryInterval 120
-    And Staff update vendor delivery time method set AcceptsFutureOrder "true"
+    * Staff create working pool for selected vendor
+    * Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff update vendor working days with selected times for deliveryInterval 120
+    * Staff update vendor delivery time method set AcceptsFutureOrder "true"
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -69,15 +70,16 @@ Feature: Delivery time controls in checkout
     Then I list DeliveryTimeOptions in basket checkout response
     And I check Title "Hemen" in now DeliveryTime option
     And I check Description "Siparişiniz hazırlanıp hemen yola çıkarılacaktır." in now DeliveryTime option
-    And Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
-    And Staff update vendor working days with selected times for deliveryInterval 120
-    And Staff update vendor delivery time method set AcceptsFutureOrder "true"
+    * Staff create working pool for selected vendor
+    * Staff select working day DayOfWeek 0, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 1, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 2, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 3, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 4, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 5, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
+    * Staff update vendor working days with selected times for deliveryInterval 120
+    * Staff update vendor delivery time method set AcceptsFutureOrder "true"
 
   Scenario: User can not list future time option when vendor doesn't allow future order
     Given I am an authorized  user "Login"
