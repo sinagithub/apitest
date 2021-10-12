@@ -15,7 +15,6 @@ import java.text.ParseException;
         features = "src/test/resources/features",
         plugin = {"json:target/jsonReports/cucumber-report.json", "cucumber.ListenerPlugin", "cucumber.StepDetails"},
         glue = {"stepDefinitions"},
-        tags = "@Splash",
         publish = true)
 public class TestRunner {
 
