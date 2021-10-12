@@ -7,11 +7,13 @@ Feature: Homepage Api controls
     And  My addresses list should be available
     When  I select pinned available address
 
+  @TestRail(33329)
   Scenario: HomePage Vendor listing
     And A list of Carşı Vendor are available on home page
     #Then I check all carsı vendor image url status is 200
     Then I check all carsı vendor names is not empty
 
+  @TestRail(33330)
   Scenario: HomePage Banabi listing
     And  Banabi Vendor is available
     Then Check Banabi vendor id is valid

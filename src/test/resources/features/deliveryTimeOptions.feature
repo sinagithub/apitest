@@ -4,6 +4,7 @@ Feature: Delivery time controls in checkout
   Background: Login user
     Given I select city "TR_ISTANBUL"
 
+  @TestRail(33516)
   Scenario: User can list delivery time as Future
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -42,6 +43,7 @@ Feature: Delivery time controls in checkout
     * Staff select working day DayOfWeek 6, StartHour 10, StartMinute 0, EndHour 22, EndMinute 0
     * Staff update vendor working days with selected times for deliveryInterval 120
 
+  @TestRail(33517)
   Scenario: User can select delivery time as Now
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -81,6 +83,7 @@ Feature: Delivery time controls in checkout
     * Staff update vendor working days with selected times for deliveryInterval 120
     * Staff update vendor delivery time method set AcceptsFutureOrder "true"
 
+  @TestRail(33518)
   Scenario: User can not list future time option when vendor doesn't allow future order
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -101,6 +104,7 @@ Feature: Delivery time controls in checkout
     And I check future option not exist in delivery time option list
     And Staff update vendor delivery time method set AcceptsFutureOrder "true"
 
+  @TestRail(33519)
   Scenario: User can list future delivery time slots
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -134,6 +138,7 @@ Feature: Delivery time controls in checkout
     And Staff update vendor working days with selected times for deliveryInterval 120
     And Staff update vendor delivery time method set AcceptsFutureOrder "true"
 
+  @TestRail(33520)
   Scenario: User can select delivery time as Now for banabi
     Given I am an authorized  user "Login"
     And  My addresses list should be available

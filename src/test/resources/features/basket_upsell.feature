@@ -9,6 +9,7 @@ Feature: Basket upsell Api controls
     Then I get unique basket id
     And I delete basket
 
+  @TestRail(33336)
   Scenario: User can not list upsell products for Carsi Vendor
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page

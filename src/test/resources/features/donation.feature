@@ -4,18 +4,13 @@ Feature: Checkout User Donation controls
   Background: Login user
     Given I select city "TR_ISTANBUL"
 
+  @TestRail(33521)
   Scenario Outline: User can list donation Foundations on checkout
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -40,18 +35,13 @@ Feature: Checkout User Donation controls
       | 2            | UNICEF – Türkiye’de Kapsayıcı Eğitim Fonu                 | Türkiye’de en dezavantajlı çocuklar başta olmak üzere her çocuğun kapsayıcı, kaliteli eğitime erişmesini destekle.          | https://cdn.yemeksepeti.com/App_Themes/donation/tev_icon.png       | true     |
       | 5            | TEMA Vakfı Doğa Koruma Fonu                               | Toprak, hava, su ve ormanların korunması için yasal ve bilimsel temelli saha çalışmalarımızı destekle.                      | https://cdn.yemeksepeti.com/App_Themes/donation/tema_icon.png      | true     |
 
+  @TestRail(33522)
   Scenario Outline: User can list donation options default values on checkout
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -72,19 +62,13 @@ Feature: Checkout User Donation controls
       | 1    | 3      | 5 TL          | false      |
       | 2    | 4      | Tutar Giriniz | false      |
 
-
+  @TestRail(33523)
   Scenario: User can select default and custom donation on checkout with Mahalle vendor
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -104,15 +88,14 @@ Feature: Checkout User Donation controls
     And I put basket to checkout LastChangedProperty is 3
     And I check Donation is selected with 5 tl typeId 3 on put basket checkout response
 
+
   Scenario: User can not select donation with Mahalle vendor supporting offline payment
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
     And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -123,10 +106,6 @@ Feature: Checkout User Donation controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check donation Enabled value is "false" on basket checkout response
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
   Scenario: User can't donate with donation value 0 for Mahalle vendor
     Given I am an authorized  user "Login"
@@ -134,12 +113,6 @@ Feature: Checkout User Donation controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor

@@ -5,7 +5,7 @@ Feature: Coupon controls in basket and user coupons menu
     Given I select city "TR_ISTANBUL"
     When Staff update active campaigns status to passive
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33373)
   Scenario: User can list created Fixed Discount Coupon with creating coupon name
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -49,7 +49,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @IgnoreLive @Coupon
+  @Basket @IgnoreLive @Coupon @TestRail(33374)
   Scenario: User can list created Fixed Discount Coupon without creating coupon name
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -89,7 +89,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33375)
   Scenario: User can add created Constant Price Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -111,7 +111,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -134,7 +134,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Checkout @Coupon
+  @Basket @Checkout @Coupon @TestRail(33376)
     #test1
   Scenario: User can not list and can not use used Fixed Discount Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
@@ -202,7 +202,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33377)
   Scenario: User can not add usertag Fixed Discount Coupon when user id does not exist in tag list
     Given I am an authorized user with "mahalletestuser2" "123456"
     * My addresses list should be available
@@ -242,7 +242,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33378)
   Scenario: User can not add Constant Price Coupon when Vendor does not exist in target
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -267,7 +267,7 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -285,7 +285,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33379)
   Scenario: User not having OTP validation can not add coupon campaign to basket
     Given I am an authorized user with "testuser_noOTPValidation" "123456"
     * My addresses list should be available
@@ -326,7 +326,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Coupon
+  @Coupon @TestRail(33380)
   Scenario: User can list banabi and mahalle coupons in coupons page
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -357,7 +357,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33381)
   Scenario: User can not add banabi coupon in mahalle when having banabi & mahalle coupons
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -379,7 +379,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I apply campaign to basket campaign id is "109520" hasOtp is "true"
     * I validate apply campaign status is 404 and message is "Bu kupon kodu geçersizdir."
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33382)
   Scenario: User can apply banabi coupon
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -404,7 +404,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I apply campaign to basket campaign id is "109520" hasOtp is "true"
     * I validate apply campaign status is 200 and message is ""
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33383)
   Scenario: User can add created Fixed Discount Compensation Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -444,7 +444,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate calculated Total value for DiscountType is FixedDiscount and AwardType is Total in basket --For Coupon Cases
     * Staff delete created campaign in marketing
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33384)
   Scenario: User can not add other users' Compensation Coupon in basket
     Given I am an authorized user with "mahalletestuser2" "123456"
     * My addresses list should be available
@@ -479,7 +479,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33385)
   Scenario: User can not add used Compensation Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -538,7 +538,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
     * Staff delete created campaign in marketing
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33386)
   Scenario: User can not list but can use IsShownOnCheckout:false Fixed Discount Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -578,7 +578,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33387)
   Scenario: User can not list and can not use out of date Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -620,7 +620,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33388)
   Scenario: User can not list and can not use permanently closed Campaign Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -660,7 +660,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33389)
   Scenario: User can not list and can not use draft Campaign Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -699,7 +699,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33390)
   Scenario: User can delete added Subtotal %50 discount Coupon in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -722,7 +722,6 @@ Feature: Coupon controls in basket and user coupons menu
     Then I get unique basket id
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -748,7 +747,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Coupon
+  @Basket @Coupon @TestRail(33390)
   Scenario: User can not add null coupon code in basket
     Given I am an authorized user with "mahalletestuser2" "123456"
     * My addresses list should be available

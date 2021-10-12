@@ -4,6 +4,7 @@ Feature: Content api controls
   Background: Login user
     Given I am an authorized  user "Login"
 
+  @TestRail(33515)
   Scenario Outline: User can list Operation Guide
     Given I select city "TR_ISTANBUL"
     When I can list Faq content

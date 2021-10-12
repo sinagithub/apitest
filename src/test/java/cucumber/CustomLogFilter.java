@@ -1,10 +1,14 @@
 package cucumber;
 
+import apiEngine.Utilies.DateUtil;
+import cucumber.TestRail.TestRailLogHelper;
+import cucumber.runtime.StepDefinitionMatch;
 import io.restassured.filter.Filter;
 import io.restassured.filter.FilterContext;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
+
 
 public class CustomLogFilter implements Filter {
     private StringBuilder requestBuilderLogs;
@@ -33,18 +37,14 @@ public class CustomLogFilter implements Filter {
         requestBuilderLogs.append("\n");
         requestBuilderLogs.append("******************************");
         responseBuilderLogs = new StringBuilder();
-        responseBuilderLogs.append("\n"+"\n"+"\n");
-        responseBuilderLogs.append("Status Code: "+response.getStatusCode() + "\n");
-        //  responseBuilderLogs.append("\n");
-        //  responseBuilderLogs.append("Status Line: "+response.getStatusLine());
-        //  responseBuilderLogs.append("\n");
-        // responseBuilderLogs.append("Response Cookies: "+response.getDetailedCookies());
-        //  responseBuilderLogs.append("\n");
-        //  responseBuilderLogs.append("Response Content Type: "+response.getContentType());
-        //  responseBuilderLogs.append("\n");
-        responseBuilderLogs.append("Response Headers: "+response.getHeaders());
+        responseBuilderLogs.append("\n" + "\n" + "\n");
+        responseBuilderLogs.append("Status Code: " + response.getStatusCode() + "\n");
+        responseBuilderLogs.append("Response Headers: " + response.getHeaders());
         responseBuilderLogs.append("\n");
-        responseBuilderLogs.append("Response Body: "+"\n"+response.getBody().prettyPrint());
+        responseBuilderLogs.append("Response Body: " + "\n" + response.getBody().prettyPrint());
+        responseBuilderLogs.append("\n");
+
+
         return response;
     }
 

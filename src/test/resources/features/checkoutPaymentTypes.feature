@@ -4,6 +4,7 @@ Feature: Checkout User Payment Method controls
   Background: Login user
     Given I select city "TR_ISTANBUL"
 
+  @TestRail(33504)
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes
     Given I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
     And  My addresses list should be available
@@ -30,7 +31,7 @@ Feature: Checkout User Payment Method controls
       | 7420d62c-5794-4520-835d-1d2036052f31 | Online Ödeme     | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/guvenlialisveris.png |
       | da037061-192e-42fd-996f-74fe47444344 | Kapıda Ödeme     | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png             |
 
-
+  @TestRail(33505)
   Scenario Outline: User having saved credit card can list Saved credit Card options on checkout
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -66,7 +67,7 @@ Feature: Checkout User Payment Method controls
       | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 6dd07657e24177d582cca099c1f18122 | Garanti Kartım | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | 554960******0029 | 554960    | 0           | true       | 4              | 1           |
       | 7420d62c-5794-4520-835d-1d2036052f31 | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 | 22a110a9625a58f658e8e8886395a1c4 | Akbank Hilal   | https://images.yemeksepetim.com/App_Themes/BankLogos/akbank.png          | 520932******6435 | 520932    | 0           | false      | 4              | 1           |
 
-
+  @TestRail(33506)
   Scenario Outline: User can list offline payment options on checkout
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -76,11 +77,6 @@ Feature: Checkout User Payment Method controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     Then I choose "Çikolata" sub category from sub category
@@ -100,18 +96,13 @@ Feature: Checkout User Payment Method controls
     And I check IsSelected "<IsSelected>" in selected payment method
     And I check IsExpandable "<IsExpandable>" in selected payment method
     And I check IsExpanded "<IsExpanded>" in selected payment method
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
     Examples: Expected Payment Method details
       | PaymentMainTypeId                    | Rank | PaymentMethodId                      | PaymentMethodsName | PaymentType | CheckoutTypeId | IconUrl                                                                         | Description                  | IsSelected | IsExpandable | IsExpanded |
       | da037061-192e-42fd-996f-74fe47444344 | 4    | de2e3a82-8b55-4334-8a2e-467fe7f7db24 | Nakit              | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png             | Kapıda nakit ödeme           | false      | false        | false      |
       | da037061-192e-42fd-996f-74fe47444344 | 5    | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 | Kapida Kredi Karti | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/creditcardonstep.png | Kapıda kredi kartı ile ödeme | false      | false        | false      |
 
-
+  @TestRail(33507)
   Scenario Outline: User not having saved credit card can list Other Online credit Card option on checkout - PaymentTypes for banabi
     Given I am an authorized user with "yahya.kara@yemeksepeti.com" "test11"
     And  My addresses list should be available
@@ -139,6 +130,7 @@ Feature: Checkout User Payment Method controls
       | 1             | Online Ödeme     | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/guvenlialisveris.png |
       | 5             | Kapıda Ödeme     | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png             |
 
+  @TestRail(33508)
   Scenario Outline: User can list offline payment options on checkout for banabi
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -172,7 +164,7 @@ Feature: Checkout User Payment Method controls
       | PaymentMainTypeId | Rank | PaymentMethodId | PaymentMethodsName | PaymentType | CheckoutTypeId | IconUrl                                                             | Description        | IsSelected | IsExpandable | IsExpanded |
       | 5                 | 5    | 6               | Nakit              | 2           | 1              | https://cdn.yemeksepeti.com/app_themes/Store/PaymentMethod/cash.png | Kapıda nakit ödeme | false      | false        | false      |
 
-
+  @TestRail(33509)
   Scenario Outline: User having saved credit card can list Saved credit Card options on checkout for banabi
     Given I am an authorized  user "Login"
     And  My addresses list should be available

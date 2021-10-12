@@ -159,8 +159,9 @@ public class VendorSteps extends BaseSteps {
         for (SubCategory subCategory : subCategoryList) {
             if (subCategory.getProductCount() >= productCount) {
                 selectedSubCategory = subCategory;
+                break;
             }
-            break;
+
         }
 
         getScenarioContext().setContext(Context.SELECTED_SUB_PRODUCT_CATEGORY, selectedSubCategory);

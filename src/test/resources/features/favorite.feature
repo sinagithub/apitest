@@ -11,6 +11,7 @@ Feature: Favorite Api controls
     And I get all favorite vendor list
     And I delete all added favorite products
 
+  @TestRail(33392)
   Scenario: I can add/delete vendor to empty favorite list
     Then I select Mahalle platform
     When I get Favorite list
@@ -24,6 +25,7 @@ Feature: Favorite Api controls
     And I get Favorite list
     Then I can validate the vendor is removed on the favorite list
 
+  @TestRail(33394)
   Scenario: I can add/delete product to favorite list
     When A list of Carşı Vendor are available on home page
     And I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
@@ -42,6 +44,7 @@ Feature: Favorite Api controls
     When I get Favorite list
     And I can validate favorite vendor  size is 0 on favorite list
 
+  @TestRail(33397)
   Scenario: I validate vendor favorite products and favorite list product size
     When A list of Carşı Vendor are available on home page
     And I get Favorite list
@@ -68,6 +71,7 @@ Feature: Favorite Api controls
     When I get Favorite list
     Then I can see the favorite list is empty
 
+  @TestRail(33398)
   Scenario: Favorite parameter validations
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
@@ -94,6 +98,7 @@ Feature: Favorite Api controls
     And I get all favorite vendor list
     And I delete all added favorite products
 
+  @TestRail(33399)
   Scenario: User should add banabi vendor to favorite list
     When  Banabi Vendor is available
     Then I select banabi vendor
@@ -105,6 +110,7 @@ Feature: Favorite Api controls
     And I get Favorite list
     Then I can validate the vendor is removed on the favorite list
 
+  @TestRail(33400)
   Scenario: I validate Banabi vendor favorite products and favorite list product size
     Given I get Favorite list
     * I delete all vendor
@@ -128,6 +134,7 @@ Feature: Favorite Api controls
     When I get Favorite list
     Then I can see the favorite list is empty
 
+  @TestRail(33495)
   Scenario: Vendor sorting validation when both banabi & carsi vendors exist in favorite list
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page

@@ -10,11 +10,6 @@ Feature: Order type controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-    * Vendor staff open the selected shop
     * I get unique basket id
     * I delete basket
     When I navigate selected vendor
@@ -34,11 +29,6 @@ Feature: Order type controls
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
     * I check OrderId is created on checkout response
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
 
   Scenario: User can order with Offline payment - Kapıda Nakit
@@ -48,9 +38,6 @@ Feature: Order type controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
     * I get unique basket id
     * I delete basket
     When I navigate selected vendor
@@ -70,11 +57,6 @@ Feature: Order type controls
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
     * I check OrderId is created on checkout response
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
 
   Scenario: User can order with Online payment - Saved Credit Card
@@ -83,11 +65,6 @@ Feature: Order type controls
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
         Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     * I get unique basket id
     * I delete basket
     When I navigate selected vendor
