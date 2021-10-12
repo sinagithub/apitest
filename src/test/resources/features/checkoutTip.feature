@@ -4,18 +4,13 @@ Feature: Checkout User Tip controls
   Background: Login user
     Given I select city "TR_ISTANBUL"
 
+  @TestRail(33510)
   Scenario Outline: User can list tip options on checkout
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -37,19 +32,13 @@ Feature: Checkout User Tip controls
       | 1    | 1      | %10           | false      |
       | 2    | 4      | Tutar Giriniz | false      |
 
-
+  @TestRail(33511)
   Scenario: User can select custom tip on checkout with Mahalle vendor
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -68,17 +57,13 @@ Feature: Checkout User Tip controls
     And I check tip isEnabled is "true" tip type is 4 on put basket checkout response
     And I check total is valid for tip amount 500 on put basket checkout response
 
+  @TestRail(33512)
   Scenario: User can select predefined tip on checkout with Mahalle vendor
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -97,16 +82,13 @@ Feature: Checkout User Tip controls
     And I check tip isEnabled is "true" tip type is 3 on put basket checkout response
     And I check total is valid for tip amount 3 on put basket checkout response
 
-
+  @TestRail(33513)
   Scenario: User can't select tip if vendor has not online payment option with Mahalle vendor
     Given I am an authorized  user "Login"
     And  My addresses list should be available
     And  I select pinned available address
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    And Staff get selected vendor details from internal vendor service
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
+    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
@@ -117,11 +99,6 @@ Feature: Checkout User Tip controls
     And I can add the selected product to basket quantity is 1
     When I get checkout options
     Then I check tip info is "false" on basket checkout response
-    And Staff update vendor payment method
-      | de2e3a82-8b55-4334-8a2e-467fe7f7db24 |
-      | 43be6d4b-fc9e-4ab3-ad99-365ee3229664 |
-      | 163c9493-8178-4765-a146-c35da4e98b3a |
-      | 111fb8a2-45a4-4e09-8a10-4d7d94d70be3 |
 
 
 

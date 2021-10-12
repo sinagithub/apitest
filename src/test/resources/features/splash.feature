@@ -4,6 +4,7 @@ Feature: Splash Api controls
   Background: Login user
     Given I am an authorized  user "Login"
 
+  @TestRail(33332)
   Scenario Outline: Splash Carsi is active
     Given I select city "<cityCode>"
     When I get carsi status

@@ -4,6 +4,7 @@ Feature: Checkout Basket Info Controls
   Background: Login user
     Given I select city "TR_ISTANBUL"
 
+  @TestRail(33497)
   Scenario: User can list basket info smoothly in checkout
     Given I am an authorized  user "Login"
     And  My addresses list should be available
@@ -31,6 +32,7 @@ Feature: Checkout Basket Info Controls
     * I check LineItemsTotal is valid on get checkout response
     * I check BagQuantity should be 1 on get checkout response
 
+  @TestRail(33498)
   Scenario: User can list basket info smoothly in checkout for banabi
     Given I am an authorized  user "Login"
     And  My addresses list should be available

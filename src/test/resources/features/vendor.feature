@@ -42,73 +42,16 @@ Feature: Vendor detail and listings Controls
     And I check selected product's HasOptions should be "false" on vendor detail
     And I check selected product's image url is 200 on vendor detail
 
-  Scenario: User can list category product pages on Çarşı
-    When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
-    When  I navigate selected vendor
-    Then I choose a category with more than 50 products
-    Then I choose a sub category with more than 50 products
-    When I list the products from selected sub category
-    Then I check product list not empty
-    Then I validate category product is listed with 21 products
-    And I validate category HasNextPage is "true"
-    And I can validate CurrentOffset is 0
-    And I validate category HasPrevPage "false"
-    And I validate category NextOffset is 21
-    When I list sub category products with offset 21
-    Then I can validate PrevOffset is 0
-    Then I can validate CurrentOffset is 21
-    And I validate category NextOffset is 42
-    And I check product list not empty
-    When I list sub category products with offset 42
-    Then I validate category product is listed with 21 products
-    And I check product list not empty
-    Then I can validate PrevOffset is 21
-    Then I can validate CurrentOffset is 42
-    And I validate category HasPrevPage "true"
-    When I list sub category products with offset 21
-    Then I check product list not empty
-    And I can validate CurrentOffset is 21
-    Then I select a random available product from selected category
-    Then I should see selected product's id is not empty on vendor detail
-    And I  check selected product's Price is valid on vendor detail
-    And I check selected product's MaximumSaleAmount is valid on vendor detail
-    And I check selected product's IsActive is "true"
-    And I check selected product's HasOptions should be "false" on vendor detail
-    And I check selected product's image url is 200 on vendor detail
-
-  Scenario: User can list category product pages on Banabi
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    Then I navigate selected vendor
-    Then I choose a category with more than 30 products
-    Then I choose a sub category with more than 21 products
-    When I list the products from selected sub category
-    Then I check product list not empty
-    Then I validate category product is listed with 21 products
-    And I validate category HasNextPage is "true"
-    And I can validate CurrentOffset is 0
-    And I validate category HasPrevPage "false"
-    And I validate category NextOffset is 21
-    When I list sub category products with offset 21
-    Then I check product list not empty
-    Then I can validate PrevOffset is 0
-    Then I can validate CurrentOffset is 21
-    Then I select a random available product from selected category
-    And I check selected product's image url is 200 on vendor detail
-    And I  check selected product's Price is valid on vendor detail
-    And I check selected product's MaximumSaleAmount is valid on vendor detail
-
   Scenario: User can't list deleted vendor detail
     When  I navigate vendor with "38909e64-96d8-11eb-b45d-69fdcw0b8ba1"
     Then I should get 400 error on vendor detail
 
   Scenario: User can list closed carsi vendor
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And Vendor staff close the selected shop
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When  I navigate selected vendor
     And Vendor staff open the selected shop
 
@@ -145,9 +88,9 @@ Feature: Vendor detail and listings Controls
     And I check selected product's HasOptions should be "false" on vendor detail
     And I check selected product's image url is 200 on vendor detail
 
-  Scenario Outline: User can search product on vendor detail
+  Scenario: User can search product on vendor detail
     When  A list of Carşı Vendor are available on home page
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     And  I navigate selected vendor
     And I search "asdedasdsTEST" on vendor product search pageIndex 1
     And I validate product search result is empty

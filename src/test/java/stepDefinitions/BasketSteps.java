@@ -1004,8 +1004,6 @@ public class BasketSteps extends BaseSteps {
         String expectedVendorLogo = getSelectedVendorDetailData().getLogoUrl();
         String actualVendorLogo = getBasketInfo().getVendorLogo();
         assertEqual("VendorLogo url should be valid ", actualVendorLogo, expectedVendorLogo);
-        int imageStatus = getCarsiBasketClient().getImageUrlResponse(actualVendorLogo).getStatusCode();
-        assertTrue(imageStatus == 200, "Vendor logo status not ok " + imageStatus);
     }
 
     @Then("I validate BasketStatus is {int} in basket info")

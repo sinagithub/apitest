@@ -1,17 +1,19 @@
 package apiEngine;
 
-import apiEngine.Utilies.GuidHelper;
-import apiEngine.Utilies.LatLongHelper;
-import apiEngine.Utilies.PlatformTypeHelper;
-import apiEngine.Utilies.TokenHelper;
+import apiEngine.Utilies.*;
 import cucumber.CustomLogFilter;
+import cucumber.StepDetails;
 import cucumber.Storage;
+import cucumber.TestRail.TestRailApi;
+import cucumber.TestRail.TestRailLogHelper;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import stepDefinitions.Hooks;
 import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
+
+import java.util.UUID;
 
 public class ApiClient extends Hooks {
 
@@ -69,8 +71,12 @@ public class ApiClient extends Hooks {
     }
 
     public void writeStepLog() {
-        Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
-                + "\n" + "API Response: " + logFilter.getResponseBuilder());
+        Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder() +
+                "\n" + "API Response: " + logFilter.getResponseBuilder());
+
+        TestRailLogHelper.getInstance().setLog(DateUtil.generateDateNow() ,
+                "\n" + "API Request: " + logFilter.getRequestBuilder() +
+                        "\n" + "API Response: " + logFilter.getResponseBuilder());
     }
 
     public void writeStepLog(boolean showResponse, boolean showRequest) {

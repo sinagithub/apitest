@@ -6,6 +6,7 @@ Feature: Campaign Controls
     And I am an authorized  user "Login"
     * Staff update active campaigns status to passive
 
+  @TestRail(33355)
   Scenario: User Can list campaign banners on home page
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -27,7 +28,7 @@ Feature: Campaign Controls
     When HomePage banners are available
     Then I check created campaign banner listed and url is valid on home page banners
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33356)
   Scenario: User can list created General Fixed Discount campaign with OTP required value is false in basket
     Given I am an authorized user with "testuser_noOTPValidation" "123456"
     * My addresses list should be available
@@ -65,7 +66,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33357)
   Scenario: User can list created General Constant Price campaign with OTP required value is false in basket
     Given I am an authorized user with "testuser_noOTPValidation" "123456"
     * My addresses list should be available
@@ -103,7 +104,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33358)
   Scenario: User can list created General Fixed Discount campaign with OTP required value is true in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -141,7 +142,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33359)
   Scenario: User can list created General Constant Price campaign with OTP required value is true in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -179,7 +180,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33360)
   Scenario: User can list created General Constant Price  Vendor campaign with OTP required value is true in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -218,7 +219,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33361)
   Scenario: User can not list created General Constant Price Vendor campaign with OTP required value is true in basket with different vendor
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -242,7 +243,7 @@ Feature: Campaign Controls
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -255,6 +256,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
+  @TestRail(33362)
   Scenario: User can not list used Fixed Discount Campaign in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -312,7 +314,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33363)
   Scenario: User can not list created General Fixed Discount campaign when conditions are not met in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -347,7 +349,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33364)
   Scenario: User can not list created General OTPRequired campaign when having no OTP confirmation
     Given I am an authorized user with "testuser_noOTPValidation" "123456"
     * My addresses list should be available
@@ -383,7 +385,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33365)
   Scenario: User can not list draft Campaign in basket
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -418,7 +420,7 @@ Feature: Campaign Controls
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
 
-  @Basket @Campaign
+  @Basket @Campaign @TestRail(33367)
   Scenario: User can not list used General Fixed VendorTag Discount campaign in Campaign Tab
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -468,7 +470,7 @@ Feature: Campaign Controls
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
     * I wait until new basket id is generated
-    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
     When I navigate selected vendor
     Then I choose "Atıştırmalık" product category from category list
     * I choose "Çikolata" sub category from sub category
@@ -483,7 +485,7 @@ Feature: Campaign Controls
     * Staff delete created vendor tag in tagging createdUserId "1",createdUserName "automation"
 
 
-  @Campaign
+  @Campaign @TestRail(33368)
   Scenario: User can list created General Constant Price Vendor campaign in Campaign Tab
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -510,7 +512,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Campaign
+  @Campaign @TestRail(33369)
   Scenario: User can list created General Fixed Discount campaign in Campaign Tab
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -534,7 +536,7 @@ Feature: Campaign Controls
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Campaign
+  @Campaign @TestRail(33370)
   Scenario: User can list created General Constant Price VendorTag campaign in Campaign Tab
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
@@ -568,7 +570,7 @@ Feature: Campaign Controls
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
     * Staff delete created vendor tag in tagging createdUserId "1",createdUserName "automation"
 
-  @Campaign
+  @Campaign  @TestRail(33371)
   Scenario: User can list created General Fixed VendorTag Discount campaign in Campaign Tab
     Given I am an authorized user with "mahalletestuser1" "123456"
     * My addresses list should be available
