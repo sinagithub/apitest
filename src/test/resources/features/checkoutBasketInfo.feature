@@ -43,8 +43,8 @@ Feature: Checkout Basket Info Controls
     * I get basket line counts with lite basket
     And I delete basket
     When I navigate selected vendor
-    Then I choose a category with more than 10 products
-    Then I choose a sub category with more than 11 products
+    Then I choose a category with more than 1 products
+    Then I choose a sub category with more than 1 products
     When I list the products from selected sub category
     Then I select a random available product from selected category with price upper than is 5.0
     And I can add the selected product to basket quantity is 1

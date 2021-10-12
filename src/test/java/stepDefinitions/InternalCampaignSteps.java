@@ -43,7 +43,7 @@ public class InternalCampaignSteps extends BaseSteps {
     @Then("Staff select Campaign with Name {string}, UsageLimit {int}, IsOtpRequired {string}, IsOneTimePerUser " +
             "{string}, IsCouponRequired {string}, IsShownOnCheckout {string}, StartDate, EndDate, IsShownOnHomePage {string}")
     public void staff_select_campaign_with_name_usage_limit_is_otp_required_is_one_time_per_user_is_coupon_required_is_shown_on_checkout_start_date_end_date(String name, Integer usageLimit, String isOtpRequired, String isOneTimePerUser, String isCouponRequired, String isShownOnCheckout, String isShownOnHomePage) throws IOException {
-        String randomName = name + "-" + GenerateFakeData.getFakeLorem()
+        String randomName = name + "-" + GenerateFakeData.getFakeLorem(10);
         HashMap definedCampaignInfo = new HashMap();
         definedCampaignInfo.put("CampaignName", randomName);
         definedCampaignInfo.put("UsageLimit", usageLimit);
