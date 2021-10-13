@@ -13,7 +13,7 @@ import java.text.ParseException;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/resources/features",
-        plugin = {"json:target/jsonReports/cucumber-report.json", "cucumber.ListenerPlugin", "cucumber.StepDetails"},
+        plugin = {"json:target/jsonReports/cucumber-report.json", "cucumber.ListenerPlugin", "cucumber.StepDetails", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         glue = {"stepDefinitions"},
         publish = true)
 public class TestRunner {

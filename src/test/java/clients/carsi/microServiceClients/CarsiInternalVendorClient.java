@@ -70,6 +70,7 @@ public class CarsiInternalVendorClient extends ApiClient {
         Response response = createRequest()
                 .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
+                .queryParam("requestingService", "Tezgah")
                 .body(updateVendorRequest)
                 .put(InternalVendorRoute.getVendor());
         writeStepLog();
@@ -80,6 +81,7 @@ public class CarsiInternalVendorClient extends ApiClient {
         Response response = createRequest()
                 .header("X-Password","mellon")
                 .pathParam("vendorId",vendorId)
+                .queryParam("requestingService", "Tezgah")
                 .body(setVendorWorkingDaysRequest)
                 .put(InternalVendorRoute.getWorkingDay());
         writeStepLog();

@@ -1,6 +1,12 @@
 package apiEngine;
 
 import apiEngine.Utilies.*;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.aventstack.extentreports.markuputils.CodeLanguage;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import cucumber.CustomLogFilter;
 import cucumber.StepDetails;
 import cucumber.Storage;
@@ -71,8 +77,15 @@ public class ApiClient extends Hooks {
     }
 
     public void writeStepLog() {
-        Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder() +
-                "\n" + "API Response: " + logFilter.getResponseBuilder());
+        String code = "API Request: " + logFilter.getRequestBuilder() +
+                "\n" + "API Response: " + logFilter.getResponseBuilder();
+        Storage.getScenario().attach(logFilter.getRequestBuilder(),"text","req");
+
+        Markup m = MarkupHelper.createCodeBlock(code, CodeLanguage.XML);
+
+        Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
+        ExtentCucumberAdapter.getCurrentStep().log(status,m);
+
 
         TestRailLogHelper.getInstance().setLog(DateUtil.generateDateNow() ,
                 "\n" + "API Request: " + logFilter.getRequestBuilder() +
