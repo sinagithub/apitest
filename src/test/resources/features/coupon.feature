@@ -198,7 +198,7 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * I get coupon code with created campaign id
     * I add created coupon to basket PaymentMethodId is "", UserHasOtpValidation is "true"
-    * I validate apply coupon status is 400 and message is "Bu kupon kodu geçersizdir."
+    * I validate apply coupon status is 400 and message is "Bu kuponun kullanım limiti dolmuştur."
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
 

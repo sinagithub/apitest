@@ -18,6 +18,7 @@ Feature: Checkout User cards controls
     And I validate selected card image is "<Image>"
     And I validate selected card ImageHttps is "<ImageHttps>"
 
+
     Examples: Expected Card details
       | Pan              | Name           | BankKod | IsMaxiMobile | PointAmount | CardBrand  | Image                                                              | ImageHttps                                                               |
       | 554960******0029 | Garanti Kartım | 062     | false        | 0           | MasterCard | //images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png | https://images.yemeksepetim.com/App_Themes/BankLogos/garanti_bankasi.png |

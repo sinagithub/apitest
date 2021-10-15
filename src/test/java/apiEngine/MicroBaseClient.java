@@ -1,5 +1,10 @@
 package apiEngine;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.aventstack.extentreports.markuputils.CodeLanguage;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import cucumber.CustomLogFilter;
 import cucumber.Storage;
 import io.restassured.RestAssured;
@@ -31,21 +36,16 @@ public class MicroBaseClient extends Hooks {
     }
 
     public void writeStepLog() {
-        Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
-                + "\n" + "API Response: " + logFilter.getResponseBuilder());
+        String code = "API Request: " + logFilter.getRequestBuilder() +
+                "\n" + "API Response: " + logFilter.getResponseBuilder();
+        Storage.getScenario().attach(logFilter.getRequestBuilder(),"text","req");
+
+        Markup m = MarkupHelper.createCodeBlock(code, CodeLanguage.XML);
+
+        Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
+        ExtentCucumberAdapter.getCurrentStep().log(status,m);
     }
 
-    public void writeStepLog(boolean showResponse, boolean showRequest) {
-
-        if (showRequest && showResponse) {
-            Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder()
-                    + "\n" + "API Response: " + logFilter.getResponseBuilder());
-        } else if (showRequest) {
-            Storage.getScenario().log("\n" + "API Request: " + logFilter.getRequestBuilder());
-        } else if (showResponse) {
-            Storage.getScenario().log("API Response: " + logFilter.getResponseBuilder());
-        }
-    }
 
 
 }

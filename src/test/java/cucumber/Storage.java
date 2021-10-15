@@ -7,8 +7,6 @@ import java.util.HashMap;
 
 public class Storage {
     private static final HashMap<Thread, Scenario> map = new HashMap<>();
-    private static final HashMap<String, String> log = new HashMap<>();
-
 
     public static void putScenario(Scenario scenario) {
         map.put(Thread.currentThread(), scenario);

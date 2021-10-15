@@ -130,6 +130,7 @@ public class BasketSteps extends BaseSteps {
         IRestResponse<BasketIdResponse> basketIdResponse = getCarsiBasketClient().getBasketId(addressId);
         String basketId = basketIdResponse.getBody().getData().getBasketId();
 
+
         getScenarioContext().setContext(Context.BASKET_ID, basketId);
         List<Product> userBasketProductList = new ArrayList<>();
         getScenarioContext().setContext(Context.ADDED_PRODUCT_LIST, userBasketProductList);

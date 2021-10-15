@@ -79,11 +79,9 @@ public class ApiClient extends Hooks {
     public void writeStepLog() {
         String code = "API Request: " + logFilter.getRequestBuilder() +
                 "\n" + "API Response: " + logFilter.getResponseBuilder();
-        Storage.getScenario().attach(logFilter.getRequestBuilder(),"text","req");
-
         Markup m = MarkupHelper.createCodeBlock(code, CodeLanguage.XML);
-
         Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
+        Storage.getScenario().log(code);
         ExtentCucumberAdapter.getCurrentStep().log(status,m);
 
 
