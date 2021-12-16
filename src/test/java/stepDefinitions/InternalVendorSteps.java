@@ -227,7 +227,6 @@ public class InternalVendorSteps extends BaseSteps {
         WorkingDay workingDay = new WorkingDay(dayOfWeek, startHour, startMinute, endHour, endMinute);
         workingDayPool.add(workingDay);
         getScenarioContext().setContext(Context.WORK_DAY_POOL, workingDayPool);
-
     }
 
     @Then("Staff update vendor working days with selected times for deliveryInterval {int}")
@@ -246,6 +245,5 @@ public class InternalVendorSteps extends BaseSteps {
                                                               int endMinute) {
         int nextDayOfWeek = LocalDate.now().getDayOfWeek().getValue() + 1;
         staff_select_working_day_of_week_start_hour_start_minute_end_hour_end_minute(nextDayOfWeek,startHour,startMinute,endHour,endMinute);
-
     }
 }

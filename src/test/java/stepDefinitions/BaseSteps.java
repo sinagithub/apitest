@@ -34,10 +34,10 @@ public class BaseSteps {
     private CarsiPaymentClient carsiPaymentClient;
     private CarsiInternalVendorClient carsiInternalVendorClient;
     private CarsiCheckoutClient carsiCheckoutClient;
-    private CarsiAddressesClient carsiAddressClient;
     private InternalTaggingClient internalTaggingClient;
     private InternalMarketingClient internalMarketingClient;
     private CarsiCampaignsClient carsiCampaignsClient;
+    private CarsiAddressClient carsiAddressClient;
 
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
@@ -80,6 +80,9 @@ public class BaseSteps {
         return carsiBasketClient;
     }
 
+    public CarsiAddressClient getCarsiAddressClient() {
+        return carsiAddressClient;
+    }
     public CarsiContentClient getCarsiContentClient() {
         return carsiContentClient;
     }
@@ -93,9 +96,7 @@ public class BaseSteps {
 
         }
     }
-    public CarsiAddressesClient getCarsiAddressClient() {
-        return carsiAddressClient;
-    }
+
     public CarsiHomePageClient getCarsiHomePageClient() {
         return carsiHomePageClient;
     }
