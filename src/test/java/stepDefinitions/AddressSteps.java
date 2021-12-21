@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-
 import apiEngine.CatalogSelector;
 import apiEngine.IRestResponse;
 import apiEngine.Utilies.GuidHelper;
@@ -16,7 +15,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,7 +108,7 @@ public class AddressSteps extends BaseSteps {
         List<AvailableAddressData> checkoutAddressList = getCheckoutAvailableAddresses();
         for (AvailableAddressData addressData : checkoutAddressList) {
             if (addressData.getAddressId().equals(expectedAddressId)) {
-                return true;
+                return addressData.getAddressId().equals(expectedAddressId);
             }
         }
         return false;
@@ -494,7 +492,6 @@ public class AddressSteps extends BaseSteps {
         int actualDeleteResponseStatus = getDeleteAddressResponse().getStatusCode();
         assertEqual("Delete address message should be valid",actualMessage, expectedMessage);
         assertTrue(expectedResponseStatus == actualDeleteResponseStatus, "Status should be " + expectedResponseStatus + " not " + actualDeleteResponseStatus);
-
     }
 
     @When("I set selected address {string} {double}")
@@ -529,8 +526,8 @@ public class AddressSteps extends BaseSteps {
                 email, firstName, lastName, latitude, longitude, areaId, telephoneNumber);
         String addressId = getAddressId();
         CarsiAddressClient carsiAddressClient = new CarsiAddressClient(BaseUrls.getCarsiBaseUrl());
-//        IRestResponse<AddAddressResponse> editAddressResponse = carsiAddressClient.editAddress(addressId, editAddressRequest);
-//        getScenarioContext().setContext(Context.EDIT_ADDRESS_RESPONSE, editAddressResponse);
+        IRestResponse<AddAddressResponse> editAddressResponse = carsiAddressClient.editAddress(addressId, editAddressRequest);
+        getScenarioContext().setContext(Context.EDIT_ADDRESS_RESPONSE, editAddressResponse);
     }
 
     @Given("I check edited address status is {int}")

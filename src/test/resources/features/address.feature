@@ -6,7 +6,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Unpinned user address should be listed in available addresses
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
@@ -41,7 +41,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Pinned user address should be listed in available addresses
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
@@ -80,7 +80,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User can proceed with Mahalle after pinning address
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -110,11 +110,11 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName| AddressType|    City   |   Description   |          Email         |FirstName|LastName |               AreaId               |                   AreaName              |TelephoneNumber|  Latitude | Longitude |
-      |   Göztepe  |  Kampus   |      2     |TR_ISTANBUL|TestAddressCampus|test_NoAddress@gmail.com|  Test   |noAddress|6ae5584a-2126-4f79-89bc-68532f78dd0a|Bahçeşehir Üniversitesi - Göztepe Kampüsü|  4443332211   |40.98196411|29.06356239|
+      |   Göztepe  |  Kampus   |      2     |TR_ISTANBUL|TestAddressCampus|test_NoAddress@gmail.com|  Test   |noAddress|6ae5584a-2126-4f79-89bc-68532f78dd0a|Bahçeşehir Üniversitesi - Göztepe Kampüsü|  5553332211   |40.98196411|29.06356239|
 
   @Address
   Scenario Outline: User can list pinned addres details
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
@@ -143,7 +143,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User can list unpinned addres details
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * My addresses list should be available
     * I check my address list size is 0
@@ -172,7 +172,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User Can not proceed with unpinned address in Mahalle - Action Type 1
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -205,7 +205,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User Can proceed with pinned address in Mahalle - Action Type 2
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -240,7 +240,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Edit address validations
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -275,7 +275,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Add address validations
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -330,7 +330,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User add pinned address in different types
-    Given I am an authorized user with "testuser_noAddress" "123456"
+    Given I am an authorized user with "testuser_noAddress.yemeksepeti.com" "123456"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list

@@ -59,7 +59,6 @@ public class BaseSteps {
         carsiCampaignsClient = testContext.getCampaignsClient();
     }
 
-
     public CarsiVendorClient getCarsiVendorClient() {
         return carsiVendorClient;
     }
@@ -83,6 +82,7 @@ public class BaseSteps {
     public CarsiAddressClient getCarsiAddressClient() {
         return carsiAddressClient;
     }
+
     public CarsiContentClient getCarsiContentClient() {
         return carsiContentClient;
     }
@@ -93,7 +93,6 @@ public class BaseSteps {
             response.then().assertThat().contentType(ContentType.JSON)
                     .and()
                     .body(matchesJsonSchemaInClasspath(path));
-
         }
     }
 

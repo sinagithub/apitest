@@ -18,7 +18,6 @@ public class AddressRoute {
         return getAddress() + AVAILABLE;
     }
 
-
     public static String getAction() {
         return getAddress() + ACTION;
     }

@@ -6,7 +6,6 @@ import apiEngine.Routes.AddressRoute;
 import apiEngine.models.requests.Address.AddAddressRequest;
 import apiEngine.models.response.Address.*;
 import io.restassured.response.Response;
-
 import java.io.UnsupportedEncodingException;
 
 public class CarsiAddressClient extends CarsiClient{
@@ -51,13 +50,14 @@ public class CarsiAddressClient extends CarsiClient{
         return new RestResponse<>(DeleteAddressResponse.class, response);
     }
 
-//    public IRestResponse<AddAddressResponse> editAddress(String addressId, AddAddressRequest addAddressRequest) throws UnsupportedEncodingException {
-//        Response response = createRequest()
-//                .pathParam("addressId",urlEncodeString(addressId))
-//                .body(addAddressRequest)
-//                .put(AddressRoute.getAddressDetail());
-//        return new RestResponse<>(AddAddressResponse.class, response);
-//    }
+    public IRestResponse<AddAddressResponse> editAddress(String addressId, AddAddressRequest addAddressRequest) throws UnsupportedEncodingException {
+        Response response = createRequest()
+                .pathParam("addressId",urlEncodeString(addressId))
+                .body(addAddressRequest)
+                .put(AddressRoute.getAddressDetail());
+        return new RestResponse<>(AddAddressResponse.class, response);
+    }
+
 
     public IRestResponse<AvailableAddressResponse> getAvailableCheckout(String basketId, String vendorId) {
         Response response = createRequest()
