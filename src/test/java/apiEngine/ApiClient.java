@@ -19,6 +19,9 @@ import io.restassured.specification.RequestSpecification;
 import stepDefinitions.Hooks;
 import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class ApiClient extends Hooks {
@@ -108,4 +111,7 @@ public class ApiClient extends Hooks {
         return cdnRequest.get(imageUrl);
     }
 
+    protected static String urlEncodeString(String value) throws UnsupportedEncodingException {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8.name()).replaceAll("\\+", "%20");
+    }
 }
