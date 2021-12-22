@@ -28,3 +28,8 @@ Feature: Homepage Api controls
     Then HomePage banners urls are valid
     And HomePage banners OmnitureKeyword should not empty
     * HomePage banners deeplink url should not empty
+
+  Scenario: HomePage IsAllCategory Field Check According to Vendor Category
+    When I list homepage categories
+    Then I validate IsAllCategory parameter as true for Tümü category
+    And I validate IsAllCategory parameter as false for except Tümü category
