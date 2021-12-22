@@ -32,7 +32,6 @@ public class CarsiAddressClient extends CarsiClient{
         Response response = createRequest()
                 .body(addAddressRequest)
                 .post(AddressRoute.getAddress());
-        writeStepLog();
         return new RestResponse<>(AddAddressResponse.class, response);
     }
 

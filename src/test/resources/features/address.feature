@@ -6,7 +6,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Unpinned user address should be listed in available addresses
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "test_userxxx@gmail.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
