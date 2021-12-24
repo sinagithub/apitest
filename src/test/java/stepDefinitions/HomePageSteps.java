@@ -333,7 +333,7 @@ public class HomePageSteps extends BaseSteps {
     }
 
     @When("I list homepage categories")
-    public void iListHomepageVendorsAndCategoriesInHomepage() {
+    public void i_list_homepage_vendors_and_categories_in_homepage() {
 
         AvailableAddressData availableAddress = getSelectedAddress();
         CarsiHomePageClient carsiHomePageClient = new CarsiHomePageClient(BaseUrls.getCarsiBaseUrl());
@@ -352,7 +352,7 @@ public class HomePageSteps extends BaseSteps {
     }
 
     @Then("I validate IsAllCategory parameter as true for Tümü category")
-    public void iValidateIsAllCategoryParameterAsTrueForTümüCategory() {
+    public void i_validate_is_all_category_parameter_as_true_for_tumu_category() {
 
         List<MahalleCategory> categoryList = getMahalleCategoryList();
         for (MahalleCategory category : categoryList) {
@@ -368,7 +368,8 @@ public class HomePageSteps extends BaseSteps {
 
 
     @And("I validate IsAllCategory parameter as false for except Tümü category")
-    public void iValidateIsAllCategoryParameterAsFalseForExceptTümüCategory() {
+    public void i_validate_is_all_category_parameter_as_false_for_except_tumu_category() {
+
         List<MahalleCategory> categoryList = getMahalleCategoryList();
         for (MahalleCategory category : categoryList) {
             String categoryName = category.getCategoryName();
@@ -380,7 +381,6 @@ public class HomePageSteps extends BaseSteps {
             }
         }
     }
-
 
 }
 
