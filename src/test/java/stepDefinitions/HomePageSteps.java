@@ -366,7 +366,6 @@ public class HomePageSteps extends BaseSteps {
         }
     }
 
-
     @And("I validate IsAllCategory parameter as false for except Tümü category")
     public void i_validate_is_all_category_parameter_as_false_for_except_tumu_category() {
 
