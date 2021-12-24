@@ -33,7 +33,7 @@ public class HomePageSteps extends BaseSteps {
     }
 
     private List<MahalleCategory> getMahalleCategoryList() {
-        return (List<MahalleCategory>) getScenarioContext().getContext(Context.HOMEPAGE_CATEGORY_LIST);  //Yeni
+        return (List<MahalleCategory>) getScenarioContext().getContext(Context.HOMEPAGE_CATEGORY_LIST);
     }
 
     private AvailableAddressData getSelectedAddress() {
