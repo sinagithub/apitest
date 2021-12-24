@@ -49,5 +49,4 @@ public class MahalleCategory {
     public void setIsAllCategory(Boolean isAllCategory) {
         this.isAllCategory = isAllCategory;
     }
-
 }
