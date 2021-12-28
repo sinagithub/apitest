@@ -17,6 +17,7 @@ public class CarsiAddressClient extends CarsiClient{
     public IRestResponse<AvailableAddressResponse> getAddresses() {
         Response response = createRequest()
                 .get(AddressRoute.getAvailable());
+        writeStepLog();
         return new RestResponse<>(AvailableAddressResponse.class, response);
     }
 
@@ -25,6 +26,7 @@ public class CarsiAddressClient extends CarsiClient{
                 .queryParam("addressId", addressId)
                 .queryParam("areaId", areaId)
                 .get(AddressRoute.getAction());
+        writeStepLog();
         return new RestResponse<>(AddressActionResponse.class, response);
     }
 
@@ -32,6 +34,7 @@ public class CarsiAddressClient extends CarsiClient{
         Response response = createRequest()
                 .body(addAddressRequest)
                 .post(AddressRoute.getAddress());
+        writeStepLog();
         return new RestResponse<>(AddAddressResponse.class, response);
     }
 
@@ -39,6 +42,7 @@ public class CarsiAddressClient extends CarsiClient{
         Response response = createRequest()
                 .pathParam("addressId", addressId)
                 .get(AddressRoute.getAddressDetail());
+        writeStepLog();
         return new RestResponse<>(AddressDetailResponse.class, response);
     }
 
@@ -46,6 +50,7 @@ public class CarsiAddressClient extends CarsiClient{
         Response response = createRequest()
                 .pathParam("addressId", addressId)
                 .delete(AddressRoute.getAddressDetail());
+        writeStepLog();
         return new RestResponse<>(DeleteAddressResponse.class, response);
     }
 
@@ -54,6 +59,7 @@ public class CarsiAddressClient extends CarsiClient{
                 .pathParam("addressId",urlEncodeString(addressId))
                 .body(addAddressRequest)
                 .put(AddressRoute.getAddressDetail());
+        writeStepLog();
         return new RestResponse<>(AddAddressResponse.class, response);
     }
 
@@ -63,6 +69,7 @@ public class CarsiAddressClient extends CarsiClient{
                 .queryParam("basketId", basketId)
                 .queryParam("vendorId", vendorId)
                 .get(AddressRoute.getAvailableCheckout());
+        writeStepLog();
         return new RestResponse<>(AvailableAddressResponse.class, response);
     }
 }

@@ -6,7 +6,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Unpinned user address should be listed in available addresses
-    Given I am an authorized user with "test_userxxx@gmail.com" "Mahalle1!"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
@@ -41,7 +41,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Pinned user address should be listed in available addresses
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
@@ -76,11 +76,11 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName| AddressType|    City   |   Description   |          Email         |FirstName|LastName |               AreaId               |                   AreaName              |TelephoneNumber|  Latitude | Longitude |
-      |   Göztepe  |  Kampus   |      2     |TR_ISTANBUL|TestAddressCampus|test_NoAddress@gmail.com|  Test   |noAddress|6ae5584a-2126-4f79-89bc-68532f78dd0a|Bahçeşehir Üniversitesi - Göztepe Kampüsü|  4443332211   |40.98196411|29.06356239|
+      |   Göztepe  |  Kampus   |      2     |TR_ISTANBUL|TestAddressCampus|test_NoAddress@gmail.com|  Test   |noAddress|6ae5584a-2126-4f79-89bc-68532f78dd0a|Bahçeşehir Üniversitesi - Göztepe Kampüsü|  5335554433   |40.98196411|29.06356239|
 
   @Address
   Scenario Outline: User can proceed with Mahalle after pinning address
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -114,7 +114,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User can list pinned addres details
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     Then I create address info list
@@ -143,7 +143,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User can list unpinned addres details
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * My addresses list should be available
     * I check my address list size is 0
@@ -172,7 +172,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User Can not proceed with unpinned address in Mahalle - Action Type 1
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -205,7 +205,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User Can proceed with pinned address in Mahalle - Action Type 2
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -240,7 +240,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Edit address validations
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -271,11 +271,11 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName|AddressType|   City    |   Description   |            Email       |FirstName|LastName |                 AreaId             |        AreaName      |TelephoneNumber|MobileTelephoneNumber|  Latitude | Longitude |IsFromAutoComplete|Organization|
-      |   Göztepe  |    Home   |      0    |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   |     4443332211      |40.98196411|29.06356239|        true      |            |
+      |   Göztepe  |    Home   |      0    |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   |     5335554433      |40.98196411|29.06356239|        true      |            |
 
   @Address
   Scenario Outline: Add address validations
-    Given I am an authorized user with "testuser_noAddress@yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -297,16 +297,16 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName|AddressType|City   |   Description   |  Email |  ErrorMessage  |FirstName|LastName |   AreaId   |   AreaName   |TelephoneNumber|MobileTelephoneNumber|  Latitude | Longitude |IsFromAutoComplete|Organization|
-      |   Göztepe  |   Home| 0 |   | TestAddressHome |test_NoAddress@gmail.com|   'City' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      ||   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com| 'Address Line1' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   | 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|  'Address Name' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|'Telephone Number' boş olmamalı.|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| |test_NoAddress@gmail.com|  'Description' boş olmamalı.   |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|  'First Name' boş olmamalı.| |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|   'Last Name' boş olmamalı.|  Test   | |6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|'Area Id' boş olmamalı. |  Test   |noAddress||Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome || 'Email' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   | 4443332211  |40.98196411|29.06356239|   true   ||
-      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|Telefon numarası formatı hatalı.|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|   55533322| 4443332211  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |   | TestAddressHome |test_NoAddress@gmail.com|   'City' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      ||   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com| 'Address Line1' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   | 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|  'Address Name' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|'Telephone Number' boş olmamalı.|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| |test_NoAddress@gmail.com|  'Description' boş olmamalı.   |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|  'First Name' boş olmamalı.| |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|   'Last Name' boş olmamalı.|  Test   | |6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|'Area Id' boş olmamalı. |  Test   |noAddress||Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome || 'Email' boş olmamalı.  |  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   | 5335554433  |40.98196411|29.06356239|   true   ||
+      |   Göztepe  |   Home| 0 |TR_ISTANBUL| TestAddressHome |test_NoAddress@gmail.com|Telefon numarası formatı hatalı.|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|   55533322| 5335554433  |40.98196411|29.06356239|   true   ||
 
   @Address
   Scenario Outline: Corporate address validations
@@ -330,7 +330,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: User add pinned address in different types
-    Given I am an authorized user with "testuser_noAddress.yemeksepeti.com" "123456"
+    Given I am an authorized user with "testuserNoAddress@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I check my address list size is 0
     * I create address info list
@@ -359,13 +359,13 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName|AddressType|    City   |   Description   |          Email         |FirstName|LastName |              AreaId                |                   AreaName              |TelephoneNumber|  Latitude | Longitude |
-      |   Göztepe  |   Work    |     1     |TR_ISTANBUL| TestAddressWork |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|          Kadıköy (Göztepe Mah.)         |  4443332211   |40.98196411|29.06356239|
-      |   Göztepe  |  Kampus   |     2     |TR_ISTANBUL|TestAddressCampus|test_NoAddress@gmail.com|  Test   |noAddress|6ae5584a-2126-4f79-89bc-68532f78dd0a|Bahçeşehir Üniversitesi - Göztepe Kampüsü|  4443332211   |40.98196411|29.06356239|
-      |   Göztepe  |   Other   |     3     |TR_ISTANBUL| TestAddressOther|test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|          Kadıköy (Göztepe Mah.)         |  4443332211   |40.98196411|29.06356239|
+      |   Göztepe  |   Work    |     1     |TR_ISTANBUL| TestAddressWork |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|          Kadıköy (Göztepe Mah.)         |  5335554433   |40.98196411|29.06356239|
+      |   Göztepe  |  Kampus   |     2     |TR_ISTANBUL|TestAddressCampus|test_NoAddress@gmail.com|  Test   |noAddress|6ae5584a-2126-4f79-89bc-68532f78dd0a|Bahçeşehir Üniversitesi - Göztepe Kampüsü|  5335554433   |40.98196411|29.06356239|
+      |   Göztepe  |   Other   |     3     |TR_ISTANBUL| TestAddressOther|test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|          Kadıköy (Göztepe Mah.)         |  5335554433   |40.98196411|29.06356239|
 
   @CheckoutAddress
   Scenario Outline: User can not list unpinned address in checkout available
-    Given I am an authorized user with "mahalletestuser" "123456"
+    Given I am an authorized user with "mahalletestuser@yemeksepeti.com" "Mahalle1!"
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
@@ -394,11 +394,11 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName|AddressType|City   |   Description   |  Email |FirstName|LastName |   AreaId   |   AreaName   |TelephoneNumber|  Latitude | Longitude |
-      |   Göztepe  |   Work| 1 |TR_ISTANBUL| TestAddressWork |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   |||
+      |   Göztepe  |   Work| 1 |TR_ISTANBUL| TestAddressWork |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   |||
 
   @CheckoutAddress
   Scenario Outline: User can list pinned address in checkout available
-    Given I am an authorized user with "mahalletestuser" "123456"
+    Given I am an authorized user with "mahalletestuser@yemeksepeti.com" "Mahalle1!"
     And  My addresses list should be available
     When  I select pinned available address
     Then I get unique basket id
@@ -428,4 +428,4 @@ Feature: Address controls
 
     Examples: Expected Address Details
       |AddressLine1|AddressName|AddressType|City   |   Description   |  Email |FirstName|LastName |   AreaId   |   AreaName   |TelephoneNumber|  Latitude | Longitude |
-      |   Göztepe  |   Work| 1 |TR_ISTANBUL| TestAddressWork |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  4443332211   |40.98196411|29.06356239|
+      |   Göztepe  |   Work| 1 |TR_ISTANBUL| TestAddressWork |test_NoAddress@gmail.com|  Test   |noAddress|6e142710-8ca2-4d62-8c55-97a398992a15|Kadıköy (Göztepe Mah.)|  5335554433   |40.98196411|29.06356239|

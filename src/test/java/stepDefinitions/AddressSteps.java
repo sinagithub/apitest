@@ -76,10 +76,6 @@ public class AddressSteps extends BaseSteps {
         return (HashMap) getScenarioContext().getContext(Context.ADDRESS_INFO_LIST);
     }
 
-    private void updateAddressInfoContext(HashMap definedAddressInfo) {
-        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
-    }
-
     private List<AvailableAddressData> getAvailableAddress(){
         List<AvailableAddressData> addressDataList = getAllAddress();
 
@@ -199,28 +195,28 @@ public class AddressSteps extends BaseSteps {
     @Then("I create address info list")
     public void i_create_address_info_list() {
         HashMap definedAddressInfo = new HashMap();
-        updateAddressInfoContext(definedAddressInfo);
+        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
     }
 
     @Given("I set address info parameter is {string} value is {string}")
     public void i_set_address_info_parameter_is_value_is(String parameter, String value) {
         HashMap definedAddressInfo = getDefinedAddressInfo();
         definedAddressInfo.put(parameter, value);
-        updateAddressInfoContext(definedAddressInfo);
+        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
     }
 
     @Given("I set address info parameter is AddressType value is {int}")
     public void i_set_address_info_parameter_is_address_type_value_is(Integer value) {
         HashMap definedAddressInfo = getDefinedAddressInfo();
         definedAddressInfo.put("AddressType", value);
-        updateAddressInfoContext(definedAddressInfo);
+        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
     }
 
     @Given("I set address info parameter is {string} value is {double}")
     public void i_set_address_info_parameter_is_value_is(String parameter, Double value) {
         HashMap definedAddressInfo = getDefinedAddressInfo();
         definedAddressInfo.put(parameter, value);
-        updateAddressInfoContext(definedAddressInfo);
+        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
     }
 
     @Given("I add address with defined parameters")
@@ -241,8 +237,7 @@ public class AddressSteps extends BaseSteps {
 
         AddAddressRequest addAddressRequest = new AddAddressRequest(addressLine1, addressName, addressType, city, description,
                 email, firstName, lastName, latitude, longitude, areaId, telephoneNumber);
-        CarsiAddressClient carsiAddressClient = new CarsiAddressClient(BaseUrls.getCarsiBaseUrl());
-        IRestResponse<AddAddressResponse> addressResponse = carsiAddressClient.postAddress(addAddressRequest);
+        IRestResponse<AddAddressResponse> addressResponse = getCarsiAddressClient().postAddress(addAddressRequest);
         getScenarioContext().setContext(Context.ADD_ADDRESS_RESPONSE, addressResponse);
         String addressId = addressResponse.getBody().getData();
         getScenarioContext().setContext(Context.ADDRESS_ID, addressId);
@@ -498,13 +493,13 @@ public class AddressSteps extends BaseSteps {
     public void i_set_selected_address(String parameter, Double expectedParamValue) {
         HashMap definedAddressInfo = getDefinedAddressInfo();
         definedAddressInfo.replace(parameter, expectedParamValue);
-        updateAddressInfoContext(definedAddressInfo);
+        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
     }
     @When("I set selected address {string} {string}")
     public void i_set_selected_address(String parameter, String expectedParamValue) {
         HashMap definedAddressInfo = getDefinedAddressInfo();
         definedAddressInfo.replace(parameter, expectedParamValue);
-        updateAddressInfoContext(definedAddressInfo);
+        getScenarioContext().setContext(Context.ADDRESS_INFO_LIST, definedAddressInfo);
     }
 
     @When("I edit selected address")

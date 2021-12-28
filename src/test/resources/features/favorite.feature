@@ -109,6 +109,7 @@ Feature: Favorite Api controls
     When I remove the added vendor from favorite list
     And I get Favorite list
     Then I can validate the vendor is removed on the favorite list
+    Then I can validate the vendor is removed on the favorite list
 
   @TestRail(33400)
   Scenario: I validate Banabi vendor favorite products and favorite list product size
@@ -119,8 +120,8 @@ Feature: Favorite Api controls
     When  Banabi Vendor is available
     Then I select banabi vendor
     Then I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Yeni Ürünler" product category from category list
+    Then I choose "Yeni" sub category from sub category
     When I list the products from selected sub category
     Then I select random 2 products
     And I can add all selected product to favorites
