@@ -83,10 +83,15 @@ public class ApiClient extends Hooks {
         String code = "API Request: " + logFilter.getRequestBuilder() +
                 "\n" + "API Response: " + logFilter.getResponseBuilder();
         Markup m = MarkupHelper.createCodeBlock(code, CodeLanguage.XML);
-        Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
-        Storage.getScenario().log(code);
-        ExtentCucumberAdapter.getCurrentStep().log(status,m);
 
+        try {
+            Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
+            Storage.getScenario().log(code);
+            ExtentCucumberAdapter.getCurrentStep().log(status,m);
+
+        } catch (Exception e) {
+
+        }
 
         TestRailLogHelper.getInstance().setLog(DateUtil.generateDateNow() ,
                 "\n" + "API Request: " + logFilter.getRequestBuilder() +
