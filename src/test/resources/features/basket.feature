@@ -9,7 +9,7 @@ Feature: Basket Controls
     Given I select city "TR_ISTANBUL"
     And I am an authorized  user "Login"
     And  My addresses list should be available
-    When  I select pinned address with id "{81cfbad7-36f9-455b-9204-0ea674b2406a}"
+    When  I select pinned address with id "{7becad18-c2f6-4b98-b77b-b043c96cc37e}"
     Then I get unique basket id
     And I check basket id is same than old basket id
 
