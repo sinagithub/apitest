@@ -70,8 +70,8 @@ public class TestContext {
         return new CarsiCheckoutClient(BaseUrls.getCarsiBaseUrl());
     }
 
-    public CarsiAddressesClient getCarsiAddressClient() {
-        return new CarsiAddressesClient(BaseUrls.getCarsiBaseUrl());
+    public CarsiAddressClient getCarsiAddressClient() {
+        return new CarsiAddressClient(BaseUrls.getCarsiBaseUrl());
     }
 
     public InternalTaggingClient getInternalTaggingClint(){

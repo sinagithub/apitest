@@ -50,3 +50,4 @@ public class MahalleCategory {
         this.isAllCategory = isAllCategory;
     }
 }
+

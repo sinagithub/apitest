@@ -19,6 +19,9 @@ import io.restassured.specification.RequestSpecification;
 import stepDefinitions.Hooks;
 import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class ApiClient extends Hooks {
@@ -80,10 +83,15 @@ public class ApiClient extends Hooks {
         String code = "API Request: " + logFilter.getRequestBuilder() +
                 "\n" + "API Response: " + logFilter.getResponseBuilder();
         Markup m = MarkupHelper.createCodeBlock(code, CodeLanguage.XML);
-        Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
-        Storage.getScenario().log(code);
-        ExtentCucumberAdapter.getCurrentStep().log(status,m);
 
+        try {
+            Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
+            Storage.getScenario().log(code);
+            ExtentCucumberAdapter.getCurrentStep().log(status,m);
+
+        } catch (Exception e) {
+
+        }
 
         TestRailLogHelper.getInstance().setLog(DateUtil.generateDateNow() ,
                 "\n" + "API Request: " + logFilter.getRequestBuilder() +
@@ -108,4 +116,7 @@ public class ApiClient extends Hooks {
         return cdnRequest.get(imageUrl);
     }
 
+    protected static String urlEncodeString(String value) throws UnsupportedEncodingException {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8.name()).replaceAll("\\+", "%20");
+    }
 }

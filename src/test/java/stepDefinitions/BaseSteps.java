@@ -34,10 +34,10 @@ public class BaseSteps {
     private CarsiPaymentClient carsiPaymentClient;
     private CarsiInternalVendorClient carsiInternalVendorClient;
     private CarsiCheckoutClient carsiCheckoutClient;
-    private CarsiAddressesClient carsiAddressClient;
     private InternalTaggingClient internalTaggingClient;
     private InternalMarketingClient internalMarketingClient;
     private CarsiCampaignsClient carsiCampaignsClient;
+    private CarsiAddressClient carsiAddressClient;
 
     public BaseSteps(TestContext testContext) {
         oauthCoreClient = testContext.getOauthCoreClient();
@@ -59,7 +59,6 @@ public class BaseSteps {
         carsiCampaignsClient = testContext.getCampaignsClient();
     }
 
-
     public CarsiVendorClient getCarsiVendorClient() {
         return carsiVendorClient;
     }
@@ -80,6 +79,10 @@ public class BaseSteps {
         return carsiBasketClient;
     }
 
+    public CarsiAddressClient getCarsiAddressClient() {
+        return carsiAddressClient;
+    }
+
     public CarsiContentClient getCarsiContentClient() {
         return carsiContentClient;
     }
@@ -90,12 +93,9 @@ public class BaseSteps {
             response.then().assertThat().contentType(ContentType.JSON)
                     .and()
                     .body(matchesJsonSchemaInClasspath(path));
-
         }
     }
-    public CarsiAddressesClient getCarsiAddressClient() {
-        return carsiAddressClient;
-    }
+
     public CarsiHomePageClient getCarsiHomePageClient() {
         return carsiHomePageClient;
     }
