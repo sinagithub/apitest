@@ -237,7 +237,8 @@ public class AddressSteps extends BaseSteps {
 
         AddAddressRequest addAddressRequest = new AddAddressRequest(addressLine1, addressName, addressType, city, description,
                 email, firstName, lastName, latitude, longitude, areaId, telephoneNumber);
-        IRestResponse<AddAddressResponse> addressResponse = getCarsiAddressClient().postAddress(addAddressRequest);
+        CarsiAddressClient carsiAddressClient = new CarsiAddressClient(BaseUrls.getCarsiBaseUrl());
+        IRestResponse<AddAddressResponse> addressResponse = carsiAddressClient.postAddress(addAddressRequest);
         getScenarioContext().setContext(Context.ADD_ADDRESS_RESPONSE, addressResponse);
         String addressId = addressResponse.getBody().getData();
         getScenarioContext().setContext(Context.ADDRESS_ID, addressId);
