@@ -23,8 +23,15 @@ Feature: Homepage Api controls
     And Check Banabi vendor DeliveryFeeInfo is not empty
     And Check Banabi vendor IsOpen should be "true"
 
+  @TestRail(33331)
   Scenario: HomePage Banner listing
     And  HomePage banners are available
     Then HomePage banners urls are valid
     And HomePage banners OmnitureKeyword should not empty
     * HomePage banners deeplink url should not empty
+
+  @TestRail(44533)
+  Scenario: HomePage IsAllCategory Field Check According to Vendor Category
+    When I list homepage categories
+    Then I validate IsAllCategory parameter as true for Tümü category
+    And I validate IsAllCategory parameter as false for except Tümü category

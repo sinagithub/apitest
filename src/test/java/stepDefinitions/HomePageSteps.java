@@ -7,8 +7,11 @@ import apiEngine.models.requests.InternalVendor.Marketing.DescriptionTr;
 import apiEngine.models.response.*;
 import apiEngine.models.response.Address.AvailableAddressData;
 import apiEngine.models.response.HomePage.*;
+import clients.BaseUrls;
+import clients.carsi.CarsiHomePageClient;
 import cucumber.TestContext;
 import enums.Context;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -27,6 +30,10 @@ public class HomePageSteps extends BaseSteps {
 
     private List<MahalleVendor> getHomeVendorList() {
         return (List<MahalleVendor>) getScenarioContext().getContext(Context.HOME_VENDOR_LIST);
+    }
+
+    private List<MahalleCategory> getMahalleCategoryList() {
+        return (List<MahalleCategory>) getScenarioContext().getContext(Context.HOMEPAGE_CATEGORY_LIST);
     }
 
     private AvailableAddressData getSelectedAddress() {
@@ -322,6 +329,55 @@ public class HomePageSteps extends BaseSteps {
         for (Banner banner : banners) {
             String deeplinkUrl = banner.getDeeplinkUrl();
             assertTrue(!deeplinkUrl.isEmpty(), " Banner deeplinkUrl must not be empty");
+        }
+    }
+
+    @When("I list homepage categories")
+    public void i_list_homepage_vendors_and_categories_in_homepage() {
+
+        AvailableAddressData availableAddress = getSelectedAddress();
+        CarsiHomePageClient carsiHomePageClient = new CarsiHomePageClient(BaseUrls.getCarsiBaseUrl());
+        IRestResponse<HomePageCarsiResponse> homePageCarsiResponse = carsiHomePageClient.getVendorList(
+                availableAddress.getAddressId(),
+                availableAddress.getAreaId(),
+                availableAddress.getLatitude(),
+                availableAddress.getLongitude());
+
+        Assert.assertTrue(homePageCarsiResponse.isSuccessful());
+        List<MahalleCategory> categoryList = homePageCarsiResponse.getBody().getData().getCarsiCategories();
+
+        assertTrue(categoryList.size() > 0, "Category list should not be empty");
+        getScenarioContext().setContext(Context.HOMEPAGE_CATEGORY_LIST, categoryList);
+        setCurrentPlatformType("Mahalle");
+    }
+
+    @Then("I validate IsAllCategory parameter as true for Tümü category")
+    public void i_validate_is_all_category_parameter_as_true_for_tumu_category() {
+
+        List<MahalleCategory> categoryList = getMahalleCategoryList();
+        for (MahalleCategory category : categoryList) {
+            String categoryName = category.getCategoryName();
+            if (categoryName.equals("Tümü")){
+                Assert.assertTrue(category.getIsAllCategory());
+            }
+            else{
+                Assert.assertFalse(category.getIsAllCategory());
+            }
+        }
+    }
+
+    @And("I validate IsAllCategory parameter as false for except Tümü category")
+    public void i_validate_is_all_category_parameter_as_false_for_except_tumu_category() {
+
+        List<MahalleCategory> categoryList = getMahalleCategoryList();
+        for (MahalleCategory category : categoryList) {
+            String categoryName = category.getCategoryName();
+            if (!categoryName.equals("Tümü")){
+                Assert.assertFalse(category.getIsAllCategory());
+            }
+            else{
+                Assert.assertTrue(category.getIsAllCategory());
+            }
         }
     }
 

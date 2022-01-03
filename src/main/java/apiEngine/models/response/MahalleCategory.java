@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "CategoryId",
-        "CategoryName"
+        "CategoryName",
+        "IsAllCategory"
 })
 
 public class MahalleCategory {
@@ -16,6 +17,8 @@ public class MahalleCategory {
     private String categoryId;
     @JsonProperty("CategoryName")
     private String categoryName;
+    @JsonProperty("IsAllCategory")
+    private Boolean isAllCategory;
 
     @JsonProperty("CategoryId")
     public String getCategoryId() {
@@ -37,5 +40,14 @@ public class MahalleCategory {
         this.categoryName = categoryName;
     }
 
+    @JsonProperty("IsAllCategory")
+    public Boolean getIsAllCategory() {
+        return isAllCategory;
+    }
+
+    @JsonProperty("IsAllCategory")
+    public void setIsAllCategory(Boolean isAllCategory) {
+        this.isAllCategory = isAllCategory;
+    }
 }
 
