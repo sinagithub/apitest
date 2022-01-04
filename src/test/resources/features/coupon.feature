@@ -244,13 +244,13 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33378)
   Scenario: User can not add Constant Price Coupon when Vendor does not exist in target
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When A list of Carşı Vendor are available on home page
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff define vendor id list with home index for tag creation "defaultFirstVendor"
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
@@ -287,12 +287,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33379)
   Scenario: User not having OTP validation can not add coupon campaign to basket
-    Given I am an authorized user with "testuser_noOTPValidation" "123456"
+    Given I am an authorized user with "mahalleNoOtp@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 79C4AC62-0DE9-43EF-80DF-DEE2941B8951 |
+      | c141657c-3067-4204-b45f-902ed7096483 |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -328,7 +328,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Coupon @TestRail(33380)
   Scenario: User can list banabi and mahalle coupons in coupons page
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * I get unique basket id
@@ -339,7 +339,7 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     And Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 2, MaxDiscountValue 2
@@ -359,7 +359,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33381)
   Scenario: User can not add banabi coupon in mahalle when having banabi & mahalle coupons
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When A list of Carşı Vendor are available on home page
@@ -381,7 +381,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33382)
   Scenario: User can apply banabi coupon
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * I get unique basket id
@@ -406,7 +406,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33383)
   Scenario: User can add created Fixed Discount Compensation Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
@@ -421,7 +421,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
-    * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
+    * Staff create compensation coupon for user id "500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe" whose endDate is next 1 day in marketing
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     * I get unique basket id
@@ -446,7 +446,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33384)
   Scenario: User can not add other users' Compensation Coupon in basket
-    Given I am an authorized user with "mahalletestuser2" "123456"
+    Given I am an authorized user with "mahalletestuser2@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
@@ -461,7 +461,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
-    * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
+    * Staff create compensation coupon for user id "500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe" whose endDate is next 1 day in marketing
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
@@ -481,7 +481,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33385)
   Scenario: User can not add used Compensation Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
@@ -496,7 +496,7 @@ Feature: Coupon controls in basket and user coupons menu
     * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     * Staff convert campaign to compensation coupon campaign in marketing
-    * Staff create compensation coupon for user id "8d66ee87-ddbb-4593-bbf0-d11571ef49a0" whose endDate is next 1 day in marketing
+    * Staff create compensation coupon for user id "500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe" whose endDate is next 1 day in marketing
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
@@ -540,12 +540,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33386)
   Scenario: User can not list but can use IsShownOnCheckout:false Fixed Discount Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     * Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     * Staff create user tag name "OnCheckout:FCoupon", description "IsShownOnCheckout:false coupon", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -580,13 +580,13 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33387)
   Scenario: User can not list and can not use out of date Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * I get unique basket id
     When Staff create target poll
     When Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -622,13 +622,13 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33388)
   Scenario: User can not list and can not use permanently closed Campaign Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * I get unique basket id
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -662,12 +662,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33389)
   Scenario: User can not list and can not use draft Campaign Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -701,12 +701,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33390)
   Scenario: User can delete added Subtotal %50 discount Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     * Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 1, DiscountValue 50, MaxDiscountValue 200
@@ -749,7 +749,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33390)
   Scenario: User can not add null coupon code in basket
-    Given I am an authorized user with "mahalletestuser2" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When A list of Carşı Vendor are available on home page
