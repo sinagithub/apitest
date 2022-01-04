@@ -3,17 +3,16 @@ Feature: Campaign Controls
 
   Background: Login user
     Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
     * Staff update active campaigns status to passive
 
   @TestRail(33355)
   Scenario: User Can list campaign banners on home page
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation campaign tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "true"
     * Staff select campaign isShownOnHomePage is "true"
@@ -30,12 +29,12 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33356)
   Scenario: User can list created General Fixed Discount campaign with OTP required value is false in basket
-    Given I am an authorized user with "testuser_noOTPValidation" "123456"
+    Given I am an authorized user with "mahalleNoOtp@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 79c4ac62-0de9-43ef-80df-dee2941b8951 |
+      | c141657c-3067-4204-b45f-902ed7096483 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -73,7 +72,7 @@ Feature: Campaign Controls
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 79c4ac62-0de9-43ef-80df-dee2941b8951 |
+      | c141657c-3067-4204-b45f-902ed7096483 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 5, MaxDiscountValue 5
@@ -106,12 +105,12 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33358)
   Scenario: User can list created General Fixed Discount campaign with OTP required value is true in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -144,12 +143,12 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33359)
   Scenario: User can list created General Constant Price campaign with OTP required value is true in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 5, MaxDiscountValue 5
@@ -182,12 +181,12 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33360)
   Scenario: User can list created General Constant Price  Vendor campaign with OTP required value is true in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 5, MaxDiscountValue 5
@@ -221,13 +220,13 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33361)
   Scenario: User can not list created General Constant Price Vendor campaign with OTP required value is true in basket with different vendor
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When A list of Carşı Vendor are available on home page
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 5, MaxDiscountValue 5
@@ -258,13 +257,13 @@ Feature: Campaign Controls
 
   @TestRail(33362)
   Scenario: User can not list used Fixed Discount Campaign in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * Staff update active campaigns status to passive
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCampaign", UsageLimit 5, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -316,12 +315,12 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33363)
   Scenario: User can not list created General Fixed Discount campaign when conditions are not met in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -351,13 +350,13 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33364)
   Scenario: User can not list created General OTPRequired campaign when having no OTP confirmation
-    Given I am an authorized user with "testuser_noOTPValidation" "123456"
+    Given I am an authorized user with "mahalleNoOtp@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I select pinned available address
     * Staff update active campaigns status to passive
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | c141657c-3067-4204-b45f-902ed7096483 |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -387,12 +386,12 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33365)
   Scenario: User can not list draft Campaign in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -422,7 +421,7 @@ Feature: Campaign Controls
 
   @Basket @Campaign @TestRail(33367)
   Scenario: User can not list used General Fixed VendorTag Discount campaign in Campaign Tab
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
@@ -430,7 +429,7 @@ Feature: Campaign Controls
       | 2cf84108-9a0a-4147-ab73-33bff422b525 |
       | de16d652-dae4-4cdd-9905-86c93a34b20d |
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     Then Staff create vendor tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "false", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
@@ -487,13 +486,13 @@ Feature: Campaign Controls
 
   @Campaign @TestRail(33368)
   Scenario: User can list created General Constant Price Vendor campaign in Campaign Tab
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     Then A list of Carşı Vendor are available on home page
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 5, MaxDiscountValue 5
@@ -514,12 +513,12 @@ Feature: Campaign Controls
 
   @Campaign @TestRail(33369)
   Scenario: User can list created General Fixed Discount campaign in Campaign Tab
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -538,16 +537,16 @@ Feature: Campaign Controls
 
   @Campaign @TestRail(33370)
   Scenario: User can list created General Constant Price VendorTag campaign in Campaign Tab
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * A list of Carşı Vendor are available on home page
     When Staff create target poll
     Then Staff define vendors for tag creation
-      | 2cf84108-9a0a-4147-ab73-33bff422b525 |
+      | 9781d766-67c1-422c-97bd-a3896986af21 |
       | de16d652-dae4-4cdd-9905-86c93a34b20d |
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff create vendor tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
@@ -572,7 +571,7 @@ Feature: Campaign Controls
 
   @Campaign  @TestRail(33371)
   Scenario: User can list created General Fixed VendorTag Discount campaign in Campaign Tab
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     * A list of Carşı Vendor are available on home page
@@ -581,7 +580,7 @@ Feature: Campaign Controls
       | 2cf84108-9a0a-4147-ab73-33bff422b525 |
       | de16d652-dae4-4cdd-9905-86c93a34b20d |
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff create vendor tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestGeneralCampaign", UsageLimit 1, IsOtpRequired "false", IsOneTimePerUser "true", IsCouponRequired "false", IsShownOnCheckout "false", StartDate, EndDate, IsShownOnHomePage "false"
