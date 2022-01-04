@@ -42,8 +42,14 @@ public class MicroBaseClient extends Hooks {
 
         Markup m = MarkupHelper.createCodeBlock(code, CodeLanguage.XML);
 
-        Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
-        ExtentCucumberAdapter.getCurrentStep().log(status,m);
+        try {
+            Status status =   ExtentCucumberAdapter.getCurrentStep().getStatus();
+            Storage.getScenario().log(code);
+            ExtentCucumberAdapter.getCurrentStep().log(status,m);
+
+        } catch (Exception e) {
+
+        }
     }
 
 

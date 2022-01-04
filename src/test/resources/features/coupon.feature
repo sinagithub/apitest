@@ -7,12 +7,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33373)
   Scenario: User can list created Fixed Discount Coupon with creating coupon name
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -51,12 +51,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @IgnoreLive @Coupon @TestRail(33374)
   Scenario: User can list created Fixed Discount Coupon without creating coupon name
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "Automation tag", description "Automation tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -91,12 +91,12 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33375)
   Scenario: User can add created Constant Price Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 1, DiscountTypeId 3, DiscountValue 10, MaxDiscountValue 0
@@ -137,12 +137,12 @@ Feature: Coupon controls in basket and user coupons menu
   @Basket @Checkout @Coupon @TestRail(33376)
     #test1
   Scenario: User can not list and can not use used Fixed Discount Coupon in basket
-    Given I am an authorized user with "mahalletestuser1" "123456"
+    Given I am an authorized  user "Login"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
     Then Staff define users for tag creation
-      | 8d66ee87-ddbb-4593-bbf0-d11571ef49a0 |
+      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
     Then Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
     * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
     * Staff select campaign Award with TypeId 3, DiscountTypeId 2, DiscountValue 10, MaxDiscountValue 10
@@ -204,7 +204,7 @@ Feature: Coupon controls in basket and user coupons menu
 
   @Basket @Coupon @TestRail(33377)
   Scenario: User can not add usertag Fixed Discount Coupon when user id does not exist in tag list
-    Given I am an authorized user with "mahalletestuser2" "123456"
+    Given I am an authorized user with "mahalletestuser2@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I select pinned available address
     When Staff create target poll
