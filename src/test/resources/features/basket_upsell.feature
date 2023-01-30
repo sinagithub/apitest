@@ -14,8 +14,8 @@ Feature: Basket upsell Api controls
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    And I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    And I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1

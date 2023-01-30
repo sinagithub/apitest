@@ -310,7 +310,7 @@ Feature: Address controls
 
   @Address
   Scenario Outline: Corporate address validations
-    Given I am an authorized user with "tugcekor" "Mahalle1!"
+    Given I am an authorized user with "tugce.kor@yemeksepeti.com" "Mahalle1!"
     * My addresses list should be available
     * I select pinned address with id "<AddressId>"
     * I get selected address action with AreaId "<AreaId>"

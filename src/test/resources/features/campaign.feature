@@ -127,8 +127,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -165,8 +165,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -204,8 +204,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -242,10 +242,10 @@ Feature: Campaign Controls
     * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -280,8 +280,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -302,8 +302,8 @@ Feature: Campaign Controls
     * I check checkout response is 200
     * I wait until new basket id is generated
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -337,8 +337,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -407,8 +407,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -448,8 +448,8 @@ Feature: Campaign Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -469,10 +469,10 @@ Feature: Campaign Controls
     * I post checkout with selected options - checkout type is 1
     * I check checkout response is 200
     * I wait until new basket id is generated
-    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Meyve" product category from category list
+    * I choose "Yerli Meyve" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price

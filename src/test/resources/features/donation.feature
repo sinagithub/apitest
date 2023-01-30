@@ -14,8 +14,8 @@ Feature: Checkout User Donation controls
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
@@ -45,8 +45,8 @@ Feature: Checkout User Donation controls
     And I get unique basket id
     And I delete basket
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2

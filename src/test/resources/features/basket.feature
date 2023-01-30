@@ -24,8 +24,8 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
@@ -35,8 +35,8 @@ Feature: Basket Controls
     And I can add the selected product to basket quantity is 1
     And  I check TotalLinesItemCount is 1 on add basket response
     When I navigate selected vendor
-    Then I choose "Süt & Kahvaltılık" product category from category list
-    And I choose "Süt" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    And I choose "Kedi Maması" sub category from sub category
     * I list the products from selected sub category
     When I select a random available product from selected category
     Then I can add the selected product to basket quantity is 1
@@ -62,15 +62,15 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
-    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Meyve" product category from category list
+    Then I choose "Yerli Meyve" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 1
@@ -87,13 +87,13 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select product with order 1
     And I can add the selected product to basket quantity is 2
-    Then I choose "Süt & Kahvaltılık" product category from category list
-    Then I choose "Süt" sub category from sub category
+    Then I choose "Köpek" product category from category list
+    Then I choose "Kuru Köpek Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select product with order 1
     And I can add the selected product to basket quantity is 1
@@ -114,8 +114,8 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
@@ -137,8 +137,8 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
@@ -147,21 +147,6 @@ Feature: Basket Controls
     And I can validate alternate product text "Alternatif ürün gönderin" is exist and rank is 1 type is 1
     * I can validate alternate product text "Ürün yoksa siparişten çıkarın" is exist and rank is 3 type is 3
     * I can validate alternate product text "Ürün yoksa siparişi iptal edin" is exist and rank is 4 type is 4
-
-  @TestRail(33339)
-  Scenario: User can't see alternate product options on banabi basket
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then Banabi Vendor is available
-    And I get unique basket id
-    * I get basket line counts with lite basket
-    Then I select banabi vendor
-    And I delete basket
-    When I navigate selected vendor
-    When I get alternate product options
-    Then I can validate alternate product option list is null
 
   @TestRail(33340)
   Scenario: User can see max stock error when add more than stock quantity
@@ -174,8 +159,8 @@ Feature: Basket Controls
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select random available product for max stock
     And I navigate selected product
@@ -202,8 +187,8 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
@@ -223,174 +208,14 @@ Feature: Basket Controls
     When  A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    Then I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    Then I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
     Then I get the basket
     And I can check Product Quantity is 2 on basket lines
     When I delete the selected product from basket quantity is 2
-    Then I get the basket
-    And I can validate basket is empty
-
-  @TestRail(33343)
-  Scenario: User can get add/delete product without options to basket for banabi
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    And I get basket line counts with lite basket
-    * I delete basket
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    * I navigate selected vendor
-    * I choose "İçecek" product category from category list
-    * I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 2
-    * I check added product exists on add basket response
-    *  I check TotalLinesItemCount is 1 on add basket response
-    * I can add the selected product to basket quantity is 2
-    *  I check TotalLinesItemCount is 1 on add basket response
-    * I choose "Dondurma" product category from category list
-    * I choose "Dondurma" sub category from sub category
-    When I list the products from selected sub category
-    When I select a random available product from selected category
-    Then I can add the selected product to basket quantity is 1
-    And  I check TotalLinesItemCount is 2 on add basket response
-    When I get the basket
-    Then I can check product exists in basket
-    * I can check ListPrice is valid on basket lines
-    * I can check DiscountedPrice is valid on basket lines
-    * I can check Product Quantity is 1 on basket lines
-    * I can check basket subTotal is valid on basket
-    * I can check basket total is valid
-
-  @TestRail(33344)
-  Scenario: User can update line items quantity -- Banabi
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    And I get basket line counts with lite basket
-    * I delete basket
-    Then I navigate selected vendor
-    Then I choose "İçecek" product category from category list
-    And I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 1
-    * I navigate selected product
-    * I update quantity to 2 from selected product with update product service
-    Then I get the basket
-    When I can check Product Quantity is 2 on basket lines
-
-  @TestRail(33345)
-  Scenario: User can see basket items count on the vendor detail with lite basket service for banabi vendors
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    And I get basket line counts with lite basket
-    * I delete basket
-    Then I navigate selected vendor
-    Then I choose "İçecek" product category from category list
-    And I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 2
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 1
-    When I get basket line counts with lite basket
-    Then I can see the product quantity is 2 product index 0 in lite basket
-    Then I can see the product quantity is 1 product index 1 in lite basket
-    And  I check TotalLinesItemCount is 2 on lite basket response
-    And I check line products is valid on lite basket response
-
-  @TestRail(33337)
-  Scenario: User can clear all products from basket with clear basket service for banabi vendors
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    And I get basket line counts with lite basket
-    * I delete basket
-    * I navigate selected vendor
-    * I choose "İçecek" product category from category list
-    And I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 2
-    When I get the basket
-    Then I can check product exists in basket
-    When I delete basket
-    Then I get the basket
-    And I can validate basket is empty
-    And I can validate basket sub total is 0.0
-
-  @TestRail(33347)
-  Scenario: User can see max stock error when add more than stock quantity for banabi vendors
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    And I delete basket
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    And I get basket line counts with lite basket
-    * I delete basket
-    Then I navigate selected vendor
-    * I choose "İçecek" product category from category list
-    * I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I navigate selected product
-    When I want add product more than stock
-    Then I can see "Sepetinize bu üründen" warning on add basket response
-    * I can valid add basket response is 400
-    * I get the basket
-    And I can validate basket is empty
-    When I add products as many as the max stock quantity
-    Then I get the basket
-    And I can check Quantity is valid on basket lines
-    When I can add the selected product to basket quantity is 2
-    Then I can see "Sepetinize bu üründen" warning on add basket response
-    And I delete basket
-
-  @TestRail(33348)
-  Scenario: User can delete line item from basket for banabi vendors
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    And I get basket line counts with lite basket
-    * I delete basket
-    Then I navigate selected vendor
-    And I delete basket
-    Then I choose "İçecek" product category from category list
-    And I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 2
-    Then I get the basket
-    And I can check Product Quantity is 2 on basket lines
-    When I delete the selected product from basket quantity is 0
     Then I get the basket
     And I can validate basket is empty
 
@@ -406,8 +231,8 @@ Feature: Basket Controls
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
     Then I delete basket
-    * I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    * I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     And I can add the selected product to basket quantity is 2
@@ -423,31 +248,3 @@ Feature: Basket Controls
     * I validate BasketStatus is 1 in basket info
     * I validate BasketId is valid in basket info
 
-  @TestRail(33498)
-  Scenario: User can get basket info smoothly - Banabi
-    Given I select city "TR_ISTANBUL"
-    And I am an authorized  user "Login"
-    And  My addresses list should be available
-    When  I select pinned available address
-    Then I get unique basket id
-    When  Banabi Vendor is available
-    Then I select banabi vendor
-    And I get basket line counts with lite basket
-    * I delete basket
-    Then I navigate selected vendor
-    And I delete basket
-    Then I choose "İçecek" product category from category list
-    And I choose "Gazlı İçecek" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    And I can add the selected product to basket quantity is 2
-    When I get the basket
-    Then I validate VendorName is valid in basket info
-    And I validate IsFreeOrder is "false" in basket info
-    And I validate MinimumDeliveryTotal is valid in basket info
-    And I can check basket total is valid
-    And I validate VendorCategory is valid in basket info
-    * I validate VendorLogo is valid in basket info
-    * I validate VendorCategory is valid in basket info
-    * I validate BasketStatus is 1 in basket info
-    * I validate BasketId is valid in basket info

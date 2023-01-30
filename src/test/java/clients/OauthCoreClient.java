@@ -29,7 +29,7 @@ public class OauthCoreClient extends ApiClient {
     public static RequestSpecification tokenRequest;
     public static RequestSpecification registerRequestSpec;
 
-    private Response getAnonymousAccessTokenResponse() {
+    private Response getAnonymousAccessTokenResponse() {   //anonymous token alıp döndürüyor.
         Response response = tokenRequest.
                 queryParam("client_id", client_id)
                 .queryParam("grant_type", grant_type).post(Route.generateAccessToken());
@@ -62,10 +62,10 @@ public class OauthCoreClient extends ApiClient {
 
         Token tokenResponse;
         Response response = getAnonymousAccessTokenResponse();
-        String accessToken = JsonUtil.getJsonElement(response, "access_token");
+        String accessToken = JsonUtil.getJsonElement(response, "access_token"); //token responsundan tokeni çıkartıyor.
 
         if (isLogged) {
-            Response loginTokenResponse = getLoginUserTokenResponse(authRequest, accessToken);
+            Response loginTokenResponse = getLoginUserTokenResponse(authRequest, accessToken);   //user login oldugu yer.
             tokenResponse = loginTokenResponse.body().jsonPath().getObject("$", Token.class);
         } else {
             tokenResponse = response.body().jsonPath().getObject("$", Token.class);
@@ -73,7 +73,7 @@ public class OauthCoreClient extends ApiClient {
         setTokenCurrentInstance(tokenResponse.access_token);
     }
 
-    private void setTokenCurrentInstance(String token) {
+    private void setTokenCurrentInstance(String token) {  //Singleton token helperda token i set ediyor.
         TokenHelper.getInstance().setToken(token);
     }
 

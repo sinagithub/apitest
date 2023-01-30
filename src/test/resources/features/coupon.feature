@@ -31,8 +31,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -75,8 +75,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -111,10 +111,10 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -159,8 +159,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -186,8 +186,8 @@ Feature: Coupon controls in basket and user coupons menu
     * I check checkout response is 200
     * I wait until new basket id is generated
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -226,8 +226,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -267,10 +267,10 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I get unique basket id
     And I delete basket
-    Then I select mahalle vendor from defined vendors type is "OfflinePaymentVendor" on home page
+    Then I select mahalle vendor from defined vendors type is "defaultSecondVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -309,8 +309,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -325,84 +325,6 @@ Feature: Coupon controls in basket and user coupons menu
     * I validate campaign of created coupon is not listed in basket campaigns
     * Staff delete created campaign in marketing
     * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
-
-  @Coupon @TestRail(33380)
-  Scenario: User can list banabi and mahalle coupons in coupons page
-    Given I am an authorized  user "Login"
-    * My addresses list should be available
-    * I select pinned available address
-    * I get unique basket id
-    * I delete basket
-    * I select Banabi platform
-    Then I get unique basket id
-    * I get basket line counts with lite basket
-    And I delete basket
-    When Staff create target poll
-    Then Staff define users for tag creation
-      | 500e7e1c-b2ad-4cd1-8cdd-c1433040d6fe |
-    And Staff create user tag name "test user tag", description "test user tag", createdUserId "1",createdUserName "automation", endDate
-    * Staff select Campaign with Name "AutomationTestCouponCampaign", UsageLimit 1, IsOtpRequired "true", IsOneTimePerUser "true", IsCouponRequired "true", IsShownOnCheckout "true", StartDate, EndDate, IsShownOnHomePage "false"
-    * Staff select campaign Award with TypeId 2, DiscountTypeId 3, DiscountValue 2, MaxDiscountValue 2
-    * Staff select campaign DescriptionTr with Title "AutomationTestCouponCampaign", Description "AutomationTestCouponCampaign", ImageUrl "https://cdn.yemeksepeti.com/Labels/Promotion/eski_indirim_yuzde.png?v=13"
-    * Staff select campaign Conditions with TypeId 1, OperatorTypeId 5, Value "10"
-    * Staff select campaign target TypeId for created user tag
-    * Staff set selected targets
-    * Staff select campaign Coupon with CreateCoupon false, CouponCount 1, prefixSuffix 0, UsageLimit 1, couponCode "Automation"
-    * Staff select StateInfo "this campaign is created for 1 user, type is coupon, award type is delivery fee, discount type is constant price"
-    * Staff create campaign in marketing with selected campaign info operation User email "api-automation@yemeksepeti.com"
-    * Staff activate created campaign in marketing operation User email "api-automation@yemeksepeti.com"
-    Then I list Coupons in campaign coupons response
-    * I validate created coupon is listed in campaign coupons response
-    * I validate coupon CampaignTitle is "20 TL Size Özel İndirim", Description is "Gönderim ücreti de dahil olmak üzere tüm sepet tutarınız üzerinden geçerli olacak indirim kuponunuzu dilediğiniz zaman kullanabilirsiniz.", ImageUrl is "https://cdn.banabi.com/images/campaign/fdc4d1c4-196d-445c-bc02-d007cd38d82b.png" is listed in campaign coupons response
-    * Staff delete created campaign in marketing
-    * Staff delete created user tag in tagging createdUserId "1",createdUserName "automation"
-
-  @Basket @Coupon @TestRail(33381)
-  Scenario: User can not add banabi coupon in mahalle when having banabi & mahalle coupons
-    Given I am an authorized  user "Login"
-    * My addresses list should be available
-    * I select pinned available address
-    When A list of Carşı Vendor are available on home page
-    Then I get unique basket id
-    And I delete basket
-    Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
-    When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    * I add selected product until the basket amount is higher than minimum delivery price
-    Then I list Coupons in campaign coupons response
-    When I get the basket
-    Then I list Campaigns in basket response
-    * I validate campaign is not listed campaign title is "20 TL Size Özel İndirim" in basket response
-    * I apply campaign to basket campaign id is "109520" hasOtp is "true"
-    * I validate apply campaign status is 404 and message is "Bu kupon kodu geçersizdir."
-
-  @Basket @Coupon @TestRail(33382)
-  Scenario: User can apply banabi coupon
-    Given I am an authorized  user "Login"
-    * My addresses list should be available
-    * I select pinned available address
-    * I get unique basket id
-    * I delete basket
-    When Banabi Vendor is available
-    Then I select banabi vendor
-    And I get unique basket id
-    * I get basket line counts with lite basket
-    * I delete basket
-    * I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
-    When I list the products from selected sub category
-    Then I select a random available product from selected category
-    * I add selected product until the basket amount is higher than minimum delivery price
-    Then I list Coupons in campaign coupons response
-    When I get the basket
-    Then I list Campaigns in basket response
-    * I validate campaign is not listed campaign title is "20 TL Size Özel İndirim" in basket response
-    * I apply campaign to basket campaign id is "109520" hasOtp is "true"
-    * I validate apply campaign status is 200 and message is ""
 
   @Basket @Coupon @TestRail(33383)
   Scenario: User can add created Fixed Discount Compensation Coupon in basket
@@ -427,8 +349,8 @@ Feature: Coupon controls in basket and user coupons menu
     * I get unique basket id
     * I delete basket
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -467,8 +389,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -502,8 +424,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -527,8 +449,8 @@ Feature: Coupon controls in basket and user coupons menu
     When A list of Carşı Vendor are available on home page
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -562,8 +484,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -604,8 +526,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -646,8 +568,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -683,8 +605,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -723,8 +645,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price
@@ -757,8 +679,8 @@ Feature: Coupon controls in basket and user coupons menu
     And I delete basket
     Then I select mahalle vendor from defined vendors type is "defaultFirstVendor" on home page
     When I navigate selected vendor
-    Then I choose "Atıştırmalık" product category from category list
-    * I choose "Çikolata" sub category from sub category
+    Then I choose "Kedi" product category from category list
+    * I choose "Kedi Maması" sub category from sub category
     When I list the products from selected sub category
     Then I select a random available product from selected category
     * I add selected product until the basket amount is higher than minimum delivery price

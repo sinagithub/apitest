@@ -31,7 +31,7 @@ public class Hooks {
 
 
     @Before(order = 1)
-    public void getScenario(Scenario scenario) throws InterruptedException {
+    public void             getScenario(Scenario scenario) throws InterruptedException {
         Storage.putScenario(scenario);
     }
 
